@@ -1,0 +1,22 @@
+{
+  "name": "alexa-gc-recalls",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tc-ca/alexa-gc-recalls.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tc-ca/alexa-gc-recalls/issues"
+  },
+  "homepage": "https://github.com/tc-ca/alexa-gc-recalls#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
