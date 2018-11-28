@@ -1,5 +1,5 @@
 {
-    "handler": "../../lamda/custom/index.js",
+    "handler": "../../lambda/custom/index.js",
     "locale": "en-US",
     "trace": true,
     "jest": {
