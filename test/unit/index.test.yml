@@ -1,0 +1,13 @@
+
+---
+configuration:
+  locale: en-US
+
+---
+- test: Launch request, no further interaction.
+- LaunchRequest: # LaunchRequest is not an utterance but a request type and reserved word
+  - response.outputSpeech.ssml: Here's your fact
+  - response.card.type: Simple
+  - response.card.title: Space Facts
+  - response.card.content: "*" # Any text will match
+

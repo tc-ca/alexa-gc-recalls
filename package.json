@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tc-ca/alexa-gc-recalls#readme",
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "virtual-alexa": "^0.6.14"
   }
 }
