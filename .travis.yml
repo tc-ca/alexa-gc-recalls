@@ -11,3 +11,18 @@ install:
 script:
  - bst test
  - codecov
+
+
+ branches:
+  only:
+    - master
+
+deploy:
+  - provider: lambda
+    function_name: "ask-custom-TC-Safety-Recalls-default"
+    region: "us-east-1"
+    role: "arn:aws:iam::651996798342:role/lambda_basic_execution"
+    runtime: "nodejs8.10"
+    handler_name: "handler"
+    on:
+branch: master
