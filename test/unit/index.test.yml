@@ -12,52 +12,52 @@ configuration:
   - response.card.content: "*" # Any text will match
 
 
----
-- test: GetNewFactIntent direct call
-- HelloWorldIntent:
-  - response.outputSpeech.ssml: Hello World
-  - response.card.type: Simple
-  - response.card.title: Hello World
-  - response.card.content: "*" # Quotes need to be used when the response starts with a star
+# ---
+# - test: GetNewFactIntent direct call
+# - HelloWorldIntent:
+#   - response.outputSpeech.ssml: Hello World
+#   - response.card.type: Simple
+#   - response.card.title: Hello World
+#   - response.card.content: "*" # Quotes need to be used when the response starts with a star
 
----
-- test: AMAZON.HelpIntent. Ask for help and exit.
-- LaunchRequest # Empty expected part means we are not testing the response
-- AMAZON.HelpIntent:
-  - response.outputSpeech.ssml: You can say hello to me
-  - response.reprompt.outputSpeech.ssml: You can say hello to me
-  - response.card.type: Simple
-  - response.card.title: Hello World
-  - response.card.content: You can say hello to me
-- SessionEndedRequest: # This is equivalent to say 'exit'
-  - response.outputSpeech: undefined
+# ---
+# - test: AMAZON.HelpIntent. Ask for help and exit.
+# - LaunchRequest # Empty expected part means we are not testing the response
+# - AMAZON.HelpIntent:
+#   - response.outputSpeech.ssml: You can say hello to me
+#   - response.reprompt.outputSpeech.ssml: You can say hello to me
+#   - response.card.type: Simple
+#   - response.card.title: Hello World
+#   - response.card.content: You can say hello to me
+# - SessionEndedRequest: # This is equivalent to say 'exit'
+#   - response.outputSpeech: undefined
 
----
-- test: AMAZON.HelpIntent. Ask for help and stop.
-- LaunchRequest
-- AMAZON.HelpIntent # We have already tested this in previous sequence, no need to repeat it
-- AMAZON.StopIntent: Goodbye! # We can test only the expected outputSpeech like this
+# ---
+# - test: AMAZON.HelpIntent. Ask for help and stop.
+# - LaunchRequest
+# - AMAZON.HelpIntent # We have already tested this in previous sequence, no need to repeat it
+# - AMAZON.StopIntent: Goodbye! # We can test only the expected outputSpeech like this
 
----
-- test: AMAZON.HelpIntent. Ask for help and then say Hello.
-- LaunchRequest
-- AMAZON.HelpIntent
-- HelloWorldIntent: Hello World  #/here's your fact.*/i # Regular expression; i flag means case insensitive
+# ---
+# - test: AMAZON.HelpIntent. Ask for help and then say Hello.
+# - LaunchRequest
+# - AMAZON.HelpIntent
+# - HelloWorldIntent: Hello World  #/here's your fact.*/i # Regular expression; i flag means case insensitive
 
----
-- test: AMAZON.StopIntent
-- LaunchRequest
-- AMAZON.StopIntent: Goodbye!
+# ---
+# - test: AMAZON.StopIntent
+# - LaunchRequest
+# - AMAZON.StopIntent: Goodbye!
 
----
-- test: AMAZON.CancelIntent
-- LaunchRequest
-- AMAZON.CancelIntent: Goodbye!
+# ---
+# - test: AMAZON.CancelIntent
+# - LaunchRequest
+# - AMAZON.CancelIntent: Goodbye!
 
----
-- test: AMAZON.FallbackIntent
-- LaunchRequest
-- AMAZON.FallbackIntent:
-  - prompt: This skill can't help you with that # prompt is equivalent to response.outputSpeech.ssml
-  - reprompt: What can I help you with? # reprompt is equivalent to response.reprompt.outputSpeech.ssml
-- response.shouldEndSession: false
+# ---
+# - test: AMAZON.FallbackIntent
+# - LaunchRequest
+# - AMAZON.FallbackIntent:
+#   - prompt: This skill can't help you with that # prompt is equivalent to response.outputSpeech.ssml
+#   - reprompt: What can I help you with? # reprompt is equivalent to response.reprompt.outputSpeech.ssml
+# - response.shouldEndSession: false
