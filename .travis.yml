@@ -13,7 +13,8 @@ script:
  - codecov
 
 
-
+before_deploy:
+- cd lambda/custom
 deploy:
   - provider: lambda
     function_name: "ask-custom-TC-Safety-Recalls-default"
