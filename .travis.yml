@@ -24,5 +24,3 @@ deploy:
     role: "arn:aws:iam::651996798342:role/lambda_basic_execution"
     runtime: "nodejs8.10"
     handler_name: "handler"
-    on:
-branch: master
