@@ -13,10 +13,6 @@ script:
  - codecov
 
 
- branches:
-  only:
-    - master
-
 deploy:
   - provider: lambda
     function_name: "ask-custom-TC-Safety-Recalls-default"
