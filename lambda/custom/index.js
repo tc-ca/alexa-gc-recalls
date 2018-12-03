@@ -8,7 +8,7 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
   },
   handle(handlerInput) {
-    const speechText = 'Welcome to the Alexa Skills Kit, you can say hello or bonjour!';
+    const speechText = 'Welcome to the Alexa Skills Kit, you can say hello or bonjour or anything else!';
 
     return handlerInput.responseBuilder
       .speak(speechText)
