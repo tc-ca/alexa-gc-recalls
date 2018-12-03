@@ -21,4 +21,4 @@ deploy:
     role: "arn:aws:iam::651996798342:role/ask-lambda-tc-safety-recalls"
     runtime: "nodejs8.10"
     handler_name: "handler"
-    local_dir: lambda
+    local_dir: "lambda"
