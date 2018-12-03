@@ -15,7 +15,7 @@ script:
 
 deploy:
   - provider: lambda
-    function_name: "ask-custom-TC-Safety-Recalls-default"
+    function_name: "ask-lambda-tc-safety-recalls"
     region: "us-east-1"
     role: "arn:aws:iam::651996798342:role/lambda_basic_execution"
     runtime: "nodejs8.10"
