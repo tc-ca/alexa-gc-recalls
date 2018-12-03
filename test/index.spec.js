@@ -8,6 +8,6 @@ it('Launches successfully', async function () {
         .create();
 
     let reply = await alexa.launch();
-     assert.include(reply.response.outputSpeech.ssml, "Welcome to the Alexa Skills Kit, you can say hello or bonjour!");
+     assert.include(reply.response.outputSpeech.ssml, "Welcome to the Alexa Skills Kit, you can say hello or bonjour or anything else!");
    
 });
