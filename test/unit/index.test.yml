@@ -6,7 +6,7 @@ configuration:
 ---
 - test: Launch request, no further interaction.
 - LaunchRequest: # LaunchRequest is not an utterance but a request type and reserved word
-  - response.outputSpeech.ssml: Welcome to the Alexa Skills Kit, you can say hello!
+  - response.outputSpeech.ssml: Welcome to the Alexa Skills Kit, you can say hello or bonjour!
   - response.card.type: Simple
   - response.card.title: Hello World
   - response.card.content: "*" # Any text will match
