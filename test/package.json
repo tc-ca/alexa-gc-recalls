@@ -1,10 +1,11 @@
 {
-  "name": "alexa-gc-recalls",
+  "name": "test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.spec.js",
+
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha"
+    "test": "nyc --reporter=html --reporter=text mocha **/*.spec.js"
   },
   "repository": {
     "type": "git",
