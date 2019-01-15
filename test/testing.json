@@ -5,7 +5,7 @@
     "trace": false,
     "jest": {
         "silent": false,
-        "collectCoverage": false
+        "collectCoverage": true
     },
     "homophones": {
         "i found": ["iPhone"]

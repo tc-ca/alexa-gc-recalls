@@ -84,11 +84,13 @@ configuration:
 #   - sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
 
 
----
-- test.only: Search for make model with multiple recalls, at the end of recall list
-- SearchForVehicleRecallIntent year=2011,VehicleMakeType=Honda,VehicleModelType=Civic
-- request.session.attributes.VehicleConversation.currentIndex: 0
-- request.session.attributes.VehicleConversation.recalls.length: 2
-- sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
-- sessionAttributes.VehicleConversation != undefined
-- sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
+# ---
+# - test.only: Search for make model with multiple recalls, at the end of recall list
+# - SearchForVehicleRecallIntent year=2011,VehicleMakeType=Honda,VehicleModelType=Civic
+# - SearchForVehicleRecallIntent:
+#   - intent: SearchForVehicleRecallIntent
+#   - request.session.attributes.VehicleConversation.currentIndex: 0
+#   - request.session.attributes.VehicleConversation.recalls.length: 2
+#   - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
+#   - sessionAttributes.VehicleConversation != undefined
+#   - sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
