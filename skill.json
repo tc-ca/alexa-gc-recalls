@@ -9,8 +9,24 @@
             "Alexa tell hello world hello",
             "Alexa ask hello world say hello"
           ],
+          "keywords": [],
           "name": "TC Safety Recalls",
-          "description": "Sample Full Description"
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/d9bb/9ed040fa3563411c8a7d1b60d055defb/APP_ICON?versionId=Afr2B32lNMVXJhL4wDsQWzmZgAyXmHdM&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=wjlZekptbP4i5jGtSWtT2S5cmpA%3D",
+          "description": "Sample Full Description",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/74a8/2079178ab3e14be2a3e1f8e87064a61e/APP_ICON_LARGE?versionId=PVHsUo7gb1VxQKI46OjoczEz9cEMZ8EK&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=sxgEmi1kmf5hNcFNwX4KZyeiIFY%3D"
+        },
+        "en-CA": {
+          "summary": "Sample Short Description",
+          "examplePhrases": [
+            "Alexa open hello world",
+            "Alexa tell hello world hello",
+            "Alexa ask hello world say hello"
+          ],
+          "keywords": [],
+          "name": "TC Safety Recalls",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4a59/06426fee5d2e4bf8823ffc138cd94564/APP_ICON?versionId=aBWZWu2c7N5EblI.fPapxDR3nK0gPnHl&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=6Lhe4OGZAJIROnHOlQ5khUCZplg%3D",
+          "description": "Sample Full Description",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6c83/59dc10a47b3449afa8055f9ab3d6f1b5/APP_ICON_LARGE?versionId=_A8drtrDSFwdKgg2iSdGagdhf43gdBZA&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=mzQoT8m%2FrXgYENRemZDV%2FrKZb3Q%3D"
         }
       },
       "isAvailableWorldwide": true,
@@ -22,9 +38,17 @@
       "custom": {
         "endpoint": {
           "sourceDir": "lambda/custom"
-        }
+        },
+        "interfaces": []
       }
     },
-    "manifestVersion": "1.0"
+    "manifestVersion": "1.0",
+    "privacyAndCompliance": {
+      "allowsPurchases": false,
+      "isExportCompliant": true,
+      "containsAds": false,
+      "isChildDirected": false,
+      "usesPersonalInfo": false
+    }
   }
 }

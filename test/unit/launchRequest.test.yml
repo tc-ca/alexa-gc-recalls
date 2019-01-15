@@ -1,0 +1,27 @@
+
+
+# launching the skill
+# exit the skill
+# perform a search for recall
+# read through a list of recalls
+# you can clarify model to alexa
+# you can stop your interaction with the skill
+# you can perform multiple searches 
+  # after completeing a recall search 
+  # you can manually restart your search
+# test entity resolution
+
+
+
+---
+configuration:
+  locale: en-US
+
+
+---
+- test: Launch request, no further interaction.
+- LaunchRequest:
+   - response.outputSpeech.ssml: Welcome to Transport Canada Vehicle Recalls. I\'ll help you find out if your vehicle has any recalls. To start, let me know the make, model and year of your vehicle
+    #- response.card.type: Simple
+    #- response.card.title: Space Facts
+    #- response.card.content: "*" # Any text will match

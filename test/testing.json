@@ -1,0 +1,14 @@
+{
+    "type": "unit",
+    "handler": "../lambda/custom/index.js",
+    "locale": "en-US",
+    "trace": false,
+    "jest": {
+        "silent": false,
+        "collectCoverage": false
+    },
+    "homophones": {
+        "i found": ["iPhone"]
+    }
+
+}
