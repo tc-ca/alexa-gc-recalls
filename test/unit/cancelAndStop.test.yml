@@ -1,15 +1,5 @@
 
-
-# launching the skill
-# exit the skill
-# perform a search for recall
-# read through a list of recalls
-# you can clarify model to alexa
-# you can stop your interaction with the skill
-# you can perform multiple searches 
-  # after completeing a recall search 
-  # you can manually restart your search
-# test entity resolution
+#Test cancel/stop response
 
 
 
@@ -17,9 +7,8 @@
 configuration:
   locale: en-US
 
-
 ---
-- test: Launch request, no further interaction.
+- test: Cancel request, no further interaction.
 - LaunchRequest:
    - response.outputSpeech.ssml: Welcome to Transport Canada Vehicle Recalls. I'll help you find out if your vehicle has any recalls. To start, let me know the make, model and year of your vehicle
 - AMAZON.CancelIntent: Goodbye

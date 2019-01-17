@@ -1,33 +1,13 @@
 
-
-# launching the skill
-# exit the skill
-# perform a search for recall
-# read through a list of recalls
-# you can clarify model to alexa
-# you can stop your interaction with the skill
-# you can perform multiple searches 
-  # after completeing a recall search 
-  # you can manually restart your search
-# test entity resolution
-
-
-#things i need to test 
-#yes context
-#no context
+# Test search vehicle handler 
+# Depending on the provided make, model and year various outcomes are possible.
+# Each scenario should respond accordingly.
 
 
 
 ---
 configuration:
   locale: en-US
-
-
-# ---
-# - test: Launch request, no further interaction.
-# - SearchForVehicleRecallIntent:
-#   - request.dialogState: "STARTED"
- 
 
 ---
 - test: Search for make model with multiple recalls
@@ -38,9 +18,12 @@ configuration:
     VehicleModelType: Civic
 - SearchForVehicleRecallIntent:
   - intent: SearchForVehicleRecallIntent
-  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
-  - sessionAttributes.VehicleConversation != undefined
+  # test session attributes
+  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
+  - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
+  # test response
   - sessionAttributes.VehicleConversation.followUpQuestionEnum : 1 #WouldYouLikeToHearTheNextRecall
+  # TODO: test other parts of the conversation
  
 ---
 - test: Search for make model with ambigious model
@@ -51,9 +34,13 @@ configuration:
     VehicleModelType: Civic
 - SearchForVehicleRecallIntent:
   - intent: SearchForVehicleRecallIntent
-  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
-  - sessionAttributes.VehicleConversation != undefined
+   # test session attributes
+  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
+  - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
+   # test response
   - sessionAttributes.VehicleConversation.followUpQuestionEnum : 2 #ProvideComfirmationOfAmbiguousModel
+   # TODO: test other parts of the conversation
+
 
 ---
 - test: Search for make model with no recalls
@@ -64,12 +51,19 @@ configuration:
     VehicleModelType: Civic
 - SearchForVehicleRecallIntent:
   - intent: SearchForVehicleRecallIntent
-  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
-  - sessionAttributes.VehicleConversation != undefined
+  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
+  - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
   - sessionAttributes.VehicleConversation.followUpQuestionEnum : 0 #WouldYouLikeToSearchForAnotherRecall
+   # TODO: test other parts of the conversation
+
+
+
+
+
+#TODO: Fix below tests.
 
 # ---
-# - test.only: Search for make model with multiple recalls, at the end of recall list
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
 # - SearchForVehicleRecallIntent:
 #   - intent: SearchForVehicleRecallIntent
 #     year: 2011
@@ -82,11 +76,12 @@ configuration:
 #   - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
 #   - sessionAttributes.VehicleConversation != undefined
 #   - sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
+#   - AMAZON.YesIntent:
 
 
 # ---
-# - test.only: Search for make model with multiple recalls, at the end of recall list
-# - SearchForVehicleRecallIntent year=2011,VehicleMakeType=Honda,VehicleModelType=Civic
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
+# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda
 # - SearchForVehicleRecallIntent:
 #   - intent: SearchForVehicleRecallIntent
 #   - request.session.attributes.VehicleConversation.currentIndex: 0
@@ -94,3 +89,16 @@ configuration:
 #   - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
 #   - sessionAttributes.VehicleConversation != undefined
 #   - sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
+# - "no"
+
+
+# ---
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
+# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda:
+#   - request.dialogState: COMPLETED
+#   - request.session.attributes.VehicleConversation.currentIndex: 0
+#   - request.session.attributes.VehicleConversation.recalls.length: 2
+#   - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent # ensure this is being set
+#   - sessionAttributes.VehicleConversation != undefined
+#   - sessionAttributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall
+# - "yes"

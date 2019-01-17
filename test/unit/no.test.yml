@@ -1,36 +1,19 @@
 
-
-# launching the skill
-# exit the skill
-# perform a search for recall
-# read through a list of recalls
-# you can clarify model to alexa
-# you can stop your interaction with the skill
-# you can perform multiple searches 
-  # after completeing a recall search 
-  # you can manually restart your search
-# test entity resolution
-
-
-#things i need to test 
-#yes context
-#no context
-
+#Test outcome of "no" after response to specific Alexa question
 
 
 ---
 configuration:
   locale: en-US
 
-
 ---
-- test: Launch request, no further interaction.
+- test: No context test, "Would you like to hear the next recall?"
 - AMAZON.NoIntent: 
    - request.session.attributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
    - request.session.attributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall 
    - sessionAttributes.LogicRoutedIntentName: AMAZON.CancelIntent
 ---
-- test: some
+- test: No context test, "Would you like to search for another recall"
 - AMAZON.NoIntent: 
   - request.session.attributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
   - request.session.attributes.VehicleConversation.followUpQuestionEnum: 0 #WouldYouLikeToSearchForAnotherRecall
