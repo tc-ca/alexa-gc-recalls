@@ -11,13 +11,18 @@ module.exports = Object.freeze({
     InitiatedSkip: 1,
     RequestingNextRecallInfo: 2,
     RestartRecallSearch: 3,
-    ResolvingAmbiguousModel: 4
+    ResolvingAmbiguousModel: 4,
+    ResponsedYesToWantingToReceiveSMS: 5,
+    ResponsedYesToCorrectPhoneNumberFoundOnAccount: 6
+
   },
 
   SearchVehicleRecallIntentYesNoQuestions: {
     WouldYouLikeToSearchForAnotherRecall: 0,
     WouldYouLikeToHearTheNextRecall: 1,
-    ProvideComfirmationOfAmbiguousModel: 2
+    ProvideComfirmationOfAmbiguousModel: 2,
+    IsYourPhoneNumberFiveFiveFiveBlahBlah: 4,
+    WouldYouLikeToRecieveSMSMessage: 5
   },
 
   VehicleConversationContext: {
@@ -34,6 +39,7 @@ module.exports = Object.freeze({
     LogicRoutedIntentName: 'LogicRoutedIntentName',
     VoiceRoutedIntentName: 'VoiceRoutedIntentname',
     VehicleConversation: 'VehicleConversation',
+    Conversation: 'Conversation',
     UserActionPerformed: 'UserActionPerformed'
 
   }
