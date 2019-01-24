@@ -1,8 +1,11 @@
 'use strict'
 
 // Handlers
-const VehicleRecallHandler = require('../customIntent/SearchForVehicleRecallHandler')
+const VehicleRecallHandler = require('../customIntents/SearchForVehicleRecallHandler')
+const PhoneNumberHandler = require('../customIntents/PhoneNumberHandler')
+
 const RestartSearchForRecallHandler = require('./StartOverHandler')
+const Conversation = require('../../models/conversation')
 
 // Enums
 const USER_ACTION = require('../../Constants').userAction
@@ -18,15 +21,14 @@ const YesIntentHandler = {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
 
+    const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
+    const convo = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+
     switch (sessionAttributes[SESSION_KEYS.LogicRoutedIntentName]) {
       case 'SearchForVehicleRecallIntent':
 
-        const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
         switch (vehicleConversation.followUpQuestionEnum) {
           case QUESTION.WouldYouLikeToHearTheNextRecall:
-
-            // set for testing purposes only when unit testing YML configuration
-            // sessionAttributes[SESSION_KEYS.UserActionPerformed] = USER_ACTION.USER_ACTION.RequestingNextRecallInfo
 
             // move to next recall in the array
             sessionAttributes[SESSION_KEYS.CurrentRecallIndex]++
@@ -36,6 +38,22 @@ const YesIntentHandler = {
             return RestartSearchForRecallHandler.handle(handlerInput)
           default:
             break
+        }
+        break
+      case 'SelectRecallCategoryIntent':
+        switch (convo.followUpQuestionEnum) {
+          case QUESTION.WouldYouLikeToRecieveSMSMessage:
+            convo.withUserAction = USER_ACTION.ResponsedYesToWantingToReceiveSMS
+            sessionAttributes[SESSION_KEYS.Conversation] = convo
+
+            return PhoneNumberHandler.handle(handlerInput, USER_ACTION.ResponsedYesToWantingToReceiveSMS)
+        }
+        break
+      case 'SMSIntent':
+        switch (convo.followUpQuestionEnum) {
+          case QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah:
+
+            return PhoneNumberHandler.handle(handlerInput, USER_ACTION.ResponsedYesToCorrectPhoneNumberFoundOnAccount)
         }
         break
       default:
