@@ -13,6 +13,9 @@
     "ask-sdk": "^2.3.0",
     "ask-sdk-core": "^2.0.0",
     "ask-sdk-model": "^1.0.0",
+    "i18next": "^13.1.4",
+    "i18next-sprintf-postprocessor": "^0.2.2",
+    "implement-js": "0.0.26",
     "logless-client": "0.0.5",
     "node-fetch": "^2.3.0"
   },
