@@ -1,7 +1,7 @@
 'use strict'
 
 // Handlers
-const SearchForVehicleRecallIntentHandler = require('../customIntent/SearchForVehicleRecallHandler')
+const SearchForVehicleRecallIntentHandler = require('../customIntents/SearchForVehicleRecallHandler')
 // Enums
 const USER_ACTION = require('../../Constants').userAction
 const SESSION_KEYS = require('../../Constants').sessionKeys
