@@ -24,7 +24,22 @@ const InProgressSearchForVehicleRecallIntentHandler = {
   }
 }
 
-const CompletedSearchForVehicleRecallIntentHandler = {
+const DeniedCompletedSearchForVehicleRecallIntentHandler = {
+  canHandle (handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'SearchForVehicleRecallIntent' &&
+      handlerInput.requestEnvelope.request.dialogState !== 'COMPLETED' &&
+      handlerInput.requestEnvelope.request.intent.confirmationStatus === 'DENIED'
+
+  },
+  async handle (handlerInput) {
+    return handlerInput.responseBuilder
+      .addDelegateDirective(handlerInput.requestEnvelope.request.intent) // makes alexa prompt for required slots.
+      .getResponse()
+  }
+}
+
+const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
   canHandle (handlerInput) {
     console.log(handlerInput.requestEnvelope.request.type)
     console.log(handlerInput.requestEnvelope.request.intent.name)
@@ -32,7 +47,8 @@ const CompletedSearchForVehicleRecallIntentHandler = {
 
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
       handlerInput.requestEnvelope.request.intent.name === 'SearchForVehicleRecallIntent' &&
-      handlerInput.requestEnvelope.request.dialogState === 'COMPLETED'
+      handlerInput.requestEnvelope.request.dialogState === 'COMPLETED' &&
+      handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED'
   },
   async handle (handlerInput, userAction) {
     const { attributesManager } = handlerInput
@@ -319,4 +335,4 @@ class VehicleRecallSpeakText {
   }
 }
 
-module.exports = { InProgressSearchForVehicleRecallIntentHandler, CompletedSearchForVehicleRecallIntentHandler }
+module.exports = { InProgress: InProgressSearchForVehicleRecallIntentHandler, ComfirmedCompleted: ComfirmedCompletedSearchForVehicleRecallIntentHandler, DeniedCompleted: DeniedCompletedSearchForVehicleRecallIntentHandler }

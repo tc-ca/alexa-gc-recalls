@@ -30,8 +30,9 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
     HANDLERS.SelectRecallCategory,
-    HANDLERS.SearchForVehicleRecall.InProgressSearchForVehicleRecallIntentHandler,
-    HANDLERS.SearchForVehicleRecall.CompletedSearchForVehicleRecallIntentHandler,
+    HANDLERS.SearchForVehicleRecall.InProgress,
+    HANDLERS.SearchForVehicleRecall.ComfirmedCompleted,
+    HANDLERS.SearchForVehicleRecall.DeniedCompleted,
     HANDLERS.ResolveAmbigious,
     HANDLERS.Next,
     HANDLERS.StartOver,
