@@ -9,9 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "airtable": "^0.5.8",
-    "ask-sdk": "^2.3.0",
-    "ask-sdk-core": "^2.0.0",
+    "ask-sdk-core": "^2.3.0",
     "ask-sdk-model": "^1.0.0",
     "i18next": "^13.1.4",
     "i18next-sprintf-postprocessor": "^0.2.2",
