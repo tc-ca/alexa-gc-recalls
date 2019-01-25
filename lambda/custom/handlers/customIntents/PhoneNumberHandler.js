@@ -2,7 +2,6 @@
 const USER_ACTION = require('../../Constants').userAction
 const SESSION_KEYS = require('../../Constants').sessionKeys
 const Conversation = require('../../models/conversation')
-const VehicleRecallHandler = require('../customIntents/SearchForVehicleRecallHandler')
 const QUESTION = require('../../Constants').SearchVehicleRecallIntentYesNoQuestions
 
 const SMSHandler = {
@@ -23,11 +22,8 @@ const SMSHandler = {
 
         break
       case USER_ACTION.ResponsedYesToCorrectPhoneNumberFoundOnAccount:
-
-        // handlerInput.requestEnvelope.request.intent.name = 'SearchForVehicleRecallIntent'
-
-        // route to main search handler, InProgress handler should prompt for collection of slot values.
-        return VehicleRecallHandler.InProgressSearchForVehicleRecallIntentHandler.handle(handlerInput)
+        speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
+        break
       default:
         break
     }
