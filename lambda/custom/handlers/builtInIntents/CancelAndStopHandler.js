@@ -11,9 +11,11 @@ const CancelAndStopIntentHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
+
     sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'AMAZON.CancelIntent'
 
-    const speechText = 'Goodbye!'
+    const speechText = requestAttributes.t('VEHCILE_RECALLS_GOODBYE_MSG')
 
     return handlerInput.responseBuilder
       .speak(speechText)
