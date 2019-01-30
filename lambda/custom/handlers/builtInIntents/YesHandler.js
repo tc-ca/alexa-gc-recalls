@@ -1,10 +1,11 @@
 'use strict'
 
-// Handlers
-const VehicleRecallHandler = require('../customIntents/SearchForVehicleRecallHandler')
-const PhoneNumberHandler = require('../customIntents/PhoneNumberHandler')
+const HANDLERS = {
+  VehicleRecallHandler: require('../customIntents/SearchForVehicleRecallHandler'),
+  PhoneNumberHandler: require('../customIntents/PhoneNumberHandler'),
+  RestartSearchForRecallHandler: require('./StartOverHandler')
+}
 
-const RestartSearchForRecallHandler = require('./StartOverHandler')
 const Conversation = require('../../models/conversation')
 
 // Enums
@@ -26,16 +27,32 @@ const YesIntentHandler = {
 
     switch (sessionAttributes[SESSION_KEYS.LogicRoutedIntentName]) {
       case 'SearchForVehicleRecallIntent':
+        switch (vehicleConversation.followUpQuestionEnum) {
+          case QUESTION.WouldYouLikeToMeReadTheRecall:
+
+            return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput)
+
+          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
+
+            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+
+          default:
+            break
+        }
+        break
+      case 'ReadVehicleRecallHandler':
 
         switch (vehicleConversation.followUpQuestionEnum) {
           case QUESTION.WouldYouLikeToHearTheNextRecall:
 
-            // move to next recall in the array
-            sessionAttributes[SESSION_KEYS.CurrentRecallIndex]++
-            return VehicleRecallHandler.CompletedSearchForVehicleRecallIntentHandler.handle(handlerInput, USER_ACTION.RequestingNextRecallInfo)
+            return HANDLERS.SearchForVehicleRecallIntentHandler.MoveToNextRecallHandler(handlerInput)
+
+          case QUESTION.WouldYouLikeTheRecallInformationRepeated:
+            sessionAttributes[SESSION_KEYS.CurrentRecallIndex] = 0
+            return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput, USER_ACTION.RespondedYesToRepeatRecallInfo)
 
           case QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
           default:
             break
         }
@@ -46,14 +63,23 @@ const YesIntentHandler = {
             convo.withUserAction = USER_ACTION.ResponsedYesToWantingToReceiveSMS
             sessionAttributes[SESSION_KEYS.Conversation] = convo
 
-            return PhoneNumberHandler.handle(handlerInput, USER_ACTION.ResponsedYesToWantingToReceiveSMS)
+            return HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput, USER_ACTION.ResponsedYesToWantingToReceiveSMS)
         }
         break
       case 'SMSIntent':
         switch (convo.followUpQuestionEnum) {
           case QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah:
 
-            return PhoneNumberHandler.handle(handlerInput, USER_ACTION.ResponsedYesToCorrectPhoneNumberFoundOnAccount)
+            return HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput, USER_ACTION.ResponsedYesToCorrectPhoneNumberFoundOnAccount)
+        }
+        break
+      case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
+        return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
+
+      case 'GetSearchForAnotherRecallQuestionHandler':
+        switch (vehicleConversation.followUpQuestionEnum) {
+          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
+            return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
         }
         break
       default:

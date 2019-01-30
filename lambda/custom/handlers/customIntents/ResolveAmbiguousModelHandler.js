@@ -23,15 +23,13 @@ const ResolveAmbiguousModelIntentHandler = {
     switch (sessionAttributes[SESSION_KEYS.LogicRoutedIntentName]) {
       case 'SearchForVehicleRecallIntent':
         switch (vehicleConversation.followUpQuestionEnum) {
-          case QUESTION.ProvideComfirmationOfAmbiguousModel:
+          case QUESTION.IsItModelAOrModelB:
 
             // model was missing from the conversation exchange.
             vehicleConversation.model = slotValues.VehicleModelType.resolved
             sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
-            // set for testing purposes only when unit testing YML configuration
-            sessionAttributes[SESSION_KEYS.UserActionPerformed] = USER_ACTION.ResolvingAmbiguousModel
 
-            return VehicleRecallHandler.CompletedSearchForVehicleRecallIntentHandler.handle(handlerInput, USER_ACTION.ResolvingAmbiguousModel)
+            return VehicleRecallHandler.ResolveAmbigiousVehicleModelHandler.handle(handlerInput)
         }
         break
       default:

@@ -13,7 +13,7 @@ const LaunchRequestHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('WELCOME_MESSAGE_CARD', speechText)
+      .withSimpleCard('Canadian Safety Recalls', ' If you would like information on vehicle recalls, say vehicle')
       .getResponse()
   }
 }

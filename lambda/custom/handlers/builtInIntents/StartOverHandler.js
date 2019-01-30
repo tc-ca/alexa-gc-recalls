@@ -10,10 +10,11 @@ const StartOverIntentHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
+
     sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'AMAZON.StartOverIntent'
 
-
-    const speechText = 'To start, let me know the make, model and year of your vehicle.'
+    const speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
