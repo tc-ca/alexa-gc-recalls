@@ -1,5 +1,7 @@
 'use strict'
 
+// TODO: Need a 'no' path for when ambigious model are presented to the user.
+
 const Alexa = require('ask-sdk-core')
 const loglessClient = require('logless-client')
 
@@ -15,7 +17,8 @@ const HANDLERS = {
   'StartOver': require('./handlers/builtInIntents/StartOverHandler'),
   'Help': require('./handlers/builtInIntents/HelpHandler'),
   'Error': require('./handlers/builtInIntents/ErrorHandler'),
-  'SessionEnded': require('./handlers/builtInIntents/SessionEndedHandler')
+  'SessionEnded': require('./handlers/builtInIntents/SessionEndedHandler'),
+  'PhoneNumberHandler': require('./handlers/customIntents/PhoneNumberHandler')
 
 }
 
@@ -34,6 +37,8 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.SearchForVehicleRecall.ComfirmedCompleted,
     HANDLERS.SearchForVehicleRecall.DeniedCompleted,
     HANDLERS.ResolveAmbigious,
+    HANDLERS.PhoneNumberHandler.ComfirmedCompletedGetPhoneNumberIntentHandler,
+    HANDLERS.PhoneNumberHandler.DeniedCompletedGetPhoneNumberIntentHandler,
     HANDLERS.Next,
     HANDLERS.StartOver,
     HANDLERS.Help,
@@ -42,7 +47,7 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.Yes,
     HANDLERS.No
   )
-  .addRequestInterceptors(INTERCEPTORS.Localization) 
+  .addRequestInterceptors(INTERCEPTORS.Localization)
   .addErrorHandlers(HANDLERS.Error)
   .withApiClient(new Alexa.DefaultApiClient())
   .lambda())
