@@ -2,11 +2,13 @@ const implementjs = require('implement-js')
 const { Interface, type } = implementjs
 
 const IConversation = Interface('Conversation')({
+  followUpQuestionEnum: type('number'), // TODO: add specific interface.
+  userAction: type('number'), // TODO: add specific interface.
+  sendSMS: type('boolean'),
+  phoneNumber: type('number')
+
   // recallCategory: type('string'),
   // followUpQuestion: type('string'),
-  followUpQuestionEnum: type('number'), // TODO: add specific interface.
-  userAction: type('number') // TODO: add specific interface.
-
   // hasfollowUpQuestion: type('boolean')
   // sendText: type('boolean'),
   // hasNumber: type('boolean')
