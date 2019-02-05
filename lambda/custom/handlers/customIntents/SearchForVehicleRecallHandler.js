@@ -46,7 +46,7 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+    // .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }
@@ -68,7 +68,7 @@ const GetSearchForAnotherRecallQuestionHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+    //  .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }
@@ -83,7 +83,7 @@ const MoveToNextRecallHandler = {
     sessionAttributes[SESSION_KEYS.CurrentRecallIndex]++
     const currentIndex = sessionAttributes[SESSION_KEYS.CurrentRecallIndex]
 
-    // TODO: add defensive coding to when skip is said when no more recalls exist 
+    // TODO: add defensive coding to when skip is said when no more recalls exist
     if (currentIndex === 'undefined') {
       console.log('skip out not working')
     }
@@ -105,13 +105,13 @@ const SearchForNewVehicleRecallHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+    //  .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }
 
 const ResolveAmbigiousVehicleModelHandler = {
-  handle (handlerInput) {
+  async handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
@@ -119,15 +119,23 @@ const ResolveAmbigiousVehicleModelHandler = {
     // get session variables.
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
 
+    let recalls = await RECALL_API.GetRecalls(vehicleConversation.make, vehicleConversation.model, vehicleConversation.year)
+    let recallsSummaries = await GetRecallsDetails(recalls)
+
+    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+
     let vehicleSpeek = new VehicleRecallSpeakText.Builder({
       requestAttributes: requestAttributes,
       year: vehicleConversation.year,
       make: vehicleConversation.make,
       model: vehicleConversation.model,
-      recalls: vehicleConversation.recalls,
-      currentIndex: 0
-    }).withFindings()
-      .withFollowUpQuestion(CONVERSATION_CONTEXT.SearchResultFindings)
+      recalls: recalls,
+      currentIndex: 0,
+      recallsSummaries: recallsSummaries
+    })
+      .withConversation(convoObj)
+      .withFindings()
+      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
       .withUserAction(USER_ACTION.ResolvingAmbiguousModel)
 
     const speechText = vehicleSpeek.speech()
@@ -135,9 +143,13 @@ const ResolveAmbigiousVehicleModelHandler = {
     sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SearchForVehicleRecallIntent'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
 
+    if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
+      AmazonSNS.SendSMS({ phoneNumber: convoObj.phoneNumber })
+    }
+
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
-      .withSimpleCard('Reading Recalls')
+    //  .withSimpleCard('Reading Recalls')
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -156,10 +168,15 @@ const ReadVehicleRecallHandler = {
     let vehicleSpeek = new VehicleRecallSpeakText.Builder({
       requestAttributes: requestAttributes,
       recalls: vehicleConversation.recalls,
-      currentIndex: currentIndex })
+      recallsSummaries: vehicleConversation.recallsSummaries,
+      currentIndex: currentIndex,
+      make: vehicleConversation.make,
+      model: vehicleConversation.model,
+      year: vehicleConversation.year
+    })
       .withIntro(currentIndex === 0 && userAction !== 'undefined' && userAction !== USER_ACTION.RespondedYesToRepeatRecallInfo)
       .withDetails()
-      .withFollowUpQuestion(CONVERSATION_CONTEXT.RecallInfo)
+      .withFollowUpQuestion(CONVERSATION_CONTEXT.ReadingRecallState)
 
     const speechText = vehicleSpeek.speech()
 
@@ -168,7 +185,7 @@ const ReadVehicleRecallHandler = {
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
-      .withSimpleCard('Reading Recalls')
+    //  .withSimpleCard('Reading Recalls')
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -223,9 +240,9 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       model: slotValues.VehicleModelType.resolved
     }
 
-    let targetedRecalls = await RECALL_API.GetRecalls(recallRequestDTO.make, recallRequestDTO.model, recallRequestDTO.year)
+    let recalls = await RECALL_API.GetRecalls(recallRequestDTO.make, recallRequestDTO.model, recallRequestDTO.year)
+    let recallsSummaries = await GetRecallsDetails(recalls)
 
-    let recalls = await GetRecallsDetails(targetedRecalls)
     const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
 
     // Return findings
@@ -236,10 +253,11 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       model: slotValues.VehicleModelType.resolved,
       recalls: recalls,
       currentIndex: currentRecallIndex,
-      sendSMS: convoObj.sendSMS
+      recallsSummaries: recallsSummaries
     })
+      .withConversation(convoObj)
       .withFindings()
-      .withFollowUpQuestion(CONVERSATION_CONTEXT.SearchResultFindings)
+      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
       .withUserAction()
 
     speechText = vehicleSpeek.speech()
@@ -249,31 +267,43 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     sessionAttributes[SESSION_KEYS.CurrentRecallIndex] = currentRecallIndex
 
     if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
-      AmazonSNS.SendSMS('canada', '+')
+      AmazonSNS.SendSMS({ phoneNumber: convoObj.phoneNumber })
     }
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
-      .withSimpleCard('Welcome to Canadian Safety Recalls', 'Recalls have been found')
+    //  .withSimpleCard('Welcome to Canadian Safety Recalls', 'Recalls have been found')
       .withShouldEndSession(false)
       .getResponse()
   }
 }
 
 function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
+  let similarModelCount = 0
   for (let index = 0; index < recalls.length; index++) {
-    if (recalls[index].modelName !== targetedModelName) {
-      return true
+    if (recalls[index].modelName.includes(targetedModelName)) {
+      similarModelCount++
     }
+  }
+
+  if (similarModelCount > 1) {
+    return true
   }
   return false
 }
 
-function BuildSimilarModelsString (recalls) {
+function BuildSimilarModelsString (recalls, targetedModelName) {
   if (Array.isArray(recalls)) {
-    let uniqueModels = [...new Set(recalls.map(x => x.modelName))]
+    let similarModels = []
 
-    console.log(`${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or ' : '')}${uniqueModels.slice(-1)[0]}`)
+    for (let index = 0; index < recalls.length; index++) {
+      if (recalls[index].modelName.includes(targetedModelName)) {
+        similarModels.push(recalls[index].modelName)
+      }
+    }
+
+    let uniqueModels = [...new Set(similarModels)]
+
     return `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or ' : '')}${uniqueModels.slice(-1)[0]}`
   }
 }
@@ -310,10 +340,11 @@ class VehicleRecallSpeakText {
 
   static get Builder () {
     class Builder {
-      constructor ({ year, make, model, recalls, currentIndex, requestAttributes, sendSMS }) {
+      constructor ({ year, make, model, recalls, recallsSummaries, currentIndex, requestAttributes }) {
         this.year = year
         this.make = make
         this.model = model
+        this.recallsSummaries = recallsSummaries
         this.recalls = recalls
         this.currentIndex = currentIndex
         this.followUpQuestion = ''
@@ -323,10 +354,16 @@ class VehicleRecallSpeakText {
         this.hasdetails = false
         this.hasfollowUpQuestion = false
         this.requestAttributes = requestAttributes
-        this.sendSMS = sendSMS
         this.userAction = false
         this.searchFindings = SEARCH_FINDINGS.SearchNotConducted
+        this.conversation = null
       }
+
+      withConversation (conversation) {
+        this.conversation = conversation
+        return this
+      }
+
       withFindings () {
         if (this.recalls.length === 0) {
           this.searchFindings = SEARCH_FINDINGS.NoRecallsFound
@@ -346,7 +383,7 @@ class VehicleRecallSpeakText {
                 .replace('%VehicleRecallYear%', this.year)
                 .replace('%VehicleRecallMake%', this.make)
                 .replace('%VehicleRecallModel%', this.model)
-                .replace('%SentSMSMsg%', this.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
+                .replace('%SentSMSMsg%', this.conversation.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
             } else if (this.recalls.length > 1) {
               this.searchFindings = SEARCH_FINDINGS.MultipleRecallsFound
               this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_MULTIPLE`)
@@ -354,7 +391,7 @@ class VehicleRecallSpeakText {
                 .replace('%VehicleRecallYear%', this.year)
                 .replace('%VehicleRecallMake%', this.make)
                 .replace('%VehicleRecallModel%', this.model)
-                .replace('%SentSMSMsg%', this.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
+                .replace('%SentSMSMsg%', this.conversation.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
             } else if (this.recalls.length > 99999) {
               this.searchFindings = SEARCH_FINDINGS.NonValidModelFound
               this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_NON_VALID`)
@@ -379,9 +416,9 @@ class VehicleRecallSpeakText {
       withDetails () {
         if (this.recalls.length > 0) {
           this.details = this.requestAttributes.t(`VEHICLE_DETAILS_MSG`)
-            .replace('%VehicleRecallDate%', this.recalls[this.currentIndex].recallDate)
-            .replace('%VehicleRecallComponent%', this.recalls[this.currentIndex].componentType)
-            .replace('%VehicleRecallDetails%', this.recalls[this.currentIndex].description)
+            .replace('%VehicleRecallDate%', this.recallsSummaries[this.currentIndex].recallDate)
+            .replace('%VehicleRecallComponent%', this.recallsSummaries[this.currentIndex].componentType)
+            .replace('%VehicleRecallDetails%', this.recallsSummaries[this.currentIndex].description)
 
           this.hasdetails = true
         }
@@ -389,7 +426,7 @@ class VehicleRecallSpeakText {
       }
       withFollowUpQuestion (convoContext) {
         switch (convoContext) {
-          case CONVERSATION_CONTEXT.RecallInfo:
+          case CONVERSATION_CONTEXT.ReadingRecallState:
             if (this.recalls.length !== 0) {
               if (this.currentIndex === this.recalls.length - 1) {
                 this.followUpQuestion = this.requestAttributes
@@ -399,20 +436,15 @@ class VehicleRecallSpeakText {
                   .replace('%VehicleRecallModel%', this.model)
                 this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeTheRecallInformationRepeated
               } else {
-                this.followUpQuestion = 'Would you like to hear the next recall? '
+                this.followUpQuestion = this.requestAttributes.t(`VEHCILE_RECALLS_FOLLOW_UP_QUESTION_LISTEN_TO_NEXT_RECALL_MSG`)
                 this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToHearTheNextRecall
               }
             } else {
-              this.followUpQuestion = 'Would you like to search for another recall? '
+              this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
               this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
             }
             break
-          case CONVERSATION_CONTEXT.AmbiguousModel:
-            this.followUpQuestion = `I've found a few different models of 
-          ${this.year} ${this.make} ${this.model} impacted by a recall, is yours a ${BuildSimilarModelsString(this.recalls)}?`
-            this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.IsItModelAOrModelB
-            break
-          case CONVERSATION_CONTEXT.SearchResultFindings:
+          case CONVERSATION_CONTEXT.GettingSearchResultFindingsState:
 
             if (this.recalls.length === 0) {
               this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
@@ -422,7 +454,7 @@ class VehicleRecallSpeakText {
                (this.userAction !== 'undefined' && this.userAction !== USER_ACTION.ResolvingAmbiguousModel)) {
                 this.followUpQuestion = this.requestAttributes
                   .t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL`)
-                  .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls))
+                  .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.model))
                 this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.IsItModelAOrModelB
               } else {
                 if (this.recalls.length === 1) {
@@ -478,6 +510,8 @@ class VehicleRecallSpeakText {
     return Builder
   }
 }
+
+
 
 module.exports = {
   InProgress: InProgressSearchForVehicleRecallIntentHandler,
