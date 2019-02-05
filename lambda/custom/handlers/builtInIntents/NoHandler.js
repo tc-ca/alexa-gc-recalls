@@ -63,8 +63,7 @@ const NoIntentHandler = {
             return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
 
           case QUESTION.WouldYouLikeTheRecallInformationRepeated:
-            sessionAttributes[SESSION_KEYS.CurrentRecallIndex] = 0
-            return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput, USER_ACTION.RespondedYesToRepeatRecallInfo)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
 
           case QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
