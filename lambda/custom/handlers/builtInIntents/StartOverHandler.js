@@ -19,7 +19,7 @@ const StartOverIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard('Hello World', speechText)
+      // .withSimpleCard('Hello World', speechText)
       .withShouldEndSession(false)
       .getResponse()
   }

@@ -29,7 +29,7 @@ const SelectRecallCategoryHandler = {
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(speechText)
-      .withSimpleCard('Canadian Safety Recalls', 'Would you like to get the recall information by text on your phone?')
+    // .withSimpleCard('Canadian Safety Recalls', 'Would you like to get the recall information by text on your phone?')
       .getResponse()
   }
 }
