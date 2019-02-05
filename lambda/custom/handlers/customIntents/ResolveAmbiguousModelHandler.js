@@ -3,7 +3,6 @@
 // Handlers
 const VehicleRecallHandler = require('../customIntents/SearchForVehicleRecallHandler')
 
-const USER_ACTION = require('../../Constants').userAction
 const SESSION_KEYS = require('../../Constants').sessionKeys
 const QUESTION = require('../../Constants').SearchVehicleRecallIntentYesNoQuestions
 const HELPER = require('../../utils/Helper')
