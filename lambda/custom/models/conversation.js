@@ -2,9 +2,10 @@
 class Convoversation {
   constructor (obj = {}) {
     this.followUpQuestionEnum = -1
-    this.userAction = 2
+    this.phoneNumber = 2
     this.sendSMS = false
     this.phoneNumber = -1
+    this.userAction = -1
 
     obj && Object.assign(this, obj)
   }
@@ -18,8 +19,8 @@ class Convoversation {
     this.userAction = userAction
     return this
   }
-  withManuallyProvidedPhoneNumber (userAction) {
-    this.userAction = userAction
+  withManuallyProvidedPhoneNumber (phoneNumber) {
+    this.phoneNumber = phoneNumber
     return this
   }
   sendSMS (sendSMS) {

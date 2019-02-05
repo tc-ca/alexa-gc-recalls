@@ -1,7 +1,7 @@
 const implementjs = require('implement-js')
 const { Interface, type } = implementjs
 
-const IConversation = Interface('Conversation')({
+const IConversation = Interface('IConversation')({
   followUpQuestionEnum: type('number'), // TODO: add specific interface.
   userAction: type('number'), // TODO: add specific interface.
   sendSMS: type('boolean'),
@@ -27,4 +27,7 @@ const IVehicleConversation = Interface('vehicleConversation')({
   extend: IConversation
 })
 
-module.exports = { IConversation: IConversation, IVehicleConversation: IVehicleConversation }
+module.exports = {
+  IConversation,
+  IVehicleConversation
+}
