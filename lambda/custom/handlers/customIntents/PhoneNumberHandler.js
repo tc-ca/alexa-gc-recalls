@@ -1,26 +1,32 @@
+const HANDLERS = {
+  ProfileHandler: require('../../handlers/customIntents/ProfileHandler')
+}
+
 const HELPER = require('../../utils/Helper')
-// Enums
-const USER_ACTION = require('../../Constants').userAction
-const SESSION_KEYS = require('../../Constants').sessionKeys
+
 const MODELS = {
-  Conversation: require('../../models/conversation'),
+  Conversation: require('../../models/generalConversation'),
   PhoneNumber: require('../../models/phoneNumber') }
 
-const QUESTION = require('../../Constants').SearchVehicleRecallIntentYesNoQuestions
+// Required constants
+const USER_ACTION = require('../../Constants').userAction
+const SESSION_KEYS = require('../../Constants').sessionKeys
+const FOLLOW_UP_QUESTION = require('../../Constants').FollowUpQuestions
 
-const PhoneNumberAPISearchResult = {
-  Found: 0,
-  NotFound: 1,
-  NoPermission: 2,
-  ServiceError: 3,
-  Error: 4
+// Profile specific constants
+const PROFILE = {
+  COUNTRY_CODE: require('../../handlers/customIntents/ProfileHandler').COUNTRY_CODE,
+  PERMISSIONS: require('../../handlers/customIntents/ProfileHandler').PERMISSIONS,
+  PHONE_NUMBER_API_SEARCH_RESULT: require('../../handlers/customIntents/ProfileHandler').PHONE_NUMBER_API_SEARCH_RESULT
 }
 
-const CountryCode = {
-  Other: -1,
-  NorthAmerica: 1
-}
-
+/**
+ * GetPhoneNumberIntent comfirmed (yes)
+ * logic handled when end-user utters phone number and comfirms the intent.
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const ComfirmedCompletedGetPhoneNumberIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -33,18 +39,19 @@ const ComfirmedCompletedGetPhoneNumberIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    // TODO: Check to see if resolution match is not success before taking  value
     const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
+
     let phoneNumber = slotValues.phoneNumber.resolved
-    const convoObj = new MODELS.Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+    const convoObj = new MODELS.Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
     let speechText
 
-    if (IsValidPhoneNumber(phoneNumber)) {
+    if (IsValidTenDigitPhoneNumber(phoneNumber)) {
       speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
       // only place into session when phone number is valid.
-      convoObj.withManuallyProvidedPhoneNumber(slotValues.phoneNumber.resolved)
-      sessionAttributes[SESSION_KEYS.Conversation] = convoObj
+      convoObj.withUserProvidedPhoneNumber(slotValues.phoneNumber.resolved)
+      sessionAttributes[SESSION_KEYS.GeneralConversation] = convoObj
     } else {
+      // TODO: TEST
       speechText = requestAttributes.t('ERROR_PHONE_NUMBER_VALIDATION_10_DIGIT_TRY_AGAIN')
     }
 
@@ -56,6 +63,13 @@ const ComfirmedCompletedGetPhoneNumberIntentHandler = {
   }
 }
 
+/**
+ * GetPhoneNumberIntent comfirmed (no)
+ * logic handled when end-user utters phone number and says 'no' when alexa prompts for comfirmation.
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const DeniedCompletedGetPhoneNumberIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -67,7 +81,7 @@ const DeniedCompletedGetPhoneNumberIntentHandler = {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    const speechText = requestAttributes.t('TELL_ME_YOUR_PHONE_NUMBER')
+    const speechText = requestAttributes.t('TELL_ME_YOUR_PHONE_NUMBER') // intent denied, ask for phone number again
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
@@ -76,6 +90,15 @@ const DeniedCompletedGetPhoneNumberIntentHandler = {
   }
 }
 
+/**
+ * Code logic, handles short message service (SMS)/ text message interaction with skill
+ * Provides appropriate response to user interaction / action to following questions.
+ * QUESTION.WouldYouLikeToRecieveSMSMessage?
+ * QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah?
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const SMSHandler = {
   async handle (handlerInput, userAction) {
     const { attributesManager } = handlerInput
@@ -83,55 +106,39 @@ const SMSHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SMSIntent'
-    const convoObj = new MODELS.Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SMSIntent'
+    const convoObj = new MODELS.Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
     let speechText
 
     switch (userAction) {
       case USER_ACTION.ResponsedYesToWantingToReceiveSMS:
-        convoObj.followUpQuestionEnum = QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah
+        convoObj.followUpQuestionCode = FOLLOW_UP_QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah
         convoObj.sendSMS = true
 
-        const phoneNumberObj = new MODELS.PhoneNumber(await GetPhoneNumberFromAlexaAccount(handlerInput)) // use new keyword to get intelli sense / known type.
+        const phoneNumberObj = new MODELS.PhoneNumber(await HANDLERS.ProfileHandler.PhoneNumberHandler.handle(handlerInput)) // use new keyword to get intelli sense / known type.
 
-        switch (phoneNumberObj.phoneNumberState) {
-          case PhoneNumberAPISearchResult.Found:
-
-            switch (phoneNumberObj.countryCode) {
-              case CountryCode.NorthAmerica:
-                speechText = requestAttributes.t('IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX').replace('%PhoneNumber%', phoneNumberObj.phoneNumber)
-
-                break
-              case CountryCode.Other:
-                // TODO: IMPLEMENT
-
-                speechText = requestAttributes.t('IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX').replace('%PhoneNumber%', phoneNumberObj.phoneNumber)
-                break
-              default:
-                // TODO: IMPLEMENT
-
-                speechText = requestAttributes.t('IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX').replace('%PhoneNumber%', phoneNumberObj.phoneNumber)
-
-                break
-            }
+        switch (phoneNumberObj.apiRetrievalResult) {
+          case PROFILE.PHONE_NUMBER_API_SEARCH_RESULT.Found:
+            speechText = requestAttributes.t('IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX').replace('%PhoneNumber%', phoneNumberObj.phoneNumber)
 
             break
-          case PhoneNumberAPISearchResult.NotFound:
+          case PROFILE.PHONE_NUMBER_API_SEARCH_RESULT.NotFound:
             speechText = requestAttributes.t('ERROR_MISSING_PHONE_NUMBER')
+            // TODO: Implement
+
             break
-          case PhoneNumberAPISearchResult.NoPermission:
+          case PROFILE.PHONE_NUMBER_API_SEARCH_RESULT.NoPermission:
           //  just build response and return in 'case statement' since providing consent card, unique scenario.
             return handlerInput.responseBuilder
               .speak(requestAttributes.t('ERROR_MISSING_PHONE_NUMBER_PERMISSIONS'))
-              .withAskForPermissionsConsentCard(requestAttributes.t('ERROR_MISSING_PHONE_NUMBER_PERMISSIONS'))
+              .withAskForPermissionsConsentCard(PROFILE.PERMISSIONS)
               .getResponse()
-          case PhoneNumberAPISearchResult.ServiceError:
-            speechText = requestAttributes.t('GENERAL_ERROR_MSG')
 
-            break
-          case PhoneNumberAPISearchResult.Error:
-            speechText = requestAttributes.t('GENERAL_ERROR_MSG')
+            // TODO: Implement
 
+          case PROFILE.PHONE_NUMBER_API_SEARCH_RESULT.Error:
+            speechText = requestAttributes.t('GENERAL_ERROR_MSG')
+            // TODO: Implement
             break
 
           default:
@@ -154,51 +161,24 @@ const SMSHandler = {
         break
     }
 
-    sessionAttributes[SESSION_KEYS.Conversation] = convoObj
+    sessionAttributes[SESSION_KEYS.GeneralConversation] = convoObj
 
     return handlerInput.responseBuilder
-      .speak(speechText)
+      .speak(`<speak>${speechText}</speak>`)
       .reprompt(speechText)
     //  .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }
 
-async function GetPhoneNumberFromAlexaAccount (handlerInput) {
-  const { requestEnvelope, serviceClientFactory } = handlerInput
-
-  const consentToken = requestEnvelope.context.System.apiAccessToken
-  if (!consentToken) {
-    return PhoneNumberAPISearchResult.NoPermission
-  }
-
-  const phoneNumber = new MODELS.PhoneNumber()
-  try {
-    const client = serviceClientFactory.getUpsServiceClient()
-    const number = await client.getProfileMobileNumber()
-
-    if (number == null) {
-      phoneNumber.phoneNumberState = PhoneNumberAPISearchResult.NotFound
-    } else {
-      if (Number(number.countryCode) !== CountryCode.NorthAmerica) {
-        phoneNumber.countryCode = CountryCode.Other
-      } else {
-        phoneNumber.phoneNumber = number.phoneNumber
-        phoneNumber.phoneNumberState = PhoneNumberAPISearchResult.Found
-        phoneNumber.countryCode = CountryCode.NorthAmerica
-      }
-    }
-  } catch (error) {
-    if (error.name === 'ServiceError') {
-      phoneNumber.phoneNumberState = PhoneNumberAPISearchResult.ServiceError
-    }
-    phoneNumber.phoneNumberState = PhoneNumberAPISearchResult.Error
-  }
-
-  return phoneNumber
-}
-
-function IsValidPhoneNumber (phoneNumber) {
+// TODO: TEST 
+/**
+ * Function validates phone number to match ten digits
+ *
+ * @param {*} phoneNumber
+ * @returns
+ */
+function IsValidTenDigitPhoneNumber (phoneNumber) {
   let ValidPhoneNumberPattern = new RegExp('^[0-9]{10}$')
 
   if (phoneNumber !== 'undefined') {
