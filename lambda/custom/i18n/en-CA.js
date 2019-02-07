@@ -25,7 +25,7 @@ module.exports = {
                         <break time ="1s"/>        
                         Would you like to get the recall information by text on your phone?
                         `,
-    IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX: `Alright, I can send any vehicle recall info we find to the phone number associated with your Alexa Account. Is your phone number %%PhoneNumber%%?`,
+    IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX: `Alright, I can send any vehicle recall info we find to the phone number associated with your Alexa Account. Is your phone number <say-as interpret-as="telephone">%%PhoneNumber%%</say-as>?`,
     TELL_ME_YOUR_MAKE: `Okay. Could you please tell me the make of your vehicle for example, Honda?`,
     TELL_ME_YOUR_PHONE_NUMBER: `Alright, what is your phone number?`,
     ERROR_PHONE_NUMBER_VALIDATION_10_DIGIT_TRY_AGAIN: `Sorry, the number provided must be ten digits, please say again`,
@@ -52,7 +52,7 @@ module.exports = {
     VEHCILE_RECALLS_FOLLOW_UP_QUESTION_LISTEN_TO_NEXT_RECALL_MSG: `Would you like to hear the next recall?`,
     ERROR_MISSING_PHONE_NUMBER_PERMISSIONS: 'Please enable phone number permissions in the Amazon Alexa app.',
     ERROR_MISSING_PHONE_NUMBER: 'You can set your phone number at Amazon.com, under log-in and security.',
-    GENERAL_ERROR_MSG: 'Uh Oh. Looks like something went wrong.',
+    GENERAL_ERROR_MSG: 'Uh Oh. Looks like something went wrong.'
 
     // ...more...
   }

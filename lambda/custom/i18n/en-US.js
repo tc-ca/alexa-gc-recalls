@@ -1,5 +1,5 @@
 
-const SKILL_NAME = 'American Safety Recalls'
+const SKILL_NAME = 'Canadian Safety Recalls'
 
 module.exports = {
   translation: {
@@ -25,8 +25,10 @@ module.exports = {
                         <break time ="1s"/>        
                         Would you like to get the recall information by text on your phone?
                         `,
-    IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX: `Alright, I can send any vehicle recall info we find to the phone number associated with your Alexa Account. Is your phone number %%PhoneNumber%%?`,
+    IS_YOUR_PHONE_NUMBER_1_XXX_XXX_XXXX: `Alright, I can send any vehicle recall info we find to the phone number associated with your Alexa Account. Is your phone number <say-as interpret-as="telephone">%%PhoneNumber%%</say-as>?`,
     TELL_ME_YOUR_MAKE: `Okay. Could you please tell me the make of your vehicle for example, Honda?`,
+    TELL_ME_YOUR_PHONE_NUMBER: `Alright, what is your phone number?`,
+    ERROR_PHONE_NUMBER_VALIDATION_10_DIGIT_TRY_AGAIN: `Sorry, the number provided must be ten digits, please say again`,
     VEHICLE_RECALLS_FOUND_NONE: `There are no recalls associated with your vehicle in our system. `,
     VEHICLE_RECALLS_FOUND_ONE: `<p>I've found a <phoneme alphabet="ipa" ph="ri.kɔ:l">recall</phoneme> potentially affecting your %%VehicleRecallYear%% %%VehicleRecallMake%% %%VehicleRecallModel%%. %%SentSMSMsg%%</p>`,
     VEHICLE_RECALLS_FOUND_MULTIPLE: `<p>I've found %%RecallCount%% <phoneme alphabet="ipa" ph="ri.kɔ:lz">recalls</phoneme> potentially affecting your %%VehicleRecallYear%% %%VehicleRecallMake%% %%VehicleRecallModel%%. %%SentSMSMsg%%</p>`,
@@ -45,7 +47,12 @@ module.exports = {
     VEHICLE_RECALLS_END_MSG: `<p>That's all the information I have for your %%VehicleRecallYear%% %%VehicleRecallMake%% %%VehicleRecallModel%% vehicle. Do you want me to repeat the recall information for this vehicle?  </p>`,
     VEHICLE_RECALLS_SENT_SMS: `I've sent you a text message with your vehicle recall information.`,
     VEHICLE_RECALLS_TRY_SEARCH_AGAIN: `Would you like to try to search again?`,
-    VEHCILE_RECALLS_GOODBYE_MSG: `OK! Have a good day!`
+    VEHCILE_RECALLS_GOODBYE_MSG: `OK! Have a good day!`,
+    VEHCILE_RECALLS_LOOK_FOR_ANOTHER_RECALL: `Do you want me to look for recalls for another recall?`,
+    VEHCILE_RECALLS_FOLLOW_UP_QUESTION_LISTEN_TO_NEXT_RECALL_MSG: `Would you like to hear the next recall?`,
+    ERROR_MISSING_PHONE_NUMBER_PERMISSIONS: 'Please enable phone number permissions in the Amazon Alexa app.',
+    ERROR_MISSING_PHONE_NUMBER: 'You can set your phone number at Amazon.com, under log-in and security.',
+    GENERAL_ERROR_MSG: 'Uh Oh. Looks like something went wrong.'
 
     // ...more...
   }
