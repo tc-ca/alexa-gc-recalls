@@ -12,7 +12,7 @@ const StartOverIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'AMAZON.StartOverIntent'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.StartOverIntent'
 
     const speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
 

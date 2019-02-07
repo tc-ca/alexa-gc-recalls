@@ -7,7 +7,7 @@ const RECALL_API = require('../../services/TCSafetyRecalls.api')
 const HELPER = require('../../utils/Helper')
 const SESSION_KEYS = require('../../Constants').sessionKeys
 const USER_ACTION = require('../../Constants').userAction
-const SearchVehicleRecallIntentYesNoQuestions = require('../../Constants').SearchVehicleRecallIntentYesNoQuestions
+const SearchVehicleRecallIntentYesNoQuestions = require('../../Constants').FollowUpQuestions
 const CONVERSATION_CONTEXT = require('../../Constants').VehicleConversationContext
 const SEARCH_FINDINGS = require('../../Constants').VehicleSearchFindings
 
@@ -41,7 +41,7 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
     const requestAttributes = attributesManager.getRequestAttributes()
 
     let speechText = requestAttributes.t('VEHICLE_RECALLS_TRY_SEARCH_AGAIN')
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'DeniedCompletedSearchForVehicleRecallIntentHandler'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'DeniedCompletedSearchForVehicleRecallIntentHandler'
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -58,7 +58,7 @@ const GetSearchForAnotherRecallQuestionHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'GetSearchForAnotherRecallQuestionHandler'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'GetSearchForAnotherRecallQuestionHandler'
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
 
     vehicleConversation.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
@@ -79,9 +79,9 @@ const MoveToNextRecallHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SearchForVehicleRecallIntent'
-    sessionAttributes[SESSION_KEYS.CurrentRecallIndex]++
-    const currentIndex = sessionAttributes[SESSION_KEYS.CurrentRecallIndex]
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+    sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]++
+    const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
 
     // TODO: add defensive coding to when skip is said when no more recalls exist
     if (currentIndex === 'undefined') {
@@ -99,7 +99,7 @@ const SearchForNewVehicleRecallHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SearchForVehicleRecallIntent'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
     const speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
     return handlerInput.responseBuilder
@@ -122,7 +122,7 @@ const ResolveAmbigiousVehicleModelHandler = {
     let recalls = await RECALL_API.GetRecalls(vehicleConversation.make, vehicleConversation.model, vehicleConversation.year)
     let recallsSummaries = await GetRecallsDetails(recalls)
 
-    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
 
     let vehicleSpeek = new VehicleRecallSpeakText.Builder({
       requestAttributes: requestAttributes,
@@ -140,7 +140,7 @@ const ResolveAmbigiousVehicleModelHandler = {
 
     const speechText = vehicleSpeek.speech()
 
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SearchForVehicleRecallIntent'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
 
     if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
@@ -163,7 +163,7 @@ const ReadVehicleRecallHandler = {
 
     // get session variables.
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
-    const currentIndex = sessionAttributes[SESSION_KEYS.CurrentRecallIndex]
+    const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
     // get speech text
     let vehicleSpeek = new VehicleRecallSpeakText.Builder({
       requestAttributes: requestAttributes,
@@ -180,7 +180,7 @@ const ReadVehicleRecallHandler = {
 
     const speechText = vehicleSpeek.speech()
 
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'ReadVehicleRecallHandler'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'ReadVehicleRecallHandler'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
 
     return handlerInput.responseBuilder
@@ -223,7 +223,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     }
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'SearchForVehicleRecallIntent'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
     // default user action to initiated vehicle recall search
     // userAction = (typeof userAction === 'undefined') ? USER_ACTION.InitiatedRecallSearch : userAction
@@ -243,7 +243,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     let recalls = await RECALL_API.GetRecalls(recallRequestDTO.make, recallRequestDTO.model, recallRequestDTO.year)
     let recallsSummaries = await GetRecallsDetails(recalls)
 
-    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
 
     // Return findings
     vehicleSpeek = new VehicleRecallSpeakText.Builder({
@@ -264,7 +264,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
 
-    sessionAttributes[SESSION_KEYS.CurrentRecallIndex] = currentRecallIndex
+    sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
 
     if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
       AmazonSNS.SendSMS({ phoneNumber: convoObj.phoneNumber })
@@ -455,7 +455,7 @@ class VehicleRecallSpeakText {
                 this.followUpQuestion = this.requestAttributes
                   .t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL`)
                   .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.model))
-                this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.IsItModelAOrModelB
+                this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.VEHICLE_IsItModelAOrModelB
               } else {
                 if (this.recalls.length === 1) {
                   this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE`)

@@ -11,7 +11,7 @@ const Conversation = require('../../models/conversation')
 // Enums
 const USER_ACTION = require('../../Constants').userAction
 const SESSION_KEYS = require('../../Constants').sessionKeys
-const QUESTION = require('../../Constants').SearchVehicleRecallIntentYesNoQuestions
+const QUESTION = require('../../Constants').FollowUpQuestions
 
 const YesIntentHandler = {
   canHandle (handlerInput) {
@@ -23,9 +23,9 @@ const YesIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
-    const convo = new Conversation(sessionAttributes[SESSION_KEYS.Conversation])
+    const convo = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
 
-    switch (sessionAttributes[SESSION_KEYS.LogicRoutedIntentName]) {
+    switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
       case 'SearchForVehicleRecallIntent':
         switch (vehicleConversation.followUpQuestionEnum) {
           case QUESTION.WouldYouLikeToMeReadTheRecall:
@@ -48,7 +48,7 @@ const YesIntentHandler = {
             return HANDLERS.SearchForVehicleRecallIntentHandler.MoveToNextRecallHandler(handlerInput)
 
           case QUESTION.WouldYouLikeTheRecallInformationRepeated:
-            sessionAttributes[SESSION_KEYS.CurrentRecallIndex] = 0
+            sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = 0
             return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput, USER_ACTION.RespondedYesToRepeatRecallInfo)
 
           case QUESTION.WouldYouLikeToSearchForAnotherRecall:
@@ -61,7 +61,7 @@ const YesIntentHandler = {
         switch (convo.followUpQuestionEnum) {
           case QUESTION.WouldYouLikeToRecieveSMSMessage:
             convo.withUserAction = USER_ACTION.ResponsedYesToWantingToReceiveSMS
-            sessionAttributes[SESSION_KEYS.Conversation] = convo
+            sessionAttributes[SESSION_KEYS.GeneralConversation] = convo
 
             return HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput, USER_ACTION.ResponsedYesToWantingToReceiveSMS)
         }
