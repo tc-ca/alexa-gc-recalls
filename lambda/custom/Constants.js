@@ -7,14 +7,15 @@ module.exports = Object.freeze({
     RequestingNextRecallInfo: 2,
     RestartRecallSearch: 3,
     ResolvingAmbiguousModel: 4,
-    ResponsedYesToWantingToReceiveSMS: 5,
-    ResponsedNoToWantingToReceiveSMS: 6,
-    ResponsedYesToCorrectPhoneNumberFoundOnAccount: 7,
-    ResponsedNoToCorrectPhoneNumberFoundOnAccount: 8,
-    ResponsedYesToWantingRecallRead: 9,
-    ResponsedNoToWantingRecallRead: 10,
-    RespondedYesToRepeatRecallInfo: 11,
-    RespondedNoToRepeatRecallInfo: 12
+    ResolvingInValidModel: 5,
+    ResponsedYesToWantingToReceiveSMS: 6,
+    ResponsedNoToWantingToReceiveSMS: 7,
+    ResponsedYesToCorrectPhoneNumberFoundOnAccount: 8,
+    ResponsedNoToCorrectPhoneNumberFoundOnAccount: 9,
+    ResponsedYesToWantingRecallRead: 10,
+    ResponsedNoToWantingRecallRead: 11,
+    RespondedYesToRepeatRecallInfo: 12,
+    RespondedNoToRepeatRecallInfo: 13
   },
 
   // Questions posed to the user.
@@ -26,7 +27,9 @@ module.exports = Object.freeze({
     WouldYouLikeToRecieveSMSMessage: 3,
     WouldYouLikeToMeReadTheRecall: 4,
     WouldYouLikeTheRecallInformationRepeated: 5,
-    VEHICLE_IsItModelAOrModelB: 6
+    VEHICLE_IsItModelAOrModelB: 6,
+    VEHICLE_MODEL_NON_VALID_WhatIsYourVehicleModel: 7
+
   },
 
   // Describes the vehicle recall interaction context, Alexa follow up questions to the user differ based on the below states.
