@@ -5,7 +5,7 @@ const INTERFACES = require('../interfaces.js')
 const MODELS = { GeneralConversation: require('../models/generalConversation') }
 
 /**
- * functions checks to see if GeneralConversation object implements specified properties. 
+ * functions checks to see if GeneralConversation object implements specified properties.
  *
  * @returns returns specific GeneralConversation object
  */
