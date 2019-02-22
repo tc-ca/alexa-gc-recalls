@@ -23,7 +23,7 @@ const LocalizationInterceptor = {
       const args = arguments
       let values = []
 
-      for (var i = 1; i < args.length; i++) {
+      for (let i = 1; i < args.length; i++) {
         values.push(args[i])
       }
       const value = i18n.t(args[0], {
