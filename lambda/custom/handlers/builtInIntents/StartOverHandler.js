@@ -1,6 +1,6 @@
 'use strict'
 
-const SESSION_KEYS = require('../../Constants').sessionKeys
+const SESSION_KEYS = require('../../constants').sessionKeys
 
 const StartOverIntentHandler = {
   canHandle (handlerInput) {
@@ -14,7 +14,7 @@ const StartOverIntentHandler = {
 
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.StartOverIntent'
 
-    const speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_TELL_ME_YOUR_MAKE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
