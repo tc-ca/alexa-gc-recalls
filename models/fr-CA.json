@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "find my recalls",
+      "invocationName": "trouve mes rappels de sécurité",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -63,7 +63,7 @@
             "{VehicleModelType} {year}",
             "{year} {VehicleMakeType}",
             "{VehicleMakeType} {year}",
-            "vehicle"
+            "véhicule"
           ]
         },
         {
@@ -80,6 +80,14 @@
         },
         {
           "name": "AMAZON.StartOverIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.RepeatIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.PreviousIntent",
           "samples": []
         }
       ],
@@ -6112,433 +6120,433 @@
           "values": [
             {
               "name": {
-                "value": "ACURA"
+                "value": "acura"
               }
             },
             {
               "name": {
-                "value": "ALFA ROMEO",
+                "value": "alfa romeo",
                 "synonyms": [
-                  "ALFA"
+                  "alfa"
                 ]
               }
             },
             {
               "name": {
-                "value": "AM GENERAL"
+                "value": "am general"
               }
             },
             {
               "name": {
-                "value": "ASTON MARTIN"
+                "value": "aston martin"
               }
             },
             {
               "name": {
-                "value": "AUDI"
+                "value": "audi"
               }
             },
             {
               "name": {
-                "value": "BENTLEY"
+                "value": "bentley"
               }
             },
             {
               "name": {
-                "value": "BMW",
+                "value": "bmw",
                 "synonyms": [
-                  "BEEMER"
+                  "beemer"
                 ]
               }
             },
             {
               "name": {
-                "value": "BRAUN"
+                "value": "braun"
               }
             },
             {
               "name": {
-                "value": "BUICK"
+                "value": "buick"
               }
             },
             {
               "name": {
-                "value": "CADILLAC",
+                "value": "cadillac",
                 "synonyms": [
-                  "CADDY"
+                  "caddy"
                 ]
               }
             },
             {
               "name": {
-                "value": "CHEVROLET",
+                "value": "chevrolet",
                 "synonyms": [
-                  "CHEVY"
+                  "chevy"
                 ]
               }
             },
             {
               "name": {
-                "value": "CHRYSLER"
+                "value": "chrysler"
               }
             },
             {
               "name": {
-                "value": "CRESTLINE"
+                "value": "crestline"
               }
             },
             {
               "name": {
-                "value": "DAEWOO"
+                "value": "daewoo"
               }
             },
             {
               "name": {
-                "value": "DEMERS"
+                "value": "demers"
               }
             },
             {
               "name": {
-                "value": "DODGE"
+                "value": "dodge"
               }
             },
             {
               "name": {
-                "value": "EAGLE"
+                "value": "eagle"
               }
             },
             {
               "name": {
-                "value": "ELDORADO BUS"
+                "value": "eldorado bus"
               }
             },
             {
               "name": {
-                "value": "ELDORADO MOBILITY"
+                "value": "eldorado mobility"
               }
             },
             {
               "name": {
-                "value": "EXECUTIVE COACH"
+                "value": "executive coach"
               }
             },
             {
               "name": {
-                "value": "FERRARI"
+                "value": "ferrari"
               }
             },
             {
               "name": {
-                "value": "FIAT"
+                "value": "fiat"
               }
             },
             {
               "name": {
-                "value": "FISKER"
+                "value": "fisker"
               }
             },
             {
               "name": {
-                "value": "FORD"
+                "value": "ford"
               }
             },
             {
               "name": {
-                "value": "FRONTLINE"
+                "value": "frontline"
               }
             },
             {
               "name": {
-                "value": "GENESIS"
+                "value": "genesis"
               }
             },
             {
               "name": {
-                "value": "GEO"
+                "value": "geo"
               }
             },
             {
               "name": {
-                "value": "GMC"
+                "value": "gmc"
               }
             },
             {
               "name": {
-                "value": "HONDA"
+                "value": "honda"
               }
             },
             {
               "name": {
-                "value": "HUMMER"
+                "value": "hummer"
               }
             },
             {
               "name": {
-                "value": "HYUNDAI"
+                "value": "hyundai"
               }
             },
             {
               "name": {
-                "value": "INFINITI"
+                "value": "infiniti"
               }
             },
             {
               "name": {
-                "value": "IOWA MOLD TOOLING"
+                "value": "iowa mold tooling"
               }
             },
             {
               "name": {
-                "value": "ISUZU"
+                "value": "isuzu"
               }
             },
             {
               "name": {
-                "value": "JAGUAR"
+                "value": "jaguar"
               }
             },
             {
               "name": {
-                "value": "JEEP"
+                "value": "jeep"
               }
             },
             {
               "name": {
-                "value": "KARMA"
+                "value": "karma"
               }
             },
             {
               "name": {
-                "value": "KIA"
+                "value": "kia"
               }
             },
             {
               "name": {
-                "value": "LAMBORGHINI",
+                "value": "lamborghini",
                 "synonyms": [
-                  "LAMBO"
+                  "lambo"
                 ]
               }
             },
             {
               "name": {
-                "value": "LAND ROVER"
+                "value": "land rover"
               }
             },
             {
               "name": {
-                "value": "LEXUS"
+                "value": "lexus"
               }
             },
             {
               "name": {
-                "value": "LINCOLN"
+                "value": "lincoln"
               }
             },
             {
               "name": {
-                "value": "LOTUS"
+                "value": "lotus"
               }
             },
             {
               "name": {
-                "value": "MASERATI"
+                "value": "maserati"
               }
             },
             {
               "name": {
-                "value": "MAZDA"
+                "value": "mazda"
               }
             },
             {
               "name": {
-                "value": "MERCEDES-BENZ",
+                "value": "mercedes-benz",
                 "synonyms": [
-                  "MERCEDES BENZ",
-                  "MERCEDES",
-                  "BENZ"
+                  "mercedes benz",
+                  "mercedes",
+                  "benz"
                 ]
               }
             },
             {
               "name": {
-                "value": "MERCURY"
+                "value": "mercury"
               }
             },
             {
               "name": {
-                "value": "MINI"
+                "value": "mini"
               }
             },
             {
               "name": {
-                "value": "MITSUBISHI"
+                "value": "mitsubishi"
               }
             },
             {
               "name": {
-                "value": "MOBILITY VENTURES"
+                "value": "mobility ventures"
               }
             },
             {
               "name": {
-                "value": "MORGAN OLSON"
+                "value": "morgan olson"
               }
             },
             {
               "name": {
-                "value": "MULTI-VANS",
+                "value": "multi-vans",
                 "synonyms": [
-                  "MULTI VANS"
+                  "multi vans"
                 ]
               }
             },
             {
               "name": {
-                "value": "NISSAN"
+                "value": "nissan"
               }
             },
             {
               "name": {
-                "value": "OLDSMOBILE",
+                "value": "oldsmobile",
                 "synonyms": [
-                  "OLDS"
+                  "olds"
                 ]
               }
             },
             {
               "name": {
-                "value": "PASSPORT"
+                "value": "passport"
               }
             },
             {
               "name": {
-                "value": "PLYMOUTH"
+                "value": "plymouth"
               }
             },
             {
               "name": {
-                "value": "PONTIAC"
+                "value": "pontiac"
               }
             },
             {
               "name": {
-                "value": "PORSCHE"
+                "value": "porsche"
               }
             },
             {
               "name": {
-                "value": "RAM"
+                "value": "ram"
               }
             },
             {
               "name": {
-                "value": "RANGE ROVER"
+                "value": "range rover"
               }
             },
             {
               "name": {
-                "value": "ROADTREK"
+                "value": "roadtrek"
               }
             },
             {
               "name": {
-                "value": "ROLLS-ROYCE",
+                "value": "rolls-royce",
                 "synonyms": [
-                  "ROLLS ROYCE",
-                  "ROLLS"
+                  "rolls royce",
+                  "rolls"
                 ]
               }
             },
             {
               "name": {
-                "value": "SAAB"
+                "value": "saab"
               }
             },
             {
               "name": {
-                "value": "SALEEN"
+                "value": "saleen"
               }
             },
             {
               "name": {
-                "value": "SATURN"
+                "value": "saturn"
               }
             },
             {
               "name": {
-                "value": "SCION"
+                "value": "scion"
               }
             },
             {
               "name": {
-                "value": "SMART"
+                "value": "smart"
               }
             },
             {
               "name": {
-                "value": "SRT"
+                "value": "srt"
               }
             },
             {
               "name": {
-                "value": "STERLING"
+                "value": "sterling"
               }
             },
             {
               "name": {
-                "value": "SUBARU"
+                "value": "subaru"
               }
             },
             {
               "name": {
-                "value": "SUZUKI"
+                "value": "suzuki"
               }
             },
             {
               "name": {
-                "value": "TESLA"
+                "value": "tesla"
               }
             },
             {
               "name": {
-                "value": "TOYOTA"
+                "value": "toyota"
               }
             },
             {
               "name": {
-                "value": "UNION CITY BODY COMPANY"
+                "value": "union city body company"
               }
             },
             {
               "name": {
-                "value": "UTILIMASTER"
+                "value": "utilimaster"
               }
             },
             {
               "name": {
-                "value": "VAN-ACTION",
+                "value": "van-action",
                 "synonyms": [
-                  "VAN ACTION"
+                  "van action"
                 ]
               }
             },
             {
               "name": {
-                "value": "VMI"
+                "value": "vmi"
               }
             },
             {
               "name": {
-                "value": "VOLKSWAGEN",
+                "value": "volkswagen",
                 "synonyms": [
-                  "VW"
+                  "vw"
                 ]
               }
             },
             {
               "name": {
-                "value": "VOLVO"
+                "value": "volvo"
               }
             }
           ],
@@ -6593,11 +6601,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "OK, what is the model of your vehicle?"
+            "value": "Super, quel est le modèle de ton véhicule?"
           },
           {
             "type": "PlainText",
-            "value": "Nice, what is the model of your vehicle?"
+            "value": "OK, quel est le modèle de ton véhicule?"
           }
         ]
       },
@@ -6606,7 +6614,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Alright lets get started. Could you please tell me the make of your vehicle?"
+            "value": "D'accord, on peut commencer. Quelle est la marque de ton véhicule?"
           }
         ]
       },
@@ -6615,11 +6623,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Alright, what is the year of your vehicle?"
+            "value": "D'accord, quelle est l'année de ton véhicule?"
           },
           {
             "type": "PlainText",
-            "value": "Now, what is the year of your vehicle?"
+            "value": "Maintenant, quelle est l'année de ton véhicule?"
           }
         ]
       },
@@ -6628,7 +6636,7 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Just to make sure I understood correctly, are you looking for a {year} {VehicleMakeType} {VehicleModelType} ?"
+            "value": "Juste pour vérifier, est-ce que tu cherches un {year} {VehicleMakeType} {VehicleModelType} ?"
           }
         ]
       },
