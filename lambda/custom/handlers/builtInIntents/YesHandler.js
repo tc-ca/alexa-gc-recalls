@@ -1,18 +1,21 @@
 'use strict'
 
 const HANDLERS = {
-  VehicleRecallHandler: require('../customIntents/SearchForVehicleRecallHandler'),
-  PhoneNumberHandler: require('../customIntents/PhoneNumberHandler'),
+  VehicleRecallHandler: require('../customIntents/searchForVehicleRecallHandler'),
   RestartSearchForRecallHandler: require('./StartOverHandler')
 }
 
-const Conversation = require('../../models/conversation')
+// CONSTANTS
+const USER_ACTION = require('../../constants').userAction
+const SESSION_KEYS = require('../../constants').sessionKeys
+const FOLLOW_UP_QUESTION = require('../../constants').FollowUpQuestions
 
-// Enums
-const USER_ACTION = require('../../Constants').userAction
-const SESSION_KEYS = require('../../Constants').sessionKeys
-const QUESTION = require('../../Constants').FollowUpQuestions
-
+/**
+ * Yes Handler acts like a controller and routes to approriate handler
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const YesIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -22,17 +25,16 @@ const YesIntentHandler = {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
 
+    // TODO: make vehicle convo into own class
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
-    const convo = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
-
     switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
       case 'SearchForVehicleRecallIntent':
-        switch (vehicleConversation.followUpQuestionEnum) {
-          case QUESTION.WouldYouLikeToMeReadTheRecall:
+        switch (vehicleConversation.followUpQuestionCode) {
+          case FOLLOW_UP_QUESTION.WouldYouLikeToMeReadTheRecall:
 
             return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput)
 
-          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
+          case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
 
             return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
 
@@ -42,43 +44,27 @@ const YesIntentHandler = {
         break
       case 'ReadVehicleRecallHandler':
 
-        switch (vehicleConversation.followUpQuestionEnum) {
-          case QUESTION.WouldYouLikeToHearTheNextRecall:
+        switch (vehicleConversation.followUpQuestionCode) {
+          case FOLLOW_UP_QUESTION.WouldYouLikeToHearTheNextRecall:
 
-            return HANDLERS.SearchForVehicleRecallIntentHandler.MoveToNextRecallHandler(handlerInput)
+            return HANDLERS.VehicleRecallHandler.MoveToNextRecallHandler.handle(handlerInput)
 
-          case QUESTION.WouldYouLikeTheRecallInformationRepeated:
+          case FOLLOW_UP_QUESTION.WouldYouLikeTheRecallInformationRepeated:
             sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = 0
             return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput, USER_ACTION.RespondedYesToRepeatRecallInfo)
 
-          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
+          case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
           default:
             break
-        }
-        break
-      case 'SelectRecallCategoryIntent':
-        switch (convo.followUpQuestionEnum) {
-          case QUESTION.WouldYouLikeToRecieveSMSMessage:
-            convo.withUserAction = USER_ACTION.ResponsedYesToWantingToReceiveSMS
-            sessionAttributes[SESSION_KEYS.GeneralConversation] = convo
-
-            return HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput, USER_ACTION.ResponsedYesToWantingToReceiveSMS)
-        }
-        break
-      case 'SMSIntent':
-        switch (convo.followUpQuestionEnum) {
-          case QUESTION.IsYourPhoneNumberFiveFiveFiveBlahBlah:
-
-            return HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput, USER_ACTION.ResponsedYesToCorrectPhoneNumberFoundOnAccount)
         }
         break
       case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
         return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
 
       case 'GetSearchForAnotherRecallQuestionHandler':
-        switch (vehicleConversation.followUpQuestionEnum) {
-          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
+        switch (vehicleConversation.followUpQuestionCode) {
+          case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
         }
         break
