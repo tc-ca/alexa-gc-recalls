@@ -1,9 +1,8 @@
 // todo move helper functions to library
 
 function GetSlotValues (filledSlots) {
+  console.log('filled slots: ', JSON.stringify(filledSlots))
   const slotValues = {}
-
-  console.log(`The filled slots: ${JSON.stringify(filledSlots)}`)
   try {
     Object.keys(filledSlots).forEach((item) => {
       const name = filledSlots[item].name
@@ -13,17 +12,18 @@ function GetSlotValues (filledSlots) {
           filledSlots[item].resolutions.resolutionsPerAuthority[0] &&
           filledSlots[item].resolutions.resolutionsPerAuthority[0].status &&
           filledSlots[item].resolutions.resolutionsPerAuthority[0].status.code) {
-        console.log('filling slots')
-        console.log(filledSlots[item].resolutions.resolutionsPerAuthority[0].status.code)
-        console.log(name)
         switch (filledSlots[item].resolutions.resolutionsPerAuthority[0].status.code) {
           case 'ER_SUCCESS_MATCH':
+            let valueNames = []
+            for (let index = 0; index < filledSlots[item].resolutions.resolutionsPerAuthority[0].values.length; index++) {
+              valueNames.push(filledSlots[item].resolutions.resolutionsPerAuthority[0].values[index].value.name)
+            }
             slotValues[name] = {
               synonym: filledSlots[item].value,
               resolved: filledSlots[item].resolutions.resolutionsPerAuthority[0].values[0].value.name,
-              isValidated: true
+              isValidated: true,
+              resolvedValues: valueNames
             }
-            console.log('er_success_match')
             break
           case 'ER_SUCCESS_NO_MATCH':
             slotValues[name] = {
@@ -31,8 +31,6 @@ function GetSlotValues (filledSlots) {
               resolved: filledSlots[item].value,
               isValidated: false
             }
-            console.log('er_success_no_match')
-
             break
           default:
             break
@@ -43,14 +41,13 @@ function GetSlotValues (filledSlots) {
           resolved: filledSlots[item].value,
           isValidated: false
         }
-        console.log('er_default')
       }
     }, this)
   } catch (error) {
     console.log('error: ', error)
   }
-  console.log('returning slotvalues ', slotValues)
 
+  console.log('Returning slot values: ', slotValues)
   return slotValues
 }
 
