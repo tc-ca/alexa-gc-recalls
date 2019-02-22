@@ -6,39 +6,31 @@ const Alexa = require('ask-sdk-core')
 const loglessClient = require('logless-client')
 
 const HANDLERS = {
-  'LaunchRequest': require('./handlers/launchIntent/LaunchRequestHandler'),
-  'SearchForVehicleRecall': require('./handlers/customIntents/SearchForVehicleRecallHandler'),
-  'Yes': require('./handlers/builtInIntents/YesHandler'),
-  'No': require('./handlers/builtInIntents/NoHandler'),
-  'CancelAndStop': require('./handlers/builtInIntents/CancelAndStopHandler'),
-  'ResolveAmbigious': require('./handlers/customIntents/ResolveAmbiguousModelHandler'),
-  'SelectRecallCategory': require('./handlers/customIntents/SelectRecallCategoryHandler'),
-  'Next': require('./handlers/builtInIntents/NextHandler'),
-  'StartOver': require('./handlers/builtInIntents/StartOverHandler'),
-  'Help': require('./handlers/builtInIntents/HelpHandler'),
-  'Error': require('./handlers/builtInIntents/ErrorHandler'),
-  'SessionEnded': require('./handlers/builtInIntents/SessionEndedHandler'),
-  'PhoneNumberHandler': require('./handlers/customIntents/PhoneNumberHandler')
-
+  'LaunchRequest': require('./handlers/launchIntent/launchRequestHandler'),
+  'SearchForVehicleRecall': require('./handlers/customIntents/searchForVehicleRecallHandler'),
+  'Yes': require('./handlers/builtInIntents/yesHandler'),
+  'No': require('./handlers/builtInIntents/noHandler'),
+  'CancelAndStop': require('./handlers/builtInIntents/cancelAndStopHandler'),
+  'Next': require('./handlers/builtInIntents/nextHandler'),
+  'StartOver': require('./handlers/builtInIntents/startOverHandler'),
+  'Help': require('./handlers/builtInIntents/helpHandler'),
+  'Error': require('./handlers/builtInIntents/errorHandler'),
+  'SessionEnded': require('./handlers/builtInIntents/sessionEndedHandler')
 }
 
 const INTERCEPTORS = {
-  'Localization': require('./interceptors/LocalizationInterceptor')
-
+  'Localization': require('./interceptors/localizationInterceptor'),
+  'LogInterceptor': require('./interceptors/logInterceptor')
 }
 
 const skillBuilder = Alexa.SkillBuilders.custom()
-console.log('capture: 6423ca35-5b10-4448-bc0e-ca179bc10e60')
 exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc10e60', skillBuilder
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
-    HANDLERS.SelectRecallCategory,
+    HANDLERS.SearchForVehicleRecall.AmbigiousHandler,
     HANDLERS.SearchForVehicleRecall.InProgress,
     HANDLERS.SearchForVehicleRecall.ComfirmedCompleted,
     HANDLERS.SearchForVehicleRecall.DeniedCompleted,
-    HANDLERS.ResolveAmbigious,
-    HANDLERS.PhoneNumberHandler.ComfirmedCompletedGetPhoneNumberIntentHandler,
-    HANDLERS.PhoneNumberHandler.DeniedCompletedGetPhoneNumberIntentHandler,
     HANDLERS.Next,
     HANDLERS.StartOver,
     HANDLERS.Help,
@@ -47,7 +39,8 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.Yes,
     HANDLERS.No
   )
-  .addRequestInterceptors(INTERCEPTORS.Localization)
+  .addRequestInterceptors(INTERCEPTORS.Localization, INTERCEPTORS.LogInterceptor.RequestLog)
+  .addResponseInterceptors(INTERCEPTORS.LogInterceptor.CurrentIntentLocationLog)
   .addErrorHandlers(HANDLERS.Error)
   .withApiClient(new Alexa.DefaultApiClient())
   .lambda())
