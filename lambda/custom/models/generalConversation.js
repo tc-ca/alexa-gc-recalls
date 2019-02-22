@@ -1,6 +1,6 @@
 /**
- * An object to hold general related conversations outside the context of specific recall lookup 
- * 
+ * An object to hold general related conversations outside the context of specific recall lookup
+ *
  * @class Conversation
  */
 class GeneralConversation {
@@ -14,7 +14,6 @@ class GeneralConversation {
     obj && Object.assign(this, obj)
   }
 
-  
   withFollowUpQuestion (followUpQuestionCode) {
     this.followUpQuestionCode = followUpQuestionCode
     return this
