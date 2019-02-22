@@ -1,6 +1,6 @@
 'use strict'
 
-const SESSION_KEYS = require('../../Constants').sessionKeys
+const SESSION_KEYS = require('../../constants').sessionKeys
 
 const CancelAndStopIntentHandler = {
   canHandle (handlerInput) {
@@ -13,9 +13,9 @@ const CancelAndStopIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    sessionAttributes[SESSION_KEYS.LogicRoutedIntentName] = 'AMAZON.CancelIntent'
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.CancelIntent'
 
-    const speechText = requestAttributes.t('VEHCILE_RECALLS_GOODBYE_MSG')
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHCILE_RECALLS_GOODBYE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
