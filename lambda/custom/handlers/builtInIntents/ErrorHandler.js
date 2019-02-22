@@ -11,4 +11,5 @@ const ErrorHandler = {
       .getResponse()
   }
 }
+
 module.exports = ErrorHandler
