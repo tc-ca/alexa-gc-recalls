@@ -1,7 +1,7 @@
 'use strict'
 
 // Handlers
-const SearchForVehicleRecallIntentHandler = require('../customIntents/SearchForVehicleRecallHandler')
+const SearchForVehicleRecallIntentHandler = require('../customIntents/searchForVehicleRecallHandler')
 
 const NextIntentHandler = {
   canHandle (handlerInput) {
