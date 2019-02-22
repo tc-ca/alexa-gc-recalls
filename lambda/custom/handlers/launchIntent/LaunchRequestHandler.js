@@ -8,7 +8,7 @@ const LaunchRequestHandler = {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    const speechText = requestAttributes.t('WELCOME_LONG')
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_MSG')
 
     return handlerInput.responseBuilder
       .speak(speechText)
