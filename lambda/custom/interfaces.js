@@ -1,5 +1,3 @@
-const implementjs = require('implement-js')
-const { Interface, type } = implementjs
 /**
  * Conversation module/design explaination, in the context of the following recalls project, conversations between Alexa and the end users is made of
  * Two parts:
@@ -22,11 +20,15 @@ const { Interface, type } = implementjs
  * Enforces conversation objects cotains the following properties.
  *
  */
+
+const implementjs = require('implement-js')
+const { Interface, type } = implementjs
+
 const IConversation = Interface('IConversation')({
   followUpQuestionCode: type('number') // TODO: add specific interface.
 }, {
-  error: true,
-  strict: true
+  error: true, // throws an error when Interface isn’t implemented - default: false
+  // strict: true // when true, errors and warnings are triggered when properties other than those on the Interface are found, is suppressed if trim is set to true - default: false
 })
 
 // TODO: decide if this interface should be kept, not really required.
