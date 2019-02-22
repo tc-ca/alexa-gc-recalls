@@ -1,20 +1,39 @@
 'use strict'
 
-// TODO: install flow for some strong typing
-// TODO: Add linter
+// TODO: double check currentIntentLocation
+// TODO: should we always pass user action??
 
-const RECALL_API = require('../../services/TCSafetyRecalls.api')
-const HELPER = require('../../utils/Helper')
-const SESSION_KEYS = require('../../Constants').sessionKeys
-const USER_ACTION = require('../../Constants').userAction
-const SearchVehicleRecallIntentYesNoQuestions = require('../../Constants').FollowUpQuestions
-const CONVERSATION_CONTEXT = require('../../Constants').VehicleConversationContext
-const SEARCH_FINDINGS = require('../../Constants').VehicleSearchFindings
+// Constants
+const SESSION_KEYS = require('../../constants').sessionKeys
+const USER_ACTION = require('../../constants').userAction
+const FOLLOW_UP_QUESTIONS = require('../../constants').FollowUpQuestions
+const CONVERSATION_CONTEXT = require('../../constants').VehicleConversationContext
+const SEARCH_FINDINGS = require('../../constants').VehicleSearchFindings
 
-const PR_DIRECTIVES = require('../../services/AlexaDirective.api')
-const AmazonSNS = require('../../services/AmazonSNS')
-const Conversation = require('../../models/conversation')
+const SERVICES = {
+  TC_RECALLS_API: require('../../services/transportSafetyRecalls.api'),
+  ALEXA_DIRECTIVES_API: require('../../services/alexaDirective.api'),
+  AMAZON_SNS_API: require('../../services/amazonSNS.api')
+}
 
+const HELPER = require('../../utils/helper')
+
+const MODELS = {
+  GeneralConversation: require('../../models/generalConversation'),
+  VehicleConversation: require('../../models/vehicleConversation') }
+
+const HANDLERS = {
+  PhoneNumberHandler: require('./PhoneNumberHandler')
+}
+
+// TODO: check to see if this handler is still required we are using auto delegation.
+/**
+ * Delegates to alexa to collect required slots
+ *
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const InProgressSearchForVehicleRecallIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -28,6 +47,198 @@ const InProgressSearchForVehicleRecallIntentHandler = {
   }
 }
 
+const AmbigiousHandler = {
+  async canHandle (handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'SearchForVehicleRecallIntent' &&
+      handlerInput.requestEnvelope.request.dialogState !== 'COMPLETED' &&
+      handlerInput.requestEnvelope.request.intent.slots.VehicleModelType.value &&
+      !handlerInput.requestEnvelope.request.intent.slots.VehicleMakeType.value &&
+      !handlerInput.requestEnvelope.request.intent.slots.year.value
+  },
+  async handle (handlerInput) {
+    const { attributesManager } = handlerInput
+    const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
+
+    const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
+    const vehicleConversationObjFromSession = sessionAttributes[SESSION_KEYS.VehicleConversation]
+
+    let resolvingType
+    let recalls
+    let speechText
+    const resolvingModelCode = {
+      Ambigious: 0,
+      NonValid: 1
+    }
+
+    // TODO: check to see if the slots values have been validated.
+    // if not validated then this is an attempt to validate or else trying to resolve ambigious model
+
+    // still not validated, the send error message.
+
+    if (!vehicleConversationObjFromSession.validVehicleModel) {
+      if (slotValues.VehicleModelType.isValidated) {
+        resolvingType = resolvingModelCode.NonValid
+        // resolving valid model
+      } else {
+        speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_MODEL_VALIDATION_FAILED')
+          .replace('%VehicleRecallYear%', vehicleConversationObjFromSession.year)
+          .replace('%VehicleRecallMake%', vehicleConversationObjFromSession.make)
+          .replace('%VehicleRecallModel%', slotValues.VehicleModelType.resolved)
+
+        vehicleConversationObjFromSession.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToSearchForAnotherRecall
+        sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+        sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversationObjFromSession
+
+        return handlerInput.responseBuilder
+          .speak(`<speak>${speechText}</speak>`)
+        //  .withSimpleCard('Reading Recalls')
+          .getResponse()
+      }
+    } else {
+      resolvingType = resolvingModelCode.Ambigious
+    }
+
+    recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleConversationObjFromSession.make, slotValues.VehicleModelType.resolved, vehicleConversationObjFromSession.year)
+
+    switch (resolvingType) {
+      case resolvingModelCode.NonValid:
+        break
+      case resolvingModelCode.Ambigious:
+        recalls = recalls.filter(x => {
+          return x.modelName === slotValues.VehicleModelType.resolved
+        })
+    }
+    // TODO: check to ensure make and year has been set, else ask for them
+    // TODO: make sure model is valid
+
+    // get session variables.
+    // TODO: cast to vehicle object
+    let recallsSummaries = await GetRecallsDetails(recalls, handlerInput.requestEnvelope.request.locale)
+
+    const generalConversationObj = new MODELS.GeneralConversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
+
+    // Return findings of search and retrieves the appropriate follow up question
+    let vehicleConversation = new MODELS.VehicleConversation.Builder({
+      requestAttributes: requestAttributes,
+      year: vehicleConversationObjFromSession.year,
+      make: vehicleConversationObjFromSession.make,
+      model: slotValues.VehicleModelType.resolved,
+      recalls: recalls,
+      currentIndex: 0,
+      recallsSummaries: recallsSummaries
+    })
+      .withConversation(generalConversationObj)
+      .modelIsValid(slotValues.VehicleModelType.isValidated)
+      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
+      .withFindings()
+
+    speechText = vehicleConversation.speech()
+    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+
+    // only send text msg on certain conditions.
+    if ((generalConversationObj.sendSMS && (vehicleConversation.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleConversation.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
+      SERVICES.AMAZON_SNS_API.SendSMS({ phoneNumber: generalConversationObj.phoneNumber })
+    }
+
+    return handlerInput.responseBuilder
+      .speak(`<speak>${speechText}</speak>`)
+      .reprompt(`<speak>${speechText}</speak>`)
+    //  .withSimpleCard('Reading Recalls')
+      .withShouldEndSession(false)
+      .getResponse()
+  }
+}
+
+/**
+ * logic handled when end-user comfirms make, model and year of vehicle
+ * Response is dynamic, possible outcomes
+ *  1. No recalls found
+ *  2. One recall found, sends text message
+ *  3. Multiple recalls found, sends text message
+ *  4. non valid model found.
+ *  5. Ambigious model found.
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
+const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
+  canHandle (handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+      handlerInput.requestEnvelope.request.intent.name === 'SearchForVehicleRecallIntent' &&
+      handlerInput.requestEnvelope.request.dialogState === 'COMPLETED' &&
+      handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED'
+  },
+  async handle (handlerInput) {
+    const { attributesManager } = handlerInput
+    const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
+
+    // const requestId = handlerInput.requestEnvelope.request.requestId
+
+    let currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
+    let speechText
+    let vehicleConversation = null
+
+    const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
+
+    // look for recalls based on slot values.
+    let recalls = await SERVICES.TC_RECALLS_API.GetRecalls(slotValues.VehicleMakeType.resolved, slotValues.VehicleModelType.resolved, slotValues.year.resolved)
+    // get details on the recalls
+    let recallsSummaries = await GetRecallsDetails(recalls, handlerInput.requestEnvelope.request.locale)
+
+    const generalConversationObj = new MODELS.GeneralConversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
+
+    // Return findings of search and retrieves the appropriate follow up question
+    vehicleConversation = new MODELS.VehicleConversation.Builder({
+      requestAttributes: requestAttributes,
+      year: slotValues.year.resolved,
+      make: slotValues.VehicleMakeType.resolved,
+      model: slotValues.VehicleModelType.resolved,
+      recalls: recalls,
+      currentIndex: currentRecallIndex,
+      recallsSummaries: recallsSummaries
+    })
+      .modelIsValid(slotValues.VehicleModelType.isValidated)
+      .withConversation(generalConversationObj)
+      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
+      .withFindings()
+
+    speechText = vehicleConversation.speech()
+
+    // TODO: Get phone number.
+    // TODO: CAST for intellisense
+    let retrievedPhoneNumber = await HANDLERS.PhoneNumberHandler.SMSHandler.handle(handlerInput)
+
+    // only send text msg on certain conditions.
+    if (retrievedPhoneNumber !== null && (vehicleConversation.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleConversation.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound)) {
+      SERVICES.AMAZON_SNS_API.SendSMS({ phoneNumber: retrievedPhoneNumber.phoneNumber })
+    }
+
+    // TODO: try sending by email instead.
+
+    // IMPORTANT: place required values into session to keep for contextual value on next round trip.
+    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
+    sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
+    // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+    return handlerInput.responseBuilder
+      .speak(`<speak>${speechText}</speak>`)
+      .reprompt(`<speak>${speechText}</speak>`)
+    //  .withSimpleCard('Welcome to Canadian Safety Recalls', 'Recalls have been found')
+      .withShouldEndSession(false)
+      .getResponse()
+  }
+}
+
+/**
+ * logic handled when end-user says 'no' when alexa prompts for comfirmation.
+ *
+ * @param {*} handlerInput
+ * @returns
+ */
 const DeniedCompletedSearchForVehicleRecallIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -40,7 +251,7 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    let speechText = requestAttributes.t('VEHICLE_RECALLS_TRY_SEARCH_AGAIN')
+    let speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WOULD_YOU_LIKE_TO_SEARCH_AGAIN') // intent denied, ask end user if they would like to attempt search again?
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'DeniedCompletedSearchForVehicleRecallIntentHandler'
 
     return handlerInput.responseBuilder
@@ -51,7 +262,13 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
   }
 }
 
-const GetSearchForAnotherRecallQuestionHandler = {
+/**
+ * handler directs Alexa to ask FOLLOW_UP_QUESTIONS.WouldYouLikeToSearchForAnotherRecall
+ * usage: DRY principle.
+ * @param {*} handlerInput
+ * @returns
+ */
+const AskWouldYouLikeToSearchForAnotherRecallHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
@@ -61,8 +278,8 @@ const GetSearchForAnotherRecallQuestionHandler = {
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'GetSearchForAnotherRecallQuestionHandler'
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
 
-    vehicleConversation.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
-    const speechText = requestAttributes.t('VEHCILE_RECALLS_LOOK_FOR_ANOTHER_RECALL')
+    vehicleConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToSearchForAnotherRecall
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHCILE_SEARCH_FOR_ANOTHER_RECALL')
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
 
     return handlerInput.responseBuilder
@@ -73,6 +290,35 @@ const GetSearchForAnotherRecallQuestionHandler = {
   }
 }
 
+/**
+ * handler directs Alexa to ask for make, model and year info.
+ * usage: DRY principle.
+ * @param {*} handlerInput
+ * @returns
+ */
+const AskTellMeYourMakeHandler = {
+  handle (handlerInput) {
+    const { attributesManager } = handlerInput
+    const requestAttributes = attributesManager.getRequestAttributes()
+    const sessionAttributes = attributesManager.getSessionAttributes()
+
+    // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_TELL_ME_YOUR_MAKE')
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+    //  .withSimpleCard('Hello World', speechText)
+      .getResponse()
+  }
+}
+
+/**
+ * handler moves to current vehicle index plus one.
+ * @param {*} handlerInput
+ * @returns
+ */
 const MoveToNextRecallHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
@@ -84,104 +330,70 @@ const MoveToNextRecallHandler = {
     const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
 
     // TODO: add defensive coding to when skip is said when no more recalls exist
-    if (currentIndex === 'undefined') {
-      console.log('skip out not working')
-    }
+    // if (currentIndex === 'undefined') {
 
-    return ReadVehicleRecallHandler.handle(handlerInput, USER_ACTION.InitiatedSkip)
+    // }
+
+    return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.InitiatedSkip)
   }
 }
 
-const SearchForNewVehicleRecallHandler = {
+/**
+ * handler moves to current vehicle index plus one.
+ * @param {*} handlerInput
+ * @returns
+ */
+const MoveToPreviousRecallHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
-    const requestAttributes = attributesManager.getRequestAttributes()
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+    sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]--
+    const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
 
-    const speechText = requestAttributes.t('TELL_ME_YOUR_MAKE')
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-    //  .withSimpleCard('Hello World', speechText)
-      .getResponse()
+    // TODO: add defensive coding to when skip is said when no more recalls exist
+    // if (currentIndex === 'undefined') {
+
+    // }
+
+    return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.InitiatedSkip)
   }
 }
 
-const ResolveAmbigiousVehicleModelHandler = {
-  async handle (handlerInput) {
-    const { attributesManager } = handlerInput
-    const sessionAttributes = attributesManager.getSessionAttributes()
-    const requestAttributes = attributesManager.getRequestAttributes()
-
-    // get session variables.
-    const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
-
-    let recalls = await RECALL_API.GetRecalls(vehicleConversation.make, vehicleConversation.model, vehicleConversation.year)
-    let recallsSummaries = await GetRecallsDetails(recalls)
-
-    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
-
-    let vehicleSpeek = new VehicleRecallSpeakText.Builder({
-      requestAttributes: requestAttributes,
-      year: vehicleConversation.year,
-      make: vehicleConversation.make,
-      model: vehicleConversation.model,
-      recalls: recalls,
-      currentIndex: 0,
-      recallsSummaries: recallsSummaries
-    })
-      .withConversation(convoObj)
-      .withFindings()
-      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
-      .withUserAction(USER_ACTION.ResolvingAmbiguousModel)
-
-    const speechText = vehicleSpeek.speech()
-
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
-    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
-
-    if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
-      AmazonSNS.SendSMS({ phoneNumber: convoObj.phoneNumber })
-    }
-
-    return handlerInput.responseBuilder
-      .speak(`<speak>${speechText}</speak>`)
-    //  .withSimpleCard('Reading Recalls')
-      .withShouldEndSession(false)
-      .getResponse()
-  }
-}
-
-const ReadVehicleRecallHandler = {
+/**
+ * handler makes Alexa read the recall details.
+ * @param {*} handlerInput
+ * @returns
+ */
+const ReadVehicleRecallDetailsHandler = {
   handle (handlerInput, userAction) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
 
     // get session variables.
-    const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
+    const vehicleConversationObjFromSession = sessionAttributes[SESSION_KEYS.VehicleConversation]
     const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
     // get speech text
-    let vehicleSpeek = new VehicleRecallSpeakText.Builder({
+    let vehicleConversation = new MODELS.VehicleConversation.Builder({
       requestAttributes: requestAttributes,
-      recalls: vehicleConversation.recalls,
-      recallsSummaries: vehicleConversation.recallsSummaries,
+      recalls: vehicleConversationObjFromSession.recalls,
+      recallsSummaries: vehicleConversationObjFromSession.recallsSummaries,
       currentIndex: currentIndex,
-      make: vehicleConversation.make,
-      model: vehicleConversation.model,
-      year: vehicleConversation.year
+      make: vehicleConversationObjFromSession.make,
+      model: vehicleConversationObjFromSession.model,
+      year: vehicleConversationObjFromSession.year
     })
       .withIntro(currentIndex === 0 && userAction !== 'undefined' && userAction !== USER_ACTION.RespondedYesToRepeatRecallInfo)
       .withDetails()
       .withFollowUpQuestion(CONVERSATION_CONTEXT.ReadingRecallState)
 
-    const speechText = vehicleSpeek.speech()
+    const speechText = vehicleConversation.speech()
 
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'ReadVehicleRecallHandler'
-    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
+    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
@@ -191,335 +403,32 @@ const ReadVehicleRecallHandler = {
   }
 }
 
-const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
-  canHandle (handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-      handlerInput.requestEnvelope.request.intent.name === 'SearchForVehicleRecallIntent' &&
-      handlerInput.requestEnvelope.request.dialogState === 'COMPLETED' &&
-      handlerInput.requestEnvelope.request.intent.confirmationStatus === 'CONFIRMED'
-  },
-  async handle (handlerInput, userAction) {
-    const { attributesManager } = handlerInput
-    const sessionAttributes = attributesManager.getSessionAttributes()
-    const requestAttributes = attributesManager.getRequestAttributes()
-
-    const requestId = handlerInput.requestEnvelope.request.requestId
-
-    // send progresive response, call Alexa API and send directive.
-    try {
-      const directive = {
-        header: {
-          requestId
-        },
-        directive: {
-          type: 'VoicePlayer.Speak',
-          speech: requestAttributes.t('VEHICLE_IN_PROGRESS_SEARCHING_MSG_1')
-        }
-      }
-      await PR_DIRECTIVES.callDirectiveService(handlerInput, directive)
-    } catch (err) {
-      // if it failed we can continue, just the user will wait longer for first response
-      console.log('error: ' + err)
-    }
-
-    // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
-
-    // default user action to initiated vehicle recall search
-    // userAction = (typeof userAction === 'undefined') ? USER_ACTION.InitiatedRecallSearch : userAction
-    userAction = userAction || USER_ACTION.InitiatedRecallSearch
-    let currentRecallIndex = 0
-    let speechText
-    let vehicleSpeek = null
-
-    // collect slot values
-    const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
-    const recallRequestDTO = {
-      year: slotValues.year.resolved,
-      make: slotValues.VehicleMakeType.resolved,
-      model: slotValues.VehicleModelType.resolved
-    }
-
-    let recalls = await RECALL_API.GetRecalls(recallRequestDTO.make, recallRequestDTO.model, recallRequestDTO.year)
-    let recallsSummaries = await GetRecallsDetails(recalls)
-
-    const convoObj = new Conversation(sessionAttributes[SESSION_KEYS.GeneralConversation])
-
-    // Return findings
-    vehicleSpeek = new VehicleRecallSpeakText.Builder({
-      requestAttributes: requestAttributes,
-      year: slotValues.year.resolved,
-      make: slotValues.VehicleMakeType.resolved,
-      model: slotValues.VehicleModelType.resolved,
-      recalls: recalls,
-      currentIndex: currentRecallIndex,
-      recallsSummaries: recallsSummaries
-    })
-      .withConversation(convoObj)
-      .withFindings()
-      .withFollowUpQuestion(CONVERSATION_CONTEXT.GettingSearchResultFindingsState)
-      .withUserAction()
-
-    speechText = vehicleSpeek.speech()
-
-    sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleSpeek
-
-    sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
-
-    if ((convoObj.sendSMS && (vehicleSpeek.searchFindings === SEARCH_FINDINGS.SingleRecallFound || vehicleSpeek.searchFindings === SEARCH_FINDINGS.MultipleRecallsFound))) {
-      AmazonSNS.SendSMS({ phoneNumber: convoObj.phoneNumber })
-    }
-
-    return handlerInput.responseBuilder
-      .speak(`<speak>${speechText}</speak>`)
-    //  .withSimpleCard('Welcome to Canadian Safety Recalls', 'Recalls have been found')
-      .withShouldEndSession(false)
-      .getResponse()
-  }
-}
-
-function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
-  let similarModelCount = 0
-  for (let index = 0; index < recalls.length; index++) {
-    if (recalls[index].modelName.includes(targetedModelName)) {
-      similarModelCount++
-    }
-  }
-
-  if (similarModelCount > 1) {
-    return true
-  }
-  return false
-}
-
-function BuildSimilarModelsString (recalls, targetedModelName) {
-  if (Array.isArray(recalls)) {
-    let similarModels = []
-
-    for (let index = 0; index < recalls.length; index++) {
-      if (recalls[index].modelName.includes(targetedModelName)) {
-        similarModels.push(recalls[index].modelName)
-      }
-    }
-
-    let uniqueModels = [...new Set(similarModels)]
-
-    return `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or ' : '')}${uniqueModels.slice(-1)[0]}`
-  }
-}
-
 // TODO: Move this to business service.
-async function GetRecallsDetails (recalls) {
-  console.log('function: GetRecalls')
 
+/**
+ * Gets the recall datails for each recall
+ *
+ * @param {*} recalls
+ * @returns array of recalls
+ */
+async function GetRecallsDetails (recalls, locale) {
   let recallsDetails = []
-  // get
   for (let i = 0; i < recalls.length; i++) {
-    let details = await RECALL_API.GetRecallDetails(recalls[i].recallNumber)
+    let details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale)
 
     recallsDetails.push(details)
   }
   return recallsDetails
 }
 
-class VehicleRecallSpeakText {
-  constructor () {
-    this.result = ''
-    this.overview = ''
-    this.description = ''
-    this.followUpQuestion = ''
-    this.followUpQuestionEnum = null
-    this.hasfollowUpQuestion = false
-
-    this.year = ''
-    this.make = ''
-    this.model = ''
-    this.recalls = []
-    this.currentIndex = 0
-  }
-
-  static get Builder () {
-    class Builder {
-      constructor ({ year, make, model, recalls, recallsSummaries, currentIndex, requestAttributes }) {
-        this.year = year
-        this.make = make
-        this.model = model
-        this.recallsSummaries = recallsSummaries
-        this.recalls = recalls
-        this.currentIndex = currentIndex
-        this.followUpQuestion = ''
-        this.followUpQuestionEnum = null
-        this.hasfindings = false
-        this.hasOverviewText = false
-        this.hasdetails = false
-        this.hasfollowUpQuestion = false
-        this.requestAttributes = requestAttributes
-        this.userAction = false
-        this.searchFindings = SEARCH_FINDINGS.SearchNotConducted
-        this.conversation = null
-      }
-
-      withConversation (conversation) {
-        this.conversation = conversation
-        return this
-      }
-
-      withFindings () {
-        if (this.recalls.length === 0) {
-          this.searchFindings = SEARCH_FINDINGS.NoRecallsFound
-          this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_NONE`)
-        } else {
-          if (hasSimilarModelsAffectedByRecall(this.recalls, this.model) &&
-               (this.userAction !== 'undefined' && this.userAction !== USER_ACTION.ResolvingAmbiguousModel)) {
-            this.searchFindings = SEARCH_FINDINGS.AmbigiousModelFound
-            this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL`)
-              .replace('%VehicleRecallYear%', this.year)
-              .replace('%VehicleRecallMake%', this.make)
-              .replace('%VehicleRecallModel%', this.model)
-          } else {
-            if (this.recalls.length === 1) {
-              this.searchFindings = SEARCH_FINDINGS.SingleRecallFound
-              this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_ONE`)
-                .replace('%VehicleRecallYear%', this.year)
-                .replace('%VehicleRecallMake%', this.make)
-                .replace('%VehicleRecallModel%', this.model)
-                .replace('%SentSMSMsg%', this.conversation.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
-            } else if (this.recalls.length > 1) {
-              this.searchFindings = SEARCH_FINDINGS.MultipleRecallsFound
-              this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_MULTIPLE`)
-                .replace('%RecallCount%', this.recalls.length)
-                .replace('%VehicleRecallYear%', this.year)
-                .replace('%VehicleRecallMake%', this.make)
-                .replace('%VehicleRecallModel%', this.model)
-                .replace('%SentSMSMsg%', this.conversation.sendSMS ? this.requestAttributes.t(`VEHICLE_RECALLS_SENT_SMS`) : '')
-            } else if (this.recalls.length > 99999) {
-              this.searchFindings = SEARCH_FINDINGS.NonValidModelFound
-              this.findings = this.requestAttributes.t(`VEHICLE_RECALLS_FOUND_NON_VALID`)
-                .replace('%VehicleRecallYear%', this.year)
-                .replace('%VehicleRecallMake%', this.make)
-                .replace('%VehicleRecallModel%', this.model)
-            }
-          }
-        }
-
-        console.log(this.findings)
-        this.hasfindings = true
-        return this
-      }
-      withIntro (includeIntro) {
-        if (includeIntro) {
-          this.overview = this.requestAttributes.t(`VEHICLE_RECALL_READING_INTRO_USAGE`)
-          this.hasOverviewText = true
-        }
-        return this
-      }
-      withDetails () {
-        if (this.recalls.length > 0) {
-          this.details = this.requestAttributes.t(`VEHICLE_DETAILS_MSG`)
-            .replace('%VehicleRecallDate%', this.recallsSummaries[this.currentIndex].recallDate)
-            .replace('%VehicleRecallComponent%', this.recallsSummaries[this.currentIndex].componentType)
-            .replace('%VehicleRecallDetails%', this.recallsSummaries[this.currentIndex].description)
-
-          this.hasdetails = true
-        }
-        return this
-      }
-      withFollowUpQuestion (convoContext) {
-        switch (convoContext) {
-          case CONVERSATION_CONTEXT.ReadingRecallState:
-            if (this.recalls.length !== 0) {
-              if (this.currentIndex === this.recalls.length - 1) {
-                this.followUpQuestion = this.requestAttributes
-                  .t(`VEHICLE_RECALLS_END_MSG`)
-                  .replace('%VehicleRecallYear%', this.year)
-                  .replace('%VehicleRecallMake%', this.make)
-                  .replace('%VehicleRecallModel%', this.model)
-                this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeTheRecallInformationRepeated
-              } else {
-                this.followUpQuestion = this.requestAttributes.t(`VEHCILE_RECALLS_FOLLOW_UP_QUESTION_LISTEN_TO_NEXT_RECALL_MSG`)
-                this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToHearTheNextRecall
-              }
-            } else {
-              this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
-              this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
-            }
-            break
-          case CONVERSATION_CONTEXT.GettingSearchResultFindingsState:
-
-            if (this.recalls.length === 0) {
-              this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
-              this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
-            } else {
-              if (hasSimilarModelsAffectedByRecall(this.recalls, this.model) &&
-               (this.userAction !== 'undefined' && this.userAction !== USER_ACTION.ResolvingAmbiguousModel)) {
-                this.followUpQuestion = this.requestAttributes
-                  .t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL`)
-                  .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.model))
-                this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.VEHICLE_IsItModelAOrModelB
-              } else {
-                if (this.recalls.length === 1) {
-                  this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE`)
-                  this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToMeReadTheRecall
-                } else if (this.recalls.length > 1) {
-                  this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE`)
-                  this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToMeReadTheRecall
-                } else if (this.recalls.length > 99999) {
-                  this.followUpQuestion = this.requestAttributes.t(`VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NON_VALID`)
-                  this.followUpQuestionEnum = SearchVehicleRecallIntentYesNoQuestions.WouldYouLikeToSearchForAnotherRecall
-                }
-              }
-            }
-            break
-          default:
-            break
-        }
-
-        this.hasfollowUpQuestion = true
-        console.log(this.followUpQuestion)
-        return this
-      }
-
-      withUserAction (userAction) {
-        this.userAction = userAction
-        return this
-      }
-
-      speech () {
-        console.log('speech', this.findings + this.overview + this.details + this.followUpQuestion)
-
-        let msg = ''
-        if (this.hasfindings) {
-          msg += this.findings
-        }
-        if (this.hasOverviewText) {
-          msg += this.overview
-        }
-        if (this.hasdetails) {
-          msg += this.details
-        }
-        if (this.hasfollowUpQuestion) {
-          msg += this.followUpQuestion
-        }
-
-        return msg
-      }
-      build () {
-        return new VehicleRecallSpeakText(this)
-      }
-    }
-    return Builder
-  }
-}
-
-
-
 module.exports = {
   InProgress: InProgressSearchForVehicleRecallIntentHandler,
   ComfirmedCompleted: ComfirmedCompletedSearchForVehicleRecallIntentHandler,
   DeniedCompleted: DeniedCompletedSearchForVehicleRecallIntentHandler,
-  ReadVehicleRecallDetails: ReadVehicleRecallHandler,
-  ResolveAmbigiousVehicleModelHandler,
-  SearchForAnotherRecallHandler: GetSearchForAnotherRecallQuestionHandler,
-  SearchForNewVehicleRecallHandler,
-  MoveToNextRecallHandler
+  ReadVehicleRecallDetails: ReadVehicleRecallDetailsHandler,
+  SearchForAnotherRecallHandler: AskWouldYouLikeToSearchForAnotherRecallHandler,
+  SearchForNewVehicleRecallHandler: AskTellMeYourMakeHandler,
+  MoveToNextRecallHandler,
+  MoveToPreviousRecallHandler,
+  AmbigiousHandler
 }
