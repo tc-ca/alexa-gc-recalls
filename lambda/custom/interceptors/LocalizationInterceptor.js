@@ -1,6 +1,6 @@
 'use strict'
 
-const i18n = require('i18next') 
+const i18n = require('i18next')
 const sprintf = require('i18next-sprintf-postprocessor')
 
 const languageStrings = {
