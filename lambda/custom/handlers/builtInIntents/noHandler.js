@@ -3,11 +3,13 @@
 const HANDLERS = {
   VehicleRecallHandler: require('../customIntents/searchForVehicleRecallHandler'),
   RestartSearchForRecallHandler: require('./startOverHandler'),
-  CancelAndStopHandler: require('./cancelAndStopHandler')
+  CancelAndStopHandler: require('./cancelAndStopHandler'),
+  ErrorHandler: require('../builtInIntents/errorHandler')
+
 }
-// Enums
-const SESSION_KEYS = require('../../constants').sessionKeys
-const QUESTION = require('../../constants').FollowUpQuestions
+
+const SESSION_KEYS = require('../../constants').SESSION_KEYS
+const QUESTION = require('../../constants').FOLLOW_UP_QUESTIONS
 
 const NoIntentHandler = {
   canHandle (handlerInput) {
@@ -26,8 +28,8 @@ const NoIntentHandler = {
         switch (vehicleConversation.followUpQuestionCode) {
           case QUESTION.WouldYouLikeToMeReadTheRecall:
             return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
-          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
 
+          case QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.CancelAndStopHandler.handle(handlerInput)
 
           default:
@@ -35,10 +37,8 @@ const NoIntentHandler = {
         }
         break
       case 'ReadVehicleRecallHandler':
-
         switch (vehicleConversation.followUpQuestionCode) {
           case QUESTION.WouldYouLikeToHearTheNextRecall:
-
             return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
 
           case QUESTION.WouldYouLikeTheRecallInformationRepeated:
@@ -46,12 +46,14 @@ const NoIntentHandler = {
 
           case QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+
           default:
             break
         }
         break
       case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
         return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+
       case 'GetSearchForAnotherRecallQuestionHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case QUESTION.WouldYouLikeToSearchForAnotherRecall:
@@ -59,7 +61,7 @@ const NoIntentHandler = {
         }
         break
       default:
-        break
+        return HANDLERS.ERROR_HANDLER.CommandOutOfContextHandler.handle(handlerInput)
     }
   }
 }
