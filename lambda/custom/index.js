@@ -6,16 +6,19 @@ const Alexa = require('ask-sdk-core')
 const loglessClient = require('logless-client')
 
 const HANDLERS = {
-  'LaunchRequest': require('./handlers/launchIntent/launchRequestHandler'),
-  'SearchForVehicleRecall': require('./handlers/customIntents/searchForVehicleRecallHandler'),
-  'Yes': require('./handlers/builtInIntents/yesHandler'),
-  'No': require('./handlers/builtInIntents/noHandler'),
-  'CancelAndStop': require('./handlers/builtInIntents/cancelAndStopHandler'),
-  'Next': require('./handlers/builtInIntents/nextHandler'),
-  'StartOver': require('./handlers/builtInIntents/startOverHandler'),
-  'Help': require('./handlers/builtInIntents/helpHandler'),
-  'Error': require('./handlers/builtInIntents/errorHandler'),
-  'SessionEnded': require('./handlers/builtInIntents/sessionEndedHandler')
+  LaunchRequest: require('./handlers/launchIntent/launchRequestHandler'),
+  SearchForVehicleRecall: require('./handlers/customIntents/searchForVehicleRecallHandler'),
+  Yes: require('./handlers/builtInIntents/yesHandler'),
+  No: require('./handlers/builtInIntents/noHandler'),
+  CancelAndStop: require('./handlers/builtInIntents/cancelAndStopHandler'),
+  Next: require('./handlers/builtInIntents/nextHandler'),
+  Previous: require('./handlers/builtInIntents/previousHandler'),
+  StartOver: require('./handlers/builtInIntents/startOverHandler'),
+  Help: require('./handlers/builtInIntents/helpHandler'),
+  Error: require('./handlers/builtInIntents/errorHandler'),
+  SessionEnded: require('./handlers/builtInIntents/sessionEndedHandler'),
+  Fallback: require('./handlers/builtInIntents/fallbackHandler'),
+  repeat: require('./handlers/builtInIntents/repeatHandler')
 }
 
 const INTERCEPTORS = {
@@ -31,16 +34,20 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.SearchForVehicleRecall.InProgress,
     HANDLERS.SearchForVehicleRecall.ComfirmedCompleted,
     HANDLERS.SearchForVehicleRecall.DeniedCompleted,
-    HANDLERS.Next,
+    HANDLERS.Next.NextIntentHandler,
+    HANDLERS.Next.NextIntentHandlerOutOfContext,
+    HANDLERS.Previous,
     HANDLERS.StartOver,
-    HANDLERS.Help,
+    HANDLERS.Help.HelpIntentHandler,
     HANDLERS.CancelAndStop,
     HANDLERS.SessionEnded,
     HANDLERS.Yes,
-    HANDLERS.No
+    HANDLERS.No,
+    HANDLERS.Fallback,
+    HANDLERS.repeat
   )
   .addRequestInterceptors(INTERCEPTORS.Localization, INTERCEPTORS.LogInterceptor.RequestLog)
   .addResponseInterceptors(INTERCEPTORS.LogInterceptor.CurrentIntentLocationLog)
-  .addErrorHandlers(HANDLERS.Error)
+  .addErrorHandlers(HANDLERS.Error.ErrorHandler)
   .withApiClient(new Alexa.DefaultApiClient())
   .lambda())
