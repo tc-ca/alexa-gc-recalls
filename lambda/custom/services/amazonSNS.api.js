@@ -7,7 +7,7 @@ AWS.config.update({ region: 'us-east-1' })
 
 function SendSMS ({ message, phoneNumber }) {
   const params = {
-    Message: 'this is being sent from a machine, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/detail.aspx?lang=eng&rn=2018631', /* required */
+    Message: message, /* required */
     PhoneNumber: `+1${phoneNumber}`
   }
 
