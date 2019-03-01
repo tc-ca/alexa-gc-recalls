@@ -6,7 +6,10 @@ const FallbackHandler = {
           handlerInput.requestEnvelope.request.intent.name === 'AMAZON.FallbackIntent'
   },
   handle (handlerInput) {
-    const speechText = 'You can say hello to me!'
+    const { attributesManager } = handlerInput
+    const requestAttributes = attributesManager.getRequestAttributes()
+
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
