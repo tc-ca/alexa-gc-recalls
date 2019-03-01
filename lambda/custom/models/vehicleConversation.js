@@ -1,9 +1,9 @@
-const SEARCH_FINDINGS = require('../constants').VehicleSearchFindings
-const CONVERSATION_CONTEXT = require('../constants').VehicleConversationContext
-const FOLLOW_UP_QUESTIONS = require('../constants').FollowUpQuestions
+const SEARCH_FINDINGS = require('../constants').VEHICLE_SEARCH_FINDINGS
+const CONVERSATION_CONTEXT = require('../constants').VEHICLE_CONVERSATION_CONTEXT
+const FOLLOW_UP_QUESTIONS = require('../constants').FOLLOW_UP_QUESTIONS
 
 module.exports = class VehicleConversation {
-  constructor () {
+  constructor (obj = {}) {
     this.result = ''
     this.overview = ''
     this.description = ''
@@ -16,6 +16,8 @@ module.exports = class VehicleConversation {
     this.model = ''
     this.recalls = []
     this.currentIndex = 0
+
+    obj && Object.assign(this, obj)
   }
 
   static get Builder () {
@@ -88,7 +90,7 @@ module.exports = class VehicleConversation {
 
       withIntro (includeIntro) {
         if (includeIntro) {
-          this.overview = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALL_READING_INTRO`)
+          this.overview = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO`)
           this.hasOverviewText = true
         }
         return this
@@ -99,15 +101,18 @@ module.exports = class VehicleConversation {
         }
         return this
       }
-      withDetails () {
-        if (this.recalls.length > 0) {
-          this.details = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALL_READING_DETAILS`)
-            .replace('%VehicleRecallDate%', this.recallsSummaries[this.currentIndex].recallDate)
-            .replace('%VehicleRecallComponent%', this.recallsSummaries[this.currentIndex].componentType)
-            .replace('%VehicleRecallDetails%', this.recallsSummaries[this.currentIndex].description)
+      withDetails (shouldReadDetails = true) {
+        if (shouldReadDetails) {
+          if (this.recalls.length > 0) {
+            this.details = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS`)
+              .replace('%VehicleRecallDate%', this.recallsSummaries[this.currentIndex].recallDate)
+              .replace('%VehicleRecallComponent%', this.recallsSummaries[this.currentIndex].componentType)
+              .replace('%VehicleRecallDetails%', this.recallsSummaries[this.currentIndex].description)
 
-          this.hasdetails = true
+            this.hasdetails = true
+          }
         }
+
         return this
       }
       withFollowUpQuestion (convoContext) {
@@ -116,7 +121,7 @@ module.exports = class VehicleConversation {
             if (this.recalls.length !== 0) {
               if (this.currentIndex === this.recalls.length - 1) {
                 this.followUpQuestion = this.requestAttributes
-                  .t(`SPEECH_TXT_VEHICLE_RECALL_READING_DONE`)
+                  .t(`SPEECH_TXT_VEHICLE_RECALLS_READING_DONE`)
                   .replace('%VehicleRecallYear%', this.year)
                   .replace('%VehicleRecallMake%', this.make)
                   .replace('%VehicleRecallModel%', this.model)
