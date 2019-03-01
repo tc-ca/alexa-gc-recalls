@@ -7,7 +7,7 @@ const MODELS = {
   PhoneNumber: require('../../models/phoneNumber') }
 
 // Required constants
-const SESSION_KEYS = require('../../constants').sessionKeys
+const SESSION_KEYS = require('../../constants').SESSION_KEYS
 
 // Profile specific constants
 const PROFILE = {
