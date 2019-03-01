@@ -1,6 +1,6 @@
 'use strict'
 
-const SESSION_KEYS = require('../../constants').sessionKeys
+const SESSION_KEYS = require('../../constants').SESSION_KEYS
 
 const CancelAndStopIntentHandler = {
   canHandle (handlerInput) {
