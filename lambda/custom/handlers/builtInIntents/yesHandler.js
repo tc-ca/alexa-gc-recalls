@@ -2,13 +2,14 @@
 
 const HANDLERS = {
   VehicleRecallHandler: require('../customIntents/searchForVehicleRecallHandler'),
-  RestartSearchForRecallHandler: require('./StartOverHandler')
+  RestartSearchForRecallHandler: require('./startOverHandler'),
+  ErrorHandler: require('../builtInIntents/errorHandler')
 }
 
 // CONSTANTS
-const USER_ACTION = require('../../constants').userAction
-const SESSION_KEYS = require('../../constants').sessionKeys
-const FOLLOW_UP_QUESTION = require('../../constants').FollowUpQuestions
+const USER_ACTION = require('../../constants').USER_ACTION
+const SESSION_KEYS = require('../../constants').SESSION_KEYS
+const FOLLOW_UP_QUESTION = require('../../constants').FOLLOW_UP_QUESTIONS
 
 /**
  * Yes Handler acts like a controller and routes to approriate handler
@@ -25,7 +26,6 @@ const YesIntentHandler = {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
 
-    // TODO: make vehicle convo into own class
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
     switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
       case 'SearchForVehicleRecallIntent':
@@ -69,7 +69,7 @@ const YesIntentHandler = {
         }
         break
       default:
-        break
+        return HANDLERS.ErrorHandler.CommandOutOfContextHandler.handle(handlerInput)
     }
   }
 }
