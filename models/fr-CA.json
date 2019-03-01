@@ -27,25 +27,31 @@
               "type": "VehicleMakeType",
               "samples": [
                 "{VehicleMakeType}",
-                "It's a {VehicleMakeType}"
+                "j'ai un {VehicleMakeType}",
+                "j'ai une {VehicleMakeType}",
+                "c'est une {VehicleMakeType}",
+                "c'est un {VehicleMakeType}"
               ]
             },
             {
               "name": "VehicleModelType",
               "type": "VehicleModelType",
               "samples": [
-                "{VehicleModelType}",
-                "It's an {VehicleModelType}",
-                "It's a {VehicleModelType}"
+                "j'ai un {VehicleModelType}",
+                "j'ai une {VehicleModelType}",
+                "c'est une {VehicleModelType}",
+                "c'est un {VehicleModelType}",
+                "{VehicleModelType}"
               ]
             },
             {
               "name": "year",
               "type": "AMAZON.NUMBER",
               "samples": [
-                "It's a {year}",
-                "{year}",
-                "It's {year}"
+                "c'est {year}",
+                "c'est une {year}",
+                "c'est un {year}",
+                "{year}"
               ]
             }
           ],
