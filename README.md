@@ -3,6 +3,9 @@
 
 
 
+
+
+
 **alexa-gc-recalls** is a research project exploring how government services can be provided through voice interface. 
 
 ## Origin
@@ -13,5 +16,3 @@ This project got its start through the Government’s OneGC Program Office which
 
 This Skill leverages [Open Data API](https://open.canada.ca/data/en/dataset/1ec92326-47ef-4110-b7ca-959fab03f96d) to retrieve vehicle recall information which can be query by users through Alexa. 
 
-## Example Phrases
-- "Alexa find my recalls"
