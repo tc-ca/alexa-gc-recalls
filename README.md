@@ -3,13 +3,11 @@
 
 
 
-## Project Overview
-
 **alexa-gc-recalls** is a research project exploring how government services can be provided through voice interface. 
 
 ## Origin
 
-This project got its start through the Government’s OneGC Program Office which hosted an Alexa proof-of-concept [proof-of-concept](https://www.youtube.com/watch?v=jkA7NmMNpl4) for period of two weeks.
+This project got its start through the Government’s OneGC Program Office which hosted an Alexa [proof-of-concept](https://www.youtube.com/watch?v=jkA7NmMNpl4) for period of two weeks.
 
 ## Data Source
 
