@@ -11,6 +11,11 @@ The Skill allows users to look up vehicle recall information found on Transport 
 ## Origin
 
 This project got its start through the Government’s OneGC Program Office which hosted an Alexa [proof-of-concept](https://www.youtube.com/watch?v=jkA7NmMNpl4) for period of two weeks.
+* Proof-of-Concept
+  * [Lessons Learned](https://wiki.gccollab.ca/Lessons_learned_-_OneGC_Alexa_Proof-of-Concept)
+  * [Source Code](https://github.com/canada-ca/alexapoc-vdpalexa)
+  * [Wiki ](https://github.com/canada-ca/alexapoc-vdpalexa/wiki)
+
 
 ## Data Source
 
