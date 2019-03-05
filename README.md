@@ -7,7 +7,7 @@
 
 
 **alexa-gc-recalls** is a research project exploring how government services can be provided through voice interface. 
-
+The Skill allows users to look up vehicle recall information found on Transport Canada [Safety Recalls website](http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/menu.aspx?lang=eng) through Alexa.
 ## Origin
 
 This project got its start through the Government’s OneGC Program Office which hosted an Alexa [proof-of-concept](https://www.youtube.com/watch?v=jkA7NmMNpl4) for period of two weeks.
