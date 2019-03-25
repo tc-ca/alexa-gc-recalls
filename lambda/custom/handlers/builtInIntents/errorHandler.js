@@ -7,10 +7,12 @@ const ErrorHandler = {
     const requestAttributes = attributesManager.getRequestAttributes()
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE')
     console.log(`Error handled: ${error.message}`)
+    console.log(`Stack: ${error.stack}`)
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
+      .withShouldEndSession(true)
       .getResponse()
   }
 }
