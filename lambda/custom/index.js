@@ -18,7 +18,12 @@ const HANDLERS = {
   Error: require('./handlers/builtInIntents/errorHandler'),
   SessionEnded: require('./handlers/builtInIntents/sessionEndedHandler'),
   Fallback: require('./handlers/builtInIntents/fallbackHandler'),
-  repeat: require('./handlers/builtInIntents/repeatHandler')
+  repeat: require('./handlers/builtInIntents/repeatHandler'),
+  getVehicleMakeAndModel: require('./handlers/customIntents/getVehicleMakeAndModelHandler'),
+  getVehicleYear: require('./handlers/customIntents/getVehicleYearHandler'),
+  getvehicleModel: require('./handlers/customIntents/resolveAmbigiousVehicleModelHandler'),
+  getVehicleMake: require('./handlers/customIntents/getVehicleMakeHandler')
+
 }
 
 const INTERCEPTORS = {
@@ -30,10 +35,15 @@ const skillBuilder = Alexa.SkillBuilders.custom()
 exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc10e60', skillBuilder
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
-    HANDLERS.SearchForVehicleRecall.AmbigiousHandler,
-    HANDLERS.SearchForVehicleRecall.InProgress,
-    HANDLERS.SearchForVehicleRecall.ComfirmedCompleted,
-    HANDLERS.SearchForVehicleRecall.DeniedCompleted,
+    HANDLERS.getVehicleMakeAndModel.InProgress,
+    HANDLERS.getVehicleMakeAndModel.Completed,
+    HANDLERS.getVehicleYear.InProgress,
+    HANDLERS.getVehicleYear.Completed,
+    HANDLERS.getvehicleModel.ResolveAmbigiousVehicleModelIntentHandler,
+    HANDLERS.getvehicleModel.CollectModelLastIntentHandler,
+    HANDLERS.getvehicleModel.CollectModelFirstIntentHandler,
+    HANDLERS.getVehicleMake.InProgressCollectMakeIntentHandler,
+    HANDLERS.getVehicleMake.CompletedCollectMakeIntentHandler,
     HANDLERS.Next.NextIntentHandler,
     HANDLERS.Next.NextIntentHandlerOutOfContext,
     HANDLERS.Previous,
@@ -43,8 +53,9 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.SessionEnded,
     HANDLERS.Yes,
     HANDLERS.No,
-    HANDLERS.Fallback,
-    HANDLERS.repeat
+    HANDLERS.repeat,
+    HANDLERS.Fallback
+
   )
   .addRequestInterceptors(INTERCEPTORS.Localization, INTERCEPTORS.LogInterceptor.RequestLog)
   .addResponseInterceptors(INTERCEPTORS.LogInterceptor.CurrentIntentLocationLog)
