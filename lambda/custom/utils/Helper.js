@@ -21,6 +21,7 @@ function GetSlotValues (filledSlots) {
             slotValues[name] = {
               synonym: filledSlots[item].value,
               resolved: filledSlots[item].resolutions.resolutionsPerAuthority[0].values[0].value.name,
+              id: filledSlots[item].resolutions.resolutionsPerAuthority[0].values[0].value.id,
               isValidated: true,
               resolvedValues: valueNames
             }
