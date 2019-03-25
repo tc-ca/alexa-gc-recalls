@@ -113,14 +113,16 @@ module.exports = Object.freeze({
     WouldYouLikeToMeReadTheRecall: 4,
     WouldYouLikeTheRecallInformationRepeated: 5,
     VEHICLE_IsItModelAOrModelB: 6,
-    VEHICLE_MODEL_NON_VALID_WhatIsYourVehicleModel: 7
+    ARE_YOU_LOOKING_FOR_VEHICLE_X: 7,
+    WOULD_YOU_LIKE_HELP: 8
 
   },
 
   // Describes the vehicle recall interaction context, Alexa follow up questions to the user differ based on the below states.
   VEHICLE_CONVERSATION_CONTEXT: {
-    GettingSearchResultFindingsState: 0, // inital state, Alexa searching for for recalls
-    ReadingRecallState: 1 // Alexa is reading the recall
+    ComfirmingMakeModelYear: 0,
+    GettingSearchResultFindingsState: 1, // inital state, Alexa searching for for recalls
+    ReadingRecallState: 2 // Alexa is reading the recall
   },
 
   // Describes the recall API search result findings
@@ -129,7 +131,7 @@ module.exports = Object.freeze({
     NoRecallsFound: 0,
     SingleRecallFound: 1,
     MultipleRecallsFound: 2,
-    NonValidModelFound: 3,
+    NonValidMakeOrModelFound: 3,
     AmbigiousModelFound: 4
   },
 
@@ -139,8 +141,13 @@ module.exports = Object.freeze({
     UserAction: 'UserAction', // desribes what action the end user has undertaken.
     CurrentIntentLocation: 'CurrentIntentLocation', // like a breadcrumb trail, last intent to be excuted.
     VehicleConversation: 'VehicleConversation', // holds the vehicle convo obj
-    GeneralConversation: 'GeneralConversation', // holds the general convo obj
-    VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 'VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT'
+    VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 'VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT',
+    VEHICLE_MAKE_MODEL_SLOTS: 'VEHICLE_MAKE_MODEL_SLOTS',
+    VEHICLE_YEAR_SLOT: 'VEHICLE_YEAR_SLOT',
+    VEHICLE: 'VEHICLE',
+    VEHICLE_MAKE: 'MAKE',
+    VEHICLE_MODEL: 'MODEL',
+    VEHICLE_YEAR: 'YEAR'
 
   }
 
