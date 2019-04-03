@@ -1,7 +1,7 @@
 'use strict'
 const HELPER = require('../../utils/helper')
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
-const Vehicle = require('../../models/vehicleConversation')
+const Vehicle = require('../../models/vehicle')
 
 const InProgressGetVehicleMakeAndModelIntentHandler = {
   canHandle (handlerInput) {
@@ -28,8 +28,39 @@ const InProgressGetVehicleMakeAndModelIntentHandler = {
     })
 
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = make
-    sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = model
+    sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = model
 
+    // ambigious model, go get some context
+    switch (slotValues.make.id) {
+      case 'BMW':
+
+        switch (slotValues.model.id) {
+          case '323':
+
+            // need to go back to Alexa engine to resolve value to correct entity.
+            return handlerInput.responseBuilder
+              .addDelegateDirective({
+                name: 'GetBMWModelIntent',
+                confirmationStatus: 'NONE',
+                slots: {}
+              })
+              .getResponse()
+          // if model has not been given go into the specific intent to get context awareness
+          case undefined:
+            return handlerInput.responseBuilder
+              .addDelegateDirective({
+                name: 'GetBMWModelIntent',
+                confirmationStatus: 'NONE',
+                slots: {}
+              })
+              .getResponse()
+          default:
+            break
+        }
+
+        break
+      default:
+    }
     return handlerInput.responseBuilder
       .addDelegateDirective(handlerInput.requestEnvelope.request.intent) // makes alexa prompt for required slots.
       .getResponse()
