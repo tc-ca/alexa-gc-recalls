@@ -2,7 +2,7 @@
 
 const HELPER = require('../../utils/helper')
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
-const Vehicle = require('../../models/vehicleConversation')
+const Vehicle = require('../../models/vehicle')
 
 const InProgressCollectMakeIntentHandler = {
   canHandle (handlerInput) {
