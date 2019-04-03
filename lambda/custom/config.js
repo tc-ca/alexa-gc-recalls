@@ -1,5 +1,7 @@
 module.exports = Object.freeze({
-  // Alexa Skill ID
-  MAX_SEARCH_ATTEMPS: 3
+  // max search attempt before help is prompted to the user.
+  MAX_SEARCH_ATTEMPS: 1,
+  // ignore specifcied recalls (must be uppercased)
+  IGNORE_RECALLS_TYPE: ['SUPERSEDED', 'INCONSEQUENTIAL']
 
 })
