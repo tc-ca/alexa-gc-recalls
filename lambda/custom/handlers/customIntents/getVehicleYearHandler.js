@@ -1,7 +1,7 @@
 'use strict'
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const HELPER = require('../../utils/helper')
-const Vehicle = require('../../models/vehicleConversation')
+const Vehicle = require('../../models/vehicle')
 
 const HANDLERS = {
   Confirm: require('./comfirmVehicleModelMakeYearHandler')
@@ -41,4 +41,30 @@ const CompletedGetVehicleYearIntentHandler = {
     return HANDLERS.Confirm.comfirmVehicleMakeModelYearHandler.handle(handlerInput)
   }
 }
-module.exports = { InProgress: InProgressGetVehicleYearIntentHandler, Completed: CompletedGetVehicleYearIntentHandler }
+
+const CompletedGetVehicleYearButMakeModelNotProvidedIntentHandler = {
+  canHandle (handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+          handlerInput.requestEnvelope.request.intent.name === 'GetVehicleYearIntent' &&
+          handlerInput.requestEnvelope.request.dialogState === 'COMPLETED' &&
+          !handlerInput.requestEnvelope.session.attributes.VEHICLE_MAKE &&
+          !handlerInput.requestEnvelope.session.attributes.VEHICLE_MODEL
+  },
+  async handle (handlerInput) {
+    const { attributesManager } = handlerInput
+
+    const requestAttributes = attributesManager.getRequestAttributes()
+
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED')
+    return handlerInput.responseBuilder
+      .addDelegateDirective({
+        name: 'GetVehicleMakeAndModelIntent',
+        confirmationStatus: 'NONE',
+        slots: {}
+      })
+      .speak(speechText)
+      // .withSimpleCard('Canadian Safety Recalls') // TODO: should we keep this simple card?
+      .getResponse()
+  }
+}
+module.exports = { InProgress: InProgressGetVehicleYearIntentHandler, Completed: CompletedGetVehicleYearIntentHandler, CompletedNotCompleted: CompletedGetVehicleYearButMakeModelNotProvidedIntentHandler }
