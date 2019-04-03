@@ -21,7 +21,10 @@ const PHONEMES = {
 module.exports = {
   translation: {
     // LAUNCH STRING
-    SPEECH_TXT_VEHICLE_WELCOME_MSG: `Hello! I'm your Canadian Safety ${PHONEMES.recalls} Assistant. I can help you find vehicle ${PHONEMES.recall} information.`,
+    SPEECH_TXT_VEHICLE_WELCOME_MSG: [
+      `Hello! I'm your Canadian Safety ${PHONEMES.recalls} Assistant. I can help you find vehicle ${PHONEMES.recall} information. Let's get started.`,
+      `Hi there! I'm your Canadian Safety ${PHONEMES.recalls} Assistant, and I can help you find your vehicle ${PHONEMES.recall}information. Let's start.`
+    ],
     // LAUNCH REPROMPT
     SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `What brand makes your model?`,
 
@@ -44,7 +47,6 @@ module.exports = {
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `Would you like me to read it to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `Would you like me to read it to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Is yours a ${AMBIGIOUS_MODELS} or none of these?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND__NON_VALID: `Would you like to me run a new vehicle ${PHONEMES.recall} search?`,
 
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `While I'm reading you the ${PHONEMES.recall} information, at any point you can skip to the next ${PHONEMES.recall} by saying "Alexa skip". `,
@@ -64,9 +66,12 @@ module.exports = {
     SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER} for more help.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?`,
     SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER} for more help. GoodBye.`,
+    SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `sorry, that was not the information I was looking for`,
 
     // SMS MESSAGE
-    VEHICLE_RECALL_TEXT_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has ${RECALL_COUNT} recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`
+    VEHICLE_RECALL_TEXT_FOUND_ONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has 1 recall. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
+    VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has ${RECALL_COUNT} recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
+    VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has 0 recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`
 
   }
 }
