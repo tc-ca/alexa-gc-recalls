@@ -20,9 +20,9 @@ const PhoneNumber = require('../../models/user').PhoneNumber
 const Email = require('../../models/user').Email
 
 const SERVICES = {
-  TC_RECALLS_API: require('../../services/transportSafetyRecalls.api'),
+  TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
   ALEXA_DIRECTIVES_API: require('../../services/alexaDirective.api'),
-  AMAZON_SNS_API: require('../../services/amazon.sns.publishsms.api'),
+  AMAZON_SNS_API: require('../../services/amazon.sns.api'),
   ALEXA_PROFILE_API: require('../../services/alexaProfile.api')
 }
 
