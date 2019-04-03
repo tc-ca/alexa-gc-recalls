@@ -10,17 +10,19 @@ const StartOverIntentHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
-    const requestAttributes = attributesManager.getRequestAttributes()
-
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.StartOverIntent'
 
-    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_TELL_ME_YOUR_MAKE')
+    sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = null
+    sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = null
+    sessionAttributes[SESSION_KEYS.VEHICLE_YEAR] = null
 
     return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      // .withSimpleCard('Hello World', speechText)
-      .withShouldEndSession(false)
+      .addDelegateDirective({
+        name: 'GetVehicleMakeAndModelIntent',
+        confirmationStatus: 'NONE',
+        slots: {}
+      })
+    //  .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }
