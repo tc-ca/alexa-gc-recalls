@@ -1,6 +1,6 @@
 'use strict'
 
-const Vehicle = require('../../models/vehicleConversation')
+const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 
 const HANDLERS = {
   VehicleRecallHandler: require('../customIntents/searchForVehicleRecallHandler'),
@@ -30,7 +30,7 @@ const YesIntentHandler = {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
 
-    const vehicleConversation = new Vehicle.VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+    const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
       case 'SearchForVehicleRecallIntent':
@@ -74,9 +74,15 @@ const YesIntentHandler = {
             return HANDLERS.HelpHandler.GetHelpHandler.handle(handlerInput)
         }
         break
-      case 'GetSearchForAnotherRecallQuestionHandler':
+      case 'SearchForAnotherRecallHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
+            return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
+        }
+        break
+      case 'SearchAgainRecallHandler':
+        switch (vehicleConversation.followUpQuestionCode) {
+          case FOLLOW_UP_QUESTION.WouldYouLikeToTryAndSearchAgain:
             return HANDLERS.VehicleRecallHandler.SearchForNewVehicleRecallHandler.handle(handlerInput)
         }
         break
