@@ -1,12 +1,14 @@
 'use strict'
 
-const Vehicle = require('../../models/vehicleConversation')
+const VehicleConversation = require('../../models/vehicleRecallConversation')
+const Vehicle = require('../../models/vehicle')
+
 const CONVERSATION_CONTEXT = require('../../constants').VEHICLE_CONVERSATION_CONTEXT
 
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 
 const comfirmVehicleMakeModelYearHandler = {
-  handle (handlerInput) {
+  async handle (handlerInput) {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
     const sessionAttributes = attributesManager.getSessionAttributes()
@@ -17,11 +19,16 @@ const comfirmVehicleMakeModelYearHandler = {
 
     const vehicle = new Vehicle.Vehicle({ make: make, model: model, year: year })
 
-    const VehicleRecallConversation = new Vehicle.ConversationContextBuilder({ vehicle: vehicle, requestAttributes: requestAttributes })
+    const VehicleRecallConversation = new VehicleConversation.ConversationContextBuilder({ vehicle: vehicle, requestAttributes: requestAttributes })
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.ComfirmingMakeModelYear })
-      .build()
+      .buildSpeech()
 
-    let speechText = VehicleRecallConversation.speech()
+    const speechText = VehicleRecallConversation.getSpeechText()
+
+    const simepleCard = requestAttributes.t(`SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
+      .replace('%VehicleRecallYear%', year.slotValue)
+      .replace('%VehicleRecallMake%', make.slotValue)
+      .replace('%VehicleRecallModel%', model.slotValue)
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
@@ -29,7 +36,7 @@ const comfirmVehicleMakeModelYearHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-    // .withSimpleCard('Canadian Safety Recalls') // TODO: should we keep this simple card?
+      .withSimpleCard(simepleCard) // TODO: should we keep this simple card?
       .withShouldEndSession(false)
       .getResponse()
   }
