@@ -107,14 +107,15 @@ module.exports = Object.freeze({
   // Questions prefixed with 'VEHICLE' are vehicle recall related follow-up questions
   FOLLOW_UP_QUESTIONS: {
     WouldYouLikeToSearchForAnotherRecall: 0,
-    WouldYouLikeToHearTheNextRecall: 1,
-    IsYourPhoneNumberFiveFiveFiveBlahBlah: 2,
-    WouldYouLikeToRecieveSMSMessage: 3,
-    WouldYouLikeToMeReadTheRecall: 4,
-    WouldYouLikeTheRecallInformationRepeated: 5,
-    VEHICLE_IsItModelAOrModelB: 6,
-    ARE_YOU_LOOKING_FOR_VEHICLE_X: 7,
-    WOULD_YOU_LIKE_HELP: 8
+    WouldYouLikeToTryAndSearchAgain: 1,
+    WouldYouLikeToHearTheNextRecall: 2,
+    IsYourPhoneNumberFiveFiveFiveBlahBlah: 3,
+    WouldYouLikeToRecieveSMSMessage: 4,
+    WouldYouLikeToMeReadTheRecall: 5,
+    WouldYouLikeTheRecallInformationRepeated: 6,
+    VEHICLE_IsItModelAOrModelB: 7,
+    ARE_YOU_LOOKING_FOR_VEHICLE_X: 8,
+    WOULD_YOU_LIKE_HELP: 9
 
   },
 
@@ -142,13 +143,19 @@ module.exports = Object.freeze({
     CurrentIntentLocation: 'CurrentIntentLocation', // like a breadcrumb trail, last intent to be excuted.
     VehicleConversation: 'VehicleConversation', // holds the vehicle convo obj
     VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 'VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT',
-    VEHICLE_MAKE_MODEL_SLOTS: 'VEHICLE_MAKE_MODEL_SLOTS',
-    VEHICLE_YEAR_SLOT: 'VEHICLE_YEAR_SLOT',
-    VEHICLE: 'VEHICLE',
-    VEHICLE_MAKE: 'MAKE',
-    VEHICLE_MODEL: 'MODEL',
-    VEHICLE_YEAR: 'YEAR'
+    VEHICLE_MAKE: 'VEHICLE_MAKE',
+    VEHICLE_MODEL: 'VEHICLE_MODEL',
+    VEHICLE_YEAR: 'VEHICLE_YEAR',
+    USER_PHONE_NUMBER: 'USER_PHONE_NUMBER',
+    USER_EMAIL: 'USER_EMAIL'
 
+  },
+
+  API_SEARCH_RESULT: {
+    Found: 0,
+    NotFound: 1,
+    NoPermission: 2,
+    Error: 3
   }
 
 }
