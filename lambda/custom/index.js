@@ -21,8 +21,9 @@ const HANDLERS = {
   repeat: require('./handlers/builtInIntents/repeatHandler'),
   getVehicleMakeAndModel: require('./handlers/customIntents/getVehicleMakeAndModelHandler'),
   getVehicleYear: require('./handlers/customIntents/getVehicleYearHandler'),
-  getvehicleModel: require('./handlers/customIntents/resolveAmbigiousVehicleModelHandler'),
-  getVehicleMake: require('./handlers/customIntents/getVehicleMakeHandler')
+  getvehicleModel: require('./handlers/customIntents/getVehicleModelHandler'),
+  getVehicleMake: require('./handlers/customIntents/getVehicleMakeHandler'),
+  getBMWModel: require('./handlers/customIntents/getBMWModelHandler')
 
 }
 
@@ -38,12 +39,14 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.getVehicleMakeAndModel.InProgress,
     HANDLERS.getVehicleMakeAndModel.Completed,
     HANDLERS.getVehicleYear.InProgress,
+    HANDLERS.getVehicleYear.CompletedNotCompleted,
     HANDLERS.getVehicleYear.Completed,
     HANDLERS.getvehicleModel.ResolveAmbigiousVehicleModelIntentHandler,
     HANDLERS.getvehicleModel.CollectModelLastIntentHandler,
     HANDLERS.getvehicleModel.CollectModelFirstIntentHandler,
     HANDLERS.getVehicleMake.InProgressCollectMakeIntentHandler,
     HANDLERS.getVehicleMake.CompletedCollectMakeIntentHandler,
+    HANDLERS.getBMWModel.GetBMWModelIntentHandler,
     HANDLERS.Next.NextIntentHandler,
     HANDLERS.Next.NextIntentHandlerOutOfContext,
     HANDLERS.Previous,
