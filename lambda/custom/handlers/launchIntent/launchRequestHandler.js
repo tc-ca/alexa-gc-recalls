@@ -1,4 +1,5 @@
 'use strict'
+
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 
 const LaunchRequestHandler = {
@@ -10,13 +11,20 @@ const LaunchRequestHandler = {
 
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
-    sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 1
+
+    // Set attempt to zero, before help is initiated / provided to user when comfirming make, model, and year.
+    sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0
+
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_MSG')
 
     return handlerInput.responseBuilder
+      .addDelegateDirective({
+        name: 'GetVehicleMakeAndModelIntent',
+        confirmationStatus: 'NONE',
+        slots: {}
+      })
       .speak(speechText)
-      .reprompt(speechText)
-      .withSimpleCard('Canadian Safety Recalls')
+      // .withSimpleCard('Canadian Safety Recalls') // TODO: should we keep this simple card?
       .getResponse()
   }
 }
