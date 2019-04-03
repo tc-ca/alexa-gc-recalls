@@ -59,17 +59,23 @@ const NoIntentHandler = {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.CancelAndStopHandler.handle(handlerInput)
           case FOLLOW_UP_QUESTION.WOULD_YOU_LIKE_HELP:
-            HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
         }
         break
-      case 'GetSearchForAnotherRecallQuestionHandler':
+      case 'SearchForAnotherRecallHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.CancelAndStopHandler.handle(handlerInput)
         }
         break
+      case 'SearchAgainRecallHandler':
+        switch (vehicleConversation.followUpQuestionCode) {
+          case FOLLOW_UP_QUESTION.WouldYouLikeToTryAndSearchAgain:
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+        }
+        break
       default:
-        return HANDLERS.ERROR_HANDLER.CommandOutOfContextHandler.handle(handlerInput)
+        return HANDLERS.ErrorHandler.CommandOutOfContextHandler.handle(handlerInput)
     }
   }
 }
