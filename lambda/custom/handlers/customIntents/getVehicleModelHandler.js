@@ -3,7 +3,8 @@ const HELPER = require('../../utils/helper')
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const FOLLOW_UP_QUESTIONS = require('../../constants').FOLLOW_UP_QUESTIONS
 const SEARCH_FINDINGS = require('../../constants').VEHICLE_SEARCH_FINDINGS
-const Vehicle = require('../../models/vehicleConversation')
+const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
+const Vehicle = require('../../models/vehicle')
 
 const HANDLERS = {
   VehicleRecallHandler: require('./searchForVehicleRecallHandler')
@@ -21,7 +22,7 @@ const ResolveAmbigiousVehicleModelIntentHandler = {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
-    const vehicleRecallConversation = new Vehicle.VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+    const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     if (slotValues.multipleChoiceNoResponse.isValidated) {
       return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
