@@ -1,4 +1,4 @@
-const ErrorHandler = {
+const GlobalErrorHandler = {
   canHandle () {
     return true
   },
@@ -6,8 +6,10 @@ const ErrorHandler = {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE')
-    console.log(`Error handled: ${error.message}`)
-    console.log(`Stack: ${error.stack}`)
+    console.error('ERROR HANDLED', error)
+
+    // console.log(`Error handled: ${error.message}`)
+    // console.log(`Stack: ${error.stack}`)
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -23,6 +25,7 @@ const CommandOutOfContextHandler = {
 
     const requestAttributes = attributesManager.getRequestAttributes()
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT')
+    console.log('COMMAND OUT OF CONTEXT')
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -32,4 +35,4 @@ const CommandOutOfContextHandler = {
   }
 }
 
-module.exports = { ErrorHandler, CommandOutOfContextHandler }
+module.exports = { GlobalErrorHandler, CommandOutOfContextHandler }
