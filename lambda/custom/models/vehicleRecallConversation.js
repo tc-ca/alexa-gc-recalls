@@ -1,5 +1,7 @@
 'use strict'
 
+const sanitizeHtml = require('sanitize-html')
+
 const SEARCH_FINDINGS = require('../constants').VEHICLE_SEARCH_FINDINGS
 const CONVERSATION_CONTEXT = require('../constants').VEHICLE_CONVERSATION_CONTEXT
 const FOLLOW_UP_QUESTIONS = require('../constants').FOLLOW_UP_QUESTIONS
@@ -7,8 +9,12 @@ const FOLLOW_UP_QUESTIONS = require('../constants').FOLLOW_UP_QUESTIONS
 class VehicleRecallConversation {
   constructor (obj = {}) {
     this.recallSearchResultSpeechText = ''
+    this.recallCardText = ''
+
     this.introToRecallDescriptionText = ''
+
     this.recallDescriptionSpeechText = ''
+
     this.followUpQuestionSpeechText = ''
 
     this.followUpQuestionCode = -1
@@ -16,6 +22,7 @@ class VehicleRecallConversation {
 
     this.vehicle = null
     this.recalls = []
+    this.recallsDetails = []
     this.speechString = []
 
     obj && Object.assign(this, obj)
@@ -24,15 +31,20 @@ class VehicleRecallConversation {
   getSpeechText () {
     return this.speechString.join(' ')
   }
+
+  getCardText () {
+    return this.recallCardText
+  }
 }
 
 class VehicleRecallConversationContextBuilder {
-  constructor ({ vehicle, requestAttributes, recalls, currentRecallIndex }) {
+  constructor ({ vehicle, requestAttributes, recalls, recallsDetails, currentRecallIndex }) {
     this.vehicle = vehicle
 
     this.requestAttributes = requestAttributes
 
     this.recalls = recalls
+    this.recallsDetails = recallsDetails
     this.currentRecallIndex = currentRecallIndex
 
     this.followUpQuestionCode = -1
@@ -42,8 +54,12 @@ class VehicleRecallConversationContextBuilder {
     this.speechString = []
 
     this.recallSearchResultSpeechText = null
+    this.recallCardText = null
+
     this.introToRecallDescriptionText = null
+
     this.recallDescriptionSpeechText = null
+
     this.followUpQuestionSpeechText = null
   }
 
@@ -52,6 +68,11 @@ class VehicleRecallConversationContextBuilder {
       if (this.recalls.length === 0) {
         this.searchFindings = SEARCH_FINDINGS.NoRecallsFound
         this.recallSearchResultSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE`)
+
+        this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_NONE`)
+          .replace('%VehicleRecallYear%', this.vehicle.year)
+          .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
+          .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
       } else {
         if (hasSimilarModelsAffectedByRecall(this.recalls, this.vehicle.model) && !skipAmbigiousCheck) {
           this.searchFindings = SEARCH_FINDINGS.AmbigiousModelFound
@@ -59,10 +80,21 @@ class VehicleRecallConversationContextBuilder {
             .replace('%VehicleRecallYear%', this.vehicle.year)
             .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
             .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+
+          this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL`)
+            .replace('%VehicleRecallYear%', this.vehicle.year)
+            .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
+            .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+            .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model, false))
         } else {
           if (this.recalls.length === 1) {
             this.searchFindings = SEARCH_FINDINGS.SingleRecallFound
             this.recallSearchResultSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE`)
+              .replace('%VehicleRecallYear%', this.vehicle.year)
+              .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
+              .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+
+            this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_ONE`)
               .replace('%VehicleRecallYear%', this.vehicle.year)
               .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
               .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
@@ -73,12 +105,24 @@ class VehicleRecallConversationContextBuilder {
               .replace('%VehicleRecallYear%', this.vehicle.year)
               .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
               .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+
+            this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE`)
+              .replace('%RecallCount%', this.recalls.length)
+              .replace('%VehicleRecallYear%', this.vehicle.year)
+              .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
+              .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
           }
         }
       }
     } else {
       this.searchFindings = SEARCH_FINDINGS.NonValidMakeOrModelFound
       this.recallSearchResultSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID`)
+        .replace('%VehicleRecallYear%', this.vehicle.year)
+        .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
+        .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+
+      this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID`)
+        .replace('%RecallCount%', this.recalls.length)
         .replace('%VehicleRecallYear%', this.vehicle.year)
         .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
         .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
@@ -100,9 +144,14 @@ class VehicleRecallConversationContextBuilder {
     if (!omitSpeech) {
       if (this.recalls.length > 0) {
         this.recallDescriptionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS`)
-          .replace('%VehicleRecallDate%', this.recalls[this.currentRecallIndex].recallDate)
-          .replace('%VehicleRecallComponent%', this.recalls[this.currentRecallIndex].componentType)
-          .replace('%VehicleRecallDetails%', this.recalls[this.currentRecallIndex].description)
+          .replace('%VehicleRecallDate%', this.recallsDetails[this.currentRecallIndex].recallDate)
+          .replace('%VehicleRecallComponent%', this.recallsDetails[this.currentRecallIndex].componentType)
+          .replace('%VehicleRecallDetails%', sanitizeHtml(this.recallsDetails[this.currentRecallIndex].description, { allowedTags: [], allowedAttributes: {} }))
+
+        this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_READING_DETAILS`)
+          .replace('%VehicleRecallDate%', this.recallsDetails[this.currentRecallIndex].recallDate)
+          .replace('%VehicleRecallComponent%', this.recallsDetails[this.currentRecallIndex].componentType)
+          .replace('%VehicleRecallDetails%', sanitizeHtml(this.recallsDetails[this.currentRecallIndex].description, { allowedTags: [], allowedAttributes: {} }))
 
         this.speechString.push(this.recallDescriptionSpeechText)
       }
@@ -194,11 +243,11 @@ function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
   return false
 }
 
-function BuildSimilarModelsString (recalls, targetedModelName) {
+function BuildSimilarModelsString (recalls, targetedModelName, forSpeech = true) {
   if (Array.isArray(recalls)) {
     let similarModels = []
     // TODO: remove all unwanted characters.
-    const unWantedCharacters = /\\|\//g
+    const unWantedCharacters = /\\|\//g // removes forward and backward slashes
 
     for (let index = 0; index < recalls.length; index++) {
       const model = recalls[index].modelName.replace(unWantedCharacters, ' ').toUpperCase()
@@ -210,7 +259,11 @@ function BuildSimilarModelsString (recalls, targetedModelName) {
 
     let uniqueModels = [...new Set(similarModels)]
 
-    return `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ' <break time="200ms"/> or  ' : '')}${uniqueModels.slice(-1)[0]}`
+    if (forSpeech) {
+      return `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ' <break time="200ms"/> or  ' : '')}${uniqueModels.slice(-1)[0]}`
+    } else {
+      return `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or  ' : '')}${uniqueModels.slice(-1)[0]}`
+    }
   }
 }
 
