@@ -1,4 +1,12 @@
 'use strict'
+
+/**
+ * Sample utterance: {year}
+ * Required slots: {year}
+ * Usage: Amazon.Number provided -->  delegate to comfirmVehicleMakeModelYear Handler
+ * Note: If Amazon.Number(english locales) Amazon.Four_Digit_Number/year is provided too early chain to GetVehicleMakeAndModelIntent
+ */
+
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const HELPER = require('../../utils/helper')
 const Vehicle = require('../../models/vehicle')
@@ -14,6 +22,7 @@ const InProgressGetVehicleYearIntentHandler = {
         handlerInput.requestEnvelope.request.dialogState !== 'COMPLETED'
   },
   async handle (handlerInput) {
+
     return handlerInput.responseBuilder
       .addDelegateDirective(handlerInput.requestEnvelope.request.intent) // makes alexa prompt for required slots.
       .getResponse()
@@ -63,7 +72,6 @@ const CompletedGetVehicleYearButMakeModelNotProvidedIntentHandler = {
         slots: {}
       })
       .speak(speechText)
-      // .withSimpleCard('Canadian Safety Recalls') // TODO: should we keep this simple card?
       .getResponse()
   }
 }
