@@ -31,6 +31,8 @@ module.exports = {
 
     // COMFIRMATION OF MAKE, MODEL, AND YEAR
     SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour vérifier, est-ce que tu cherches un ${VEHICLE_MAKE_MODEL_YEAR}?`,
+    CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour vérifier, est-ce que tu cherches un ${VEHICLE_MAKE_MODEL_YEAR}?`,
+
     // SEARCH RESULT STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai pas trouvé de rappels associés avec ton véhicule dans notre système.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton ${VEHICLE_MAKE_MODEL_YEAR}. Je t'ai envoyé l’information sur les rappels par texto.`,
@@ -56,18 +58,17 @@ module.exports = {
     SPEECH_TXT_VEHCILE_SEARCH_FOR_ANOTHER_RECALL: `Veux-tu que je trouve les rappels de sécurité d’un autre véhicule?`,
 
     // ERROR STRINGS
-    SPEECH_TXT_VEHICLE_ERROR_MODEL_VALIDATION_FAILED: `Je m'excuse. Je n’ai pas d’information sur ton ${VEHICLE_MAKE_MODEL_YEAR} en ce moment. Je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}.`,
-    SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE: `Je ne suis pas certaine. Je m'excuse, je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}.`,
-    SPEECH_TXT_VEHICLE_ERROR_FAILED_MAX_ATTEMPTS: `Je m'excuse. Je suis encore un assistant vocal en formation et j’ai quelques difficultés de compréhension. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}.`,
+    SPEECH_TXT_VEHICLE_ERROR_MODEL_VALIDATION_FAILED: `Je m'excuse. Je n’ai pas d’information sur ton ${VEHICLE_MAKE_MODEL_YEAR} en ce moment. Je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
+    SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE: `Je ne suis pas certaine. Je m'excuse, je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Hmm... I was not expecting that response, you can say start over`,
-    SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER} for more help.`,
-    SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?`,
-    SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER} for more help. GoodBye.`,
-    SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `sorry, that was not the information I was looking for`,
+    SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `Je m'excuse. Je suis encore un assistant vocal en formation et j’ai quelques difficultés de compréhension. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
+    SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `Je m'excuse. J'ai de la difficulté à identifier ton véhicule. As-tu besoin de plus d'aide?`,
+    SPEECH_TXT_VEHICLE_GET_HELP: `Ok. Pour de l'aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
+    SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Sorry, that was not the information I was looking for`,
 
     // SMS MESSAGE
+    VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has 0 recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
     VEHICLE_RECALL_TEXT_FOUND_ONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has 1 recall. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
-    VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has ${RECALL_COUNT} recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
-    VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has 0 recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`
+    VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. Your ${VEHICLE_MAKE_MODEL_YEAR} has ${RECALL_COUNT} recalls. You can find them at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`
   }
 }
