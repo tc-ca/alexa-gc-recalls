@@ -1,21 +1,21 @@
-const SESSION_KEYS = require('../constants').SESSION_KEYS
 
-const CurrentIntentLocationLog = {
-
+/**
+ * Request Interceptor to log the request sent by Alexa
+ */
+const LogRequest = {
   process (handlerInput) {
-    const { attributesManager } = handlerInput
-    const sessionAttributes = attributesManager.getSessionAttributes()
-    console.log('Current Intent Location = ', sessionAttributes[SESSION_KEYS.CurrentIntentLocation])
+    console.log('REQUEST ENVELOPE', JSON.stringify(handlerInput.requestEnvelope))
   }
 
 }
 
-const RequestLog = {
-
-  process (handlerInput) {
-    console.log('REQUEST ENVELOPE = ' + JSON.stringify(handlerInput.requestEnvelope))
+/**
+ * Response Interceptor to log the response made to Alexa
+ */
+const LogResponse = {
+  process (handlerInput, response) {
+    console.log('RESPONSE ENVELOPE', JSON.stringify(handlerInput.requestEnvelope))
   }
-
 }
 
-module.exports = { CurrentIntentLocationLog, RequestLog }
+module.exports = { LogRequest, LogResponse }
