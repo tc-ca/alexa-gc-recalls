@@ -24,7 +24,6 @@ const LaunchRequestHandler = {
         slots: {}
       })
       .speak(speechText)
-      // .withSimpleCard('Canadian Safety Recalls') // TODO: should we keep this simple card?
       .getResponse()
   }
 }
