@@ -1,0 +1,24 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: Complete dialog sequence
+- GetVehicleYearIntent year=2011: 
+  - request.request.dialogState: COMPLETED   
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent
+  - response.outputSpeech.ssml: Sorry, that was not the information I wasn't looking for
+
+
+--- 
+- test.only: Complete dialog sequence
+- GetVehicleYearIntent year=2011:
+  - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
+  - request.session.attributes.VEHICLE_MAKE.slotValue: honda
+  - request.session.attributes.VEHICLE_MAKE.isValid: true
+  - request.session.attributes.VEHICLE_MODEL.slotId: CIVIC
+  - request.session.attributes.VEHICLE_MODEL.slotValue: civic
+  - request.session.attributes.VEHICLE_MODEL.isValid: true
+  - request.request.dialogState: COMPLETED   
+  - response.directives[0].updatedIntent.name: undefined 
+  - response.outputSpeech.ssml: Just to make sure I understood correctly, are you looking for a 2011 honda civic?
