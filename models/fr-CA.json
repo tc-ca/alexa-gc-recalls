@@ -69,6 +69,14 @@
             {
               "name": "article",
               "type": "GrammarArticle"
+            },
+            {
+              "name": "multipleChoiceNoResponse",
+              "type": "MultipleChoiceNoResponse"
+            },
+            {
+              "name": "BMWModel",
+              "type": "BMWModel"
             }
           ],
           "samples": [
@@ -112,7 +120,6 @@
           "samples": [
             "{model} {trimLevel}",
             "{make} {model} {trimLevel}",
-            "{make}",
             "{make} {model}"
           ]
         },
@@ -163,9 +170,15 @@
             {
               "name": "multipleChoiceNoResponse",
               "type": "MultipleChoiceNoResponse"
+            },
+            {
+              "name": "trimLevel",
+              "type": "VehicleTrim"
             }
           ],
-          "samples": []
+          "samples": [
+            "{make}"
+          ]
         },
         {
           "name": "GetBMWModelIntent",
@@ -193,49 +206,70 @@
             {
               "id": "DB11",
               "name": {
-                "value": "d. b. eleven"
+                "value": "DB 11",
+                "synonyms": [
+                  "d. b. 11"
+                ]
               }
             },
             {
               "id": "DB7_VANTAGE",
               "name": {
-                "value": "d. b. seven vantage"
+                "value": "DB 7 vantage",
+                "synonyms": [
+                  "d. b. 7 vantage"
+                ]
               }
             },
             {
               "id": "DB7_VANTAGE_COUPE",
               "name": {
-                "value": "d. b. seven vantage coupe"
+                "value": "DB 7 vantage coupe",
+                "synonyms": [
+                  "d. b. 7 vantage coupe"
+                ]
               }
             },
             {
               "id": "DB7_VANTAGE_VOLANTE",
               "name": {
-                "value": "d. b. seven vantage volante"
+                "value": "DB 7 vantage volante",
+                "synonyms": [
+                  "d. b.7 vantage volante"
+                ]
               }
             },
             {
               "id": "DB9",
               "name": {
-                "value": "d. b. nine"
+                "value": "DB 9",
+                "synonyms": [
+                  "d. b. 9"
+                ]
               }
             },
             {
               "id": "DBS",
               "name": {
-                "value": "d. b. s."
+                "value": "DBS",
+                "synonyms": [
+                  "d. b. s."
+                ]
               }
             },
             {
               "id": "DBS_COUPE",
               "name": {
-                "value": "d.b.s coupe"
+                "value": "DBS coupe",
+                "synonyms": [
+                  "d.b.s coupe"
+                ]
               }
             },
             {
               "id": "ONE-77",
               "name": {
-                "value": "one seventy-seven"
+                "value": "one 77"
               }
             },
             {
@@ -253,19 +287,19 @@
             {
               "id": "V12_VANTAGE",
               "name": {
-                "value": "v. twelve vantage"
+                "value": "v. 12 vantage"
               }
             },
             {
               "id": "V12_VANTAGE_S",
               "name": {
-                "value": "v. twelve vantage s."
+                "value": "v. 12 vantage s."
               }
             },
             {
               "id": "V8_VANTAGE_S",
               "name": {
-                "value": "v. eight vantage s."
+                "value": "v. 8 vantage s."
               }
             },
             {
@@ -283,13 +317,13 @@
             {
               "id": "VANQUISH_V12",
               "name": {
-                "value": "vanquish v. twelve"
+                "value": "vanquish v. 12"
               }
             },
             {
               "id": "VANTAGE_V8",
               "name": {
-                "value": "vantage v. eight"
+                "value": "vantage v. 8"
               }
             },
             {
@@ -313,7 +347,10 @@
             {
               "id": "MKX",
               "name": {
-                "value": "m. k. x."
+                "value": "MKX",
+                "synonyms": [
+                  "m. k. x."
+                ]
               }
             },
             {
@@ -325,7 +362,7 @@
             {
               "id": "ARNAGE_LWB",
               "name": {
-                "value": "arnage l. w. b.",
+                "value": "arnage LWB",
                 "synonyms": [
                   "arnage long wheel base"
                 ]
@@ -340,7 +377,10 @@
             {
               "id": "ARNAGE_RL",
               "name": {
-                "value": "arnage r. l."
+                "value": "arnage RL",
+                "synonyms": [
+                  "arnage r. l."
+                ]
               }
             },
             {
@@ -382,19 +422,28 @@
             {
               "id": "CONTINENTAL_GT",
               "name": {
-                "value": "continental g. t."
+                "value": "continental GT",
+                "synonyms": [
+                  "continental g. t."
+                ]
               }
             },
             {
               "id": "CONTINENTAL_GT_SPEED",
               "name": {
-                "value": "continental g. t. speed"
+                "value": "continental GT speed",
+                "synonyms": [
+                  "continental g. t. speed"
+                ]
               }
             },
             {
               "id": "CONTINENTAL_GTC",
               "name": {
-                "value": "continental g. t. c."
+                "value": "continental GTC",
+                "synonyms": [
+                  "continental g. t. c."
+                ]
               }
             },
             {
@@ -406,16 +455,17 @@
             {
               "id": "1_SERIES",
               "name": {
-                "value": "one series",
+                "value": "1 séries",
                 "synonyms": [
-                  "one twenty i.",
-                  "one twenty-five i.",
-                  "one twenty eight i.",
-                  "one thirty i.",
-                  "one thirty five i.",
-                  "one thirty five i. s.",
+                  "one twenty-eight",
+                  "one twenty-eight i.",
+                  "one two eight",
+                  "one two eight i.",
+                  "one thirty-five",
+                  "one thirty-five i.",
+                  "one thirty-five i. s.",
                   "m. one thirty-five i.",
-                  "m one forty i.",
+                  "one series m.",
                   "one m."
                 ]
               }
@@ -423,15 +473,18 @@
             {
               "id": "2_SERIES",
               "name": {
-                "value": "two series",
+                "value": "2 séries",
                 "synonyms": [
-                  "two twenty i.",
+                  "two twenty-eight",
                   "two twenty-eight i.",
+                  "two thirty",
                   "two thirty i.",
-                  "m. twenty-three fifty-one",
-                  "m. twenty-three fifty-one x drive",
+                  "two thirty-five",
+                  "two thirty-five i.",
+                  "m. two thirty-five i.",
+                  "two fourty i.",
+                  "two forty",
                   "m. two forty i.",
-                  "m. two forty i. x. drive",
                   "m. two"
                 ]
               }
@@ -439,19 +492,19 @@
             {
               "id": "3_SERIES",
               "name": {
-                "value": "three series",
+                "value": "3 séries",
                 "synonyms": [
                   "three eighteen i.",
                   "three twenty i.",
                   "three twenty five i.",
                   "three twenty-eight i.",
                   "three thirty i.",
-                  "three thrity-five i.",
-                  "three thrity-five x. i.",
+                  "three thirty-five i.",
+                  "three thirty-five x. i.",
                   "three forty i.",
                   "three twenty-eight d.",
                   "three thirty d.",
-                  "three thrity 5 d.",
+                  "three thirty five d.",
                   "m. three"
                 ]
               }
@@ -459,33 +512,38 @@
             {
               "id": "4_SERIES",
               "name": {
-                "value": "four series",
+                "value": "4 séries",
                 "synonyms": [
                   "four twenty i.",
                   "four twenty-eight i.",
                   "four thirty five i.",
-                  "m. four"
+                  "m. four",
+                  "four twenty-eight i. gran coupe",
+                  "four thirty-five i. gran coupe"
                 ]
               }
             },
             {
               "id": "5_SERIES",
               "name": {
-                "value": "five series",
+                "value": "5 séries",
                 "synonyms": [
-                  "five twenty i.",
+                  "five twenty-five i.",
                   "five twenty-eight i.",
                   "five thirty i .",
+                  "five thirty-five i.",
                   "five forty i.",
+                  "five fourty-five i.",
                   "five fifty i.",
-                  "m. five"
+                  "m. five",
+                  "five fifty i. gran sport"
                 ]
               }
             },
             {
               "id": "6_SERIES",
               "name": {
-                "value": "six series",
+                "value": "6 séries",
                 "synonyms": [
                   "six thirty i.",
                   "six forty i.",
@@ -499,93 +557,93 @@
             {
               "id": "7_SERIES",
               "name": {
-                "value": "seven series",
+                "value": "7 séries",
                 "synonyms": [
-                  "seven thirty i.",
-                  "seven thirty l. i.",
-                  "seven thirty five i.",
-                  "seven forty i.",
-                  "seven forty l. i.",
-                  "seven forty-five i.",
-                  "seven fifty i.",
-                  "seven fifty i. x. drive",
-                  "seven fifty l. i.",
-                  "m. seven sixty l. i.",
-                  "seven sixty i.",
-                  "alpina b. seven"
+                  "sept thirty i.",
+                  "sept thirty l. i.",
+                  "sept thirty five i.",
+                  "sept forty i.",
+                  "sept forty l. i.",
+                  "sept forty-five i.",
+                  "sept fifty i.",
+                  "sept fifty i. x. drive",
+                  "sept fifty l. i.",
+                  "m. sept sixty l. i.",
+                  "sept sixty i.",
+                  "alpina b. sept"
                 ]
               }
             },
             {
               "id": "I3",
               "name": {
-                "value": "i. three"
+                "value": "i. 3"
               }
             },
             {
               "id": "I8",
               "name": {
-                "value": "i. eight"
+                "value": "i. 8"
               }
             },
             {
               "id": "X1",
               "name": {
-                "value": "x. one"
+                "value": "x. 1"
               }
             },
             {
               "id": "X2",
               "name": {
-                "value": "x. two"
+                "value": "x. 2"
               }
             },
             {
               "id": "X3",
               "name": {
-                "value": "x. three"
+                "value": "x. 3"
               }
             },
             {
               "id": "X4",
               "name": {
-                "value": "x. four"
+                "value": "x. 4"
               }
             },
             {
               "id": "X5",
               "name": {
-                "value": "x. five"
+                "value": "x. 5"
               }
             },
             {
               "id": "X6",
               "name": {
-                "value": "x. six"
+                "value": "x. 6"
               }
             },
             {
               "id": "Z4",
               "name": {
-                "value": "z. four"
+                "value": "z. 4"
               }
             },
             {
               "id": "Z8",
               "name": {
-                "value": "z. eight"
+                "value": "z. 8"
               }
             },
             {
               "id": "3_DOOR",
               "name": {
-                "value": "three door"
+                "value": "3 door"
               }
             },
             {
               "id": "5_DOOR",
               "name": {
-                "value": "five door"
+                "value": "5 door"
               }
             },
             {
@@ -763,6 +821,18 @@
               }
             },
             {
+              "id": "DODGE_CARAVAN_ENTERVAN",
+              "name": {
+                "value": "dodge caravan entervan"
+              }
+            },
+            {
+              "id": "DODGE_CARAVAN_VISION_RE",
+              "name": {
+                "value": "dodge caravan vision re"
+              }
+            },
+            {
               "id": "PONTIAC_MONTANA_ENTERVAN",
               "name": {
                 "value": "pontiac montana entervan"
@@ -789,13 +859,13 @@
             {
               "id": "200",
               "name": {
-                "value": "two hundred"
+                "value": "200"
               }
             },
             {
               "id": "300",
               "name": {
-                "value": "three hundred"
+                "value": "300"
               }
             },
             {
@@ -927,13 +997,7 @@
             {
               "id": "SPRINTER_2500",
               "name": {
-                "value": "sprinter twenty-five hundred"
-              }
-            },
-            {
-              "id": "SPRINTER_3500",
-              "name": {
-                "value": "sprinter thirty-five hundred"
+                "value": "sprinter 2500"
               }
             },
             {
@@ -945,19 +1009,19 @@
             {
               "id": "500",
               "name": {
-                "value": "five hundred"
+                "value": "500"
               }
             },
             {
               "id": "500L",
               "name": {
-                "value": "five hundred l."
+                "value": "500 l."
               }
             },
             {
               "id": "500X",
               "name": {
-                "value": "five hundred x."
+                "value": "500 x."
               }
             },
             {
@@ -1011,31 +1075,31 @@
             {
               "id": "1500",
               "name": {
-                "value": "fifthteen hundred"
+                "value": "1500"
               }
             },
             {
               "id": "2500",
               "name": {
-                "value": "twenty-five hundred"
+                "value": "2500"
               }
             },
             {
               "id": "3500",
               "name": {
-                "value": "thirty-five hundred"
+                "value": "3500"
               }
             },
             {
               "id": "4500",
               "name": {
-                "value": "forty-five hundred"
+                "value": "4500"
               }
             },
             {
               "id": "5500",
               "name": {
-                "value": "fifty-five hundred"
+                "value": "5500"
               }
             },
             {
@@ -1071,13 +1135,13 @@
             {
               "id": "LEGEND_138",
               "name": {
-                "value": "legend one thirty-eight"
+                "value": "legend 138"
               }
             },
             {
               "id": "LEGEND_158",
               "name": {
-                "value": "legend one fifty-eight"
+                "value": "legend 158"
               }
             },
             {
@@ -1119,7 +1183,7 @@
             {
               "id": "300M",
               "name": {
-                "value": "three hundred m."
+                "value": "300 m."
               }
             },
             {
@@ -1155,7 +1219,10 @@
             {
               "id": "NEON_R/T",
               "name": {
-                "value": "neon r. t."
+                "value": "neon RT",
+                "synonyms": [
+                  "neon r. t."
+                ]
               }
             },
             {
@@ -1167,19 +1234,28 @@
             {
               "id": "PT_CRUISER",
               "name": {
-                "value": "p. t. cruiser"
+                "value": "PT cruiser",
+                "synonyms": [
+                  "p. t. cruiser"
+                ]
               }
             },
             {
               "id": "PT_CRUISER_CONVERTIBLE",
               "name": {
-                "value": "p. t. cruiser convertible"
+                "value": "PT cruiser convertible",
+                "synonyms": [
+                  "p. t. cruiser convertible"
+                ]
               }
             },
             {
               "id": "PT_CRUISER_TURBO",
               "name": {
-                "value": "p. t.  cruiser turbo"
+                "value": "PT  cruiser turbo",
+                "synonyms": [
+                  "p. t.  cruiser turbo"
+                ]
               }
             },
             {
@@ -1191,7 +1267,10 @@
             {
               "id": "AB_VAN",
               "name": {
-                "value": "a. b. van"
+                "value": "AB van",
+                "synonyms": [
+                  "a. b. van"
+                ]
               }
             },
             {
@@ -1227,13 +1306,19 @@
             {
               "id": "TJ",
               "name": {
-                "value": "t. j."
+                "value": "TJ",
+                "synonyms": [
+                  "t. j."
+                ]
               }
             },
             {
               "id": "YJ",
               "name": {
-                "value": "y. j."
+                "value": "YJ",
+                "synonyms": [
+                  "y. j."
+                ]
               }
             },
             {
@@ -1269,7 +1354,25 @@
             {
               "id": "AMERIVAN_10",
               "name": {
-                "value": "amerivan ten"
+                "value": "amerivan 10"
+              }
+            },
+            {
+              "id": "FORD_450_BUS",
+              "name": {
+                "value": "ford 450 bus"
+              }
+            },
+            {
+              "id": "FORD_550_BUS",
+              "name": {
+                "value": "ford 550 bus"
+              }
+            },
+            {
+              "id": "FORD_EXCURSION_LIMOUSINE",
+              "name": {
+                "value": "ford excursion limousine"
               }
             },
             {
@@ -1281,109 +1384,118 @@
             {
               "id": "355",
               "name": {
-                "value": "three fifty-five"
+                "value": "355"
               }
             },
             {
               "id": "355_F1",
               "name": {
-                "value": "three fifty-five f. one"
+                "value": "355 f. 1"
               }
             },
             {
               "id": "360_CHALLENGE_STRADALE",
               "name": {
-                "value": "three sixty challenge stradale"
+                "value": "360 challenge stradale"
               }
             },
             {
               "id": "360_MODENA",
               "name": {
-                "value": "three sixty modena"
+                "value": "360 modena"
               }
             },
             {
               "id": "360_MODENA_F1",
               "name": {
-                "value": "three sixty modena f. one"
+                "value": "360 modena f. 1"
               }
             },
             {
               "id": "360_SPIDER",
               "name": {
-                "value": "three sixty spider"
+                "value": "360 spider"
               }
             },
             {
               "id": "456M",
               "name": {
-                "value": "four fifty-six m."
+                "value": "456 m."
               }
             },
             {
               "id": "456M_GT",
               "name": {
-                "value": "four fifty-six m. g. t."
+                "value": "456 MGT",
+                "synonyms": [
+                  "456 m. g. t."
+                ]
               }
             },
             {
               "id": "456M_GTA",
               "name": {
-                "value": "four fifty-six m. GTA"
+                "value": "456 MGTA",
+                "synonyms": [
+                  "456 m. g. t. a."
+                ]
               }
             },
             {
               "id": "458_ITALIA",
               "name": {
-                "value": "four fifty-eight italia"
+                "value": "458 italia"
               }
             },
             {
               "id": "458_ITALIA_SPIDER",
               "name": {
-                "value": "four fifty-eight italia spider"
+                "value": "458 italia spider"
               }
             },
             {
               "id": "458_SPECIALE",
               "name": {
-                "value": "four fifty-eight speciale"
+                "value": "458 speciale"
               }
             },
             {
               "id": "458_SPECIALE_A",
               "name": {
-                "value": "four fifty-eight speciale A"
+                "value": "458 speciale a."
               }
             },
             {
               "id": "458_SPIDER",
               "name": {
-                "value": "four fifty-eight spider"
+                "value": "458 spider"
               }
             },
             {
               "id": "488_GTB",
               "name": {
-                "value": "four eighty-eight GTB"
+                "value": "488 GTB",
+                "synonyms": [
+                  "488 g. t. b."
+                ]
               }
             },
             {
               "id": "550_BARCHETTA",
               "name": {
-                "value": "five fifty barchetta"
+                "value": "550 barchetta"
               }
             },
             {
               "id": "550_MARANELLO",
               "name": {
-                "value": "five fifty maranello"
+                "value": "550 maranello"
               }
             },
             {
               "id": "612_SCAGLIETTI",
               "name": {
-                "value": "six twelve scaglietti"
+                "value": "612 scaglietti"
               }
             },
             {
@@ -1401,55 +1513,58 @@
             {
               "id": "F12_BERLINETTA",
               "name": {
-                "value": "f. twelve berlinetta"
+                "value": "f. 12 berlinetta"
               }
             },
             {
               "id": "F355",
               "name": {
-                "value": "f. three fifty-five"
+                "value": "f. 355"
               }
             },
             {
               "id": "F355_F1",
               "name": {
-                "value": "f. three fifty-five f. one"
+                "value": "f. 355 f. 1"
               }
             },
             {
               "id": "F40",
               "name": {
-                "value": "f. forty"
+                "value": "f. 40"
               }
             },
             {
               "id": "F430_COUPE",
               "name": {
-                "value": "f. four thirty coupe"
+                "value": "f. 430 coupe"
               }
             },
             {
               "id": "F430_SCUDERIA",
               "name": {
-                "value": "f. four thirty scuderia"
+                "value": "f. 430 scuderia"
               }
             },
             {
               "id": "F430_SCUDERIA_SPIDER_16M",
               "name": {
-                "value": "f. four thirty scuderia spider sixteen m."
+                "value": "f. 430scuderia spider 16m."
               }
             },
             {
               "id": "F430_SPIDER",
               "name": {
-                "value": "f. four thirty spider"
+                "value": "f. 430 spider"
               }
             },
             {
               "id": "FF",
               "name": {
-                "value": "f. f."
+                "value": "FF",
+                "synonyms": [
+                  "f. f."
+                ]
               }
             },
             {
@@ -1503,49 +1618,49 @@
             {
               "id": "E150",
               "name": {
-                "value": "e. one fifty"
+                "value": "e. 150"
               }
             },
             {
               "id": "E250",
               "name": {
-                "value": "e. two fifty"
+                "value": "e. 250"
               }
             },
             {
               "id": "E250_CUTAWAY_CHASSIS_CAB",
               "name": {
-                "value": "e. two fifty cutaway chassis cab"
+                "value": "e. 250 cutaway chassis cab"
               }
             },
             {
               "id": "E350",
               "name": {
-                "value": "e. three fifty"
+                "value": "e. 350"
               }
             },
             {
               "id": "E350_CUTAWAY_CHASSIS_CAB",
               "name": {
-                "value": "e. three fifty cutaway chassis cab"
+                "value": "e. 350 cutaway chassis cab"
               }
             },
             {
               "id": "E450",
               "name": {
-                "value": "e. four fifty"
+                "value": "e. 450"
               }
             },
             {
               "id": "E450_CUTAWAY_CHASSIS_CAB",
               "name": {
-                "value": "e. four fifty cutaway chassis cab"
+                "value": "e. 450 cutaway chassis cab"
               }
             },
             {
               "id": "E550",
               "name": {
-                "value": "e. five fifty"
+                "value": "e. 550"
               }
             },
             {
@@ -1605,109 +1720,115 @@
             {
               "id": "F150",
               "name": {
-                "value": "f. one fifty"
+                "value": "f. 150"
               }
             },
             {
               "id": "F250",
               "name": {
-                "value": "f. two fifty"
+                "value": "f. 250"
               }
             },
             {
               "id": "F250_SUPER_DUTY",
               "name": {
-                "value": "f. two fifty super duty"
+                "value": "f. 250 super duty"
               }
             },
             {
               "id": "F350",
               "name": {
-                "value": "f. three fifty"
+                "value": "f. 350"
               }
             },
             {
               "id": "F350_CHASSIS_CAB",
               "name": {
-                "value": "f. three fifty chassis cab"
+                "value": "f. 350 chassis cab"
               }
             },
             {
               "id": "F350_SUPER_DUTY",
               "name": {
-                "value": "f. three fiftysuper duty"
+                "value": "f. 350super duty"
               }
             },
             {
               "id": "F350_SUPER_DUTY_CHASSIS_CAB",
               "name": {
-                "value": "f. three fifty super duty chassis cab"
+                "value": "f. 350 super duty chassis cab"
               }
             },
             {
               "id": "F450",
               "name": {
-                "value": "f. four fifty"
+                "value": "f. 450"
               }
             },
             {
               "id": "F450_CHASSIS_CAB",
               "name": {
-                "value": "f. four fifty chassis cab"
+                "value": "f. 450 chassis cab"
               }
             },
             {
               "id": "F450_SUPER_DUTY",
               "name": {
-                "value": "f. four fifty super duty"
+                "value": "f. 450 super duty"
               }
             },
             {
               "id": "F450_SUPER_DUTY_CHASSIS_CAB",
               "name": {
-                "value": "f. four fifty super duty chassis cab"
+                "value": "f. 450 super duty chassis cab"
               }
             },
             {
               "id": "F53_MOTORHOME_CHASSIS",
               "name": {
-                "value": "f. fifty-three motorhome chassis"
+                "value": "f. 53 motorhome chassis"
               }
             },
             {
               "id": "F550",
               "name": {
-                "value": "f. five fifty"
+                "value": "f. 550"
               }
             },
             {
               "id": "F550_CHASSIS_CAB",
               "name": {
-                "value": "f. five fifty chassis cab"
+                "value": "f. 550 chassis cab"
               }
             },
             {
               "id": "F550_SUPER_DUTY",
               "name": {
-                "value": "f. five fifty super duty"
+                "value": "f. 550 super duty"
               }
             },
             {
               "id": "F650",
               "name": {
-                "value": "f. six fifty"
+                "value": "f. 650"
               }
             },
             {
               "id": "F750",
               "name": {
-                "value": "f. seven fifty"
+                "value": "f. 750"
               }
             },
             {
               "id": "FIESTA",
               "name": {
                 "value": "fiesta"
+              }
+            },
+            {
+              "id": "FIVE_HUNDRED",
+              "name": {
+                "value": "five hundred"
               }
             },
             {
@@ -1743,7 +1864,10 @@
             {
               "id": "GT",
               "name": {
-                "value": "g. t."
+                "value": "GT",
+                "synonyms": [
+                  "g. t."
+                ]
               }
             },
             {
@@ -1833,43 +1957,61 @@
             {
               "id": "LS",
               "name": {
-                "value": "l. s."
+                "value": "LS",
+                "synonyms": [
+                  "l. s."
+                ]
               }
             },
             {
               "id": "MARK_LT",
               "name": {
-                "value": "mark l. t."
+                "value": "mark LT",
+                "synonyms": [
+                  "mark l. t."
+                ]
               }
             },
             {
               "id": "MARK_VII",
               "name": {
-                "value": "mark seven"
+                "value": "mark sept"
               }
             },
             {
               "id": "MKC",
               "name": {
-                "value": "m. k. c."
+                "value": "MKC",
+                "synonyms": [
+                  "m. k. c."
+                ]
               }
             },
             {
               "id": "MKS",
               "name": {
-                "value": "m. k. s."
+                "value": "MKS",
+                "synonyms": [
+                  "m. k. s."
+                ]
               }
             },
             {
               "id": "MKT",
               "name": {
-                "value": "m. k. t."
+                "value": "MKT",
+                "synonyms": [
+                  "m. k. t."
+                ]
               }
             },
             {
               "id": "MKZ",
               "name": {
-                "value": "m. k. z."
+                "value": "MKZ",
+                "synonyms": [
+                  "m. k. z."
+                ]
               }
             },
             {
@@ -2037,19 +2179,37 @@
             {
               "id": "ATS",
               "name": {
-                "value": "a. t. s."
+                "value": "ATS",
+                "synonyms": [
+                  "a. t. s."
+                ]
               }
             },
             {
               "id": "CT6",
               "name": {
-                "value": "c. t. six"
+                "value": "CT 6",
+                "synonyms": [
+                  "c. t. 6"
+                ]
+              }
+            },
+            {
+              "id": "CTS",
+              "name": {
+                "value": "CTS",
+                "synonyms": [
+                  "c. t. s."
+                ]
               }
             },
             {
               "id": "CTS-V",
               "name": {
-                "value": "c. t. s. v."
+                "value": "CTSV",
+                "synonyms": [
+                  "c. t. s. v."
+                ]
               }
             },
             {
@@ -2061,13 +2221,19 @@
             {
               "id": "DTS",
               "name": {
-                "value": "d. t. s."
+                "value": "DTS",
+                "synonyms": [
+                  "d. t. s."
+                ]
               }
             },
             {
               "id": "ELR",
               "name": {
-                "value": "e. l. r."
+                "value": "ELR",
+                "synonyms": [
+                  "e. l. r."
+                ]
               }
             },
             {
@@ -2079,13 +2245,19 @@
             {
               "id": "ESCALADE_ESV",
               "name": {
-                "value": "escalade e. s. v."
+                "value": "escalade ESV",
+                "synonyms": [
+                  "escalade e. s. v."
+                ]
               }
             },
             {
               "id": "ESCALADE_EXT",
               "name": {
-                "value": "escalade e. x. t."
+                "value": "escalade EXT",
+                "synonyms": [
+                  "escalade e. x. t."
+                ]
               }
             },
             {
@@ -2103,37 +2275,55 @@
             {
               "id": "SRX",
               "name": {
-                "value": "s. r. x."
+                "value": "SRX",
+                "synonyms": [
+                  "s. r. x."
+                ]
               }
             },
             {
               "id": "STS",
               "name": {
-                "value": "s. t. s."
+                "value": "STS",
+                "synonyms": [
+                  "s. t. s."
+                ]
               }
             },
             {
               "id": "STS-V",
               "name": {
-                "value": "s. t. s. v."
+                "value": "STSV",
+                "synonyms": [
+                  "s. t. s. v."
+                ]
               }
             },
             {
               "id": "XLR",
               "name": {
-                "value": "x. l. r. "
+                "value": "XLR",
+                "synonyms": [
+                  "x. l. r."
+                ]
               }
             },
             {
               "id": "XT5",
               "name": {
-                "value": "x. t. five"
+                "value": "XT cinq",
+                "synonyms": [
+                  "x. t. 5"
+                ]
               }
             },
             {
               "id": "XTS",
               "name": {
-                "value": "x. t. s."
+                "value": "XTS",
+                "synonyms": [
+                  "x. t. s."
+                ]
               }
             },
             {
@@ -2163,13 +2353,20 @@
             {
               "id": "BOLT_EV",
               "name": {
-                "value": "bolt e. v."
+                "value": "bolt EV",
+                "synonyms": [
+                  "bolt e. v.",
+                  "bolt"
+                ]
               }
             },
             {
               "id": "C_SERIES",
               "name": {
-                "value": "c. series"
+                "value": "c. series",
+                "synonyms": [
+                  "c. 10"
+                ]
               }
             },
             {
@@ -2217,16 +2414,16 @@
             {
               "id": "CORVETTE",
               "name": {
-                "value": "corvette",
-                "synonyms": [
-                  "vette"
-                ]
+                "value": "corvette"
               }
             },
             {
               "id": "CORVETTE_Z06",
               "name": {
-                "value": "corvette z. o. six"
+                "value": "corvette ZO 6",
+                "synonyms": [
+                  "corvette z. 0 6"
+                ]
               }
             },
             {
@@ -2256,7 +2453,10 @@
             {
               "id": "HHR",
               "name": {
-                "value": "h. h. r."
+                "value": "HHR",
+                "synonyms": [
+                  "h. h. r."
+                ]
               }
             },
             {
@@ -2274,19 +2474,22 @@
             {
               "id": "KODIAK_4500",
               "name": {
-                "value": "kodiak forty-five hundred"
+                "value": "kodiak 4500"
               }
             },
             {
               "id": "KODIAK_5500",
               "name": {
-                "value": "kodiak fifty-five hundred"
+                "value": "kodiak 5500"
               }
             },
             {
               "id": "LUMINA_APV",
               "name": {
-                "value": "lumina a. p. v."
+                "value": "lumina APV",
+                "synonyms": [
+                  "lumina a. p. v."
+                ]
               }
             },
             {
@@ -2334,7 +2537,7 @@
             {
               "id": "S10",
               "name": {
-                "value": "s. ten"
+                "value": "s. 10"
               }
             },
             {
@@ -2346,19 +2549,28 @@
             {
               "id": "SILVERADO_HD",
               "name": {
-                "value": "silverado h. d. "
+                "value": "silverado HD",
+                "synonyms": [
+                  "silverado h. d."
+                ]
               }
             },
             {
               "id": "SILVERADO_LD",
               "name": {
-                "value": "silverado l. d."
+                "value": "silverado LD",
+                "synonyms": [
+                  "silverado l. d."
+                ]
               }
             },
             {
               "id": "SILVERADO_LD_SPECIAL_SERVICES",
               "name": {
-                "value": "silverado l. d. special services"
+                "value": "silverado LD special services",
+                "synonyms": [
+                  "silverado l. d. special services"
+                ]
               }
             },
             {
@@ -2376,13 +2588,19 @@
             {
               "id": "SPARK_EV",
               "name": {
-                "value": "spark e. v."
+                "value": "spark EV",
+                "synonyms": [
+                  "spark e. v."
+                ]
               }
             },
             {
               "id": "SSR",
               "name": {
-                "value": "s. s. r."
+                "value": "SSR",
+                "synonyms": [
+                  "s. s. r."
+                ]
               }
             },
             {
@@ -2394,19 +2612,19 @@
             {
               "id": "T60",
               "name": {
-                "value": "t. sixty"
+                "value": "t. 60"
               }
             },
             {
               "id": "T70",
               "name": {
-                "value": "t. seventy"
+                "value": "t. 70"
               }
             },
             {
               "id": "T80",
               "name": {
-                "value": "t. eighty"
+                "value": "t. 80"
               }
             },
             {
@@ -2430,7 +2648,7 @@
             {
               "id": "TAHOE_SPECIAL_SERVICES",
               "name": {
-                "value": "tahoe special services"
+                "value": "tahoe services speciale"
               }
             },
             {
@@ -2448,7 +2666,10 @@
             {
               "id": "TRAILBLAZER_EXT",
               "name": {
-                "value": "trailblazer e. x. t."
+                "value": "trailblazer EXT",
+                "synonyms": [
+                  "trailblazer e. x. t."
+                ]
               }
             },
             {
@@ -2508,13 +2729,19 @@
             {
               "id": "ENVOY_XL",
               "name": {
-                "value": "envoy x. l."
+                "value": "envoy XL",
+                "synonyms": [
+                  "envoy x. l."
+                ]
               }
             },
             {
               "id": "ENVOY_XUV",
               "name": {
-                "value": "envoy x. u. v."
+                "value": "envoy XUV",
+                "synonyms": [
+                  "envoy x. u. v."
+                ]
               }
             },
             {
@@ -2544,13 +2771,19 @@
             {
               "id": "SIERRA_HD",
               "name": {
-                "value": "sierra h. d."
+                "value": "sierra HD",
+                "synonyms": [
+                  "sierra h. d."
+                ]
               }
             },
             {
               "id": "SIERRA_LD",
               "name": {
-                "value": "sierra l. d."
+                "value": "sierra LD",
+                "synonyms": [
+                  "sierra l. d."
+                ]
               }
             },
             {
@@ -2568,13 +2801,13 @@
             {
               "id": "TOPKICK_4500",
               "name": {
-                "value": "topkick forty-five hundred"
+                "value": "topkick 4500"
               }
             },
             {
               "id": "TOPKICK_5500",
               "name": {
-                "value": "topkick fifty-five hundred"
+                "value": "topkick 5500"
               }
             },
             {
@@ -2598,25 +2831,28 @@
             {
               "id": "YUKON_XL",
               "name": {
-                "value": "yukon x. l."
+                "value": "yukon XL",
+                "synonyms": [
+                  "yukon x. l."
+                ]
               }
             },
             {
               "id": "H2",
               "name": {
-                "value": "h. two"
+                "value": "h. 2"
               }
             },
             {
               "id": "H3",
               "name": {
-                "value": "h. three"
+                "value": "h. 3"
               }
             },
             {
               "id": "H3T",
               "name": {
-                "value": "h. three t."
+                "value": "h. 3 t."
               }
             },
             {
@@ -2628,19 +2864,28 @@
             {
               "id": "FSR",
               "name": {
-                "value": "f. s. r."
+                "value": "FSR",
+                "synonyms": [
+                  "f. s. r."
+                ]
               }
             },
             {
               "id": "FTR",
               "name": {
-                "value": "f. t. r."
+                "value": "FTR",
+                "synonyms": [
+                  "f. t. r."
+                ]
               }
             },
             {
               "id": "FVR",
               "name": {
-                "value": "f. v. r."
+                "value": "FVR",
+                "synonyms": [
+                  "f. v. r."
+                ]
               }
             },
             {
@@ -2706,7 +2951,7 @@
             {
               "id": "EIGHTY-EIGHT",
               "name": {
-                "value": "eighty-eight"
+                "value": "88"
               }
             },
             {
@@ -2748,25 +2993,25 @@
             {
               "id": "G3_WAVE",
               "name": {
-                "value": "g. three wave"
+                "value": "g. 3 wave"
               }
             },
             {
               "id": "G5",
               "name": {
-                "value": "g. five"
+                "value": "g. 5"
               }
             },
             {
               "id": "G6",
               "name": {
-                "value": "g. six"
+                "value": "g. 6"
               }
             },
             {
               "id": "G8",
               "name": {
-                "value": "g. eight"
+                "value": "g. 8"
               }
             },
             {
@@ -2790,7 +3035,10 @@
             {
               "id": "MONTANA_SV6",
               "name": {
-                "value": "montana s. v. six"
+                "value": "montana SV 6",
+                "synonyms": [
+                  "montana s. v. 6"
+                ]
               }
             },
             {
@@ -2838,25 +3086,25 @@
             {
               "id": "9-2X",
               "name": {
-                "value": "nine two x."
+                "value": "9-2 x."
               }
             },
             {
               "id": "43168",
               "name": {
-                "value": "nine three"
+                "value": "9-3"
               }
             },
             {
               "id": "43229",
               "name": {
-                "value": "nine five"
+                "value": "9-5"
               }
             },
             {
               "id": "9-7X",
               "name": {
-                "value": "nine seven x."
+                "value": "9-7 x."
               }
             },
             {
@@ -2886,7 +3134,10 @@
             {
               "id": "LW",
               "name": {
-                "value": "l. w."
+                "value": "LW",
+                "synonyms": [
+                  "l. w."
+                ]
               }
             },
             {
@@ -2904,7 +3155,10 @@
             {
               "id": "SC",
               "name": {
-                "value": "s. c."
+                "value": "SC",
+                "synonyms": [
+                  "s. c."
+                ]
               }
             },
             {
@@ -2916,13 +3170,19 @@
             {
               "id": "SL",
               "name": {
-                "value": "s. l."
+                "value": "SL",
+                "synonyms": [
+                  "s. l."
+                ]
               }
             },
             {
               "id": "SW",
               "name": {
-                "value": "s. w."
+                "value": "SW",
+                "synonyms": [
+                  "s. w."
+                ]
               }
             },
             {
@@ -2940,73 +3200,55 @@
             {
               "id": "170",
               "name": {
-                "value": "one seventy"
+                "value": "170"
               }
             },
             {
               "id": "190",
               "name": {
-                "value": "one ninety"
+                "value": "190"
               }
             },
             {
               "id": "210",
               "name": {
-                "value": "two ten"
-              }
-            },
-            {
-              "id": "1.7EL",
-              "name": {
-                "value": "one point seven e. l. "
-              }
-            },
-            {
-              "id": "3.2CL",
-              "name": {
-                "value": "three point two c. l. "
-              }
-            },
-            {
-              "id": "3.2TL",
-              "name": {
-                "value": "three point two t. l. "
-              }
-            },
-            {
-              "id": "3.2TLS",
-              "name": {
-                "value": "three point two t. l. s. "
-              }
-            },
-            {
-              "id": "3.5RL",
-              "name": {
-                "value": "three point five r. l. "
+                "value": "210"
               }
             },
             {
               "id": "CL",
               "name": {
-                "value": "c. l. "
+                "value": "CL",
+                "synonyms": [
+                  "c. l."
+                ]
               }
             },
             {
               "id": "CSX",
               "name": {
-                "value": "c. s. x."
+                "value": "CSX",
+                "synonyms": [
+                  "c. s. x."
+                ]
               }
             },
             {
               "id": "EL",
               "name": {
-                "value": "e. l."
+                "value": "EL",
+                "synonyms": [
+                  "e. l."
+                ]
               }
             },
             {
               "id": "ILX",
               "name": {
-                "value": "i. l. x."
+                "value": "ILX",
+                "synonyms": [
+                  "i. l. x."
+                ]
               }
             },
             {
@@ -3024,67 +3266,100 @@
             {
               "id": "MDX",
               "name": {
-                "value": "m. d. x."
+                "value": "MDX",
+                "synonyms": [
+                  "m. d. x."
+                ]
               }
             },
             {
               "id": "NSX",
               "name": {
-                "value": "n. s. x."
+                "value": "NSX",
+                "synonyms": [
+                  "n. s. x."
+                ]
               }
             },
             {
               "id": "RDX",
               "name": {
-                "value": "r. d. x."
+                "value": "RDX",
+                "synonyms": [
+                  "r. d. x."
+                ]
               }
             },
             {
               "id": "RL",
               "name": {
-                "value": "r. l. "
+                "value": "RL",
+                "synonyms": [
+                  "r. l."
+                ]
               }
             },
             {
               "id": "RLX",
               "name": {
-                "value": "r. l. x."
+                "value": "RLX",
+                "synonyms": [
+                  "r. l. x."
+                ]
               }
             },
             {
               "id": "RLX_HYBRID",
               "name": {
-                "value": "r. l. x. hybrid"
+                "value": "RLX hybrid",
+                "synonyms": [
+                  "r. l. x. hybrid"
+                ]
               }
             },
             {
               "id": "RSX",
               "name": {
-                "value": "r. s. x."
+                "value": "RSX",
+                "synonyms": [
+                  "r. s. x."
+                ]
               }
             },
             {
               "id": "TL",
               "name": {
-                "value": "t. l. "
+                "value": "TL",
+                "synonyms": [
+                  "t. l."
+                ]
               }
             },
             {
               "id": "TLX",
               "name": {
-                "value": "t. l. x."
+                "value": "TLX",
+                "synonyms": [
+                  "t. l. x."
+                ]
               }
             },
             {
               "id": "TSX",
               "name": {
-                "value": "t. s. x."
+                "value": "TSX",
+                "synonyms": [
+                  "t. s. x."
+                ]
               }
             },
             {
               "id": "ZDX",
               "name": {
-                "value": "z. d. x."
+                "value": "ZDX",
+                "synonyms": [
+                  "z. d. x."
+                ]
               }
             },
             {
@@ -3114,13 +3389,19 @@
             {
               "id": "CR-V",
               "name": {
-                "value": "c. r. v."
+                "value": "CRV",
+                "synonyms": [
+                  "c. r. v."
+                ]
               }
             },
             {
               "id": "CR-Z",
               "name": {
-                "value": "c. r. z."
+                "value": "CRZ",
+                "synonyms": [
+                  "c. r. z."
+                ]
               }
             },
             {
@@ -3144,13 +3425,19 @@
             {
               "id": "GL1800",
               "name": {
-                "value": "g. l. eighteen hundred"
+                "value": "GL 1800",
+                "synonyms": [
+                  "g. l. 1800"
+                ]
               }
             },
             {
               "id": "HR-V",
               "name": {
-                "value": "h. r. v."
+                "value": "HRV",
+                "synonyms": [
+                  "h. r. v."
+                ]
               }
             },
             {
@@ -3186,19 +3473,19 @@
             {
               "id": "S2000",
               "name": {
-                "value": "s. two thousand"
+                "value": "s. 2000"
               }
             },
             {
               "id": "G70",
               "name": {
-                "value": "g. seventy"
+                "value": "g. 70"
               }
             },
             {
               "id": "G80",
               "name": {
-                "value": "g. eighty"
+                "value": "g. 80"
               }
             },
             {
@@ -3210,7 +3497,10 @@
             {
               "id": "ACCENT_GT",
               "name": {
-                "value": "accent g. t. "
+                "value": "accent GT ",
+                "synonyms": [
+                  "accent g. t."
+                ]
               }
             },
             {
@@ -3276,7 +3566,10 @@
             {
               "id": "SANTA_FE_XL",
               "name": {
-                "value": "santa fe x. l."
+                "value": "santa fe XL",
+                "synonyms": [
+                  "santa fe x. l."
+                ]
               }
             },
             {
@@ -3312,19 +3605,25 @@
             {
               "id": "XG300",
               "name": {
-                "value": "x. g. three hundred"
+                "value": "XG 300",
+                "synonyms": [
+                  "x. g. 300"
+                ]
               }
             },
             {
               "id": "XG350",
               "name": {
-                "value": "x. g. three fifty"
+                "value": "XG 350",
+                "synonyms": [
+                  "x. g. 350"
+                ]
               }
             },
             {
               "id": "SAAB_9-3",
               "name": {
-                "value": "saab nine three"
+                "value": "saab 9-3"
               }
             },
             {
@@ -3372,49 +3671,73 @@
             {
               "id": "XE",
               "name": {
-                "value": "x. e. "
+                "value": "XE",
+                "synonyms": [
+                  "x. e."
+                ]
               }
             },
             {
               "id": "XF",
               "name": {
-                "value": "x. r. "
+                "value": "XR",
+                "synonyms": [
+                  "x. r."
+                ]
               }
             },
             {
               "id": "XFR-S",
               "name": {
-                "value": "x. f. r. s."
+                "value": "XFRS",
+                "synonyms": [
+                  "x. f. r. s."
+                ]
               }
             },
             {
               "id": "XJ",
               "name": {
-                "value": "x. j."
+                "value": "XJ",
+                "synonyms": [
+                  "x. j."
+                ]
               }
             },
             {
               "id": "XK",
               "name": {
-                "value": "x. k."
+                "value": "XK",
+                "synonyms": [
+                  "x. k."
+                ]
               }
             },
             {
               "id": "XK8",
               "name": {
-                "value": "x. k. eight"
+                "value": "XK huit",
+                "synonyms": [
+                  "x. k. 8"
+                ]
               }
             },
             {
               "id": "XKR",
               "name": {
-                "value": "x. k. r."
+                "value": "XKR",
+                "synonyms": [
+                  "x. k. r."
+                ]
               }
             },
             {
               "id": "XKR-S",
               "name": {
-                "value": "x. k. r. s."
+                "value": "XKRS",
+                "synonyms": [
+                  "x. k. r. s."
+                ]
               }
             },
             {
@@ -3456,7 +3779,7 @@
             {
               "id": "K900",
               "name": {
-                "value": "k. nine hundred"
+                "value": "k. 900"
               }
             },
             {
@@ -3594,25 +3917,28 @@
             {
               "id": "DISCOVERY_II",
               "name": {
-                "value": "discovery two"
+                "value": "discovery 2"
               }
             },
             {
               "id": "DISCOVERY_LR3",
               "name": {
-                "value": "discovery l. r. three"
+                "value": "discovery LR 3",
+                "synonyms": [
+                  "discovery l. r. 3"
+                ]
               }
             },
             {
               "id": "DISCOVERY_SERIES_I",
               "name": {
-                "value": "discovery series one"
+                "value": "discovery series 1"
               }
             },
             {
               "id": "DISCOVERY_SERIES_II",
               "name": {
-                "value": "discovery series two"
+                "value": "discovery series 2"
               }
             },
             {
@@ -3624,19 +3950,28 @@
             {
               "id": "LR2",
               "name": {
-                "value": "l. r. two"
+                "value": "LR 2",
+                "synonyms": [
+                  "l. r. 2"
+                ]
               }
             },
             {
               "id": "LR3",
               "name": {
-                "value": "l. r. three"
+                "value": "LR 3",
+                "synonyms": [
+                  "l. r. 3"
+                ]
               }
             },
             {
               "id": "LR4",
               "name": {
-                "value": "l. r. four"
+                "value": "LR 4",
+                "synonyms": [
+                  "l. r. 4"
+                ]
               }
             },
             {
@@ -3690,7 +4025,10 @@
             {
               "id": "EVORA_S-IPS",
               "name": {
-                "value": "evora s. i. p. s."
+                "value": "evora s-IPS",
+                "synonyms": [
+                  "evora s-i. p. s."
+                ]
               }
             },
             {
@@ -3702,7 +4040,7 @@
             {
               "id": "8C",
               "name": {
-                "value": "eight c."
+                "value": "8 c."
               }
             },
             {
@@ -3726,7 +4064,10 @@
             {
               "id": "GRANTURISMO_MC",
               "name": {
-                "value": "granturismo m. c."
+                "value": "granturismo MC",
+                "synonyms": [
+                  "granturismo m. c."
+                ]
               }
             },
             {
@@ -3756,13 +4097,19 @@
             {
               "id": "QUATTROPORTE_GTS",
               "name": {
-                "value": "quattroporte g. t. s."
+                "value": "quattroporte GTS",
+                "synonyms": [
+                  "quattroporte g. t. s."
+                ]
               }
             },
             {
               "id": "QUATTROPORTE_GTS_V8",
               "name": {
-                "value": "quattroporte g. t. s. v. eight"
+                "value": "quattroporte GTSV 8",
+                "synonyms": [
+                  "quattroporte g. t. s. v. 8"
+                ]
               }
             },
             {
@@ -3774,22 +4121,19 @@
             {
               "id": "323",
               "name": {
-                "value": "three two three",
-                "synonyms": [
-                  "three twenty-three"
-                ]
+                "value": "323"
               }
             },
             {
               "id": "626",
               "name": {
-                "value": "six twenty-six"
+                "value": "626"
               }
             },
             {
               "id": "929",
               "name": {
-                "value": "nine twenty-nine"
+                "value": "929"
               }
             },
             {
@@ -3801,61 +4145,91 @@
             {
               "id": "CX-3",
               "name": {
-                "value": "c. x. three"
+                "value": "CX-3",
+                "synonyms": [
+                  "c. x. 3"
+                ]
               }
             },
             {
               "id": "CX-5",
               "name": {
-                "value": "c. x. five"
+                "value": "CX-5",
+                "synonyms": [
+                  "c. x. 5"
+                ]
               }
             },
             {
               "id": "CX-7",
               "name": {
-                "value": "c. x. seven"
+                "value": "CX-7",
+                "synonyms": [
+                  "c. x. 7"
+                ]
               }
             },
             {
               "id": "CX-9",
               "name": {
-                "value": "c. x. nine"
+                "value": "CX-9",
+                "synonyms": [
+                  "c. x. 9"
+                ]
               }
             },
             {
               "id": "MAZDA2",
               "name": {
-                "value": "mazda two"
+                "value": "2",
+                "synonyms": [
+                  "mazda 2"
+                ]
               }
             },
             {
               "id": "MAZDA3",
               "name": {
-                "value": "mazda three"
+                "value": "3",
+                "synonyms": [
+                  "mazda 3"
+                ]
               }
             },
             {
               "id": "MAZDA5",
               "name": {
-                "value": "mazda five"
+                "value": "5",
+                "synonyms": [
+                  "mazda 5"
+                ]
               }
             },
             {
               "id": "MAZDA6",
               "name": {
-                "value": "mazda six"
+                "value": "6",
+                "synonyms": [
+                  "mazda 6"
+                ]
               }
             },
             {
               "id": "MAZDASPEED3",
               "name": {
-                "value": "mazda speed three"
+                "value": "speed 3",
+                "synonyms": [
+                  "mazda speed 3"
+                ]
               }
             },
             {
               "id": "MAZDASPEED6",
               "name": {
-                "value": "mazda speed six"
+                "value": "speed 6",
+                "synonyms": [
+                  "mazda speed 6"
+                ]
               }
             },
             {
@@ -3873,25 +4247,40 @@
             {
               "id": "MPV",
               "name": {
-                "value": "m. p. v."
+                "value": "MPV",
+                "synonyms": [
+                  "m. p. v."
+                ]
               }
             },
             {
               "id": "MX-3",
               "name": {
-                "value": "m. x. three"
+                "value": "MX-3",
+                "synonyms": [
+                  "m. x. 3",
+                  "precidia"
+                ]
               }
             },
             {
               "id": "MX-5_MIATA",
               "name": {
-                "value": "m. x. five miata"
+                "value": "MX-5 miata",
+                "synonyms": [
+                  "m. x. 5 miata",
+                  "miata",
+                  "m. x. 5"
+                ]
               }
             },
             {
               "id": "MX-6",
               "name": {
-                "value": "m. x. six"
+                "value": "MX-6",
+                "synonyms": [
+                  "m. x. 6"
+                ]
               }
             },
             {
@@ -3903,7 +4292,10 @@
             {
               "id": "RX-8",
               "name": {
-                "value": "r. x. eight"
+                "value": "RX-8",
+                "synonyms": [
+                  "r. x. 8"
+                ]
               }
             },
             {
@@ -3915,25 +4307,37 @@
             {
               "id": "AMG_GT",
               "name": {
-                "value": "a. m. g. g. t."
+                "value": "AMG-GT.",
+                "synonyms": [
+                  "a. m. g. g. t."
+                ]
               }
             },
             {
               "id": "AMG_GT_C",
               "name": {
-                "value": "a. m. g. g. t. c."
+                "value": "AMG-GTC",
+                "synonyms": [
+                  "a. m. g. g. t. c."
+                ]
               }
             },
             {
               "id": "AMG_GT_S",
               "name": {
-                "value": "a. m. g. g. t. s."
+                "value": "AMG-GTS",
+                "synonyms": [
+                  "a. m. g. g. t. s."
+                ]
               }
             },
             {
               "id": "AMG_SLS",
               "name": {
-                "value": "a. m. g. s. l. s."
+                "value": "AMG-SLS",
+                "synonyms": [
+                  "a. m. g. s. l. s."
+                ]
               }
             },
             {
@@ -3941,10 +4345,8 @@
               "name": {
                 "value": "b. class",
                 "synonyms": [
-                  "B160",
-                  "B180",
-                  "B200",
-                  "B200 TURBO"
+                  "b. two hundred",
+                  "b. two hundred turbo"
                 ]
               }
             },
@@ -3953,27 +4355,31 @@
               "name": {
                 "value": "c. class",
                 "synonyms": [
-                  "C200",
-                  "C220",
-                  "C250",
-                  "C280",
-                  "C300",
-                  "C300 4MATIC",
-                  "C350",
-                  "C350 4MATIC",
-                  "C32 AMG",
-                  "C43 AMG",
-                  "C55 AMG",
-                  "C63 AMG"
+                  "c. two hundred",
+                  "c. two twenty",
+                  "c. two thirty",
+                  "c. two fifty",
+                  "c. three hundred",
+                  "c. three fifty",
+                  "c. thirty-two",
+                  "c. thirty-two a.m.g.",
+                  "c. fourty three",
+                  "c. fourty-three a.m.g.",
+                  "c. fifty-five",
+                  "c. fifty-five a.m.g.",
+                  "C. SIXTY-THREE",
+                  "C. SIXTY-THREE A.M.G.",
+                  "C. FOUR HUNDRED"
                 ]
               }
             },
             {
               "id": "CL_CLASS",
               "name": {
-                "value": "c. l. class",
+                "value": "CL class",
                 "synonyms": [
-                  "CL500",
+                  "c. l. class",
+                  "c. l. five hundred",
                   "CL500 4MATIC",
                   "CL600",
                   "CL55 AMG",
@@ -3985,29 +4391,29 @@
             {
               "id": "CLA_CLASS",
               "name": {
-                "value": "c. l. a. class",
+                "value": "CLA class",
                 "synonyms": [
-                  "CLA180",
-                  "CLA200",
+                  "c. l. a. class",
                   "CLA250",
                   "CLA250 4MATIC",
-                  "CLA45 AMG",
-                  "CLA45 AMG 4MATIC"
+                  "CLA45",
+                  "CLA45 AMG"
                 ]
               }
             },
             {
               "id": "CLK_CLASS",
               "name": {
-                "value": "c. l. k. class",
+                "value": "CLK class",
                 "synonyms": [
-                  "CLK200 KOMPRESSOR",
-                  "CLK240",
-                  "CLK280",
+                  "c. l. k. class",
                   "CLK320",
                   "CLK350",
+                  "CLK430",
                   "CLK500",
+                  "CLK55",
                   "CLK55 AMG",
+                  "CLK63",
                   "CLK63 AMG"
                 ]
               }
@@ -4015,9 +4421,10 @@
             {
               "id": "CLS_CLASS",
               "name": {
-                "value": "c. l. s.  class",
+                "value": "CLS  class",
                 "synonyms": [
-                  "CLS280",
+                  "c. l. s.  class",
+                  "c. l. s. two eighty",
                   "CLS300",
                   "CLS350",
                   "CLS400",
@@ -4035,7 +4442,7 @@
               "name": {
                 "value": "e. class",
                 "synonyms": [
-                  "E200",
+                  "e. two hundred",
                   "E250",
                   "E300",
                   "E350 4MATIC",
@@ -4055,7 +4462,7 @@
               "name": {
                 "value": "g. class",
                 "synonyms": [
-                  "G500",
+                  "g. five hundred",
                   "G55 AMG",
                   "G63 AMG",
                   "G65 AMG"
@@ -4065,9 +4472,10 @@
             {
               "id": "GL_CLASS",
               "name": {
-                "value": "g. l. class",
+                "value": "GL class",
                 "synonyms": [
-                  "GL400",
+                  "g. l. class",
+                  "g. l. four hundred",
                   "GL450",
                   "GL500",
                   "GL63 AMG"
@@ -4077,9 +4485,10 @@
             {
               "id": "GLA_CLASS",
               "name": {
-                "value": "g. l. a. class",
+                "value": "GLA class",
                 "synonyms": [
-                  "GLA 180",
+                  "g. l. a. class",
+                  "g. l. a. one eighty",
                   "GLA 200",
                   "GLA 250",
                   "GLA 250 4MATIC",
@@ -4090,8 +4499,9 @@
             {
               "id": "GLC_CLASS",
               "name": {
-                "value": "g. l. c. class",
+                "value": "GLC class",
                 "synonyms": [
+                  "g. l. c. class",
                   "GLC 250 4MATIC",
                   "GLC300",
                   "GLC300 4MATIC",
@@ -4106,8 +4516,9 @@
             {
               "id": "GLE_CLASS",
               "name": {
-                "value": "g. l. e. class",
+                "value": "GLE class",
                 "synonyms": [
+                  "g. l. e. class",
                   "GLE63 S"
                 ]
               }
@@ -4115,8 +4526,9 @@
             {
               "id": "GLE_COUPE",
               "name": {
-                "value": "g. l. e. coupe",
+                "value": "GLE coupe",
                 "synonyms": [
+                  "g. l. e. coupe",
                   "GLE63 S"
                 ]
               }
@@ -4124,8 +4536,9 @@
             {
               "id": "GLK_CLASS",
               "name": {
-                "value": "g. l. k. class",
+                "value": "GLK class",
                 "synonyms": [
+                  "g. l. k. class",
                   "GLK280",
                   "GLK300",
                   "GLK350",
@@ -4138,8 +4551,9 @@
             {
               "id": "GLS_CLASS",
               "name": {
-                "value": "g. l. s. class",
+                "value": "GLS class",
                 "synonyms": [
+                  "g. l. s. class",
                   "GLS 450",
                   "GLS 450 4MATIC",
                   "GLS550",
@@ -4158,8 +4572,9 @@
             {
               "id": "ML_CLASS",
               "name": {
-                "value": "m. l. class",
+                "value": "ML class",
                 "synonyms": [
+                  "m. l. class",
                   "ML320",
                   "ML350",
                   "ML 400",
@@ -4196,7 +4611,10 @@
             {
               "id": "S_CLASS_AMG_S63",
               "name": {
-                "value": "s. class a. m. g. s-sixty three"
+                "value": "s. class AMG 63",
+                "synonyms": [
+                  "s. class a. m. g. s-sixty three"
+                ]
               }
             },
             {
@@ -4208,8 +4626,9 @@
             {
               "id": "SL_CLASS",
               "name": {
-                "value": "s. l. class",
+                "value": "SL class",
                 "synonyms": [
+                  "s. l. class",
                   "SL280",
                   "SL350",
                   "SL400",
@@ -4225,8 +4644,9 @@
             {
               "id": "SLC_CLASS",
               "name": {
-                "value": "s. l. c. class",
+                "value": "SLC class",
                 "synonyms": [
+                  "s. l. c. class",
                   "SLC 300 ROATSTER",
                   "AMG SLC 43 ROADSTER",
                   "SLC 300",
@@ -4237,8 +4657,9 @@
             {
               "id": "SLK_CLASS",
               "name": {
-                "value": "s. l. k. class",
+                "value": "SLK class",
                 "synonyms": [
+                  "s. l. k. class",
                   "SLK 200",
                   "SLK 230",
                   "SLK 280",
@@ -4251,13 +4672,25 @@
             {
               "id": "SLR_MCLAREN",
               "name": {
-                "value": "s. l. r.  mclaren"
+                "value": "SLR  mclaren",
+                "synonyms": [
+                  "s. l. r.  mclaren"
+                ]
+              }
+            },
+            {
+              "id": "SPRINTER_3500",
+              "name": {
+                "value": "sprinter 3500"
               }
             },
             {
               "id": "FORTWO",
               "name": {
-                "value": "fortwo"
+                "value": "fortwo",
+                "synonyms": [
+                  "smart car"
+                ]
               }
             },
             {
@@ -4353,19 +4786,25 @@
             {
               "id": "RVR",
               "name": {
-                "value": "r. v. r."
+                "value": "RVR",
+                "synonyms": [
+                  "r. v. r."
+                ]
               }
             },
             {
               "id": "MV-1",
               "name": {
-                "value": "m. v. one"
+                "value": "MV-1",
+                "synonyms": [
+                  "m. v. 1"
+                ]
               }
             },
             {
               "id": "M100",
               "name": {
-                "value": "m. one hundred"
+                "value": "M100"
               }
             },
             {
@@ -4377,7 +4816,7 @@
             {
               "id": "TRANSIT_350",
               "name": {
-                "value": "transit three fifty"
+                "value": "transit 350"
               }
             },
             {
@@ -4389,175 +4828,211 @@
             {
               "id": "EX35",
               "name": {
-                "value": "e. x. thirty-five"
+                "value": "EX 35",
+                "synonyms": [
+                  "e. x. 35"
+                ]
               }
             },
             {
               "id": "FX35",
               "name": {
-                "value": "f. x. thrity-five"
+                "value": "FX 35",
+                "synonyms": [
+                  "f. x. 35"
+                ]
               }
             },
             {
               "id": "FX45",
               "name": {
-                "value": "f. x. forty-five"
+                "value": "FX 45",
+                "synonyms": [
+                  "f. x. 45"
+                ]
               }
             },
             {
               "id": "FX50",
               "name": {
-                "value": "f. x. fifty"
+                "value": "FX 50",
+                "synonyms": [
+                  "f. x. 50"
+                ]
               }
             },
             {
               "id": "G35",
               "name": {
-                "value": "g. thirty-five"
+                "value": "g. 35"
               }
             },
             {
               "id": "G35_COUPE",
               "name": {
-                "value": "g. thirty-five coupe"
+                "value": "g. 35 coupe"
               }
             },
             {
               "id": "G35_SEDAN",
               "name": {
-                "value": "g. thirty-five sedan"
+                "value": "g. 35 sedan"
               }
             },
             {
               "id": "G37_COUPE",
               "name": {
-                "value": "g. thirty-seven coupe"
+                "value": "g. 37 coupe"
               }
             },
             {
               "id": "I30",
               "name": {
-                "value": "i. thirty"
+                "value": "i. 30"
               }
             },
             {
               "id": "I35",
               "name": {
-                "value": "i. thirty-five"
+                "value": "i. 35"
               }
             },
             {
               "id": "JX35",
               "name": {
-                "value": "j. x. thirty-five"
+                "value": "JX 35",
+                "synonyms": [
+                  "j. x. 35"
+                ]
               }
             },
             {
               "id": "M35",
               "name": {
-                "value": "m. thirty-five"
+                "value": "m. 35"
               }
             },
             {
               "id": "M35_HYBRID",
               "name": {
-                "value": "m. thirty-five hybrid"
+                "value": "m. 35 hybrid"
               }
             },
             {
               "id": "M45",
               "name": {
-                "value": "m. forty-five"
+                "value": "m. 45"
               }
             },
             {
               "id": "M56",
               "name": {
-                "value": "m. fifty-six"
+                "value": "m. 56"
               }
             },
             {
               "id": "Q45",
               "name": {
-                "value": "q. forty-five"
+                "value": "q. 45"
               }
             },
             {
               "id": "Q50",
               "name": {
-                "value": "q. fifty"
+                "value": "q. 50"
               }
             },
             {
               "id": "Q50_HYBRID",
               "name": {
-                "value": "q. fifty hybrid"
+                "value": "q. 50 hybrid"
               }
             },
             {
               "id": "Q60",
               "name": {
-                "value": "q. sixty"
+                "value": "q. 60"
               }
             },
             {
               "id": "Q70",
               "name": {
-                "value": "q. seventy"
+                "value": "q. 70"
               }
             },
             {
               "id": "QX30",
               "name": {
-                "value": "q. x. thirty"
+                "value": "QX 30",
+                "synonyms": [
+                  "q. x. 30"
+                ]
               }
             },
             {
               "id": "QX4",
               "name": {
-                "value": "q. x. four"
+                "value": "QX 4",
+                "synonyms": [
+                  "q. x. 4"
+                ]
               }
             },
             {
               "id": "QX50",
               "name": {
-                "value": "q. x. fifty"
+                "value": "QX 50",
+                "synonyms": [
+                  "q. x. 50"
+                ]
               }
             },
             {
               "id": "QX56",
               "name": {
-                "value": "q. x. fifty six"
+                "value": "QX 56",
+                "synonyms": [
+                  "q. x. 56"
+                ]
               }
             },
             {
               "id": "QX60",
               "name": {
-                "value": "q. x. sixty"
+                "value": "QX 60",
+                "synonyms": [
+                  "q. x. 60"
+                ]
               }
             },
             {
               "id": "QX60_HYBRID",
               "name": {
-                "value": "q. x. sixty hybrid"
+                "value": "QX 60hybrid",
+                "synonyms": [
+                  "q. x. 60 hybrid"
+                ]
               }
             },
             {
               "id": "QX80",
               "name": {
-                "value": "q. x. eighty"
+                "value": "QX 80",
+                "synonyms": [
+                  "q. x. 80"
+                ]
               }
             },
             {
               "id": "350Z",
               "name": {
-                "value": "three fifty z."
+                "value": "350 z."
               }
             },
             {
               "id": "350Z_ROADSTER",
               "name": {
-                "value": "three fifty z. roadster"
+                "value": "350 z. roadster"
               }
             },
             {
@@ -4599,7 +5074,10 @@
             {
               "id": "GT-R",
               "name": {
-                "value": "g. t. r."
+                "value": "GTR",
+                "synonyms": [
+                  "g. t. r."
+                ]
               }
             },
             {
@@ -4641,31 +5119,46 @@
             {
               "id": "NV",
               "name": {
-                "value": "n. v."
+                "value": "NV",
+                "synonyms": [
+                  "n. v."
+                ]
               }
             },
             {
               "id": "NV1500",
               "name": {
-                "value": "n. v. fifteen hundred"
+                "value": "NV 1500",
+                "synonyms": [
+                  "n. v. 1500"
+                ]
               }
             },
             {
               "id": "NV200",
               "name": {
-                "value": "n. v. two hundred"
+                "value": "NV 200",
+                "synonyms": [
+                  "n. v. 200"
+                ]
               }
             },
             {
               "id": "NV2500",
               "name": {
-                "value": "n. v. twenty-five hundred"
+                "value": "NV 2500",
+                "synonyms": [
+                  "n. v. 2500"
+                ]
               }
             },
             {
               "id": "NV3500",
               "name": {
-                "value": "n.v. thirty-five hunded"
+                "value": "NV 3500",
+                "synonyms": [
+                  "n.v. 3500"
+                ]
               }
             },
             {
@@ -4701,13 +5194,19 @@
             {
               "id": "SENTRA_SE-R",
               "name": {
-                "value": "sentra s. e. r."
+                "value": "sentra SER",
+                "synonyms": [
+                  "sentra s. e. r."
+                ]
               }
             },
             {
               "id": "SENTRA_SE-R_SPEC_V",
               "name": {
-                "value": "sentra s. e. r. spec v."
+                "value": "sentra SER spec v.",
+                "synonyms": [
+                  "sentra s. e. r. spec v."
+                ]
               }
             },
             {
@@ -4725,7 +5224,10 @@
             {
               "id": "TITAN_XD",
               "name": {
-                "value": "titan x. d."
+                "value": "titan XD",
+                "synonyms": [
+                  "titan x. d."
+                ]
               }
             },
             {
@@ -4755,157 +5257,61 @@
             {
               "id": "718_BOXSTER",
               "name": {
-                "value": "seven eighteen boxster"
-              }
-            },
-            {
-              "id": "718_BOXSTER_S",
-              "name": {
-                "value": "seven eighteen boxster s."
-              }
-            },
-            {
-              "id": "911",
-              "name": {
-                "value": "nine eleven"
+                "value": "718 boxster"
               }
             },
             {
               "id": "911_CARRERA",
               "name": {
-                "value": "nine eleven carrera"
-              }
-            },
-            {
-              "id": "911_CARRERA_4",
-              "name": {
-                "value": "nine eleven carrera four"
-              }
-            },
-            {
-              "id": "911_CARRERA_4_CABRIOLET",
-              "name": {
-                "value": "nine eleven carrera four cabriolet"
-              }
-            },
-            {
-              "id": "911_CARRERA_4_GTS",
-              "name": {
-                "value": "nine eleven carrera four g. t. s. "
-              }
-            },
-            {
-              "id": "911_CARRERA_4S",
-              "name": {
-                "value": "nine eleven carrera four s."
-              }
-            },
-            {
-              "id": "911_CARRERA_4S_CABRIOLET",
-              "name": {
-                "value": "nine eleven carrera four s. cabriolet"
-              }
-            },
-            {
-              "id": "911_CARRERA_CABRIOLET",
-              "name": {
-                "value": "nine eleven carrera cabriolet"
-              }
-            },
-            {
-              "id": "911_CARRERA_GTS",
-              "name": {
-                "value": "nine eleven carrera g. t. s."
-              }
-            },
-            {
-              "id": "911_CARRERA_S",
-              "name": {
-                "value": "nine eleven carrera s."
-              }
-            },
-            {
-              "id": "911_CARRERA_S_CABRIOLET",
-              "name": {
-                "value": "nine eleven carrera s. cabriolet"
+                "value": "911 carrera"
               }
             },
             {
               "id": "911_GT2",
               "name": {
-                "value": "nine eleven g. t. two"
-              }
-            },
-            {
-              "id": "911_GT2_RS",
-              "name": {
-                "value": "nine eleven g. t. two r. s."
+                "value": "911 GT 2",
+                "synonyms": [
+                  "911 g. t. 2"
+                ]
               }
             },
             {
               "id": "911_GT3",
               "name": {
-                "value": "nine eleven g. t. three"
-              }
-            },
-            {
-              "id": "911_GT3_RS",
-              "name": {
-                "value": "nine eleven g. t .three r. s. "
+                "value": "911 GT. 3",
+                "synonyms": [
+                  "911 g. t. 3"
+                ]
               }
             },
             {
               "id": "911_R",
               "name": {
-                "value": "nine eleven r."
+                "value": "911 r."
               }
             },
             {
               "id": "911_SPEEDSTER",
               "name": {
-                "value": "nine eleven speedster"
+                "value": "911 speedster"
               }
             },
             {
               "id": "911_TARGA",
               "name": {
-                "value": "nine eleven targa"
-              }
-            },
-            {
-              "id": "911_TARGA_4",
-              "name": {
-                "value": "nine eleven targa four"
-              }
-            },
-            {
-              "id": "911_TARGA_4S",
-              "name": {
-                "value": "nine eleven targa four s."
-              }
-            },
-            {
-              "id": "911_TARGA_4S_+_GTS",
-              "name": {
-                "value": "nine eleven targa four s. plus g. t. s."
+                "value": "911 targa"
               }
             },
             {
               "id": "911_TURBO",
               "name": {
-                "value": "nine eleven turbo"
-              }
-            },
-            {
-              "id": "911_TURBO_S",
-              "name": {
-                "value": "nine eleven turbo s."
+                "value": "911 turbo"
               }
             },
             {
               "id": "918_SPYDER",
               "name": {
-                "value": "nine eighteen spyder"
+                "value": "918 spyder"
               }
             },
             {
@@ -4933,15 +5339,12 @@
               }
             },
             {
-              "id": "CAYENNE_DIESEL",
-              "name": {
-                "value": "cayenne diesel"
-              }
-            },
-            {
               "id": "CAYENNE_GTS",
               "name": {
-                "value": "cayenne g. t. s. "
+                "value": "cayenne GTS",
+                "synonyms": [
+                  "cayenne g. t. s."
+                ]
               }
             },
             {
@@ -4957,39 +5360,15 @@
               }
             },
             {
-              "id": "CAYENNE_S_HYBRID",
-              "name": {
-                "value": "cayenne s hybrid"
-              }
-            },
-            {
               "id": "CAYENNE_TURBO",
               "name": {
                 "value": "cayenne turbo"
               }
             },
             {
-              "id": "CAYENNE_TURBO_S",
-              "name": {
-                "value": "cayenne turbo s"
-              }
-            },
-            {
               "id": "CAYMAN",
               "name": {
                 "value": "cayman"
-              }
-            },
-            {
-              "id": "CAYMAN_R",
-              "name": {
-                "value": "cayman r"
-              }
-            },
-            {
-              "id": "CAYMAN_S",
-              "name": {
-                "value": "cayman s"
               }
             },
             {
@@ -5001,7 +5380,10 @@
             {
               "id": "MACAN_GTS",
               "name": {
-                "value": "macan g. t. s."
+                "value": "macan GTS",
+                "synonyms": [
+                  "macan g. t. s."
+                ]
               }
             },
             {
@@ -5023,69 +5405,9 @@
               }
             },
             {
-              "id": "PANAMERA_4",
-              "name": {
-                "value": "panamera four"
-              }
-            },
-            {
-              "id": "PANAMERA_4S",
-              "name": {
-                "value": "panamera four s. "
-              }
-            },
-            {
-              "id": "PANAMERA_4S_EXECUTIVE",
-              "name": {
-                "value": "panamera four s. executive"
-              }
-            },
-            {
-              "id": "PANAMERA_S",
-              "name": {
-                "value": "panamera s."
-              }
-            },
-            {
-              "id": "PANAMERA_S_HYBRID",
-              "name": {
-                "value": "panamera s. hybrid"
-              }
-            },
-            {
               "id": "PANAMERA_TURBO",
               "name": {
                 "value": "panamera turbo"
-              }
-            },
-            {
-              "id": "PANAMERA_TURBO_S",
-              "name": {
-                "value": "panamera turbo s."
-              }
-            },
-            {
-              "id": "PANAMERA_TURBO_S_E-HYBRID",
-              "name": {
-                "value": "panamera turbo s. e-hybrid"
-              }
-            },
-            {
-              "id": "PANAMERA_TURBO_S_E-HYBRID_EXECUTIVE",
-              "name": {
-                "value": "panamera turbo s. e. hybrid executive"
-              }
-            },
-            {
-              "id": "PANAMERA_TURBO_S_E-HYBRID_SPORT_TURISMO",
-              "name": {
-                "value": "panamera turbo s. e. hybrid sport turismo"
-              }
-            },
-            {
-              "id": "PANAMERA_TURBO_SPORT_TURISMO",
-              "name": {
-                "value": "panamera turbo sport turismo"
               }
             },
             {
@@ -5097,7 +5419,7 @@
             {
               "id": "ARNAGE_4.4L_BIRKIN",
               "name": {
-                "value": "arnage four point four l. birkin"
+                "value": "arnage 4 point 4 l. birkin"
               }
             },
             {
@@ -5127,7 +5449,10 @@
             {
               "id": "CONTINENTAL_SC",
               "name": {
-                "value": "continental s. c. "
+                "value": "continental SC",
+                "synonyms": [
+                  "continental s. c."
+                ]
               }
             },
             {
@@ -5163,13 +5488,16 @@
             {
               "id": "SILVER_SERAPH_LOL",
               "name": {
-                "value": "silver seraph l. o. l."
+                "value": "silver seraph LOL",
+                "synonyms": [
+                  "silver seraph l. o. l."
+                ]
               }
             },
             {
               "id": "S281",
               "name": {
-                "value": "S two eighty-one"
+                "value": "s. 281"
               }
             },
             {
@@ -5205,7 +5533,10 @@
             {
               "id": "BRZ",
               "name": {
-                "value": "b. r. z."
+                "value": "BRZ",
+                "synonyms": [
+                  "b. r. z."
+                ]
               }
             },
             {
@@ -5223,19 +5554,21 @@
             {
               "id": "IMPREZA__WRX_/_STI",
               "name": {
-                "value": "impreza  w. r. x. s. t. i. ",
+                "value": "impreza  WRX-STI",
                 "synonyms": [
-                  "impreza s. t. i.",
-                  "w. r. x. s. t. i."
+                  "impreza  w. r. x. s. t. i.",
+                  "w. r. x. s. t. i.",
+                  "impreza s. t. i."
                 ]
               }
             },
             {
               "id": "IMPREZA_WRX",
               "name": {
-                "value": "impreza w. r. x.",
+                "value": "impreza WRX",
                 "synonyms": [
-                  "w. r. x."
+                  "impreza w. r. x.",
+                  "w.r.x."
                 ]
               }
             },
@@ -5254,7 +5587,10 @@
             {
               "id": "SVX",
               "name": {
-                "value": "s. v. x. "
+                "value": "SVX",
+                "synonyms": [
+                  "s. v. x."
+                ]
               }
             },
             {
@@ -5266,7 +5602,10 @@
             {
               "id": "XV_CROSSTREK",
               "name": {
-                "value": "x. v. crosstrek"
+                "value": "XV crosstrek",
+                "synonyms": [
+                  "x. v. crosstrek"
+                ]
               }
             },
             {
@@ -5320,7 +5659,10 @@
             {
               "id": "SX4",
               "name": {
-                "value": "s. x. four"
+                "value": "SX 4",
+                "synonyms": [
+                  "s. x. 4"
+                ]
               }
             },
             {
@@ -5338,7 +5680,10 @@
             {
               "id": "XL-7",
               "name": {
-                "value": "x. l. seven"
+                "value": "XL-7",
+                "synonyms": [
+                  "x. l. 7"
+                ]
               }
             },
             {
@@ -5374,301 +5719,448 @@
             {
               "id": "ROADSTER_2.0",
               "name": {
-                "value": "roadster two point o."
+                "value": "roadster 2 point 0.",
+                "synonyms": [
+                  "roadster 2 point o."
+                ]
               }
             },
             {
               "id": "ROADSTER_2.5",
               "name": {
-                "value": "roadster two point five."
+                "value": "roadster 2 point 5."
               }
             },
             {
               "id": "CT200H",
               "name": {
-                "value": "c. t. two hundred h."
+                "value": "CT 200 h.",
+                "synonyms": [
+                  "c. t. 200 h."
+                ]
               }
             },
             {
               "id": "ES_300",
               "name": {
-                "value": "e. s. three hundred"
+                "value": "ES 300",
+                "synonyms": [
+                  "e. s. 300"
+                ]
               }
             },
             {
               "id": "ES_300H",
               "name": {
-                "value": "e. s. three hundred h."
+                "value": "ES 300 h.",
+                "synonyms": [
+                  "e. s. 300 h."
+                ]
               }
             },
             {
               "id": "ES_330",
               "name": {
-                "value": "e. s. three thirty"
+                "value": "ES 330",
+                "synonyms": [
+                  "e. s. 330"
+                ]
               }
             },
             {
               "id": "ES_350",
               "name": {
-                "value": "es three fifty"
+                "value": "ES 350",
+                "synonyms": [
+                  "e. s. 350"
+                ]
               }
             },
             {
               "id": "GS",
               "name": {
-                "value": "g. s."
+                "value": "GS",
+                "synonyms": [
+                  "g. s."
+                ]
               }
             },
             {
               "id": "GS_300",
               "name": {
-                "value": "g. s.three hundred"
+                "value": "GS 300",
+                "synonyms": [
+                  "g. s. 300"
+                ]
               }
             },
             {
               "id": "GS_350",
               "name": {
-                "value": "g. s. three fifty"
+                "value": "GS. 350",
+                "synonyms": [
+                  "g. s. 350"
+                ]
               }
             },
             {
               "id": "GS_430",
               "name": {
-                "value": "g. s. four thirty"
+                "value": "GS 430",
+                "synonyms": [
+                  "g. s. 430"
+                ]
               }
             },
             {
               "id": "GS_450H",
               "name": {
-                "value": "g. s. four fifty h."
+                "value": "GS 450 h.",
+                "synonyms": [
+                  "g. s. 450 h."
+                ]
               }
             },
             {
               "id": "GS_460",
               "name": {
-                "value": "g. s. four sixty"
+                "value": "GS 460",
+                "synonyms": [
+                  "g. s. 460"
+                ]
               }
             },
             {
               "id": "GS_F",
               "name": {
-                "value": "g. s. f."
+                "value": "GSF",
+                "synonyms": [
+                  "g. s. f."
+                ]
               }
             },
             {
               "id": "GX_460",
               "name": {
-                "value": "g. x. four sixty"
+                "value": "GX 460",
+                "synonyms": [
+                  "g. x. 460"
+                ]
               }
             },
             {
               "id": "GX_470",
               "name": {
-                "value": "g. x. four seventy"
+                "value": "GX 470",
+                "synonyms": [
+                  "g. x. 470"
+                ]
               }
             },
             {
               "id": "HS_250H",
               "name": {
-                "value": "hs two fifty h."
+                "value": "HS 250 h.",
+                "synonyms": [
+                  "h. s. 250 h."
+                ]
               }
             },
             {
               "id": "IS",
               "name": {
-                "value": "i. s. "
+                "value": "IS ",
+                "synonyms": [
+                  "i. s."
+                ]
               }
             },
             {
               "id": "IS_200",
               "name": {
-                "value": "i. s. two hundred"
+                "value": "IS 200",
+                "synonyms": [
+                  "i. s. 200"
+                ]
               }
             },
             {
               "id": "IS_250",
               "name": {
-                "value": "i. s. two fifty"
+                "value": "IS 250",
+                "synonyms": [
+                  "i. s. 250"
+                ]
               }
             },
             {
               "id": "IS_250C",
               "name": {
-                "value": "i. s. two fifty c."
+                "value": "IS 250 c.",
+                "synonyms": [
+                  "i. s. 250 c."
+                ]
               }
             },
             {
               "id": "IS_300",
               "name": {
-                "value": "i. s. three hundred"
+                "value": "IS 300",
+                "synonyms": [
+                  "i. s. 300"
+                ]
               }
             },
             {
               "id": "IS_350",
               "name": {
-                "value": "i. s. three fifty"
+                "value": "IS 350",
+                "synonyms": [
+                  "i. s. 350"
+                ]
               }
             },
             {
               "id": "IS_350C",
               "name": {
-                "value": "i. s. three fifty c."
+                "value": "IS 350 c.",
+                "synonyms": [
+                  "i. s. 350 c."
+                ]
               }
             },
             {
               "id": "IS_C",
               "name": {
-                "value": "i. s. c."
+                "value": "ISC",
+                "synonyms": [
+                  "i. s. c."
+                ]
               }
             },
             {
               "id": "IS_F",
               "name": {
-                "value": "i. s. f."
+                "value": "ISF",
+                "synonyms": [
+                  "i. s. f."
+                ]
               }
             },
             {
               "id": "LC500",
               "name": {
-                "value": "l. c. five hundred"
+                "value": "LC 500",
+                "synonyms": [
+                  "l. c. 500"
+                ]
               }
             },
             {
               "id": "LFA",
               "name": {
-                "value": "l. f. a"
+                "value": "LFA",
+                "synonyms": [
+                  "l. f. a."
+                ]
               }
             },
             {
               "id": "LS_430",
               "name": {
-                "value": "l. s. four thirty"
+                "value": "LS 430",
+                "synonyms": [
+                  "l. s. 430"
+                ]
               }
             },
             {
               "id": "LS_460",
               "name": {
-                "value": "l. s. four sixty"
+                "value": "LS 460",
+                "synonyms": [
+                  "l. s. 460"
+                ]
               }
             },
             {
               "id": "LS_460L",
               "name": {
-                "value": "l. s. four sixty l."
+                "value": "LS four sixty l.",
+                "synonyms": [
+                  "l. s. 460 l."
+                ]
               }
             },
             {
               "id": "LS_600HL",
               "name": {
-                "value": "l. s. six hundred h. l. "
+                "value": "LS 600 h. l. ",
+                "synonyms": [
+                  "l. s. 600 h. l."
+                ]
               }
             },
             {
               "id": "LX_470",
               "name": {
-                "value": "l. x. four seventy"
+                "value": "LX 470",
+                "synonyms": [
+                  "l. x. 470"
+                ]
               }
             },
             {
               "id": "LX_570",
               "name": {
-                "value": "l. x. five seventy"
+                "value": "LX 570",
+                "synonyms": [
+                  "l. x. 570"
+                ]
               }
             },
             {
               "id": "NX200T",
               "name": {
-                "value": "n. x. two hundred t."
+                "value": "NX 200 t.",
+                "synonyms": [
+                  "n. x. 200 t."
+                ]
               }
             },
             {
               "id": "NX300H",
               "name": {
-                "value": "n. x. three hundred h."
+                "value": "NX 300 h.",
+                "synonyms": [
+                  "n. x. 300 h."
+                ]
               }
             },
             {
               "id": "RC_F",
               "name": {
-                "value": "r. c. f."
+                "value": "RCF",
+                "synonyms": [
+                  "r. c. f."
+                ]
               }
             },
             {
               "id": "RC300",
               "name": {
-                "value": "r. c. three hundred"
+                "value": "RC 300",
+                "synonyms": [
+                  "r. c. 300"
+                ]
               }
             },
             {
               "id": "RC350",
               "name": {
-                "value": "r. c. three fifty"
+                "value": "RC 350",
+                "synonyms": [
+                  "r. c. 350"
+                ]
               }
             },
             {
               "id": "RC_330",
               "name": {
-                "value": "r. c.  three thirty"
+                "value": "RC  330",
+                "synonyms": [
+                  "r. c.  330"
+                ]
               }
             },
             {
               "id": "RX_350",
               "name": {
-                "value": "r. x. three fifty"
+                "value": "RX 350",
+                "synonyms": [
+                  "r. x. 350"
+                ]
               }
             },
             {
               "id": "RX_400H",
               "name": {
-                "value": "RX 400h"
+                "value": "RX  400",
+                "synonyms": [
+                  "r. x. 400 h."
+                ]
               }
             },
             {
               "id": "RX_450H",
               "name": {
-                "value": "RX 450h"
+                "value": "RX 450 h.",
+                "synonyms": [
+                  "r. x. 450 h."
+                ]
               }
             },
             {
               "id": "SC_430",
               "name": {
-                "value": "SC 430"
+                "value": "SC 430",
+                "synonyms": [
+                  "s. c. 430"
+                ]
               }
             },
             {
               "id": "FR-S",
               "name": {
-                "value": "f. r. s. "
+                "value": "FRS",
+                "synonyms": [
+                  "f. r. s."
+                ]
               }
             },
             {
               "id": "IM",
               "name": {
-                "value": "i. m. "
+                "value": "IM",
+                "synonyms": [
+                  "i. m."
+                ]
               }
             },
             {
               "id": "IQ",
               "name": {
-                "value": "i. q."
+                "value": "IQ",
+                "synonyms": [
+                  "i. q."
+                ]
               }
             },
             {
               "id": "TC",
               "name": {
-                "value": "t. c. "
+                "value": "TC",
+                "synonyms": [
+                  "t. c."
+                ]
               }
             },
             {
               "id": "XB",
               "name": {
-                "value": "x. b. "
+                "value": "XB",
+                "synonyms": [
+                  "x. b."
+                ]
               }
             },
             {
               "id": "XD",
               "name": {
-                "value": "x. d. "
+                "value": "XD",
+                "synonyms": [
+                  "x. d."
+                ]
               }
             },
             {
@@ -5692,7 +6184,7 @@
             {
               "id": "CAMRY_HV",
               "name": {
-                "value": "camry h. v. "
+                "value": "camry HV "
               }
             },
             {
@@ -5710,7 +6202,10 @@
             {
               "id": "CH-R",
               "name": {
-                "value": "c. h. r."
+                "value": "CHR",
+                "synonyms": [
+                  "c. h. r."
+                ]
               }
             },
             {
@@ -5722,7 +6217,10 @@
             {
               "id": "COROLLA_IM",
               "name": {
-                "value": "corolla i. m."
+                "value": "corolla IM",
+                "synonyms": [
+                  "corolla i. m."
+                ]
               }
             },
             {
@@ -5734,7 +6232,10 @@
             {
               "id": "FJ_CRUISER",
               "name": {
-                "value": "f. j. cruiser"
+                "value": "FJ cruiser",
+                "synonyms": [
+                  "f. j. cruiser"
+                ]
               }
             },
             {
@@ -5746,7 +6247,10 @@
             {
               "id": "HIGHLANDER_HV",
               "name": {
-                "value": "highlander h. v. "
+                "value": "highlander HV",
+                "synonyms": [
+                  "highlander h. v."
+                ]
               }
             },
             {
@@ -5788,13 +6292,13 @@
             {
               "id": "RAV4",
               "name": {
-                "value": "rav four"
+                "value": "rav 4"
               }
             },
             {
               "id": "RAV4_HYBRID",
               "name": {
-                "value": "rav four hybrid"
+                "value": "rav 4 hybrid"
               }
             },
             {
@@ -5818,7 +6322,7 @@
             {
               "id": "T100",
               "name": {
-                "value": "T one hundred"
+                "value": "t. 100"
               }
             },
             {
@@ -5848,7 +6352,10 @@
             {
               "id": "YARIS_HB",
               "name": {
-                "value": "yaris h. b."
+                "value": "yaris HB",
+                "synonyms": [
+                  "yaris h. b."
+                ]
               }
             },
             {
@@ -5876,6 +6383,24 @@
               }
             },
             {
+              "id": "DODGE_CAVAVAN_CONVERSION_TO_TX+_MODEL",
+              "name": {
+                "value": "dodge cavavan conversion to tx+ model"
+              }
+            },
+            {
+              "id": "DODGE_GRAND_CARAVAN_CONVERSION_TO_RT_MODEL",
+              "name": {
+                "value": "dodge grand caravan conversion to rt model"
+              }
+            },
+            {
+              "id": "DODGE_GRAND_CARAVAN_CONVERSION_TO_RTTX_MODEL",
+              "name": {
+                "value": "dodge grand caravan conversion to rttx model"
+              }
+            },
+            {
               "id": "CHRYSLER_PACIFICA",
               "name": {
                 "value": "chrysler pacifica"
@@ -5888,45 +6413,63 @@
               }
             },
             {
+              "id": "DODGE_GRAND_CARAVAN",
+              "name": {
+                "value": "dodge grand caravan"
+              }
+            },
+            {
+              "id": "FORD_FREESTAR",
+              "name": {
+                "value": "ford freestar"
+              }
+            },
+            {
+              "id": "HONDA_ODYSSEY_CONVERSION_TO_VMI_NORTHSTAR",
+              "name": {
+                "value": "honda odyssey conversion to vmi northstar"
+              }
+            },
+            {
               "id": "100",
               "name": {
-                "value": "one hundred"
+                "value": "100"
               }
             },
             {
               "id": "A3",
               "name": {
-                "value": "a. three"
+                "value": "a. 3"
               }
             },
             {
               "id": "A4",
               "name": {
-                "value": "a. four"
+                "value": "a. 4"
               }
             },
             {
               "id": "A5",
               "name": {
-                "value": "a. five"
+                "value": "a. 5"
               }
             },
             {
               "id": "A6",
               "name": {
-                "value": "a. six"
+                "value": "a. 6"
               }
             },
             {
               "id": "A7",
               "name": {
-                "value": "a. seven"
+                "value": "a. 7"
               }
             },
             {
               "id": "A8",
               "name": {
-                "value": "a. eight"
+                "value": "a. 8"
               }
             },
             {
@@ -5938,49 +6481,61 @@
             {
               "id": "Q3",
               "name": {
-                "value": "q. three"
+                "value": "q. 3"
               }
             },
             {
               "id": "Q5",
               "name": {
-                "value": "q. five"
+                "value": "q. 5"
               }
             },
             {
               "id": "Q7",
               "name": {
-                "value": "q. seven"
+                "value": "q. 7"
               }
             },
             {
               "id": "R8",
               "name": {
-                "value": "r. eight"
+                "value": "r. 8"
               }
             },
             {
               "id": "RS3",
               "name": {
-                "value": "r. s. three"
+                "value": "RS 3",
+                "synonyms": [
+                  "r. s. 3"
+                ]
               }
             },
             {
               "id": "RS4",
               "name": {
-                "value": "r. s. four"
+                "value": "RS 4",
+                "synonyms": [
+                  "r. s. 4"
+                ]
               }
             },
             {
               "id": "RS6",
               "name": {
-                "value": "r. s. six"
+                "value": "RS 6",
+                "synonyms": [
+                  "r. s. 6"
+                ]
               }
             },
             {
               "id": "RS7",
               "name": {
-                "value": "r. s. seven"
+                "value": "RS 7",
+                "synonyms": [
+                  "r. s. 7"
+                ]
               }
             },
             {
@@ -6022,19 +6577,25 @@
             {
               "id": "SQ5",
               "name": {
-                "value": "s. q. five"
+                "value": "SQ 5",
+                "synonyms": [
+                  "s. q. 5"
+                ]
               }
             },
             {
               "id": "TT",
               "name": {
-                "value": "t. t."
+                "value": "TT",
+                "synonyms": [
+                  "t. t."
+                ]
               }
             },
             {
               "id": "V8",
               "name": {
-                "value": "v. eight"
+                "value": "v. 8"
               }
             },
             {
@@ -6052,7 +6613,10 @@
             {
               "id": "CC",
               "name": {
-                "value": "c. c. "
+                "value": "CC",
+                "synonyms": [
+                  "c. c."
+                ]
               }
             },
             {
@@ -6112,7 +6676,10 @@
             {
               "id": "GTI",
               "name": {
-                "value": "g. t. i. "
+                "value": "GTI",
+                "synonyms": [
+                  "g. t. i."
+                ]
               }
             },
             {
@@ -6160,127 +6727,151 @@
             {
               "id": "800_SERIES",
               "name": {
-                "value": "eight hundred series"
+                "value": "800 series"
               }
             },
             {
               "id": "C30",
               "name": {
-                "value": "c. thirty"
+                "value": "c. 30"
               }
             },
             {
               "id": "C70",
               "name": {
-                "value": "c. seventy"
+                "value": "c. 70"
               }
             },
             {
               "id": "S40",
               "name": {
-                "value": "s. fourty"
+                "value": "s. 40"
               }
             },
             {
               "id": "S60",
               "name": {
-                "value": "s. sixty"
+                "value": "s. 60"
               }
             },
             {
               "id": "S60_AWD",
               "name": {
-                "value": "s. sixty all wheel drive"
+                "value": "s. 60 all wheel drive"
               }
             },
             {
               "id": "S70",
               "name": {
-                "value": "s. seventy"
+                "value": "s. 70"
               }
             },
             {
               "id": "S80",
               "name": {
-                "value": "s. eighty"
+                "value": "s. 80"
               }
             },
             {
               "id": "S90",
               "name": {
-                "value": "s. ninety"
+                "value": "s. 90"
               }
             },
             {
               "id": "V40",
               "name": {
-                "value": "v. fourty"
+                "value": "v. 40"
               }
             },
             {
               "id": "V50",
               "name": {
-                "value": "v. fifty"
+                "value": "v. 50"
               }
             },
             {
               "id": "V60",
               "name": {
-                "value": "v. sixty"
+                "value": "v. 60"
               }
             },
             {
               "id": "V60CC",
               "name": {
-                "value": "v. sixty c. c."
+                "value": "v. 60 CC",
+                "synonyms": [
+                  "v. 60 c. c.",
+                  "v. 60 cross country"
+                ]
               }
             },
             {
               "id": "V70",
               "name": {
-                "value": "v seventy"
+                "value": "v. 70"
               }
             },
             {
               "id": "V70XC",
               "name": {
-                "value": "v. seventy x. c."
+                "value": "v. 70 XC",
+                "synonyms": [
+                  "v. 70 dix x. c.",
+                  "v. 70 cross country"
+                ]
               }
             },
             {
               "id": "V90",
               "name": {
-                "value": "v. ninety"
+                "value": "v. 90"
               }
             },
             {
               "id": "V90CC",
               "name": {
-                "value": "v. ninety c. c."
+                "value": "v. 90 CC",
+                "synonyms": [
+                  "v. 90 c. c.",
+                  "v. 90 cross country"
+                ]
               }
             },
             {
               "id": "XC40",
               "name": {
-                "value": "x. c. fourty\n"
+                "value": "XC 40\n",
+                "synonyms": [
+                  "x. c. 40"
+                ]
               }
             },
             {
               "id": "XC60",
               "name": {
-                "value": "x. c. sixty"
+                "value": "XC 60",
+                "synonyms": [
+                  "x. c. 60"
+                ]
               }
             },
             {
               "id": "XC70",
               "name": {
-                "value": "x. c. seventy"
+                "value": "XC 70",
+                "synonyms": [
+                  "x. c. 70"
+                ]
               }
             },
             {
               "id": "XC90",
               "name": {
-                "value": "x. c. ninety"
+                "value": "XC 90",
+                "synonyms": [
+                  "x. c. 90"
+                ]
               }
             }
           ],
@@ -7385,11 +7976,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "quel est le modèle de ton BMW?"
+            "value": "quel est le modèle de ta BMW?"
           }
         ]
       }
     ]
   },
-  "version": "24"
+  "version": "28"
 }
