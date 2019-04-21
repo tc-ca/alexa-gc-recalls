@@ -19,26 +19,31 @@ function GetSlotValues (filledSlots) {
               valueNames.push(filledSlots[item].resolutions.resolutionsPerAuthority[0].values[index].value.name)
             }
             slotValues[name] = {
-              synonym: filledSlots[item].value,
+              valueHeard: filledSlots[item].value,
               resolved: filledSlots[item].resolutions.resolutionsPerAuthority[0].values[0].value.name,
               id: filledSlots[item].resolutions.resolutionsPerAuthority[0].values[0].value.id,
               isValidated: true,
               resolvedValues: valueNames
             }
+            console.log(JSON.stringify(slotValues))
+            console.log(slotValues[name])
+            console.log(slotValues)
+
             break
           case 'ER_SUCCESS_NO_MATCH':
             slotValues[name] = {
-              synonym: filledSlots[item].value,
+              valueHeard: filledSlots[item].value,
               resolved: filledSlots[item].value,
               isValidated: false
             }
+            console.log()
             break
           default:
             break
         }
       } else {
         slotValues[name] = {
-          synonym: filledSlots[item].value,
+          valueHeard: filledSlots[item].value,
           resolved: filledSlots[item].value,
           isValidated: false
         }
