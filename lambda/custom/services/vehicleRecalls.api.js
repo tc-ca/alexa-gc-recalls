@@ -1,15 +1,17 @@
 'use strict'
 
+const VRDB_API_KEY = process.env.VRDB_API_CANADA_USER_KEY
+
 const fetch = require('node-fetch')
 const util = require('util')
 
 const Recall = require('../models/recall').Recall
 const RecallSummary = require('../models/recall').RecallSummary
 
-const HOST = 'http://data.tc.gc.ca'
-const PATH = '/v1.3/api/eng/vehicle-recall-database/'
+// https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall-summary/recall-number/2018001
+const HOST = 'https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/'
+// const PATH = '/v1.3/api/eng/vehicle-recall-database/'
 const RECALL = 'recall'
-const SUFFIX = '?format=json'
 const MAKE_NAME = '/make-name/'
 const MODEL_NAME = '/model-name/'
 const YEAR_RANGE = '/year-range/'
@@ -24,9 +26,12 @@ const RECALL_NUMBER = '/recall-number/'
 // 'http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall/make-name/honda/model-name/accord/year-range/2014-2014?format=json
 async function GetRecalls (make, model, year) {
   try {
-    const url = HOST + PATH + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year + SUFFIX
+    const url = HOST + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year
+    console.info(url)
+    console.time('GetRecalls api timing')
 
-    let response = await fetch(url)
+    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
+
     response = await response.json()
     let recalls = []
 
@@ -49,9 +54,25 @@ async function GetRecalls (make, model, year) {
       }
       recalls.push(recall)
     }
+    console.timeEnd('GetRecalls api timing')
+
     return recalls.sort(compare)
   } catch (error) {
-    console.log(error)
+    console.error(error)
+    throw error
+  }
+}
+
+async function Warmer () {
+  try {
+    const url = HOST + RECALL + MAKE_NAME + 'HONDA' + MODEL_NAME + 'CIVIC' + YEAR_RANGE + '2016' + '-' + '2016'
+
+    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
+
+    response = await response.json()
+
+  } catch (error) {
+    console.error(error)
     throw error
   }
 }
@@ -59,9 +80,12 @@ async function GetRecalls (make, model, year) {
 // http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall-summary/recall-number/1977043?format=json
 async function GetRecallDetails (recallNumber, locale) {
   try {
-    const url = HOST + PATH + RECALL_SUMMARY + RECALL_NUMBER + recallNumber + SUFFIX
+    const url = HOST + RECALL_SUMMARY + RECALL_NUMBER + recallNumber
 
-    let response = await fetch(url)
+    console.info(url)
+    console.time('GetRecallDetails api timing')
+
+    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
     response = await response.json()
 
     // TODO: make a class
@@ -98,13 +122,6 @@ async function GetRecallDetails (recallNumber, locale) {
             if (locale === 'fr-CA') {
               recallDetails.description = response.ResultSet[recall][recallObj]['Value']['Literal']
             }
-
-            break
-          case 'MODEL_NAME_NM':
-            recallDetails.modelName = response.ResultSet[recall][recallObj]['Value']['Literal']
-            break
-          case 'MAKE_NAME_NM':
-            recallDetails.makeName = response.ResultSet[recall][recallObj]['Value']['Literal']
             break
           case 'NOTIFICATION_TYPE_ETXT':
             recallDetails.notificationTypeEtxt = response.ResultSet[recall][recallObj]['Value']['Literal']
@@ -117,6 +134,7 @@ async function GetRecallDetails (recallNumber, locale) {
         }
       }
     }
+    console.timeEnd('GetRecallDetails api timing')
 
     return recallDetails
   } catch (error) {
@@ -138,4 +156,4 @@ function compare (a, b) {
   return comparison
 }
 
-module.exports = { GetRecalls: GetRecalls, GetRecallDetails }
+module.exports = { GetRecalls: GetRecalls, GetRecallDetails, Warmer }
