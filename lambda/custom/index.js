@@ -2,6 +2,8 @@
 
 // TODO: Need a 'no' path for when ambigious model are presented to the user.
 
+// TODO: document,
+
 const Alexa = require('ask-sdk-core')
 const loglessClient = require('logless-client')
 
@@ -28,25 +30,26 @@ const HANDLERS = {
 }
 
 const INTERCEPTORS = {
-  'Localization': require('./interceptors/localizationInterceptor'),
-  'LogInterceptor': require('./interceptors/logInterceptor')
+  Localization: require('./interceptors/localizationInterceptor'),
+  LogInterceptor: require('./interceptors/logInterceptor'),
+  InitializationInterceptor: require('./interceptors/initializationInterceptor')
+
 }
 
 const skillBuilder = Alexa.SkillBuilders.custom()
 exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc10e60', skillBuilder
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
-    HANDLERS.getVehicleMakeAndModel.InProgress,
     HANDLERS.getVehicleMakeAndModel.Completed,
+    HANDLERS.getVehicleMakeAndModel.InProgress,
     HANDLERS.getVehicleYear.InProgress,
     HANDLERS.getVehicleYear.CompletedNotCompleted,
     HANDLERS.getVehicleYear.Completed,
-    HANDLERS.getvehicleModel.ResolveAmbigiousVehicleModelIntentHandler,
-    HANDLERS.getvehicleModel.CollectModelLastIntentHandler,
-    HANDLERS.getvehicleModel.CollectModelFirstIntentHandler,
-    HANDLERS.getVehicleMake.InProgressCollectMakeIntentHandler,
-    HANDLERS.getVehicleMake.CompletedCollectMakeIntentHandler,
-    HANDLERS.getBMWModel.GetBMWModelIntentHandler,
+    HANDLERS.getvehicleModel.ResolveAmbigiousVehicleModel,
+    HANDLERS.getvehicleModel.Inprogress,
+    HANDLERS.getVehicleMake.InProgressGetMakeFirstThenModel,
+    HANDLERS.getVehicleMake.CompletedGetMakeFirstThenModel,
+    HANDLERS.getBMWModel.InProgress,
     HANDLERS.Next.NextIntentHandler,
     HANDLERS.Next.NextIntentHandlerOutOfContext,
     HANDLERS.Previous,
@@ -60,8 +63,12 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     HANDLERS.Fallback
 
   )
-  .addRequestInterceptors(INTERCEPTORS.Localization, INTERCEPTORS.LogInterceptor.RequestLog)
-  .addResponseInterceptors(INTERCEPTORS.LogInterceptor.CurrentIntentLocationLog)
-  .addErrorHandlers(HANDLERS.Error.ErrorHandler)
+  .addRequestInterceptors(
+    INTERCEPTORS.Localization,
+    INTERCEPTORS.LogInterceptor.LogRequest,
+    INTERCEPTORS.InitializationInterceptor)
+  .addResponseInterceptors(
+    INTERCEPTORS.LogInterceptor.LogResponse)
+  .addErrorHandlers(HANDLERS.Error.GlobalErrorHandler)
   .withApiClient(new Alexa.DefaultApiClient())
   .lambda())
