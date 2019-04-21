@@ -5,12 +5,13 @@
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
 
 ---
 - test: Launch request, no further interaction.
 - LaunchRequest:
-   - response.outputSpeech.ssml: Welcome to Transport Canada Vehicle Recalls. I\'ll help you find out if your vehicle has any recalls. To start, let me know the make, model and year of your vehicle
-    #- response.card.type: Simple
-    #- response.card.title: Space Facts
-    #- response.card.content: "*" # Any text will match
+   - sessionAttributes.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 0
+   - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent
+   - response.outputSpeech.ssml:
+      - Hi there! I'm your Canadian Safety <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> Assistant, and I can help you find your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>information. Let's start.
+      - Hello! I'm your Canadian Safety <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> Assistant. I can help you find vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Let's get started.
