@@ -25,7 +25,7 @@ const GetBMWModelIntentHandler = {
       modelIsValid: slotValues.BMWModel.isValidated
     })
 
-    sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = make
+    sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = make
     sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = model
 
     return handlerInput.responseBuilder
@@ -37,4 +37,4 @@ const GetBMWModelIntentHandler = {
       .getResponse()
   }
 }
-module.exports = { GetBMWModelIntentHandler }
+module.exports = { InProgress: GetBMWModelIntentHandler }
