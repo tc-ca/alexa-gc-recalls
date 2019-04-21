@@ -84,6 +84,15 @@ module.exports = Object.freeze({
     VOLVO: '1838!4876'
   },
 
+  VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION: {
+    MAZDA2: 'two',
+    MAZDA3: 'three',
+    MAZDA5: 'five',
+    MAZDA6: 'six',
+    MAZDASPEED3: 'speed three',
+    MAZDASPEED6: 'speed six'
+  },
+
   // Desribes what action the end user has undertaken.
   USER_ACTION: {
     InitiatedRecallSearch: 0,
