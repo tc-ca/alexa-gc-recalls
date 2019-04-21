@@ -1,0 +1,27 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: Complete dialog sequence
+- GetVehicleMakeAndModelIntent make=honda model=civic: 
+  - request.request.dialogState: COMPLETED   
+  - response.directives[0].updatedIntent.name: GetVehicleYearIntent
+  - sessionAttributes.VEHICLE_MAKE.slotId: HONDA
+  - sessionAttributes.VEHICLE_MAKE.slotValue: honda
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+  - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC
+  - sessionAttributes.VEHICLE_MODEL.slotValue: civic
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+
+--- 
+- test: Incomplete dialog sequence
+- GetVehicleMakeAndModelIntent make=honda: 
+  # - request.request.dialogState: STARTED   
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent 
+  - sessionAttributes.VEHICLE_MAKE.slotId: HONDA #ensure session variable is set
+  - sessionAttributes.VEHICLE_MAKE.slotValue: honda
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+  - sessionAttributes.VEHICLE_MODEL.slotValue: undefined #ensure session variable is not set
+
