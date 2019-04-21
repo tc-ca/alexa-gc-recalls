@@ -16,7 +16,6 @@ const API_SEARCH_RESULT = require('../../constants').API_SEARCH_RESULT
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
-const PhoneNumber = require('../../models/user').PhoneNumber
 const Email = require('../../models/user').Email
 
 const SERVICES = {
@@ -49,36 +48,41 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleModelMakeYearHandler"
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
+    SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
+
     // look for recalls based on previously collected slot values.
     const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
 
-    let recallsSummaries = await GetRecallsDetails(recalls, handlerInput.requestEnvelope.request.locale)
+    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale)
 
-    GetRecallsDetails(recalls)
     // Return findings of search and retrieves the appropriate follow up question
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
       vehicle: vehicleRecallConversation.vehicle,
       requestAttributes: requestAttributes,
       currentRecallIndex: currentRecallIndex,
-      recalls: recallsSummaries })
+      recalls: recalls,
+      recallsDetails: recallsDetails })
       .saySearchFinding()
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState })
       .buildSpeech()
 
-    const speechText = VehicleRecallConvo.getSpeechText()
+    SendMessageToUser(sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], VehicleRecallConvo.searchFindings, requestAttributes, VehicleRecallConvo)
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
-
-    SendMessageToUser(handlerInput, VehicleRecallConvo.searchFindings, requestAttributes)
-
-    // TODO: try sending by email instead.
-
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+
+    const speechText = VehicleRecallConvo.getSpeechText()
+    const cardText = VehicleRecallConvo.getCardText()
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
+
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-    //  .withSimpleCard('Welcome to Canadian Safety Recalls', 'Recalls have been found')
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -110,7 +114,6 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
       return handlerInput.responseBuilder
         .speak(speechText)
         .reprompt(speechText)
-      // .withSimpleCard('Hello World', speechText)
         .getResponse()
     } else {
       return SearchAgainRecallHandler.handle(handlerInput)
@@ -136,35 +139,39 @@ const AmbigiousHandler = {
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     let recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
-
     recalls = recalls.filter(x => {
       return x.modelName.toUpperCase() === vehicleRecallConversation.vehicle.model.toUpperCase()
     })
 
-    let recallsSummaries = await GetRecallsDetails(recalls, handlerInput.requestEnvelope.request.locale)
+    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale)
 
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
       vehicle: vehicleRecallConversation.vehicle,
       requestAttributes: requestAttributes,
       currentRecallIndex: currentRecallIndex,
-      recalls: recallsSummaries })
+      recalls: recalls,
+      recallsDetails: recallsDetails })
       .saySearchFinding({ skipAmbigiousCheck: true })
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState, skipAmbigiousCheck: true })
       .buildSpeech()
 
-    const speechText = VehicleRecallConvo.getSpeechText()
+    SendMessageToUser(sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], VehicleRecallConvo.searchFindings, requestAttributes, VehicleRecallConvo)
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
-
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
-    SendMessageToUser(handlerInput, VehicleRecallConvo.searchFindings, requestAttributes)
+    const speechText = VehicleRecallConvo.getSpeechText()
+    const cardText = VehicleRecallConvo.getCardText()
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-    //  .withSimpleCard('Reading Recalls')
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -193,23 +200,31 @@ const ReadVehicleRecallDetailsHandler = {
       vehicle: vehicleRecallConversation.vehicle,
       requestAttributes: requestAttributes,
       currentRecallIndex: currentRecallIndex,
-      recalls: vehicleRecallConversation.recalls })
+      recalls: vehicleRecallConversation.recalls,
+      recallsDetails: vehicleRecallConversation.recallsDetails })
       .sayIntroIntructionsBeforeReadingRecallDescription({
         omitSpeech: currentRecallIndex !== 0 || // include intro only if the first recall is being read
         userAction === USER_ACTION.RespondedYesToRepeatRecallInfo || // do not include intro if the user responds yes to repeating the recalls information
-        userAction === USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp }) // do not include intro if the user trigger next intent (skip, next) and no more recalls are found
+        userAction === USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp || // do not include intro if the user trigger next intent (skip, next) and no more recalls are found
+        vehicleRecallConversation.recalls.length === 1 }) // if only one recall, do not include intructions, command to say skip
       .sayRecallDescription({ currentIndex: currentRecallIndex, omitSpeech: userAction === USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp })
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.ReadingRecallState, currentRecallIndex: currentRecallIndex })
       .buildSpeech()
 
-    const speechText = VehicleRecallConvo.getSpeechText()
-
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'ReadVehicleRecallHandler'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
 
+    const speechText = VehicleRecallConvo.getSpeechText()
+    const cardText = VehicleRecallConvo.getCardText()
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE')
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
+      .replace('%VehicleRecallComponent%', vehicleRecallConversation.recallsDetails[currentRecallIndex].componentType)
+
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
-    //  .withSimpleCard('Reading Recalls')
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -307,16 +322,37 @@ const SearchAgainRecallHandler = {
     vehicleRecallConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToTryAndSearchAgain
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WOULD_YOU_LIKE_TO_SEARCH_AGAIN')
+
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleRecallConversation
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
 
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withShouldEndSession(false)
+    let cardText = ''
+    let cardTitle = ''
+    switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
+      case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
 
-      // .reprompt(speechText)
-    //  .withSimpleCard('Hello World', speechText)
-      .getResponse()
+        cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_COMFIRMATION_NO`)
+          .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
+          .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+          .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
+
+        cardTitle = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_COMFIRMATION_NO_TITLE`)
+
+        sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .withShouldEndSession(false)
+          .withSimpleCard(cardTitle, cardText)
+          .getResponse()
+      default:
+
+        sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .withShouldEndSession(false)
+          .getResponse()
+    }
   }
 }
 
@@ -339,11 +375,11 @@ const UpdateToGetVehicleMakeAndModelIntent = {
   }
 }
 
-async function SendMessageToUser (handlerInput, recallSearchResult, requestAttributes) {
+async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
   if ((recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {
-    const phoneNumber = new PhoneNumber(await SERVICES.ALEXA_PROFILE_API.GetMobileNumber(handlerInput))
+    const phoneNumber = profilePhoneNumber // new PhoneNumber(await SERVICES.ALEXA_PROFILE_API.GetMobileNumber(handlerInput))
     let sendByTextMessage = false
     let sendByEmail = false
     let sendByCard = false
@@ -351,7 +387,7 @@ async function SendMessageToUser (handlerInput, recallSearchResult, requestAttri
     if (phoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
       sendByTextMessage = true
     } else {
-      const email = new Email(await SERVICES.alexaProfileHandler.GetEmailr(handlerInput))
+      const email = new Email(await SERVICES.alexaProfileHandler.GetEmail(handlerInput))
 
       if (email.apiRetrievalResult === API_SEARCH_RESULT.Found) {
         sendByEmail = true
@@ -360,7 +396,7 @@ async function SendMessageToUser (handlerInput, recallSearchResult, requestAttri
       }
     }
 
-    const message = GetVehicleRecallSMSMessage({ vehicle: VehicleRecallConversation.vehicle, recalls: VehicleRecallConversation.recalls, requestAttributes: requestAttributes })
+    const message = GetVehicleRecallSMSMessage({ vehicle: vehicleRecallConversation.vehicle, recalls: vehicleRecallConversation.recalls, requestAttributes: requestAttributes })
 
     if (sendByTextMessage) {
       SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: phoneNumber.phoneNumber })
@@ -370,13 +406,17 @@ async function SendMessageToUser (handlerInput, recallSearchResult, requestAttri
   }
 }
 
-async function GetRecallsDetails (recalls, locale) {
+async function GetRecallsListWithDetails (recalls, locale) {
+  console.time('GetRecallsListWithDetails api timing')
+
   let recallsDetails = []
   for (let i = 0; i < recalls.length; i++) {
     let details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale)
 
     recallsDetails.push(details)
   }
+
+  console.timeEnd('GetRecallsListWithDetails api timing')
 
   const relevantRecalls = recallsDetails.filter(x => {
     return (!CONFIG.IGNORE_RECALLS_TYPE.includes(x.notificationTypeEtxt.toUpperCase()))
