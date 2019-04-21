@@ -1,32 +1,32 @@
 
-#Test next/skip functionality
+# #Test next/skip functionality
 
 
 
----
-configuration:
-  locale: en-US
+# ---
+# configuration:
+#   locale: en-US
 
-#Explicit use of Next Handler, should move the index plus 1 and route to the correct intent to handle response.
----
-- test: Next Test called explicitly, moves to next recall"
-- AMAZON.NextIntent: 
-  - request.session.attributes.CurrentRecallIndex: 0
-  - request.session.attributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
-  - request.session.attributes.VehicleConversation.followUpQuestionEnum: 0 #WouldYouLikeToSearchForAnotherRecall
-  - sessionAttributes.CurrentRecallIndex: 1
-  - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
+# #Explicit use of Next Handler, should move the index plus 1 and route to the correct intent to handle response.
+# ---
+# - test: Next Test called explicitly, moves to next recall"
+# - AMAZON.NextIntent: 
+#   - request.session.attributes.CurrentRecallIndex: 0
+#   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+#   - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 #WouldYouLikeToSearchForAnotherRecall
+#   - sessionAttributes.CurrentRecallIndex: 1
+#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
 
 
-#Implicit use of the Next handler, yes should route to next handler and move the index plus 1 and then route to the correct intent to handle response.
----
-- test: Next called by Yes, "Would you like to hear the next recall?", moves to next recall.
-- AMAZON.YesIntent: 
-   - request.session.attributes.CurrentRecallIndex: 0
-   - request.session.attributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
-   - request.session.attributes.VehicleConversation.followUpQuestionEnum: 1 #WouldYouLikeToHearTheNextRecall 
-   - sessionAttributes.LogicRoutedIntentName: SearchForVehicleRecallIntent
-   - sessionAttributes.CurrentRecallIndex: 1
+# #Implicit use of the Next handler, yes should route to next handler and move the index plus 1 and then route to the correct intent to handle response.
+# ---
+# - test: Next called by Yes, "Would you like to hear the next recall?", moves to next recall.
+# - AMAZON.YesIntent: 
+#    - request.session.attributes.CurrentRecallIndex: 0
+#    - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+#    - request.session.attributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall 
+#    - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+#    - sessionAttributes.CurrentRecallIndex: 1
 
 
 
