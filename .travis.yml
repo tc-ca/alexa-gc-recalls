@@ -8,7 +8,7 @@ install:
   - npm install aws-sdk
   - npm install bespoken-tools -g
   - npm install codecov -g
-  - cd lambda/custom && npm install && cd ../..
+  - cd lambda/custom && npm install && cd ../
 script:
  - bst test test/unit
  - codecov
