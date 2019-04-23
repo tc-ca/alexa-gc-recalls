@@ -9,7 +9,7 @@
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
 
 ---
 - test: test if vehicle recall index is incremented by one"
