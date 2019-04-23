@@ -1,29 +1,30 @@
 
-# # Test search vehicle handler 
-# # Depending on the provided make, model and year various outcomes are possible.
-# # Each scenario should respond accordingly.
+# Test search vehicle handler 
+# Depending on the provided make, model and year various outcomes are possible.
+# Each scenario should respond accordingly.
 
 
 
-# ---
-# configuration:
-#   locale: en-US
+---
+configuration:
+  locale: en-US
 
-# ---
-# - test: Search for make model with multiple recalls
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#     year: 2011
-#     VehicleMakeType: Honda
-#     VehicleModelType: Civic
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#   # test session attributes
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
-#   - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
-#   # test response
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode : 1 #WouldYouLikeToHearTheNextRecall
-#   # TODO: test other parts of the conversation
+---
+- test: Search for make model with multiple recalls
+- tags: broken
+- SearchForVehicleRecallIntent:
+  - intent: SearchForVehicleRecallIntent
+    year: 2011
+    VehicleMakeType: Honda
+    VehicleModelType: Civic
+- SearchForVehicleRecallIntent:
+  - intent: SearchForVehicleRecallIntent
+  # test session attributes
+  - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
+  - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
+  # test response
+  - sessionAttributes.VehicleConversation.followUpQuestionCode : 1 #WouldYouLikeToHearTheNextRecall
+  # TODO: test other parts of the conversation
  
 # ---
 # - test: Search for make model with ambigious model
@@ -60,45 +61,45 @@
 
 
 
-# #TODO: Fix below tests.
+#TODO: Fix below tests.
 
-# # ---
-# # - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# # - SearchForVehicleRecallIntent:
-# #   - intent: SearchForVehicleRecallIntent
-# #     year: 2011
-# #     VehicleMakeType: Honda
-# #     VehicleModelType: Civic
-# # - SearchForVehicleRecallIntent:
-# #   - intent: SearchForVehicleRecallIntent
-# #   - request.session.attributes.VehicleConversation.currentIndex: 0
-# #   - request.session.attributes.VehicleConversation.recalls.length: 2
-# #   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-# #   - sessionAttributes.VehicleConversation != undefined
-# #   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-# #   - AMAZON.YesIntent:
-
-
-# # ---
-# # - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# # - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda
-# # - SearchForVehicleRecallIntent:
-# #   - intent: SearchForVehicleRecallIntent
-# #   - request.session.attributes.VehicleConversation.currentIndex: 0
-# #   - request.session.attributes.VehicleConversation.recalls.length: 2
-# #   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-# #   - sessionAttributes.VehicleConversation != undefined
-# #   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-# # - "no"
+# ---
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
+# - SearchForVehicleRecallIntent:
+#   - intent: SearchForVehicleRecallIntent
+#     year: 2011
+#     VehicleMakeType: Honda
+#     VehicleModelType: Civic
+# - SearchForVehicleRecallIntent:
+#   - intent: SearchForVehicleRecallIntent
+#   - request.session.attributes.VehicleConversation.currentIndex: 0
+#   - request.session.attributes.VehicleConversation.recalls.length: 2
+#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
+#   - sessionAttributes.VehicleConversation != undefined
+#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
+#   - AMAZON.YesIntent:
 
 
-# # ---
-# # - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# # - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda:
-# #   - request.dialogState: COMPLETED
-# #   - request.session.attributes.VehicleConversation.currentIndex: 0
-# #   - request.session.attributes.VehicleConversation.recalls.length: 2
-# #   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-# #   - sessionAttributes.VehicleConversation != undefined
-# #   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-# # - "yes"
+# ---
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
+# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda
+# - SearchForVehicleRecallIntent:
+#   - intent: SearchForVehicleRecallIntent
+#   - request.session.attributes.VehicleConversation.currentIndex: 0
+#   - request.session.attributes.VehicleConversation.recalls.length: 2
+#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
+#   - sessionAttributes.VehicleConversation != undefined
+#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
+# - "no"
+
+
+# ---
+# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
+# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda:
+#   - request.dialogState: COMPLETED
+#   - request.session.attributes.VehicleConversation.currentIndex: 0
+#   - request.session.attributes.VehicleConversation.recalls.length: 2
+#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
+#   - sessionAttributes.VehicleConversation != undefined
+#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
+# - "yes"

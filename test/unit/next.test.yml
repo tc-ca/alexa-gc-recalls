@@ -1,32 +1,212 @@
 
-# #Test next/skip functionality
+#Test next/skip functionality
+
+#Ensures
+#index is incremented
+#index is not incremented when on last recall
+# proper follow up questions is asked 
+
+
+---
+configuration:
+  locale: en-US
+
+---
+- test: test if vehicle recall index is incremented by one"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
+
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+
+  
+
+
+---
+- test: test correct follow up question is asked when not at the end of reading recall"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC
+  - request.session.attributes.VehicleConversation.recalls[2].recallNumber: 2018123 
+  - request.session.attributes.VehicleConversation.recalls[2].modelNumber: CIVIC  
+
+  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: Would you like to hear the next <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+
+
+---
+- test: test correct follow up question is asked when moving to the last recall"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
+
+
+  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic vehicle. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+
+---
+- test: test correct follow up question is asked when at the end and saying next command"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 1 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
+
+
+  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic vehicle. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1 #ensure index is not incremented
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
 
 
 
-# ---
-# configuration:
-#   locale: en-US
+---
+- test: test intro speech is omitted"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
-# #Explicit use of Next Handler, should move the index plus 1 and route to the correct intent to handle response.
-# ---
-# - test: Next Test called explicitly, moves to next recall"
-# - AMAZON.NextIntent: 
-#   - request.session.attributes.CurrentRecallIndex: 0
-#   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-#   - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 #WouldYouLikeToSearchForAnotherRecall
-#   - sessionAttributes.CurrentRecallIndex: 1
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - sessionAttributes.VehicleConversation.introToRecallDescriptionText: null
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
 
 
-# #Implicit use of the Next handler, yes should route to next handler and move the index plus 1 and then route to the correct intent to handle response.
-# ---
-# - test: Next called by Yes, "Would you like to hear the next recall?", moves to next recall.
-# - AMAZON.YesIntent: 
-#    - request.session.attributes.CurrentRecallIndex: 0
-#    - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-#    - request.session.attributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall 
-#    - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-#    - sessionAttributes.CurrentRecallIndex: 1
+---
+- test: test description of details"
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
+
+  - sessionAttributes.VehicleConversation.recallDescriptionSpeechText: On 9/27/2018 there was a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> affecting the Engine.<break time=\"500ms\"/> On certain condition the engine may stop working.
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 1
+  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - response.outputSpeech.ssml: On 9/27/2018 there was a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> affecting the Engine.<break time=\"500ms\"/> On certain condition the engine may stop working.
+
+  
+---
+- test.only: test when "next" command is said out of context
+- AMAZON.NextIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 
+  - request.session.attributes.CurrentIntentLocation: SomeOtherIntent
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # value must not be incremented
+  - response.outputSpeech.ssml: Hmm... I was not expecting that response, you can say start over
+
+
 
 
 

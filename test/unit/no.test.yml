@@ -1,22 +1,24 @@
 
-# #Test outcome of "no" after response to specific Alexa question
+#Test outcome of "no" after response to specific Alexa question
 
 
-# ---
-# configuration:
-#   locale: en-US
+---
+configuration:
+  locale: en-US
 
-# ---
-# - test: No context test, "Would you like to hear the next recall?"
-# - AMAZON.NoIntent: 
-#    - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-#    - request.session.attributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall 
-#    - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
-# ---
-# - test: No context test, "Would you like to search for another recall"
-# - AMAZON.NoIntent: 
-#   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-#   - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 #WouldYouLikeToSearchForAnotherRecall
-#   - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
+---
+- test: No context test, "Would you like to hear the next recall?"
+- tags: broken
+- AMAZON.NoIntent: 
+   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+   - request.session.attributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall 
+   - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
+---
+- test: No context test, "Would you like to search for another recall"
+- tags: broken
+- AMAZON.NoIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 #WouldYouLikeToSearchForAnotherRecall
+  - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
 
 
