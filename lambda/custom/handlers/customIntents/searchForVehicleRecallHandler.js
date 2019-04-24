@@ -387,7 +387,7 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
     if (phoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
       sendByTextMessage = true
     } else {
-      const email = new Email(await SERVICES.alexaProfileHandler.GetEmail(handlerInput))
+      const email = 'test@test.com'
 
       if (email.apiRetrievalResult === API_SEARCH_RESULT.Found) {
         sendByEmail = true
