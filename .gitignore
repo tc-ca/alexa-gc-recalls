@@ -4,3 +4,4 @@ node_modules
 .ask
 test_output
 bst-debug.log
+.favorites.json
