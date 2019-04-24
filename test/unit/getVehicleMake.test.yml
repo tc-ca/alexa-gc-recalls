@@ -1,0 +1,25 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test.only: Complete dialog sequence
+- GetVehicleMakeIntent make=honda: 
+  - request.request.dialogState: STARTED  
+
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleMakeIntent
+  - sessionAttributes.VEHICLE_MAKE.slotId: HONDA
+  - sessionAttributes.VEHICLE_MAKE.slotValue: honda
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+- GetVehicleMakeIntent model=civic: 
+  - request.request.dialogState: COMPLETED  
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleYearIntent
+  - sessionAttributes.VEHICLE_MAKE.slotValue: honda
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+  - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC 
+  - sessionAttributes.VEHICLE_MODEL.slotValue: civic
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+
+

@@ -1,0 +1,56 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: Complete dialog sequence
+- GetVehicleModelIntent model=civic: 
+  - request.request.dialogState: STARTED  
+  - request.session.attributes.VehicleConversation.searchFindings: 4 #SEARCH_FINDINGS.AmbigiousModelFound
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 7 #FOLLOW_UP_QUESTIONS.VEHICLE_IsItModelAOrModelB
+  - request.session.attributes.VEHICLE_MAKE.slotId: Honda
+  - request.session.attributes.VEHICLE_MAKE.slotValue: honda
+  - request.session.attributes.VEHICLE_MAKE.isValid: true
+  - request.session.attributes.VEHICLE_YEAR.slotValue: 2009
+  - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  # expect 3 recalls
+  - sessionAttributes.VehicleConversation.recalls[0].modelName: "CIVIC"
+  - sessionAttributes.VehicleConversation.recalls[1].modelName: "CIVIC"
+  - sessionAttributes.VehicleConversation.recalls[2].modelName: "CIVIC"
+
+--- 
+- test: Complete dialog sequence
+- GetVehicleModelIntent model="civic hybrid": 
+  - request.request.dialogState: STARTED  
+  - request.session.attributes.VehicleConversation.searchFindings: 4 #SEARCH_FINDINGS.AmbigiousModelFound
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 7 #FOLLOW_UP_QUESTIONS.VEHICLE_IsItModelAOrModelB
+  - request.session.attributes.VEHICLE_MAKE.slotId: Honda
+  - request.session.attributes.VEHICLE_MAKE.slotValue: honda
+  - request.session.attributes.VEHICLE_MAKE.isValid: true
+  - request.session.attributes.VEHICLE_YEAR.slotValue: 2009
+  - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  expect 1 recall
+  - sessionAttributes.VehicleConversation.recalls[0].modelName: "CIVIC"
+
+
+--- 
+- test: Complete dialog sequence
+- GetVehicleModelIntent model=civic: 
+  - request.request.dialogState: STARTED  
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleMakeIntent
+  - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC
+  - sessionAttributes.VEHICLE_MODEL.slotValue: civic
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+- GetVehicleMakeIntent make=honda: 
+  - request.request.dialogState: COMPLETED  
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleYearIntent
+  - sessionAttributes.VEHICLE_MAKE.slotId: HONDA
+  - sessionAttributes.VEHICLE_MAKE.slotValue: honda
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+  - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC 
+  - sessionAttributes.VEHICLE_MODEL.slotValue: civic
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+
+

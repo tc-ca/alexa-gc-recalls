@@ -6,7 +6,10 @@
     "exclude":["broken"],
     "jest": {
         "silent": false,
-        "collectCoverage": false
+        "coveragePathIgnorePatterns": [
+            "test/coverage",
+            "coverage"
+      ]
     },
     "homophones": {
         "i found": ["iPhone"]
