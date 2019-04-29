@@ -13,10 +13,12 @@ const SEARCH_FINDINGS = require('../../constants').VEHICLE_SEARCH_FINDINGS
 const VEHICLE_MAKES_ID = require('../../constants').VEHICLE_MAKE_ID
 const CONFIG = require('../../config')
 const API_SEARCH_RESULT = require('../../constants').API_SEARCH_RESULT
+const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
 const Email = require('../../models/user').Email
+const Trace = require('../../models/trace').Trace
 
 const SERVICES = {
   TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
@@ -48,8 +50,6 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleModelMakeYearHandler"
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
-    SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
-
     // look for recalls based on previously collected slot values.
     const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
 
@@ -71,6 +71,9 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+
+    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
+    trace.location.push(HANDLERS_STRING_NAMES.COMFIRMED_COMPLETED_SEARCH_FOR_VEHICLE_RECALL_INTENT_HANDLER)
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
@@ -192,9 +195,6 @@ const ReadVehicleRecallDetailsHandler = {
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
     const currentRecallIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
 
-    // get summary/details info for specific recall
-    // let recallDetail = await SERVICES.TC_RECALLS_API.GetRecallDetails(vehicleRecallConversation.recalls[currentRecallIndex].recallNumber, handlerInput.requestEnvelope.request.locale)
-
     // get speech text
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
       vehicle: vehicleRecallConversation.vehicle,
@@ -213,6 +213,9 @@ const ReadVehicleRecallDetailsHandler = {
 
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'ReadVehicleRecallHandler'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
+
+    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
+    trace.location.push(HANDLERS_STRING_NAMES.READ_VEHICLE_RECALL_DETAILS_HANDLER)
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
@@ -239,12 +242,17 @@ const MoveToNextRecallHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]++
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
     const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+    
+    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
+    trace.location.push(HANDLERS_STRING_NAMES.MOVE_TO_NEXT_RECALL_HANDLER)
+    console.log('trace', trace)
 
     if (typeof (vehicleConversation.recalls[sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]]) === 'undefined') {
       // bring index into range and return to last recall
@@ -376,6 +384,11 @@ const UpdateToGetVehicleMakeAndModelIntent = {
 }
 
 async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
+
+  if (process.env.UNIT_TEST) {
+    return
+  }
+
   if ((recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {

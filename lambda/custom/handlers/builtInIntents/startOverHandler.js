@@ -1,6 +1,8 @@
 'use strict'
 
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
+const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
+const Trace = require('../../models/trace').Trace
 
 const StartOverIntentHandler = {
   canHandle (handlerInput) {
@@ -10,11 +12,14 @@ const StartOverIntentHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.StartOverIntent'
+    const requestAttributes = attributesManager.getRequestAttributes()
 
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = null
     sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = null
     sessionAttributes[SESSION_KEYS.VEHICLE_YEAR] = null
+
+    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
+    trace.location.push(HANDLERS_STRING_NAMES.START_OVER_INTENT_HANDLER)
 
     return handlerInput.responseBuilder
       .addDelegateDirective({
@@ -22,7 +27,6 @@ const StartOverIntentHandler = {
         confirmationStatus: 'NONE',
         slots: {}
       })
-    //  .withSimpleCard('Hello World', speechText)
       .getResponse()
   }
 }

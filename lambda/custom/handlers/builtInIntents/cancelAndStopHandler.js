@@ -1,7 +1,5 @@
 'use strict'
 
-const SESSION_KEYS = require('../../constants').SESSION_KEYS
-
 const CancelAndStopIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -10,16 +8,13 @@ const CancelAndStopIntentHandler = {
   },
   handle (handlerInput) {
     const { attributesManager } = handlerInput
-    const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
-
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'AMAZON.CancelIntent'
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHCILE_RECALLS_GOODBYE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      // .withSimpleCard('Hello World', speechText)
+      .withShouldEndSession(true)
       .getResponse()
   }
 }
