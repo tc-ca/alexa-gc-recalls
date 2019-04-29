@@ -6,6 +6,7 @@
     "exclude":["broken"],
     "jest": {
         "silent": false,
+        "collectCoverage": true,
         "coveragePathIgnorePatterns": [
             "test/coverage",
             "coverage"

@@ -5,12 +5,14 @@
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
 
----
-- test: Cancel request, no further interaction.
-- LaunchRequest:
-   - response.outputSpeech.ssml: Welcome to Transport Canada Vehicle Recalls. I'll help you find out if your vehicle has any recalls. To start, let me know the make, model and year of your vehicle
-- AMAZON.CancelIntent: Goodbye
-    #- response.card.title: Space Facts
-    #- response.card.content: "*" # Any text will match
+--- 
+- test: Complete dialog sequence
+- AMAZON.CancelIntent: 
+  - response.outputSpeech.ssml: OK! Have a good day!
+
+--- 
+- test: Complete dialog sequence
+- AMAZON.StopIntent: 
+  - response.outputSpeech.ssml: OK! Have a good day!

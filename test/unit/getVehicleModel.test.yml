@@ -29,7 +29,7 @@ configuration:
   - request.session.attributes.VEHICLE_MAKE.isValid: true
   - request.session.attributes.VEHICLE_YEAR.slotValue: 2009
   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-  expect 1 recall
+ # expect 1 recall
   - sessionAttributes.VehicleConversation.recalls[0].modelName: "CIVIC"
 
 
