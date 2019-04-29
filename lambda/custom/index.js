@@ -37,7 +37,7 @@ const INTERCEPTORS = {
 }
 
 const skillBuilder = Alexa.SkillBuilders.custom()
-exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc10e60', skillBuilder
+exports.handler =  skillBuilder
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
     HANDLERS.getVehicleMakeAndModel.Completed,
@@ -71,4 +71,4 @@ exports.handler = loglessClient.Logless.capture('6423ca35-5b10-4448-bc0e-ca179bc
     INTERCEPTORS.LogInterceptor.LogResponse)
   .addErrorHandlers(HANDLERS.Error.GlobalErrorHandler)
   .withApiClient(new Alexa.DefaultApiClient())
-  .lambda())
+  .lambda()
