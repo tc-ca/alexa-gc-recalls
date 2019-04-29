@@ -55,7 +55,7 @@ module.exports = {
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `While I'm reading you the ${PHONEMES.recall} information, at any point you can skip to the next ${PHONEMES.recall} by saying "Alexa skip". `,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `On ${RECALL_DATE} there was a ${PHONEMES.recall} affecting the ${RECALL_COMPONENT}.<break time="500ms"/> ${RECALL_DETAILS}`,
-    SPEECH_TXT_VEHICLE_RECALLS_READING_DONE: `That's all the information I have for your ${VEHICLE} vehicle. Do you want me to repeat the ${PHONEMES.recall} information for this vehicle?  `,
+    SPEECH_TXT_VEHICLE_RECALLS_READING_DONE: `That's all the information I have for your ${VEHICLE} vehicle. Do you want me to repeat the ${PHONEMES.recall} information for this vehicle? `,
     SPEECH_TXT_VEHCILE_RECALLS_READING_FOLLOW_UP_QUESTION_WOULD_YOU_LIKE_TO_HEAR_NEXT_RECALL: `Would you like to hear the next ${PHONEMES.recall}?`,
 
     // MISCELLANEOUS STRINGS

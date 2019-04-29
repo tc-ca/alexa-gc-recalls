@@ -38,8 +38,8 @@ module.exports = {
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton ${VEHICLE_MAKE_MODEL_YEAR}. Je t'ai envoyé l’information sur les rappels par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton ${VEHICLE_MAKE_MODEL_YEAR}. Je t'ai envoyé l’information sur les rappels par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Je m'excuse. Je n’ai pas d’information sur ton ${VEHICLE_MAKE_MODEL_YEAR} en ce moment. Je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm...J’ai besoin de plus d’information sur le modèle.`,
-    SPEECH_TXT_VEHICLE_SLOT_VALUES_NOT_FOUND: `Hmm...Je n’ai pas trouvé ton ${VEHICLE_MAKE_MODEL_YEAR} dans notre base de données. Pour m’aider à chercher, je te demanderais de seulement inclure le nom du modèle de ton véhicule sans le niveau d’équipement. Quel est le nom du modèle de ton véhicule?`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Humm...J’ai besoin de plus d’information sur le modèle.`,
+    SPEECH_TXT_VEHICLE_SLOT_VALUES_NOT_FOUND: `Humm...Je n’ai pas trouvé ton ${VEHICLE_MAKE_MODEL_YEAR} dans notre base de données. Pour m’aider à chercher, je te demanderais de seulement inclure le nom du modèle de ton véhicule sans le niveau d’équipement. Quel est le nom du modèle de ton véhicule?`,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Veux-tu que je trouve les rappels de sécurité d’un autre véhicule?`,
@@ -60,7 +60,7 @@ module.exports = {
     // ERROR STRINGS
     SPEECH_TXT_VEHICLE_ERROR_MODEL_VALIDATION_FAILED: `Je m'excuse. Je n’ai pas d’information sur ton ${VEHICLE_MAKE_MODEL_YEAR} en ce moment. Je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE: `Je ne suis pas certaine. Je m'excuse, je suis encore un assistant vocal en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
-    SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Hmm... I was not expecting that response, you can say start over`,
+    SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Humm... I was not expecting that response, you can say start over`,
     SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `Je m'excuse. Je suis encore un assistant vocal en formation et j’ai quelques difficultés de compréhension. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `Je m'excuse. J'ai de la difficulté à identifier ton véhicule. As-tu besoin de plus d'aide?`,
     SPEECH_TXT_VEHICLE_GET_HELP: `Ok. Pour de l'aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER}. Passe une bonne journée.`,
