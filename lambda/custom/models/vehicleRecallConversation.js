@@ -65,7 +65,7 @@ class VehicleRecallConversationContextBuilder {
 
   saySearchFinding ({ skipAmbigiousCheck = false } = {}) {
     if (this.vehicle.isValidMakeAndModel) {
-      if (this.recalls.length === 0) {
+      if (this.recalls.length === 0 || foundModelNameAmongRecalls(this.recalls, this.vehicle.model) === false) {
         this.searchFindings = SEARCH_FINDINGS.NoRecallsFound
         this.recallSearchResultSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE`)
 
@@ -190,7 +190,7 @@ class VehicleRecallConversationContextBuilder {
         break
       case CONVERSATION_CONTEXT.GettingSearchResultFindingsState:
         if (this.vehicle.isValidMakeAndModel) {
-          if (this.recalls.length === 0) {
+          if (this.recalls.length === 0 || foundModelNameAmongRecalls(this.recalls, this.vehicle.model) === false) {
             this.followUpQuestionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
             this.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToSearchForAnotherRecall
           } else {
@@ -228,11 +228,35 @@ class VehicleRecallConversationContextBuilder {
   }
 }
 
+/**
+ *
+ * https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall/make-name/DODGE/model-name/CARAVAN/year-range/2015-2015
+ * The above search will retrieve results containing Dodge Grand Caravan and no results for the actual targeted make and model Dodge Caravan
+ * This function ensures the targeted model is found within recalls array list i.e. API result set.
+ * @param {*} recalls
+ * @param {*} targetedModelName
+ * @returns
+ */
+function foundModelNameAmongRecalls (recalls, targetedModelName) {
+  let modelCount = 0
+
+  for (let index = 0; index < recalls.length; index++) {
+    if (recalls[index].modelName.toUpperCase() === targetedModelName.toUpperCase()) {
+      modelCount++
+    }
+  }
+  if (modelCount >= 1) {
+    return true
+  }
+
+  return false
+}
 function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
   let similarModelCount = 0
 
   for (let index = 0; index < recalls.length; index++) {
-    if (recalls[index].modelName.toUpperCase() !== targetedModelName.toUpperCase() && recalls[index].modelName.toUpperCase().includes(targetedModelName.toUpperCase())) {
+    if (recalls[index].modelName.toUpperCase() !== targetedModelName.toUpperCase() &&
+    recalls[index].modelName.toUpperCase().includes(targetedModelName.toUpperCase())) {
       similarModelCount++
     }
   }
