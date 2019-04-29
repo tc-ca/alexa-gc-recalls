@@ -22,7 +22,6 @@ const InProgressGetVehicleYearIntentHandler = {
         handlerInput.requestEnvelope.request.dialogState !== 'COMPLETED'
   },
   async handle (handlerInput) {
-
     return handlerInput.responseBuilder
       .addDelegateDirective(handlerInput.requestEnvelope.request.intent) // makes alexa prompt for required slots.
       .getResponse()
@@ -40,6 +39,11 @@ const CompletedGetVehicleYearIntentHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
+
+    // Adjust year value if Alexa mistakenly misundertood year i.e. 1015 for 2015.
+    if (slotValues.year.resolved.substring(0, 1) === '1') {
+      slotValues.year.resolved = '2' + slotValues.year.resolved.substring(1, 4)
+    }
 
     const year = new Vehicle.Year({
       yearSlotValue: slotValues.year.resolved
