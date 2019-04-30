@@ -1,4 +1,7 @@
-// todo move helper functions to library
+'use strict'
+
+const Trace = require('../models/trace').Trace
+const SESSION_KEYS = require('../constants').SESSION_KEYS
 
 function GetSlotValues (filledSlots) {
   console.log('filled slots: ', JSON.stringify(filledSlots))
@@ -57,4 +60,16 @@ function GetSlotValues (filledSlots) {
   return slotValues
 }
 
-module.exports = { GetSlotValues: GetSlotValues }
+function SetTrace ({ handlerName, requestAttributes, sessionAttributes }) {
+  // request attribuute only exist per request
+  // add trace to request obj, only interesting in tracing which handlers the code runs through per request
+  // request obj will automatically reset it self.
+  // note: session last the entire lifetime of skill
+
+  const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
+  trace.location.push(handlerName)
+  // put into session so we can examine the value via json output.
+  sessionAttributes[SESSION_KEYS.TRACE] = trace
+}
+
+module.exports = { GetSlotValues, SetTrace }
