@@ -1,24 +1,138 @@
 
-#Test outcome of "no" after response to specific Alexa question
+Test outcome of "no" after response to specific Alexa question
+
 
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
 
 ---
-- test: No context test, "Would you like to hear the next recall?"
-- tags: broken
-- AMAZON.NoIntent: 
-   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-   - request.session.attributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall 
-   - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
----
-- test: No context test, "Would you like to search for another recall"
-- tags: broken
+- test: No context test (within searching recall state, under max attempt), "Are you looking for vehicle x?"
 - AMAZON.NoIntent: 
   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
-  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 #WouldYouLikeToSearchForAnotherRecall
-  - sessionAttributes.CurrentIntentLocation: AMAZON.CancelIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 0
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - sessionAttributes.TRACE.location[0]: DeniedCompletedSearchForVehicleRecallIntentHandler
+  - sessionAttributes.TRACE.location[1]: SearchAgainRecallHandler
+
+  - response.outputSpeech.ssml: Would you like to try to search again?
 
 
+---
+- test: No context test (within searching recall state, over max attempt), "Are you looking for vehicle x?"
+- AMAZON.NoIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 2
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - sessionAttributes.TRACE.location[0]: DeniedCompletedSearchForVehicleRecallIntentHandler
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 9
+  - sessionAttributes.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 0
+  - response.outputSpeech.ssml: I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?
+
+---
+- test: No context test (within searching recall state), "Would you like me to read the recall?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 5
+
+
+  - sessionAttributes.TRACE.location[0]: SearchForAnotherRecallHandler
+  - response.outputSpeech.ssml: Do you want me to look for <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> for another vehicle?
+
+
+---
+- test: No context test (within searching recall state), "Would you like to search for another recall?"
+- AMAZON.NoIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 
+  - sessionAttributes.TRACE.location[0]: CancelAndStopIntentHandler
+  - response.outputSpeech.ssml: OK! Have a good day!
+
+
+
+
+---
+- test: No context test (within reading recall state), "Would you like to hear the next recall?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 2
+
+
+  - sessionAttributes.TRACE.location[0]: SearchForAnotherRecallHandler
+  - response.outputSpeech.ssml: Do you want me to look for <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> for another vehicle?
+
+
+---
+- test: No context test (within reading recall state), "Would you like the recall information repeated"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 6
+
+
+  - sessionAttributes.TRACE.location[0]: SearchForAnotherRecallHandler
+  - response.outputSpeech.ssml: Do you want me to look for <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> for another vehicle?
+
+---
+- test: No context test (within reading recall state), "Would you like to search for another recall?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0
+
+
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent
+
+---
+- test: No context test (denied vehicle comfirmation), "Would you like to search for another recall?"
+- AMAZON.NoIntent: 
+  - request.session.attributes.CurrentIntentLocation: DeniedCompletedSearchForVehicleRecallIntentHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 
+  - sessionAttributes.TRACE.location[0]: CancelAndStopIntentHandler
+  - response.outputSpeech.ssml: OK! Have a good day!
+
+---
+- test: No context test (denied vehicle comfirmation), "Would you like help?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: DeniedCompletedSearchForVehicleRecallIntentHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 9
+
+---
+- test: No context test (search for another recall), "Would you like to search for another recall?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: SearchForAnotherRecallHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 0
+  - sessionAttributes.TRACE.location[0]: CancelAndStopIntentHandler
+  - response.outputSpeech.ssml: OK! Have a good day!
+
+---
+- test: No context test (search again), "Would you like to try and search again?"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: SearchAgainRecallHandler
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 1
+  - sessionAttributes.TRACE.location[0]: CancelAndStopIntentHandler
+  - response.outputSpeech.ssml: OK! Have a good day!
+
+---
+- test: No context test (command said out of context)"
+- AMAZON.NoIntent: 
+
+  - request.session.attributes.CurrentIntentLocation: UnknownIntentHandler
+
+  - sessionAttributes.TRACE.location[0]: CommandOutOfContextHandler
+  - response.outputSpeech.ssml: Hmm... I was not expecting that response, if you want to search for your vehicle again, say "search"
