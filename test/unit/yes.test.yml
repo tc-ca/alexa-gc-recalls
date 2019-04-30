@@ -5,7 +5,7 @@ Test outcome of "yes" after response to specific Alexa question
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
 
 ---
 - test: Yes context test (within searching recall state), "Are you looking for vehicle x?"
@@ -19,7 +19,7 @@ configuration:
   - request.session.attributes.VehicleConversation.vehicle.year: 2011
   - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
 
-  - requestAttributes.HANDLER_TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
 
 
 ---
@@ -48,7 +48,7 @@ configuration:
   - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
   - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
-  - requestAttributes.HANDLER_TRACE.location[0]: ReadVehicleRecallDetailsHandler
+  - sessionAttributes.TRACE.location[0]: ReadVehicleRecallDetailsHandler
 
 
 ---
@@ -56,7 +56,8 @@ configuration:
 - AMAZON.YesIntent: 
   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
   - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 
-  - requestAttributes.HANDLER_TRACE.location[0]: StartOverIntentHandler
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
+  - response.outputSpeech.ssml: I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?
 
 
 
@@ -87,8 +88,8 @@ configuration:
   - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
   - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
-  - requestAttributes.HANDLER_TRACE.location[0]: MoveToNextRecallHandler
-  - requestAttributes.HANDLER_TRACE.location[1]: ReadVehicleRecallDetailsHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 ---
 - test: Yes context test (within reading recall state), "Would you like the recall information repeated?"
@@ -116,7 +117,7 @@ configuration:
   - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
   - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
-  - requestAttributes.HANDLER_TRACE.location[0]: ReadVehicleRecallDetailsHandler
+  - sessionAttributes.TRACE.location[0]: ReadVehicleRecallDetailsHandler
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
 
 ---
@@ -134,7 +135,7 @@ configuration:
   - request.session.attributes.VEHICLE_MODEL.isValid: true
   - request.session.attributes.VEHICLE_YEAR.slotValue: 2011
 
-  - requestAttributes.HANDLER_TRACE.location[0]: StartOverIntentHandler
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
   - sessionAttributes.VEHICLE_MAKE: null
   - sessionAttributes.VEHICLE_MODEL: null
   - sessionAttributes.VEHICLE_YEAR: null
@@ -154,7 +155,7 @@ configuration:
   - request.session.attributes.VEHICLE_MODEL.isValid: true
   - request.session.attributes.VEHICLE_YEAR.slotValue: 2011
 
-  - requestAttributes.HANDLER_TRACE.location[0]: StartOverIntentHandler
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
   - sessionAttributes.VEHICLE_MAKE: null
   - sessionAttributes.VEHICLE_MODEL: null
   - sessionAttributes.VEHICLE_YEAR: null
@@ -166,7 +167,7 @@ configuration:
   - request.session.attributes.CurrentIntentLocation: DeniedCompletedSearchForVehicleRecallIntentHandler
   - request.session.attributes.VehicleConversation.followUpQuestionCode:  9
 
-  - requestAttributes.HANDLER_TRACE.location[0]: GetHelpHandler
+  - sessionAttributes.TRACE.location[0]: GetHelpHandler
   - response.outputSpeech.ssml: Okay, please contact my human friends at Transport Canada Recalls customer support at <say-as interpret-as=\"telephone\">18003330510</say-as> for more help. Have a good day.
 
 ---
@@ -184,7 +185,7 @@ configuration:
   - request.session.attributes.VEHICLE_MODEL.isValid: true
   - request.session.attributes.VEHICLE_YEAR.slotValue: 2011
 
-  - requestAttributes.HANDLER_TRACE.location[0]: StartOverIntentHandler
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
   - sessionAttributes.VEHICLE_MAKE: null
   - sessionAttributes.VEHICLE_MODEL: null
   - sessionAttributes.VEHICLE_YEAR: null
@@ -204,7 +205,7 @@ configuration:
   - request.session.attributes.VEHICLE_MODEL.isValid: true
   - request.session.attributes.VEHICLE_YEAR.slotValue: 2011
 
-  - requestAttributes.HANDLER_TRACE.location[0]: StartOverIntentHandler
+  - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
   - sessionAttributes.VEHICLE_MAKE: null
   - sessionAttributes.VEHICLE_MODEL: null
   - sessionAttributes.VEHICLE_YEAR: null
@@ -216,6 +217,6 @@ configuration:
 
   - request.session.attributes.CurrentIntentLocation: UnknownIntentHandler
 
-  - requestAttributes.HANDLER_TRACE.location[0]: CommandOutOfContextHandler
-  - response.outputSpeech.ssml: Hmm... I was not expecting that response, you can say start over
+  - sessionAttributes.TRACE.location[0]: CommandOutOfContextHandler
+  - response.outputSpeech.ssml: Hmm... I was not expecting that response, if you want to search for your vehicle again, say "search"
 
