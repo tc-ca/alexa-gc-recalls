@@ -1,7 +1,5 @@
 'use strict'
-const SESSION_KEYS = require('../../constants').SESSION_KEYS
-const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
-const Trace = require('../../models/trace').Trace
+const HELPER = require('../../utils/helper')
 
 const HelpIntentHandler = {
   canHandle (handlerInput) {
@@ -23,10 +21,14 @@ const GetHelpHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
+    const sessionAttributes = attributesManager.getSessionAttributes()
+
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_GET_HELP')
 
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.GET_HELP_HANDLER)
+    HELPER.SetTrace({
+      handlerName: 'GetHelpHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     return handlerInput.responseBuilder
       .speak(speechText)

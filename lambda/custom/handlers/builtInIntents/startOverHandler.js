@@ -1,8 +1,7 @@
 'use strict'
 
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
-const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
-const Trace = require('../../models/trace').Trace
+const HELPER = require('../../utils/helper')
 
 const StartOverIntentHandler = {
   canHandle (handlerInput) {
@@ -18,8 +17,10 @@ const StartOverIntentHandler = {
     sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = null
     sessionAttributes[SESSION_KEYS.VEHICLE_YEAR] = null
 
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.START_OVER_INTENT_HANDLER)
+    HELPER.SetTrace({
+      handlerName: 'StartOverIntentHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     return handlerInput.responseBuilder
       .addDelegateDirective({

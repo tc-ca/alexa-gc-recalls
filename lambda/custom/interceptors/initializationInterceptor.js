@@ -31,6 +31,9 @@ module.exports = {
       SERVICES.VEHICLE_RECALLS_API.Warmer()
       // gets the phone number from alexa api once
       sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] = new PhoneNumber(await SERVICES.alexaProfileHandler.GetMobileNumber(handlerInput))
+      sessionAttributes[SESSION_KEYS.TRACE] = null
+      sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0
+
     }
 
     requestAttributes[SESSION_KEYS.HANDLER_TRACE] = new Trace()

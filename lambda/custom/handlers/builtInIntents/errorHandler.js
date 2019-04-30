@@ -1,8 +1,6 @@
 'use strict'
 
-const SESSION_KEYS = require('../../constants').SESSION_KEYS
-const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
-const Trace = require('../../models/trace').Trace
+const HELPER = require('../../utils/helper')
 
 const GlobalErrorHandler = {
   canHandle () {
@@ -11,11 +9,15 @@ const GlobalErrorHandler = {
   handle (handlerInput, error) {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
+    const sessionAttributes = attributesManager.getSessionAttributes()
+
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE')
     console.error('ERROR HANDLED', error)
 
-    // console.log(`Error handled: ${error.message}`)
-    // console.log(`Stack: ${error.stack}`)
+    HELPER.SetTrace({
+      handlerName: 'GlobalErrorHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     return handlerInput.responseBuilder
       .speak(speechText)
@@ -30,10 +32,14 @@ const CommandOutOfContextHandler = {
     const { attributesManager } = handlerInput
 
     const requestAttributes = attributesManager.getRequestAttributes()
+    const sessionAttributes = attributesManager.getSessionAttributes()
+
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT')
 
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.START_OVER_INTENT_HANDLER)
+    HELPER.SetTrace({
+      handlerName: 'CommandOutOfContextHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     return handlerInput.responseBuilder
       .speak(speechText)

@@ -150,7 +150,6 @@ module.exports = Object.freeze({
     VehicleCurrentRecallIndex: 'VehicleCurrentRecallIndex', // current index within array of recalls
     UserAction: 'UserAction', // desribes what action the end user has undertaken.
     CurrentIntentLocation: 'CurrentIntentLocation', // like a breadcrumb trail, last intent to be excuted.
-    CURRENT_HANDLER: 'CURRENT_HANDLER',
     VehicleConversation: 'VehicleConversation', // holds the vehicle convo obj
     VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 'VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT',
     VEHICLE_MAKE: 'VEHICLE_MAKE',
@@ -158,7 +157,8 @@ module.exports = Object.freeze({
     VEHICLE_YEAR: 'VEHICLE_YEAR',
     USER_PHONE_NUMBER: 'USER_PHONE_NUMBER',
     USER_EMAIL: 'USER_EMAIL',
-    HANDLER_TRACE: 'HANDLER_TRACE'
+    HANDLER_TRACE: 'HANDLER_TRACE',
+    TRACE: 'TRACE'
 
   },
 
@@ -167,16 +167,6 @@ module.exports = Object.freeze({
     NotFound: 1,
     NoPermission: 2,
     Error: 3
-  },
-
-  HANDLERS_STRING_NAMES: {
-    MOVE_TO_NEXT_RECALL_HANDLER: 'MoveToNextRecallHandler',
-    READ_VEHICLE_RECALL_DETAILS_HANDLER: 'ReadVehicleRecallDetailsHandler',
-    START_OVER_INTENT_HANDLER: 'StartOverIntentHandler',
-    GET_HELP_HANDLER: 'GetHelpHandler',
-    COMMAND_OUT_OF_CONTEXT_HANDLER: 'CommandOutOfContextHandler',
-    COMFIRMED_COMPLETED_SEARCH_FOR_VEHICLE_RECALL_INTENT_HANDLER: 'ComfirmedCompletedSearchForVehicleRecallIntentHandler'
-
   }
 
 }

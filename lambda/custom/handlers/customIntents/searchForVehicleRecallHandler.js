@@ -13,12 +13,11 @@ const SEARCH_FINDINGS = require('../../constants').VEHICLE_SEARCH_FINDINGS
 const VEHICLE_MAKES_ID = require('../../constants').VEHICLE_MAKE_ID
 const CONFIG = require('../../config')
 const API_SEARCH_RESULT = require('../../constants').API_SEARCH_RESULT
-const HANDLERS_STRING_NAMES = require('../../constants').HANDLERS_STRING_NAMES
+const HELPER = require('../../utils/helper')
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
 const Email = require('../../models/user').Email
-const Trace = require('../../models/trace').Trace
 
 const SERVICES = {
   TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
@@ -72,8 +71,10 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.COMFIRMED_COMPLETED_SEARCH_FOR_VEHICLE_RECALL_INTENT_HANDLER)
+    HELPER.SetTrace({
+      handlerName: 'ComfirmedCompletedSearchForVehicleRecallIntentHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
@@ -105,15 +106,23 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
 
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'DeniedCompletedSearchForVehicleRecallIntentHandler'
 
+    HELPER.SetTrace({
+      handlerName: 'DeniedCompletedSearchForVehicleRecallIntentHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
+
     const VehicleRecallConvo = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     // increment attempt
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT]++
 
     if (sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] === CONFIG.MAX_SEARCH_ATTEMPS) {
+      
       VehicleRecallConvo.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
       sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
+      sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0 // reset max attempt
       const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH')
+      
       return handlerInput.responseBuilder
         .speak(speechText)
         .reprompt(speechText)
@@ -163,6 +172,11 @@ const AmbigiousHandler = {
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = currentRecallIndex
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
+
+    HELPER.SetTrace({
+      handlerName: 'AmbigiousHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
@@ -214,8 +228,10 @@ const ReadVehicleRecallDetailsHandler = {
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'ReadVehicleRecallHandler'
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
 
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.READ_VEHICLE_RECALL_DETAILS_HANDLER)
+    HELPER.SetTrace({
+      handlerName: 'ReadVehicleRecallDetailsHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
@@ -249,10 +265,11 @@ const MoveToNextRecallHandler = {
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
     const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
-    
-    const trace = new Trace(requestAttributes[SESSION_KEYS.HANDLER_TRACE])
-    trace.location.push(HANDLERS_STRING_NAMES.MOVE_TO_NEXT_RECALL_HANDLER)
-    console.log('trace', trace)
+
+    HELPER.SetTrace({
+      handlerName: 'MoveToNextRecallHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     if (typeof (vehicleConversation.recalls[sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]]) === 'undefined') {
       // bring index into range and return to last recall
@@ -305,9 +322,13 @@ const SearchForAnotherRecallHandler = {
     vehicleConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToSearchForAnotherRecall
     const speechText = requestAttributes.t('SPEECH_TXT_VEHCILE_SEARCH_FOR_ANOTHER_RECALL')
 
-    //
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForAnotherRecallHandler'
+
+    HELPER.SetTrace({
+      handlerName: 'SearchForAnotherRecallHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
@@ -332,6 +353,11 @@ const SearchAgainRecallHandler = {
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WOULD_YOU_LIKE_TO_SEARCH_AGAIN')
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleRecallConversation
+
+    HELPER.SetTrace({
+      handlerName: 'SearchAgainRecallHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
     let cardText = ''
     let cardTitle = ''

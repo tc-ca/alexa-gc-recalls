@@ -58,6 +58,7 @@ const NoIntentHandler = {
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
             return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+
           case FOLLOW_UP_QUESTION.WOULD_YOU_LIKE_HELP:
             return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
         }
