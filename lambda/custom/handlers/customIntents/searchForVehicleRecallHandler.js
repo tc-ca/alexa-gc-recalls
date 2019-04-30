@@ -46,7 +46,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
 
     const currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
 
-    // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleModelMakeYearHandler"
+    // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleMakeModelYearHandler"
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     // look for recalls based on previously collected slot values.

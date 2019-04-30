@@ -12,7 +12,7 @@ const HELPER = require('../../utils/helper')
 const Vehicle = require('../../models/vehicle')
 
 const HANDLERS = {
-  Confirm: require('./comfirmVehicleModelMakeYearHandler')
+  Confirm: require('./comfirmVehicleMakeModelYearHandler')
 }
 
 const InProgressGetVehicleYearIntentHandler = {
