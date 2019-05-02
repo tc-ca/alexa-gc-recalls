@@ -3,7 +3,6 @@
 const VRDB_API_KEY = process.env.VRDB_API_CANADA_USER_KEY
 
 const fetch = require('node-fetch')
-const util = require('util')
 
 const Recall = require('../models/recall').Recall
 const RecallSummary = require('../models/recall').RecallSummary
