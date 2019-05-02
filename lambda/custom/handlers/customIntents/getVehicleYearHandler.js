@@ -40,11 +40,6 @@ const CompletedGetVehicleYearIntentHandler = {
 
     const slotValues = HELPER.GetSlotValues(handlerInput.requestEnvelope.request.intent.slots)
 
-    // Adjust year value if Alexa mistakenly misundertood year i.e. 1015 for 2015.
-    if (slotValues.year.resolved.substring(0, 1) === '1') {
-      slotValues.year.resolved = '2' + slotValues.year.resolved.substring(1, 4)
-    }
-
     const year = new Vehicle.Year({
       yearSlotValue: slotValues.year.resolved
     })
