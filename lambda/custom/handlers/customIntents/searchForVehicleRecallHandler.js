@@ -390,25 +390,6 @@ const SearchAgainRecallHandler = {
   }
 }
 
-/**
- * handler directs Alexa to ask for make, model and year info.
- * usage: DRY principle.
- * @param {*} handlerInput
- * @returns
- */
-const UpdateToGetVehicleMakeAndModelIntent = {
-  handle (handlerInput) {
-    return handlerInput.responseBuilder
-      .addDelegateDirective({
-        name: 'GetVehicleMakeAndModelIntent',
-        confirmationStatus: 'NONE',
-        slots: {}
-      })
-    //  .withSimpleCard('Hello World', speechText)
-      .getResponse()
-  }
-}
-
 async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
 
   if (process.env.UNIT_TEST) {
@@ -519,7 +500,6 @@ module.exports = {
   DeniedCompleted: DeniedCompletedSearchForVehicleRecallIntentHandler,
   ReadVehicleRecallDetails: ReadVehicleRecallDetailsHandler,
   SearchForAnotherRecallHandler,
-  SearchForNewVehicleRecallHandler: UpdateToGetVehicleMakeAndModelIntent,
   MoveToNextRecallHandler,
   MoveToPreviousRecallHandler,
   AmbigiousHandler
