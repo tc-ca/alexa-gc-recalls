@@ -1,105 +1,162 @@
 
-# Test search vehicle handler 
+# Test search vehicle recall handler 
 # Depending on the provided make, model and year various outcomes are possible.
 # Each scenario should respond accordingly.
 
+#Outcomes: 
+# 1. no recalls found
+# 2. one recall found
+# 3. multiple recalls found
+# 4. non valid model or make found
+# 5. ambigious model found
 
 
 ---
 configuration:
-  locale: en-US
+  locale: en-CA
+
 
 ---
-- test: Search for make model with multiple recalls
-- tags: broken
-- SearchForVehicleRecallIntent:
-  - intent: SearchForVehicleRecallIntent
-    year: 2011
-    VehicleMakeType: Honda
-    VehicleModelType: Civic
-- SearchForVehicleRecallIntent:
-  - intent: SearchForVehicleRecallIntent
-  # test session attributes
-  - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
-  - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
-  # test response
-  - sessionAttributes.VehicleConversation.followUpQuestionCode : 1 #WouldYouLikeToHearTheNextRecall
-  # TODO: test other parts of the conversation
+- test: search for vehicle recall (NONE)
+- AMAZON.YesIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8
+  - request.session.attributes.VehicleConversation.vehicle.make: HONDA 
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.model: CIVIC
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2050
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
+
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: There are no <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> associated with your vehicle in our system. Would you like to search for another vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 0
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 0
+
+
+---
+- test: search for vehicle recall (ONE)
+- AMAZON.YesIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VehicleConversation.vehicle.make: HYUNDAI
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: hyundai
+  - request.session.attributes.VehicleConversation.vehicle.model: ELANTRA
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: elentra
+  - request.session.attributes.VehicleConversation.vehicle.year: 2018
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
+
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: <speak>I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2018 hyundai elentra. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 1
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 5
  
-# ---
-# - test: Search for make model with ambigious model
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#     year: 2009
-#     VehicleMakeType: Honda
-#     VehicleModelType: Civic
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#    # test session attributes
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
-#   - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
-#    # test response
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode : 2 #ProvideComfirmationOfAmbiguousModel
-#    # TODO: test other parts of the conversation
+
+---
+- test: search for vehicle recall (MULTIPLE)
+- AMAZON.YesIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VehicleConversation.vehicle.make: HONDA 
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.model: CIVIC
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
+
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: I've found * <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2011 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 2
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 5
 
 
-# ---
-# - test: Search for make model with no recalls
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#     year: 2040
-#     VehicleMakeType: Honda
-#     VehicleModelType: Civic
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent #value must be correctly set, provides context to other intents.
-#   - sessionAttributes.VehicleConversation != undefined # value must be set, holds the converation and needed details to formulate a correct response.
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode : 0 #WouldYouLikeToSearchForAnotherRecall
-#    # TODO: test other parts of the conversation
+---
+- test: search for vehicle recall (NON VALID)
+- AMAZON.YesIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VehicleConversation.vehicle.make: CUSTOMMAKE 
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: custommake
+  - request.session.attributes.VehicleConversation.vehicle.model: CUSTOMMODEL
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: CUSTOMMODEL
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: false
+
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: I'm sorry. I don't have any information on your 2011 custommake CUSTOMMODEL at the moment. I'm still a voice assistant in training. Please contact my human friends at Transport Canada Recalls customer suppport at <say-as interpret-as=\"telephone\">18003330510</say-as> for more help. Would you like to search for another vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 3
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 0
 
 
 
+# Testing Filtering of Recalls.
+# There are 4 recalls affecting 2009 honda civic, 3 recalls specific to 2009 honda civic and 1 recall specific to honda civic hybrid
+# The following test ensures code returns the correct recalls for each specific model. i.e. filtering of recalls works.
+
+---
+- test: search for vehicle recall (AMBIGIOUS MODEL) 2009 HONDA CIVIC HYBRID, 3 recall found test
+- AMAZON.YesIntent: 
+  # yes context info
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+
+  #required initilization data
+  - request.session.attributes.VehicleConversation.vehicle.make: HONDA 
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.model: CIVIC
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2009
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
+  #must add following session attributes as going directly to "yes" intent bypasses the collection of slot values.
+  - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
+  - request.session.attributes.VEHICLE_MAKE.slotValue: honda
+  - request.session.attributes.VEHICLE_MAKE.isValid: true
+  - request.session.attributes.VEHICLE_YEAR.slotValue: 2009
+  
+  # Assert
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time=\"200ms\"/> or  CIVIC HYBRID or none of these?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 4
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 7
+
+- GetVehicleModelIntent model="civic hybrid": 
+  - sessionAttributes.TRACE.location[0]: AmbigiousHandler
+  - response.outputSpeech.ssml: I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2009 honda civic hybrid. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+
+---
+- test: search for vehicle recall (AMBIGIOUS MODEL) 2009 HONDA CIVIC, 1 recall found test
+- AMAZON.YesIntent: 
+  # yes context info
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+
+  # required initilization data
+  - request.session.attributes.VehicleConversation.vehicle.make: HONDA 
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.model: CIVIC
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2009
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
+  # must add following session attributes as going directly to "yes" intent bypasses the collection of slot values.
+  - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
+  - request.session.attributes.VEHICLE_MAKE.slotValue: honda
+  - request.session.attributes.VEHICLE_MAKE.isValid: true
+  - request.session.attributes.VEHICLE_YEAR.slotValue: 2009
+  
+  # Assert
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - response.outputSpeech.ssml: Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time=\"200ms\"/> or  CIVIC HYBRID or none of these?
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
+  - sessionAttributes.VehicleConversation.searchFindings: 4
+  - sessionAttributes.VehicleConversation.followUpQuestionCode: 7
+
+- GetVehicleModelIntent model="civic": 
+  - sessionAttributes.TRACE.location[0]: AmbigiousHandler
+  - response.outputSpeech.ssml: I've found 3 <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2009 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
 
 
-#TODO: Fix below tests.
-
-# ---
-# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#     year: 2011
-#     VehicleMakeType: Honda
-#     VehicleModelType: Civic
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#   - request.session.attributes.VehicleConversation.currentIndex: 0
-#   - request.session.attributes.VehicleConversation.recalls.length: 2
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-#   - sessionAttributes.VehicleConversation != undefined
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-#   - AMAZON.YesIntent:
-
-
-# ---
-# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda
-# - SearchForVehicleRecallIntent:
-#   - intent: SearchForVehicleRecallIntent
-#   - request.session.attributes.VehicleConversation.currentIndex: 0
-#   - request.session.attributes.VehicleConversation.recalls.length: 2
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-#   - sessionAttributes.VehicleConversation != undefined
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-# - "no"
-
-
-# ---
-# - test.only: Search for make model with multiple recalls, get to end of recall list and retrieve the correct followup question
-# - SearchForVehicleRecallIntent year=2011 VehicleModelType=Civic VehicleMakeType=Honda:
-#   - request.dialogState: COMPLETED
-#   - request.session.attributes.VehicleConversation.currentIndex: 0
-#   - request.session.attributes.VehicleConversation.recalls.length: 2
-#   - sessionAttributes.CurrentIntentLocation: SearchForVehicleRecallIntent # ensure this is being set
-#   - sessionAttributes.VehicleConversation != undefined
-#   - sessionAttributes.VehicleConversation.followUpQuestionCode: 1 #WouldYouLikeToHearTheNextRecall
-# - "yes"

@@ -1,10 +1,10 @@
 
-#Test next/skip functionality
+Test next/skip functionality
 
-#Ensures
-#index is incremented
-#index is not incremented when on last recall
-# proper follow up questions is asked 
+Ensures
+index is incremented
+index is not incremented when on last recall
+proper follow up questions is asked 
 
 
 ---
@@ -38,7 +38,8 @@ configuration:
 
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
   
 
@@ -74,7 +75,8 @@ configuration:
   - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: Would you like to hear the next <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 
 ---
@@ -102,10 +104,11 @@ configuration:
   - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
 
-  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic vehicle. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
+  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 ---
 - test: test correct follow up question is asked when at the end and saying next command"
@@ -132,10 +135,11 @@ configuration:
   - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
 
 
-  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic vehicle. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
+  - sessionAttributes.VehicleConversation.followUpQuestionSpeechText: That's all the information I have for your 2011 honda civic. Do you want me to repeat the <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information for this vehicle?
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1 #ensure index is not incremented
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 
 
@@ -165,7 +169,8 @@ configuration:
   - sessionAttributes.VehicleConversation.introToRecallDescriptionText: null
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 
 ---
@@ -194,17 +199,18 @@ configuration:
   - sessionAttributes.VehicleConversation.recallDescriptionSpeechText: On 9/27/2018 there was a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> affecting the Engine.<break time=\"500ms\"/> On certain condition the engine may stop working.
 
   - sessionAttributes.VehicleCurrentRecallIndex: 1
-  - sessionAttributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - sessionAttributes.TRACE.location[0]: MoveToNextRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
   - response.outputSpeech.ssml: On 9/27/2018 there was a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> affecting the Engine.<break time=\"500ms\"/> On certain condition the engine may stop working.
 
   
 ---
-- test.only: test when "next" command is said out of context
+- test: test when "next" command is said out of context
 - AMAZON.NextIntent: 
   - request.session.attributes.VehicleCurrentRecallIndex: 0 
   - request.session.attributes.CurrentIntentLocation: SomeOtherIntent
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # value must not be incremented
-  - response.outputSpeech.ssml: Hmm... I was not expecting that response, you can say start over
+  - response.outputSpeech.ssml: Hmm... I was not expecting that response, if you want to search for your vehicle again, say \"search\"
 
 
 

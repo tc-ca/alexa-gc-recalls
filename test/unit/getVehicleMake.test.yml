@@ -3,7 +3,7 @@ configuration:
   locale: en-CA
 
 --- 
-- test.only: Complete dialog sequence
+- test: Complete dialog sequence
 - GetVehicleMakeIntent make=honda: 
   - request.request.dialogState: STARTED  
 

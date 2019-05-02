@@ -57,8 +57,9 @@ configuration:
   - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
   - request.session.attributes.VehicleConversation.followUpQuestionCode: 0 
   - sessionAttributes.TRACE.location[0]: StartOverIntentHandler
-  - response.outputSpeech.ssml: I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?
-
+  - sessionAttributes.VEHICLE_MAKE: null
+  - sessionAttributes.VEHICLE_MODEL: null
+  - sessionAttributes.VEHICLE_YEAR: null
 
 
 

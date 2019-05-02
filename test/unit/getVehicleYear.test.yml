@@ -11,7 +11,7 @@ configuration:
 
 
 --- 
-- test.only: Complete dialog sequence
+- test: Complete dialog sequence
 - GetVehicleYearIntent year=2011:
   - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
   - request.session.attributes.VEHICLE_MAKE.slotValue: honda
