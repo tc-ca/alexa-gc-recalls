@@ -1,0 +1,9 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: test fallback intent.
+- AMAZON.FallbackIntent: 
+  - response.outputSpeech.ssml: I'm not sure. I'm sorry, I'm still a voice assistant in training. Please contact my human friends at Transport Canada Recalls customer support at <say-as interpret-as=\"telephone\">18003330510</say-as> for more help. Have a good day.
+  - response.shouldEndSession: true
