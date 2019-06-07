@@ -40,4 +40,4 @@ const NextIntentHandlerOutOfContext = {
   }
 }
 
-module.exports = { NextIntentHandler, NextIntentHandlerOutOfContext }
+module.exports = { handler: NextIntentHandler, outOfContextHandler: NextIntentHandlerOutOfContext }
