@@ -38,18 +38,13 @@ const comfirmVehicleMakeModelYearHandler = {
 
     const speechText = VehicleRecallConversation.getSpeechText()
 
-    const cardTitle = requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_QUERY_YEAR_TITLE`)
-      .replace('%VehicleRecallYear%', year.slotValue)
-    const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_YEAR_PROVIDED`)
-      .replace('%VehicleRecallYear%', year.slotValue)
-
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard(cardTitle, cardText) // TODO: should we keep this simple card?
+      .withSimpleCard(speechText) // TODO: should we keep this simple card?
       .withShouldEndSession(false)
       .getResponse()
   }
