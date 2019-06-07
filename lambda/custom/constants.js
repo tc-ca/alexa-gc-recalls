@@ -109,7 +109,9 @@ module.exports = Object.freeze({
     ResponsedNoToWantingRecallRead: 11,
     RespondedYesToRepeatRecallInfo: 12,
     RespondedNoToRepeatRecallInfo: 13,
-    SaidSkipWhenNoMoreRecallsToLookUp: 14
+    SaidNextWhenNoMoreRecallsToLookUp: 14,
+    SaidPreviousWhenNoMoreRecallsToLookUp: 15
+
   },
 
   // Questions posed to the user.
