@@ -37,7 +37,7 @@ const INTERCEPTORS = {
 }
 
 const skillBuilder = Alexa.SkillBuilders.custom()
-exports.handler =  skillBuilder
+exports.handler = skillBuilder
   .addRequestHandlers(
     HANDLERS.LaunchRequest,
     HANDLERS.getVehicleMakeAndModel.Completed,
@@ -50,16 +50,18 @@ exports.handler =  skillBuilder
     HANDLERS.getVehicleMake.InProgressGetMakeFirstThenModel,
     HANDLERS.getVehicleMake.CompletedGetMakeFirstThenModel,
     HANDLERS.getBMWModel.InProgress,
-    HANDLERS.Next.NextIntentHandler,
-    HANDLERS.Next.NextIntentHandlerOutOfContext,
-    HANDLERS.Previous,
+    HANDLERS.Next.handler,
+    HANDLERS.Next.outOfContextHandler,
+    HANDLERS.Previous.handler,
+    HANDLERS.Previous.outOfContextHandler,
+    HANDLERS.repeat.handler,
+    HANDLERS.repeat.outOfContextHandler,
     HANDLERS.StartOver,
     HANDLERS.Help.HelpIntentHandler,
     HANDLERS.CancelAndStop,
     HANDLERS.SessionEnded,
     HANDLERS.Yes,
     HANDLERS.No,
-    HANDLERS.repeat,
     HANDLERS.Fallback
 
   )
