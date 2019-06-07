@@ -3,7 +3,7 @@ configuration:
   locale: en-CA
 
 --- 
-- test: Complete dialog sequence
+- test: test GetVehicleMakeIntent, ensure all required slots are fullfilled and chains to year intent
 - GetVehicleMakeIntent make=honda: 
   - request.request.dialogState: STARTED  
 

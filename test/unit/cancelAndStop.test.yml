@@ -8,11 +8,11 @@ configuration:
   locale: en-CA
 
 --- 
-- test: Complete dialog sequence
+- test: test cancel intent.
 - AMAZON.CancelIntent: 
   - response.outputSpeech.ssml: OK! Have a good day!
 
 --- 
-- test: Complete dialog sequence
+- test: test stop intent.
 - AMAZON.StopIntent: 
   - response.outputSpeech.ssml: OK! Have a good day!

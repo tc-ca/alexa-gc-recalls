@@ -3,15 +3,15 @@ configuration:
   locale: en-CA
 
 --- 
-- test: Complete dialog sequence
+- test: year intent triggered before collection of make and model
 - GetVehicleYearIntent year=2011: 
   - request.request.dialogState: COMPLETED   
-  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent
-  - response.outputSpeech.ssml: Sorry, that was not the information I wasn't looking for
+  - response.outputSpeech.ssml: Sorry. # say sorry and request for make (required slot) 
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent # chain to this intent to prompt for the required slot.
 
 
 --- 
-- test: Complete dialog sequence
+- test: test fullfilling year intent and ensure correct speech is outputted 
 - GetVehicleYearIntent year=2011:
   - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
   - request.session.attributes.VEHICLE_MAKE.slotValue: honda

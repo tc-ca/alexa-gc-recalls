@@ -3,10 +3,12 @@ configuration:
   locale: en-CA
 
 --- 
-- test: Complete dialog sequence
+- test: test dialog delegate (make and model provided)
 - GetVehicleMakeAndModelIntent make=honda model=civic: 
   - request.request.dialogState: COMPLETED   
+  # make sure intent chains to the following intent.
   - response.directives[0].updatedIntent.name: GetVehicleYearIntent
+  # make sure session values are set.
   - sessionAttributes.VEHICLE_MAKE.slotId: HONDA
   - sessionAttributes.VEHICLE_MAKE.slotValue: honda
   - sessionAttributes.VEHICLE_MAKE.isValid: true
@@ -15,13 +17,29 @@ configuration:
   - sessionAttributes.VEHICLE_MODEL.isValid: true
 
 --- 
-- test: Incomplete dialog sequence
+- test: test dialog delegate (make provided first)
 - GetVehicleMakeAndModelIntent make=honda: 
-  # - request.request.dialogState: STARTED   
   - response.directives[0].type: "Dialog.Delegate"
+  # make sure intent returns to the same intent to collect the other required slot values.
   - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent 
+  # make sure session values are set.
   - sessionAttributes.VEHICLE_MAKE.slotId: HONDA #ensure session variable is set
   - sessionAttributes.VEHICLE_MAKE.slotValue: honda
   - sessionAttributes.VEHICLE_MAKE.isValid: true
+  # make sure this session variable is not set. (since we did not pass vehicle model)
   - sessionAttributes.VEHICLE_MODEL.slotValue: undefined #ensure session variable is not set
+
+--- 
+- test: test dialog delegate (model provided first)
+- GetVehicleMakeAndModelIntent model=civic trimlevel=EX: 
+  - response.directives[0].type: "Dialog.Delegate"
+  # make sure intent returns to the same intent to collect the other required slot values.
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent 
+  # make sure session values are set.
+  - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC #ensure session variable is set
+  - sessionAttributes.VEHICLE_MODEL.slotValue: civic
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+  # make sure this session variable is not set. (since we did not pass vehicle make)
+  - sessionAttributes.VEHICLE_MAKE.slotValue: undefined #ensure session variable is not set
+
 

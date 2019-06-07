@@ -3,10 +3,10 @@ configuration:
   locale: en-CA
 
 --- 
-- test: Get vehicle model
+- test: test get vehicle model
 - GetVehicleModelIntent model=civic: 
   - request.request.dialogState: STARTED  
-  # Assert
+  # 
   - response.directives[0].type: "Dialog.Delegate"
   - response.directives[0].updatedIntent.name: GetVehicleMakeIntent
   - sessionAttributes.VEHICLE_MODEL.slotId: CIVIC
