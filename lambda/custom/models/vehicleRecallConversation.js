@@ -85,7 +85,7 @@ class VehicleRecallConversationContextBuilder {
             .replace('%VehicleRecallYear%', this.vehicle.year)
             .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
             .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
-            .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model, false))
+            .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model, this.requestAttributes, false))
         } else {
           if (this.recalls.length === 1) {
             this.searchFindings = SEARCH_FINDINGS.SingleRecallFound
@@ -197,7 +197,8 @@ class VehicleRecallConversationContextBuilder {
             if (hasSimilarModelsAffectedByRecall(this.recalls, this.vehicle.model) && !skipAmbigiousCheck) {
               this.followUpQuestionSpeechText = this.requestAttributes
                 .t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL`)
-                .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model))
+                .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model, this.requestAttributes))
+
               this.followUpQuestionCode = FOLLOW_UP_QUESTIONS.VEHICLE_IsItModelAOrModelB
             } else {
               if (this.recalls.length === 1) {
@@ -267,7 +268,7 @@ function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
   return false
 }
 
-function BuildSimilarModelsString (recalls, targetedModelName, forSpeech = true) {
+function BuildSimilarModelsString (recalls, targetedModelName, requestAttributes, forSpeech = true) {
   if (Array.isArray(recalls)) {
     let similarModels = []
     // TODO: remove all unwanted characters.
@@ -283,10 +284,14 @@ function BuildSimilarModelsString (recalls, targetedModelName, forSpeech = true)
 
     let uniqueModels = [...new Set(similarModels)]
 
+    const noToMultipleChoiceString = (uniqueModels.length === 2 ? requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER`) : requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE`))
+
     if (forSpeech) {
-      return `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ' <break time="200ms"/> or  ' : '')}${uniqueModels.slice(-1)[0]}`
+      const multipleChoice = `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ' <break time="200ms"/> or ' : '')}${uniqueModels.slice(-1)[0]}`
+      return `${multipleChoice} or <break time="100ms"/> ${noToMultipleChoiceString}`
     } else {
-      return `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or  ' : '')}${uniqueModels.slice(-1)[0]}`
+      const multipleChoice = `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or ' : '')}${uniqueModels.slice(-1)[0]}`
+      return `${multipleChoice} or ${noToMultipleChoiceString}`
     }
   }
 }
