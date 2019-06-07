@@ -58,7 +58,7 @@ const InProgressGetVehicleMakeAndModelIntentHandler = {
                 confirmationStatus: 'NONE',
                 slots: {}
               })
-              .withSimpleCard(cardTitle, cardText) // I heard you say BMW 323 but I need you to clairfy
+            // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
               .getResponse()
           // if model has not been given go into the specific intent to get context awareness
           case undefined:
@@ -68,7 +68,7 @@ const InProgressGetVehicleMakeAndModelIntentHandler = {
                 confirmationStatus: 'NONE',
                 slots: {}
               })
-              .withSimpleCard(cardTitle, cardText)
+            // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
               .getResponse()
           default:
             break
@@ -124,7 +124,7 @@ const CompletedGetVehicleMakeAndModelIntentHandler = {
         confirmationStatus: 'NONE',
         slots: handlerInput.requestEnvelope.request.intent.slots
       })
-      .withSimpleCard(cardTitle, cardText)
+      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }
