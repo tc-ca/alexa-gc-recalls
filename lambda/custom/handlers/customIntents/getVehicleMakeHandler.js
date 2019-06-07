@@ -57,7 +57,7 @@ const InProgressGetMakeFirstThenModelIntentHandler = {
                 confirmationStatus: 'NONE',
                 slots: {}
               })
-              .withSimpleCard(cardTitle, cardText)
+            // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
               .getResponse()
           // if model has not been given go into the specific intent to get context awareness
           case undefined:
@@ -67,7 +67,7 @@ const InProgressGetMakeFirstThenModelIntentHandler = {
                 confirmationStatus: 'NONE',
                 slots: {}
               })
-              .withSimpleCard(cardTitle, cardText)
+            // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
               .getResponse()
           default:
             break
@@ -79,7 +79,7 @@ const InProgressGetMakeFirstThenModelIntentHandler = {
 
     return handlerInput.responseBuilder
       .addDelegateDirective(handlerInput.requestEnvelope.request.intent)
-      .withSimpleCard(cardTitle, cardText)
+      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }
@@ -123,7 +123,7 @@ const CompletedGetMakeFirstThenModelIntentHandler = {
         confirmationStatus: 'NONE',
         slots: handlerInput.requestEnvelope.request.intent.slots
       })
-      .withSimpleCard(cardTitle, cardText)
+      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }
