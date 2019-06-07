@@ -78,7 +78,6 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
-    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
       .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
@@ -86,7 +85,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardTitle, cardText)
+      .withSimpleCard(cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -117,12 +116,11 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT]++
 
     if (sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] === CONFIG.MAX_SEARCH_ATTEMPS) {
-      
       VehicleRecallConvo.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
       sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
       sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0 // reset max attempt
       const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH')
-      
+
       return handlerInput.responseBuilder
         .speak(speechText)
         .reprompt(speechText)
@@ -180,7 +178,6 @@ const AmbigiousHandler = {
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
-    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
       .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
@@ -188,7 +185,7 @@ const AmbigiousHandler = {
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardTitle, cardText)
+      .withSimpleCard(cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -219,9 +216,9 @@ const ReadVehicleRecallDetailsHandler = {
       .sayIntroIntructionsBeforeReadingRecallDescription({
         omitSpeech: currentRecallIndex !== 0 || // include intro only if the first recall is being read
         userAction === USER_ACTION.RespondedYesToRepeatRecallInfo || // do not include intro if the user responds yes to repeating the recalls information
-        userAction === USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp || // do not include intro if the user trigger next intent (skip, next) and no more recalls are found
+        userAction === USER_ACTION.SaidNextWhenNoMoreRecallsToLookUp || // do not include intro if the user trigger next intent (skip, next) and no more recalls are found
         vehicleRecallConversation.recalls.length === 1 }) // if only one recall, do not include intructions, command to say skip
-      .sayRecallDescription({ currentIndex: currentRecallIndex, omitSpeech: userAction === USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp })
+      .sayRecallDescription({ currentIndex: currentRecallIndex, omitSpeech: userAction === USER_ACTION.SaidNextWhenNoMoreRecallsToLookUp })
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.ReadingRecallState, currentRecallIndex: currentRecallIndex })
       .buildSpeech()
 
@@ -276,7 +273,7 @@ const MoveToNextRecallHandler = {
       // code logic will re-state "that's all the info I have and prompt folow-up question
       sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = vehicleConversation.recalls.length - 1
 
-      return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.SaidSkipWhenNoMoreRecallsToLookUp)
+      return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.SaidNextWhenNoMoreRecallsToLookUp)
     }
     return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.InitiatedSkip)
   }
@@ -291,17 +288,26 @@ const MoveToPreviousRecallHandler = {
   handle (handlerInput) {
     const { attributesManager } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
+    const requestAttributes = attributesManager.getRequestAttributes()
 
     // Must manually passed in the intent name because this intent can get invoked by another and as such that intent name will be in the property
-    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
     sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]--
-    const currentIndex = sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
-    // TODO: add defensive coding to when skip is said when no more recalls exist
-    // if (currentIndex === 'undefined') {
+    const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
-    // }
+    HELPER.SetTrace({
+      handlerName: 'MoveToPreviousRecallHandler',
+      sessionAttributes: sessionAttributes,
+      requestAttributes: requestAttributes })
 
+    if (typeof (vehicleConversation.recalls[sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex]]) === 'undefined') {
+      // bring index into range and return to first recall
+      // code logic will re-state "that's all the info I have and prompt folow-up question
+      sessionAttributes[SESSION_KEYS.VehicleCurrentRecallIndex] = 0
+
+      return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.SaidPreviousWhenNoMoreRecallsToLookUp)
+    }
     return ReadVehicleRecallDetailsHandler.handle(handlerInput, USER_ACTION.InitiatedSkip)
   }
 }
@@ -359,39 +365,16 @@ const SearchAgainRecallHandler = {
       sessionAttributes: sessionAttributes,
       requestAttributes: requestAttributes })
 
-    let cardText = ''
-    let cardTitle = ''
-    switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
-      case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
+    sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
 
-        cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_COMFIRMATION_NO`)
-          .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
-          .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
-          .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
-
-        cardTitle = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_COMFIRMATION_NO_TITLE`)
-
-        sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
-
-        return handlerInput.responseBuilder
-          .speak(speechText)
-          .withShouldEndSession(false)
-          .withSimpleCard(cardTitle, cardText)
-          .getResponse()
-      default:
-
-        sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchAgainRecallHandler'
-
-        return handlerInput.responseBuilder
-          .speak(speechText)
-          .withShouldEndSession(false)
-          .getResponse()
-    }
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .withShouldEndSession(false)
+      .getResponse()
   }
 }
 
 async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
-
   if (process.env.UNIT_TEST) {
     return
   }
