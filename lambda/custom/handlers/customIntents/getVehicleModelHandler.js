@@ -85,7 +85,7 @@ const GetVehicleModelIntentHandler = {
         confirmationStatus: 'NONE',
         slots: handlerInput.requestEnvelope.request.intent.slots
       })
-      .withSimpleCard(cardTitle, cardText)
+      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }
