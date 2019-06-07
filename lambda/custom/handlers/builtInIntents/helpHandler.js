@@ -7,7 +7,9 @@ const HelpIntentHandler = {
         handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent'
   },
   handle (handlerInput) {
-    const speechText = 'You can say hello to me!'
+    const { attributesManager } = handlerInput
+    const requestAttributes = attributesManager.getRequestAttributes()
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_HELP')
 
     return handlerInput.responseBuilder
       .speak(speechText)
