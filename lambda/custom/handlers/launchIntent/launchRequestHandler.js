@@ -1,6 +1,5 @@
 'use strict'
-
-const SESSION_KEYS = require('../../constants').SESSION_KEYS
+const sanitizeHtml = require('sanitize-html')
 
 const LaunchRequestHandler = {
   canHandle (handlerInput) {
@@ -12,8 +11,11 @@ const LaunchRequestHandler = {
     const requestAttributes = attributesManager.getRequestAttributes()
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_MSG')
+    // show welcome speech on card
+    const cardText = `${sanitizeHtml(speechText, sanitizeHtml(speechText, { allowedTags: [], allowedAttributes: {} }))} ${requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION')}`
 
     return handlerInput.responseBuilder
+      .withSimpleCard(cardText)
       .addDelegateDirective({
         name: 'GetVehicleMakeAndModelIntent',
         confirmationStatus: 'NONE',
