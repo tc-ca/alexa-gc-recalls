@@ -1,0 +1,9 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: Complete dialog sequence
+- AMAZON.HelpIntent: 
+  - response.outputSpeech.ssml: Welcome to the help mode. If you need to search for a new vehicle, say "search"
+  - response.shouldEndSession: false
