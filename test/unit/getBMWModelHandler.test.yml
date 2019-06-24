@@ -1,0 +1,22 @@
+---
+configuration:
+  locale: en-CA
+
+--- 
+- test: test dialog delegate (model provided)
+- GetBMWModelIntent BMWModel="three two three": 
+  - request.request.dialogState: COMPLETED   
+  # make sure intent chains to the following intent.
+  - response.directives[0].type: "Dialog.Delegate"
+  - response.directives[0].updatedIntent.name: GetVehicleYearIntent
+  # make sure session values are set.
+  - sessionAttributes.VEHICLE_MAKE.slotId: BMW
+  - sessionAttributes.VEHICLE_MAKE.slotValue: BMW
+  - sessionAttributes.VEHICLE_MAKE.isValid: true
+  - sessionAttributes.VEHICLE_MODEL.slotId: 3 SERIES
+  - sessionAttributes.VEHICLE_MODEL.slotValue: three series
+  - sessionAttributes.VEHICLE_MODEL.isValid: true
+
+  
+
+
