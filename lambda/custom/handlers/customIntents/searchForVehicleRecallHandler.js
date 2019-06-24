@@ -382,10 +382,9 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
   if ((recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {
-    const phoneNumber = profilePhoneNumber // new PhoneNumber(await SERVICES.ALEXA_PROFILE_API.GetMobileNumber(handlerInput))
+    const phoneNumber = profilePhoneNumber
     let sendByTextMessage = false
     let sendByEmail = false
-    let sendByCard = false
 
     if (phoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
       sendByTextMessage = true
@@ -394,18 +393,21 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
 
       if (email.apiRetrievalResult === API_SEARCH_RESULT.Found) {
         sendByEmail = true
-      } else {
-        sendByCard = true
       }
     }
 
     const message = GetVehicleRecallSMSMessage({ vehicle: vehicleRecallConversation.vehicle, recalls: vehicleRecallConversation.recalls, requestAttributes: requestAttributes })
 
-    if (sendByTextMessage) {
-      SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: phoneNumber.phoneNumber })
-    } else if (sendByEmail) {
+    if (!process.env.UNIT_TEST) {
+      if (sendByTextMessage) {
+        SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: phoneNumber.phoneNumber })
+      } else if (sendByEmail) {
 
+      } else {
+        return false // indicating no attempt made to send message through Alexa API, SMS or Email.
+      }
     }
+    // just exit on unit testing
   }
 }
 
