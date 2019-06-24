@@ -78,9 +78,14 @@ const InProgressGetMakeFirstThenModelIntentHandler = {
       default:
     }
 
+    if (CONFIG.DEBUG_SHOW_ALEXA_CARD) {
+      return handlerInput.responseBuilder
+        .addDelegateDirective(handlerInput.requestEnvelope.request.intent)
+        .withSimpleCard(cardTitle, cardText)
+        .getResponse()
+    }
     return handlerInput.responseBuilder
       .addDelegateDirective(handlerInput.requestEnvelope.request.intent)
-      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }
