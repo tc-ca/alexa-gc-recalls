@@ -375,9 +375,6 @@ const SearchAgainRecallHandler = {
 }
 
 async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
-  if (process.env.UNIT_TEST) {
-    return
-  }
 
   if ((recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
