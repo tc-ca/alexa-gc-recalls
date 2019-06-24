@@ -5,4 +5,6 @@ module.exports = Object.freeze({
   // ignore specifcied recalls (must be uppercased)
   IGNORE_RECALLS_TYPE: ['SUPERSEDED', 'INCONSEQUENTIAL'],
 
+  DEBUG_SHOW_ALEXA_CARD: true
+
 })

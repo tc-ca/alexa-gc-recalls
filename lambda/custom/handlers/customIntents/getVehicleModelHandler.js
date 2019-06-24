@@ -13,6 +13,7 @@ const FOLLOW_UP_QUESTIONS = require('../../constants').FOLLOW_UP_QUESTIONS
 const SEARCH_FINDINGS = require('../../constants').VEHICLE_SEARCH_FINDINGS
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const Vehicle = require('../../models/vehicle')
+const CONFIG = require('../../config')
 
 const HANDLERS = {
   VehicleRecallHandler: require('./searchForVehicleRecallHandler')
@@ -72,12 +73,22 @@ const GetVehicleModelIntentHandler = {
       modelIsValid: slotValues.model.isValidated
     })
 
-    const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED`)
-      .replace('%VehicleRecallModel%', (typeof model.slotValue !== 'undefined') ? model.slotValue : '')
-
-    const cardTitle = requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_QUERY_MODEL_TITLE`)
-
     sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = model
+
+    if (CONFIG.DEBUG_SHOW_ALEXA_CARD) {
+      const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED`)
+        .replace('%VehicleRecallModel%', (typeof model.slotValue !== 'undefined') ? model.slotValue : '')
+      const cardTitle = requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_QUERY_MODEL_TITLE`)
+
+      return handlerInput.responseBuilder
+        .addDelegateDirective({
+          name: 'GetVehicleMakeIntent',
+          confirmationStatus: 'NONE',
+          slots: handlerInput.requestEnvelope.request.intent.slots
+        })
+        .withSimpleCard(cardTitle, cardText)
+        .getResponse()
+    }
 
     return handlerInput.responseBuilder
       .addDelegateDirective({
@@ -85,7 +96,6 @@ const GetVehicleModelIntentHandler = {
         confirmationStatus: 'NONE',
         slots: handlerInput.requestEnvelope.request.intent.slots
       })
-      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }

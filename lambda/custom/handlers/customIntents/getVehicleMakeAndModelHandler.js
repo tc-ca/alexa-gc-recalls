@@ -9,6 +9,7 @@
 const HELPER = require('../../utils/helper')
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const Vehicle = require('../../models/vehicle')
+const CONFIG = require('../../config')
 
 const InProgressGetVehicleMakeAndModelIntentHandler = {
   canHandle (handlerInput) {
@@ -112,19 +113,27 @@ const CompletedGetVehicleMakeAndModelIntentHandler = {
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE] = make
     sessionAttributes[SESSION_KEYS.VEHICLE_MODEL] = model
 
-    const cardTitle = requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_MODEL_TITLE`)
+    if (CONFIG.DEBUG_SHOW_ALEXA_CARD) {
+      const cardTitle = requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_MODEL_TITLE`)
+      const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_MAKE_MODEL_PROVIDED`)
+        .replace('%VehicleRecallMake%', (typeof make.slotValue !== 'undefined') ? make.slotValue : '')
+        .replace('%VehicleRecallModel%', (typeof model.slotValue !== 'undefined') ? model.slotValue : '')
 
-    const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_SHOW_MAKE_MODEL_PROVIDED`)
-      .replace('%VehicleRecallMake%', (typeof make.slotValue !== 'undefined') ? make.slotValue : '')
-      .replace('%VehicleRecallModel%', (typeof model.slotValue !== 'undefined') ? model.slotValue : '')
-    // What is your make? Your answer was:
+      return handlerInput.responseBuilder
+        .addDelegateDirective({
+          name: 'GetVehicleYearIntent',
+          confirmationStatus: 'NONE',
+          slots: handlerInput.requestEnvelope.request.intent.slots
+        })
+        .withSimpleCard(cardTitle, cardText)
+        .getResponse()
+    }
     return handlerInput.responseBuilder
       .addDelegateDirective({
         name: 'GetVehicleYearIntent',
         confirmationStatus: 'NONE',
         slots: handlerInput.requestEnvelope.request.intent.slots
       })
-      // .withSimpleCard(cardTitle, cardText) TODO: show only for debugging
       .getResponse()
   }
 }

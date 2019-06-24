@@ -91,9 +91,9 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE: `Recall Details for: ${VEHICLE}, affecting the ${RECALL_COMPONENT}`,
 
     // DEBUG CARDS
-    CARD_TXT_VEHCILE_SHOW_MAKE_MODEL_PROVIDED: `I heard you say: "${MAKE} ${MODEL}"`,
-    CARD_TXT_VEHCILE_SHOW_MAKE_PROVIDED: ` I heard you say: "${MAKE}"`,
-    CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED: `I heard you say: "${MODEL}"`,
+    CARD_TXT_VEHCILE_SHOW_MAKE_MODEL_PROVIDED: `utterance resolved to: "${MAKE} ${MODEL}"`,
+    CARD_TXT_VEHCILE_SHOW_MAKE_PROVIDED: `utterance resolved to: "${MAKE}"`,
+    CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED: `utterance resolved to: "${MODEL}"`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_MODEL_TITLE: `Search Query: Make and Model given`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MODEL_TITLE: `Search Query: Model given`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_TITLE: `Search Query: Make given`
