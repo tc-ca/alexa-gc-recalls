@@ -160,7 +160,8 @@ module.exports = Object.freeze({
     USER_PHONE_NUMBER: 'USER_PHONE_NUMBER',
     USER_EMAIL: 'USER_EMAIL',
     HANDLER_TRACE: 'HANDLER_TRACE',
-    TRACE: 'TRACE'
+    TRACE: 'TRACE',
+    MESSAGE_SENT: 'MESSAGE_SENT'
 
   },
 
