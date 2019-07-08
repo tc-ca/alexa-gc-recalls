@@ -26,8 +26,12 @@ async function GetMobileNumber (handlerInput) {
 
   const phoneNumber = new PhoneNumber()
   try {
+    console.time('GetMobileNumber api timing')
+
     const client = serviceClientFactory.getUpsServiceClient()
     const number = await client.getProfileMobileNumber()
+
+    console.timeEnd('GetMobileNumber api timing')
 
     if (number == null) {
       phoneNumber.apiRetrievalResult = API_SEARCH_RESULT.NotFound
@@ -47,34 +51,34 @@ async function GetMobileNumber (handlerInput) {
   return phoneNumber
 }
 
-async function GetEmail (handlerInput) {
-  const { requestEnvelope, serviceClientFactory } = handlerInput
+// async function GetEmail (handlerInput) {
+//   const { requestEnvelope, serviceClientFactory } = handlerInput
 
-  const consentToken = requestEnvelope.context.System.apiAccessToken
-  if (!consentToken) {
-    return API_SEARCH_RESULT.NoPermission
-  }
+//   const consentToken = requestEnvelope.context.System.apiAccessToken
+//   if (!consentToken) {
+//     return API_SEARCH_RESULT.NoPermission
+//   }
 
-  const email = new Email()
-  try {
-    const client = serviceClientFactory.getUpsServiceClient()
-    const profileEmail = await client.getProfileEmail()
+//   const email = new Email()
+//   try {
+//     const client = serviceClientFactory.getUpsServiceClient()
+//     const profileEmail = await client.getProfileEmail()
 
-    if (profileEmail == null) {
-      email.apiRetrievalResult = API_SEARCH_RESULT.NotFound
-    } else {
-      email.apiRetrievalResult = API_SEARCH_RESULT.Found
-      email.email = profileEmail
-    }
-  } catch (error) {
-    if (error.statusCode !== 403) {
-      email.apiRetrievalResult = API_SEARCH_RESULT.Error
-    }
-    console.log('Alexa profile email retrieval error', error)
-    email.apiRetrievalResult = API_SEARCH_RESULT.NoPermission
-  }
+//     if (profileEmail == null) {
+//       email.apiRetrievalResult = API_SEARCH_RESULT.NotFound
+//     } else {
+//       email.apiRetrievalResult = API_SEARCH_RESULT.Found
+//       email.email = profileEmail
+//     }
+//   } catch (error) {
+//     if (error.statusCode !== 403) {
+//       email.apiRetrievalResult = API_SEARCH_RESULT.Error
+//     }
+//     console.log('Alexa profile email retrieval error', error)
+//     email.apiRetrievalResult = API_SEARCH_RESULT.NoPermission
+//   }
 
-  return email
-}
+//   return email
+// }
 
-module.exports = { GetMobileNumber, GetEmail, API_SEARCH_RESULT, COUNTRY_CODE, PERMISSIONS }
+module.exports = { GetMobileNumber, API_SEARCH_RESULT, COUNTRY_CODE, PERMISSIONS }
