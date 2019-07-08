@@ -7417,12 +7417,7 @@
             {
               "id": "BUICK",
               "name": {
-                "value": "buick",
-                "synonyms": [
-                  "caddy",
-                  "cadillac",
-                  "cadyak"
-                ]
+                "value": "buick"
               }
             },
             {
@@ -10450,5 +10445,5 @@
       }
     ]
   },
-  "version": "42"
+  "version": "43"
 }

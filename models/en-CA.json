@@ -3542,7 +3542,7 @@
             {
               "id": "S2000",
               "name": {
-                "value": "s. two thousand"
+                "value": "es two thousand"
               }
             },
             {
@@ -4508,6 +4508,7 @@
               "name": {
                 "value": "e. class",
                 "synonyms": [
+                  "E 350",
                   "e. two hundred",
                   "E250",
                   "E300",
@@ -10051,5 +10052,5 @@
       }
     ]
   },
-  "version": "189"
+  "version": "190"
 }
