@@ -18,25 +18,4 @@ class PhoneNumber {
   }
 }
 
-class Email {
-  constructor (obj = {}) {
-    // the result of Alexa API get request for end user phone number.
-    this.apiRetrievalResult = -1
-
-    this.email = null
-
-    obj && Object.assign(this, obj)
-  }
-}
-
-class User {
-  constructor ({ email, phoneNumber }) {
-    // the result of Alexa API get request for end user phone number.
-    this.email = email
-
-    this.email = phoneNumber
-
-  }
-}
-
-module.exports = { PhoneNumber, Email, User }
+module.exports = { PhoneNumber }
