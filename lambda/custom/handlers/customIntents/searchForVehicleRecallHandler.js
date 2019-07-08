@@ -17,7 +17,6 @@ const HELPER = require('../../utils/helper')
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
-const Email = require('../../models/user').Email
 
 const SERVICES = {
   TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
@@ -375,36 +374,25 @@ const SearchAgainRecallHandler = {
 }
 
 async function SendMessageToUser (profilePhoneNumber, recallSearchResult, requestAttributes, vehicleRecallConversation) {
-
-  if ((recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
+  if ((
+    recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {
-    const phoneNumber = profilePhoneNumber
-    let sendByTextMessage = false
-    let sendByEmail = false
-
-    if (phoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
-      sendByTextMessage = true
-    } else {
-      const email = 'test@test.com'
-
-      if (email.apiRetrievalResult === API_SEARCH_RESULT.Found) {
-        sendByEmail = true
-      }
-    }
 
     const message = GetVehicleRecallSMSMessage({ vehicle: vehicleRecallConversation.vehicle, recalls: vehicleRecallConversation.recalls, requestAttributes: requestAttributes })
 
-    if (!process.env.UNIT_TEST) {
-      if (sendByTextMessage) {
-        SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: phoneNumber.phoneNumber })
-      } else if (sendByEmail) {
-
-      } else {
-        return false // indicating no attempt made to send message through Alexa API, SMS or Email.
-      }
+    // stop the process early if unit testing, unable to mock profile phone number retrieval and  SNS API
+    if (process.env.UNIT_TEST) {
+      return
     }
-    // just exit on unit testing
+
+    // if phone number found, send text message.
+    if (profilePhoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
+      const sent = SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: profilePhoneNumber.phoneNumber })
+      return { sent: sent, message: message }
+    } else {
+      return false // indicating no attempt made to send message through Alexa API, SMS.
+    }
   }
 }
 
