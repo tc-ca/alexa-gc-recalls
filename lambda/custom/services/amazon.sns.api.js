@@ -18,29 +18,12 @@ function SendSMS ({ message, phoneNumber }) {
   publishTextPromise.then(
     function (data) {
       console.log('SMS delivered, message id: ' + data.MessageId)
+      return true
     }).catch(
     function (err) {
       console.error(err, err.stack)
+      return false
     })
 }
 
-function SendEmail ({ message, phoneNumber }) {
-  const params = {
-    Message: message, /* required */
-    PhoneNumber: `+1${phoneNumber}`
-  }
-
-  // Create promise and SNS service object
-  let publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise()
-
-  // Handle promise's fulfilled/rejected states
-  publishTextPromise.then(
-    function (data) {
-      console.log('SMS delivered, message id: ' + data.MessageId)
-    }).catch(
-    function (err) {
-      console.error(err, err.stack)
-    })
-}
-
-module.exports = { SendSMS, SendEmail }
+module.exports = { SendSMS }
