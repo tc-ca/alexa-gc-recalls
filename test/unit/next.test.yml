@@ -14,7 +14,7 @@ configuration:
 ---
 - test: test if vehicle recall index is incremented by one"
 - AMAZON.NextIntent: 
-  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 
   - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
 
   - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
@@ -47,7 +47,7 @@ configuration:
 ---
 - test: test correct follow up question is asked when not at the end of reading recall"
 - AMAZON.NextIntent: 
-  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 
   - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
   
   - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
@@ -82,7 +82,7 @@ configuration:
 ---
 - test: test correct follow up question is asked when moving to the last recall"
 - AMAZON.NextIntent: 
-  - request.session.attributes.VehicleCurrentRecallIndex: 0 # set this to -1 has the next command will increment by one
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 
   - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
   - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
   - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
@@ -111,9 +111,9 @@ configuration:
   - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 ---
-- test: test correct follow up question is asked when at the end and saying next command"
+- test: test correct follow up question is asked when at the end and saying next command (also test command follows correct logic when at the last item in recall array)"
 - AMAZON.NextIntent: 
-  - request.session.attributes.VehicleCurrentRecallIndex: 1 # set this to -1 has the next command will increment by one
+  - request.session.attributes.VehicleCurrentRecallIndex: 1 
   - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
   - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
   - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic

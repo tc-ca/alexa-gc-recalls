@@ -1,10 +1,8 @@
 
-Test next/skip functionality
+# Test previous functionality
 
-Ensures
-index is incremented
-index is not incremented when on last recall
-proper follow up questions is asked 
+# Ensures index is decremented
+# Ensures index is not decremented when on first recall
 
 
 ---
@@ -14,7 +12,7 @@ configuration:
 ---
 - test: test if vehicle recall index is decremented by one"
 - AMAZON.PreviousIntent: 
-  - request.session.attributes.VehicleCurrentRecallIndex: 1 # set this to -1 has the next command will increment by one
+  - request.session.attributes.VehicleCurrentRecallIndex: 1 
   - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
 
   - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
@@ -42,10 +40,41 @@ configuration:
   - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
 
 
+
+---
+- test: test command follows correct logic when at the first item in recall array"
+- AMAZON.PreviousIntent: 
+  - request.session.attributes.VehicleCurrentRecallIndex: 0 
+  - request.session.attributes.CurrentIntentLocation: ReadVehicleRecallHandler
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: honda 
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: civic
+  - request.session.attributes.VehicleConversation.vehicle.year: 2011
+
+  - request.session.attributes.VehicleConversation.recallsDetails[0].componentType: Seatbelt 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallDate: "5/22/2016" 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].description: Go to dealer to replace. 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].recallNumber: 2011116 
+  - request.session.attributes.VehicleConversation.recallsDetails[0].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recallsDetails[1].componentType: Engine 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallDate: "9/27/2018" 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].description: On certain condition the engine may stop working. 
+  - request.session.attributes.VehicleConversation.recallsDetails[1].recallNumber: 2018523
+  - request.session.attributes.VehicleConversation.recallsDetails[1].notificationTypeEtxt: Safety Mfr
+  - request.session.attributes.VehicleConversation.recalls[0].recallNumber: 2011116  
+  - request.session.attributes.VehicleConversation.recalls[0].modelNumber: CIVIC 
+  - request.session.attributes.VehicleConversation.recalls[1].recallNumber: 2018523 
+  - request.session.attributes.VehicleConversation.recalls[1].modelNumber: CIVIC 
+
+
+
+  - sessionAttributes.VehicleCurrentRecallIndex: 0 #ensure index is not incremented
+  - sessionAttributes.TRACE.location[0]: MoveToPreviousRecallHandler
+  - sessionAttributes.TRACE.location[1]: ReadVehicleRecallDetailsHandler
+
   
 ---
 - test: test when "previous" command is said out of context
-- AMAZON.NextIntent: 
+- AMAZON.PreviousIntent: 
   - request.session.attributes.VehicleCurrentRecallIndex: 0 
   - request.session.attributes.CurrentIntentLocation: SomeOtherIntent
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # value must not be incremented
