@@ -12,7 +12,7 @@ const LaunchRequestHandler = {
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_MSG')
     // show welcome speech on card
-    const cardText = `${sanitizeHtml(speechText, sanitizeHtml(speechText, { allowedTags: [], allowedAttributes: {} }))} ${requestAttributes.t('SPEECH_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION')}`
+    const cardText = `${sanitizeHtml(speechText, sanitizeHtml(speechText, { allowedTags: [], allowedAttributes: {} }))} ${requestAttributes.t('CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION')}`
 
     return handlerInput.responseBuilder
       .withSimpleCard(cardText)
