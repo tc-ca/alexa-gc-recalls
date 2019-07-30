@@ -1,4 +1,5 @@
 'use strict'
+const sanitizeHtml = require('sanitize-html')
 
 const VehicleConversation = require('../../models/vehicleRecallConversation')
 const Vehicle = require('../../models/vehicle')
@@ -7,6 +8,11 @@ const CONVERSATION_CONTEXT = require('../../constants').VEHICLE_CONVERSATION_CON
 
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION = require('../../constants').VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION
+
+const SERVICES = {
+  alexaProfileHandler: require('../../services/alexaProfile.api') }
+
+const PhoneNumber = require('../../models/user').PhoneNumber
 
 const comfirmVehicleMakeModelYearHandler = {
   async handle (handlerInput) {
@@ -37,14 +43,18 @@ const comfirmVehicleMakeModelYearHandler = {
       .buildSpeech()
 
     const speechText = VehicleRecallConversation.getSpeechText()
+    const cardText = `${sanitizeHtml(speechText, sanitizeHtml(speechText, { allowedTags: [], allowedAttributes: {} }))} ${requestAttributes.t('CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION')}`
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
+    // TODO: add condition to check if have phone number, instead of always calling the API
+    sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] = new PhoneNumber(await SERVICES.alexaProfileHandler.GetMobileNumber(handlerInput))
+
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard(speechText) // TODO: should we keep this simple card?
+      .withSimpleCard(cardText) // TODO: should we keep this simple card?
       .withShouldEndSession(false)
       .getResponse()
   }
