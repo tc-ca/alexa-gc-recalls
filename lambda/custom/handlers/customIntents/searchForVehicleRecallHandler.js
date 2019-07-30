@@ -48,6 +48,9 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleMakeModelYearHandler"
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
+    // for stats
+    console.log({ requestId: 1, verifiedMakeModelYear: true, value: vehicleRecallConversation.vehicle })
+
     // look for recalls based on previously collected slot values.
     const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
 
@@ -109,14 +112,15 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
       sessionAttributes: sessionAttributes,
       requestAttributes: requestAttributes })
 
-    const VehicleRecallConvo = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+    const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+    console.log({ requestId: 1, verifiedMakeModelYear: false, value: vehicleConversation.vehicle })
 
     // increment attempt
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT]++
 
     if (sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] === CONFIG.MAX_SEARCH_ATTEMPS) {
-      VehicleRecallConvo.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
-      sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConvo
+      vehicleConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
+      sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
       sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0 // reset max attempt
       const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH')
 
@@ -397,7 +401,7 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
 }
 
 async function GetRecallsListWithDetails (recalls, locale) {
-  console.time('GetRecallsListWithDetails api timing')
+  const apiStart = (new Date()).getTime()
 
   let recallsDetails = []
   for (let i = 0; i < recalls.length; i++) {
@@ -405,8 +409,8 @@ async function GetRecallsListWithDetails (recalls, locale) {
 
     recallsDetails.push(details)
   }
-
-  console.timeEnd('GetRecallsListWithDetails api timing')
+  const apiEnd = (new Date()).getTime()
+  console.log({ requestId: 1, measuring: 'GetRecallsListWithDetails Total Execution Time', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measures time it takes to retrieve a list of recalls with details info, multiple API calls required.' })
 
   const relevantRecalls = recallsDetails.filter(x => {
     return (!CONFIG.IGNORE_RECALLS_TYPE.includes(x.notificationTypeEtxt.toUpperCase()))
