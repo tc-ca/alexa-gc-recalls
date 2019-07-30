@@ -54,9 +54,12 @@ module.exports = {
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `Would you like me to read it to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `Would you like me to read it to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Is yours a ${AMBIGIOUS_MODELS}?`,
-    AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `neither`,
-    AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `none of these`,
 
+    // Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC or CIVIC HYBRID or neither?
+    AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `neither`,
+    // Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC or CIVIC HYBRID, CIVIC SI or none of these?
+    AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `none of these`,
+    OR: 'or',
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `While I'm reading you the ${PHONEMES.recall} information, at any point you can skip to the next ${PHONEMES.recall} by saying "Alexa skip". `,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `On ${RECALL_DATE} there was a ${PHONEMES.recall} affecting the ${RECALL_COMPONENT}.<break time="500ms"/> ${RECALL_DETAILS}`,
@@ -77,7 +80,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?`,
     SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
-    SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Sorry.`,
+    SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Sorry, that was not the information I was looking for.`,
 
     // SMS MESSAGE
     VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. 0 recalls may affect your ${VEHICLE_CARD_VERSION}. You can see this at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
