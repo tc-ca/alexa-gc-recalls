@@ -25,13 +25,19 @@ const RECALL_NUMBER = '/recall-number/'
 // 'http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall/make-name/honda/model-name/accord/year-range/2014-2014?format=json
 async function GetRecalls (make, model, year) {
   try {
-    const url = HOST + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year
-    console.info(url)
-    console.time('GetRecalls api timing')
+    const functionStart = (new Date()).getTime()
 
+    const url = HOST + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year
+    console.info(url) // TODO: to be removed
+
+    const apiStart = (new Date()).getTime()
     let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
 
     response = await response.json()
+    const apiEnd = (new Date()).getTime()
+
+    console.log({ requestId: 1, measuring: 'Get Recalls API Query Call', request: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' })
+
     let recalls = []
 
     for (let index = 0; index < response.ResultSet.length; index++) {
@@ -53,23 +59,11 @@ async function GetRecalls (make, model, year) {
       }
       recalls.push(recall)
     }
-    console.timeEnd('GetRecalls api timing')
+
+    const functionEnd = (new Date()).getTime()
+    console.log({ requestId: 1, measuring: 'GetRecalls Function Total Execution Time', executionTimeMilliSeconds: functionEnd - functionStart, notes: 'measuring function time' })
 
     return recalls.sort(compare)
-  } catch (error) {
-    console.error(error)
-    throw error
-  }
-}
-
-async function Warmer () {
-  try {
-    const url = HOST + RECALL + MAKE_NAME + 'HONDA' + MODEL_NAME + 'CIVIC' + YEAR_RANGE + '2016' + '-' + '2016'
-
-    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
-
-    response = await response.json()
-
   } catch (error) {
     console.error(error)
     throw error
@@ -79,13 +73,19 @@ async function Warmer () {
 // http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall-summary/recall-number/1977043?format=json
 async function GetRecallDetails (recallNumber, locale) {
   try {
+    const functionStart = (new Date()).getTime()
+
     const url = HOST + RECALL_SUMMARY + RECALL_NUMBER + recallNumber
 
     console.info(url)
-    console.time('GetRecallDetails api timing')
+
+    const apiStart = (new Date()).getTime()
 
     let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
     response = await response.json()
+
+    const apiEnd = (new Date()).getTime()
+    console.log({ requestId: 1, measuring: 'Get Summary Query API Call', request: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' })
 
     // TODO: make a class
     // FIXME: remove time from date
@@ -101,7 +101,19 @@ async function GetRecallDetails (recallNumber, locale) {
       for (let recallObj = 0; recallObj < response.ResultSet[recall].length; recallObj++) {
         switch (response.ResultSet[recall][recallObj]['Name']) {
           case 'RECALL_DATE_DTE':
-            recallDetails.recallDate = response.ResultSet[recall][recallObj]['Value']['Literal'].split(' ')[0]
+            const newDate = response.ResultSet[recall][recallObj]['Value']['Literal']
+            const recallDate = new Date(newDate)
+            if (locale === 'en-CA' || locale === 'fr-CA') {
+              // EN-CA 11/06/2019 day/month/year reads June 6, 2019
+              console.log('canada', locale)
+              recallDetails.recallDate = `${recallDate.getDate()}/${recallDate.getMonth() + 1}/${recallDate.getFullYear()}`
+            } else {
+              // default to U.S. standard
+              // EN-US 06/11/2019 month/ day/ year reads June 6, 2019
+              console.log('united states', locale)
+
+              recallDetails.recallDate = `${recallDate.getMonth() + 1}/${recallDate.getDate()}/${recallDate.getFullYear()}`
+            }
             break
           case 'SYSTEM_TYPE_ETXT':
             recallDetails.componentType = response.ResultSet[recall][recallObj]['Value']['Literal']
@@ -133,7 +145,8 @@ async function GetRecallDetails (recallNumber, locale) {
         }
       }
     }
-    console.timeEnd('GetRecallDetails api timing')
+    const functionEnd = (new Date()).getTime()
+    console.log({ requestId: 1, measuring: 'GetRecallDetails Function Total Execution Time', executionTimeMilliSeconds: functionEnd - functionStart, notes: 'measuring function time' })
 
     return recallDetails
   } catch (error) {
@@ -155,4 +168,4 @@ function compare (a, b) {
   return comparison
 }
 
-module.exports = { GetRecalls: GetRecalls, GetRecallDetails, Warmer }
+module.exports = { GetRecalls: GetRecalls, GetRecallDetails }
