@@ -4,7 +4,7 @@
  */
 const LogRequest = {
   process (handlerInput) {
-    console.log('REQUEST ENVELOPE', JSON.stringify(handlerInput.requestEnvelope))
+    console.log('REQUEST ENVELOPE', JSON.stringify(handlerInput.requestEnvelope, null, 2))
   }
 
 }
@@ -14,7 +14,7 @@ const LogRequest = {
  */
 const LogResponse = {
   process (handlerInput, response) {
-    console.log('RESPONSE ENVELOPE', JSON.stringify(handlerInput.requestEnvelope))
+    console.log('RESPONSE ENVELOPE', JSON.stringify(response, null, 2))
   }
 }
 
