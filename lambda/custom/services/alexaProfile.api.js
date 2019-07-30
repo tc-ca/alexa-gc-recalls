@@ -26,12 +26,14 @@ async function GetMobileNumber (handlerInput) {
 
   const phoneNumber = new PhoneNumber()
   try {
-    console.time('GetMobileNumber api timing')
+    const apiStart = (new Date()).getTime()
 
     const client = serviceClientFactory.getUpsServiceClient()
     const number = await client.getProfileMobileNumber()
 
-    console.timeEnd('GetMobileNumber api timing')
+    const apiEnd = (new Date()).getTime()
+
+    console.log({ requestId: 1, measuring: 'Get Profile Phone Number Query API Call', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring api time' })
 
     if (number == null) {
       phoneNumber.apiRetrievalResult = API_SEARCH_RESULT.NotFound
