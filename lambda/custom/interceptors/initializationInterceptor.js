@@ -8,13 +8,6 @@
 'use strict'
 const SESSION_KEYS = require('../constants').SESSION_KEYS
 
-const SERVICES = {
-  alexaProfileHandler: require('../services/alexaProfile.api'),
-  VEHICLE_RECALLS_API: require('../services/vehicleRecalls.api')
-
-}
-
-const PhoneNumber = require('../models/user').PhoneNumber
 const Trace = require('../models/trace').Trace
 
 module.exports = {
@@ -27,13 +20,8 @@ module.exports = {
     const sessionAttributesPropertyNotExist = typeof handlerInput.requestEnvelope.session.attributes === 'undefined'
 
     if (sessionPropertyExist && sessionAttributesPropertyNotExist) {
-      // Warms up the vehicle recalls api, by not awaiting
-      SERVICES.VEHICLE_RECALLS_API.Warmer()
-      // gets the phone number from alexa api once
-      sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] = new PhoneNumber(await SERVICES.alexaProfileHandler.GetMobileNumber(handlerInput))
       sessionAttributes[SESSION_KEYS.TRACE] = null
       sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0
-
     }
 
     requestAttributes[SESSION_KEYS.HANDLER_TRACE] = new Trace()
