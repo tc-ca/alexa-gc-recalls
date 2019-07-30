@@ -287,11 +287,11 @@ function BuildSimilarModelsString (recalls, targetedModelName, requestAttributes
     const noToMultipleChoiceString = (uniqueModels.length === 2 ? requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER`) : requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE`))
 
     if (forSpeech) {
-      const multipleChoice = `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ' <break time="200ms"/> or ' : '')}${uniqueModels.slice(-1)[0]}`
-      return `${multipleChoice} or <break time="100ms"/> ${noToMultipleChoiceString}`
+      const multipleChoice = `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ` <break time="200ms"/> ${requestAttributes.t(`OR`)} ` : '')}${uniqueModels.slice(-1)[0]}`
+      return `${multipleChoice} ${requestAttributes.t(`OR`)} <break time="100ms"/> ${noToMultipleChoiceString}`
     } else {
-      const multipleChoice = `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ' or ' : '')}${uniqueModels.slice(-1)[0]}`
-      return `${multipleChoice} or ${noToMultipleChoiceString}`
+      const multipleChoice = `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ` ${requestAttributes.t(`OR`)} ` : '')}${uniqueModels.slice(-1)[0]}`
+      return `${multipleChoice} ${requestAttributes.t(`OR`)} ${noToMultipleChoiceString}`
     }
   }
 }
