@@ -88,7 +88,7 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE} un rappel affectait la ${RECALL_COMPONENT}. ${RECALL_DETAILS}`, // I need translation (Lisa: I translated, but more context would be helpful here too - how is the date presented? does it fit into this sentence structure?)
 
     // SEARCH RESULT CARDS
-    CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `Notre système n'a trouvé aucun rappel ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: is it ok to use "aucun" in this case instead of 0?) 
+    CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `On n'a trouvé aucun rappel dans le système ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: is it ok to use "aucun" in this case instead of 0?) 
     CARD_TXT_VEHICLE_RECALLS_FOUND_ONE: `1 recall found that may affect your ${VEHICLE_SPEECH_VERSION}.`, // I need translation
     CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `${RECALL_COUNT} recalls found that may affect your ${VEHICLE_SPEECH_VERSION}.`, // I need translation
     CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `${VEHICLE_SPEECH_VERSION} not in system. Need help, contact Transport Canada Recalls customer suppport at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`, // I need translation
