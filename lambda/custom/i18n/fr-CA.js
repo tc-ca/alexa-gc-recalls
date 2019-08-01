@@ -93,7 +93,7 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `${RECALL_COUNT} rappels pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: done, but would like to test in context)
     CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Ton véhicule ${VEHICLE_SPEECH_VERSION} n'est pas dans notre système. Si tu as besoin d'aide, tu peux contacter le service à la clientèle pour des Rappels de Transport Canada au ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`, // I need translation (Lisa: done, but would like to test in context)
     CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... J'ai trouvé plusieurs différents modèles de ton véhicule ${VEHICLE_SPEECH_VERSION}. Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`, // I need translation (Lisa: done, but would like to test in context)
-    CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE: `Voici les détails sur les rappels pour ton véhicule ${VEHICLE_SPEECH_VERSION} qui affectent le ${RECALL_COMPONENT}`, // I need translation (Lisa: done, but definitly need more context here. For example, I'm not sure what "RECALL_COMPONENT" is)
+    CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE: `Détails des rappels pour le véhicule ${VEHICLE_SPEECH_VERSION} qui affectent le ${RECALL_COMPONENT}`, // I need translation (Lisa: done, but definitly need more context here. For example, I'm not sure what "RECALL_COMPONENT" is)
 
     // DEBUG CARDS
     CARD_TXT_VEHCILE_SHOW_MAKE_MODEL_PROVIDED: `utterance resolved to: "${MAKE} ${MODEL}"`,
