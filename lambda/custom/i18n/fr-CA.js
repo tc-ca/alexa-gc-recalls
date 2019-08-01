@@ -34,7 +34,7 @@ module.exports = {
 
     CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'Quelle est la marque de ton véhicule?', // I need translation (Lisa: The reprompt here in French was just a repetition)
     // LAUNCH REPROMPT
-    SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est la marque de ton véhicule?`,
+    SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est le frabriquant de ton véhicule?`,
 
     // GOODBYE STRING
     SPEECH_TXT_VEHCILE_RECALLS_GOODBYE: `OK! Passe une bonne journée!`,
