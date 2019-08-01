@@ -28,13 +28,13 @@ module.exports = {
   translation: {
     // LAUNCH STRING
     SPEECH_TXT_VEHICLE_WELCOME_MSG: [
-      `Bonjour! Je suis ton assistante pour les rappels de sécurité. Je peux t'informer sur les rappels de sécurité au Canada.`,
-      `Salut! Je suis ton assistante pour les rappels de sécurité, et je peux t'informer sur les rappels de sécurité pour ton véhicule.`
+      `Bonjour! Je suis ton assistante pour les rappels de sécurité. Je peux t'informer sur les rappels de sécurité des véhicules au Canada.`,
+      `Salut! Je suis ton assistante pour les rappels de sécurité, et je peux t'informer sur les rappels de sécurité des véhicules.`
     ],
 
     CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'Quelle est la marque de ton véhicule?', // I need translation (Lisa: The reprompt here in French was just a repetition)
     // LAUNCH REPROMPT
-    SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est le frabriquant de ton véhicule?`,
+    SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est la marque de ton véhicule?`,
 
     // GOODBYE STRING
     SPEECH_TXT_VEHCILE_RECALLS_GOODBYE: `OK! Passe une bonne journée!`,
