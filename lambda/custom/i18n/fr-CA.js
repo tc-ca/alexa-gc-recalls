@@ -89,7 +89,7 @@ module.exports = {
 
     // SEARCH RESULT CARDS
     CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n'ai trouvé aucun rappel dans le système pour ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: is it ok to use "aucun" in this case instead of 0?) 
-    CARD_TXT_VEHICLE_RECALLS_FOUND_ONE: `J'ai trouvé un rappel pour ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: done, but would like to test in context) 
+    CARD_TXT_VEHICLE_RECALLS_FOUND_ONE: `J'ai trouvé un rappel pouvant affecter ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: done, but would like to test in context) 
     CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `${RECALL_COUNT} rappels pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: done, but would like to test in context)
     CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Ton véhicule ${VEHICLE_SPEECH_VERSION} n'est pas dans notre système. Si tu as besoin d'aide, tu peux contecter le service à la clientèle pour les rappels de véhicules Transport Canada à ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`, // I need translation (Lisa: done, but would like to test in context)
     CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... J'ai trouvé plusieurs différents modèles de ton véhicule ${VEHICLE_SPEECH_VERSION}. Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`, // I need translation (Lisa: done, but would like to test in context)
