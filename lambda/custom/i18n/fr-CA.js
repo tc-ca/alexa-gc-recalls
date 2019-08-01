@@ -85,7 +85,7 @@ module.exports = {
     VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. ${RECALL_COUNT} rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
 
     /// //// ALEXA CARDS \\\\\\
-    CARD_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE} un rappel affectait la ${RECALL_COMPONENT}. ${RECALL_DETAILS}`, // I need translation (Lisa: I translated, but more context would be helpful here too - how is the date presented? does it fit into this sentence structure?)
+    CARD_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE} un rappel affectait le ${RECALL_COMPONENT}. ${RECALL_DETAILS}`, // I need translation (Lisa: I translated, but more context would be helpful here too - how is the date presented? does it fit into this sentence structure?)
 
     // SEARCH RESULT CARDS
     CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n'ai trouvé aucun rappel dans le système pour ton véhicule ${VEHICLE_SPEECH_VERSION}.`, // I need translation (Lisa: is it ok to use "aucun" in this case instead of 0?) 
