@@ -85,12 +85,12 @@ module.exports = Object.freeze({
   },
 
   VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION: {
-    MAZDA2: 'two',
-    MAZDA3: 'three',
-    MAZDA5: 'five',
-    MAZDA6: 'six',
-    MAZDASPEED3: 'speed three',
-    MAZDASPEED6: 'speed six'
+    MAZDA2: '2',
+    MAZDA3: '3',
+    MAZDA5: '5',
+    MAZDA6: '6',
+    MAZDASPEED3: 'speed 3',
+    MAZDASPEED6: 'speed 6'
   },
 
   // Desribes what action the end user has undertaken.
