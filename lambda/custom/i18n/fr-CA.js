@@ -65,7 +65,7 @@ module.exports = {
 
     // MISCELLANEOUS STRINGS
     SPEECH_TXT_VEHICLE_WOULD_YOU_LIKE_TO_SEARCH_AGAIN: `Veux-tu essayer de chercher encore une fois?`,
-    SPEECH_TXT_VEHCILE_SEARCH_FOR_ANOTHER_RECALL: `Veux-tu que je trouve les rappels de sécurité d’un autre véhicule?`,
+    SPEECH_TXT_VEHCILE_SEARCH_FOR_ANOTHER_RECALL: `Veux-tu que je trouve les rappels de sécurité pour un autre véhicule?`,
 
     // HELP
     SPEECH_TXT_VEHICLE_HELP: `Bienvenue dans le mode d'Aide. Si tu as besoin de chercher un autre véhicule, dit "recherche"`,
