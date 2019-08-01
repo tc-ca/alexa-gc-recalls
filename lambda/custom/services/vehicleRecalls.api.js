@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 
 const Recall = require('../models/recall').Recall
 const RecallSummary = require('../models/recall').RecallSummary
-const ApiPerformanceLog = require('../models/apiPerformanceLog')
+const ApiPerformanceLog = require('../models/apiPerformanceLog').ApiPerformanceLog
 
 // https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall-summary/recall-number/2018001
 const HOST = 'https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/'

@@ -17,7 +17,7 @@ const HELPER = require('../../utils/helper')
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
-const ApiPerformanceLog = require('../../models/apiPerformanceLog')
+const ApiPerformanceLog = require('../../models/apiPerformanceLog').ApiPerformanceLog
 
 const SERVICES = {
   TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
