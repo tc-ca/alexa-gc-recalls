@@ -40,7 +40,7 @@ module.exports = {
     SPEECH_TXT_VEHCILE_RECALLS_GOODBYE: `OK! Passe une bonne journée!`,
 
     // COMFIRMATION OF MAKE, MODEL, AND YEAR
-    SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour vérifier, est-ce que tu cherches un véhicule ${VEHICLE_SPEECH_VERSION}?`,
+    SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour confirmer, est-ce que tu cherches un véhicule ${VEHICLE_SPEECH_VERSION}?`,
 
     // SEARCH RESULT STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai pas trouvé de rappels associés avec ton véhicule dans notre système.`,
