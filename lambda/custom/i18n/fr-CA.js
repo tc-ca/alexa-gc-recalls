@@ -56,7 +56,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`,
     AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `aucun de ces modèles`, // I need translation (Lisa: as discussed, here I would translate both "netiher" and "none of these" as " aucun de ces modèles")
     AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `aucun de ces modèles`, // I need translation (Lisa: same) 
-    
+    OR: "ou",
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `Lorsque je vais lire l’information sur les rappels de véhicules, tu pourras sauter au prochain rappel à n’importe quel moment en disant Alexa, prochain.`,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE}, il y avait un rappel de sécurité affectant le ${RECALL_COMPONENT}.<break time="500ms"/>${RECALL_DETAILS}.`,
