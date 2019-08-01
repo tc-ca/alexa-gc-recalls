@@ -46,7 +46,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai trouvé aucun rappel associé à ton véhicule dans notre système.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur le rappel par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur les rappels par texto.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Je m'excuse. Je n’ai pas d’information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore un assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}.`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Désolé, je n’ai aucune information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore une assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Humm...J’ai besoin de plus d’information sur le modèle.`,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
