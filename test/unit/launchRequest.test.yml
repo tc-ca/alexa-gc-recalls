@@ -13,5 +13,5 @@ configuration:
    - sessionAttributes.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT: 0
    - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent
    - response.outputSpeech.ssml:
-      - <speak>Hi there! I'm your Canadian Safety <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> Assistant, and I can help you find your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>information. Let's start.</speak>
+      - <speak>Hi there! I'm your Canadian Safety <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> Assistant, and I can help you find your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Let's start.</speak>
       - <speak>Hello! I'm your Canadian Safety <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> Assistant. I can help you find vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Let's get started.</speak>

@@ -86,7 +86,7 @@ configuration:
   - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: false
 
   - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
-  - response.outputSpeech.ssml: I'm sorry. I don't have any information on your 2011 custommake CUSTOMMODEL at the moment. I'm still a voice assistant in training. Please contact my human friends at Transport Canada Recalls customer suppport at <say-as interpret-as=\"telephone\">18003330510</say-as> for more help. Would you like to search for another vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
+  - response.outputSpeech.ssml: I'm sorry. I don't have any information on your 2011 custommake CUSTOMMODEL at the moment. I'm still a voice assistant in training. Please contact my human friends at Transport Canada <phoneme alphabet='ipa' ph='ri.ka:lz'>Recalls</phoneme> customer suppport at <say-as interpret-as="telephone">18003330510</say-as> for more help. Would you like to search for another vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme>?
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
   - sessionAttributes.VehicleConversation.searchFindings: 3
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 0
