@@ -81,7 +81,7 @@ module.exports = {
 
     // SMS MESSAGE
     VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 0 rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir cela à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`, 
-    VEHICLE_RECALL_TEXT_FOUND_ONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité des véhicules. Ton véhicule ${VEHICLE_CARD_VERSION} a 1 rappel. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0`,
+    VEHICLE_RECALL_TEXT_FOUND_ONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 1 rappel pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} à été trouvé. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
     VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité des véhicules. Ton véhicule ${VEHICLE_CARD_VERSION} a ${RECALL_COUNT} rappels. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0`,
 
     /// //// ALEXA CARDS \\\\\\
