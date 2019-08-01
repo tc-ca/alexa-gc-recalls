@@ -128,7 +128,6 @@ class VehicleRecallConversationContextBuilder {
         .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
     }
 
-    console.log('Vehicle Recall Search Result =', this.recallSearchResultSpeechText)
     this.speechString.push(this.recallSearchResultSpeechText)
     return this
   }

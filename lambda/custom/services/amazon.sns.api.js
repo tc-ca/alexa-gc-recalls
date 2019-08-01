@@ -5,7 +5,7 @@ AWS.config.update({ region: 'us-east-1' })
 
 // Create publish parameters
 
-function SendSMS ({ message, phoneNumber }) {
+function SendSMS ({ message, phoneNumber, sessionId }) {
   const params = {
     Message: message, /* required */
     PhoneNumber: `+1${phoneNumber}`
@@ -17,11 +17,11 @@ function SendSMS ({ message, phoneNumber }) {
   // Handle promise's fulfilled/rejected states
   publishTextPromise.then(
     function (data) {
-      console.log('SMS delivered, message id: ' + data.MessageId)
+      console.log({ sessionId: sessionId, textMessageSent: true, messageId: data.MessageId })
       return true
     }).catch(
     function (err) {
-      console.error(err, err.stack)
+      console.error({ sessionId: sessionId, textMessageSent: false, error: err, errorStack: err.stack })
       return false
     })
 }

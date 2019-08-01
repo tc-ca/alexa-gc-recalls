@@ -4,7 +4,6 @@ const Trace = require('../models/trace').Trace
 const SESSION_KEYS = require('../constants').SESSION_KEYS
 
 function GetSlotValues (filledSlots) {
-  console.log('filled slots: ', JSON.stringify(filledSlots))
   const slotValues = {}
   try {
     Object.keys(filledSlots).forEach((item) => {
@@ -28,9 +27,6 @@ function GetSlotValues (filledSlots) {
               isValidated: true,
               resolvedValues: valueNames
             }
-            console.log(JSON.stringify(slotValues))
-            console.log(slotValues[name])
-            console.log(slotValues)
 
             break
           case 'ER_SUCCESS_NO_MATCH':
@@ -39,7 +35,6 @@ function GetSlotValues (filledSlots) {
               resolved: filledSlots[item].value,
               isValidated: false
             }
-            console.log()
             break
           default:
             break
@@ -53,10 +48,9 @@ function GetSlotValues (filledSlots) {
       }
     }, this)
   } catch (error) {
-    console.log('error: ', error)
+    console.error('ERROR FILLING SLOT', error)
   }
 
-  console.log('Returning slot values: ', slotValues)
   return slotValues
 }
 

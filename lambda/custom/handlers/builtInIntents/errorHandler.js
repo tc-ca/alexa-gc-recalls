@@ -7,12 +7,15 @@ const GlobalErrorHandler = {
     return true
   },
   handle (handlerInput, error) {
-    const { attributesManager } = handlerInput
+    const { attributesManager, requestEnvelope } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
     const sessionAttributes = attributesManager.getSessionAttributes()
 
+    const sessionId = requestEnvelope.session.sessionId
+
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE')
-    console.error('ERROR HANDLED', error)
+
+    console.error('ERROR HANDLED', { sessionId: sessionId, error: error })
 
     HELPER.SetTrace({
       handlerName: 'GlobalErrorHandler',

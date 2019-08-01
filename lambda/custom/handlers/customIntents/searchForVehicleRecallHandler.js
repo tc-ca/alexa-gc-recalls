@@ -17,12 +17,23 @@ const HELPER = require('../../utils/helper')
 
 const VehicleRecallConversation = require('../../models/vehicleRecallConversation').VehicleRecallConversation
 const VehicleConversationContextBuilder = require('../../models/vehicleRecallConversation').ConversationContextBuilder
+const ApiPerformanceLog = require('../../models/apiPerformanceLog')
 
 const SERVICES = {
   TC_RECALLS_API: require('../../services/vehicleRecalls.api'),
   ALEXA_DIRECTIVES_API: require('../../services/alexaDirective.api'),
   AMAZON_SNS_API: require('../../services/amazon.sns.api'),
   ALEXA_PROFILE_API: require('../../services/alexaProfile.api')
+}
+
+class IsSuccessLog {
+  constructor ({ sessionId, makeModelYearIsVerified, targetedVehicle, isAmbiguous, otherModels }) {
+    this.sessionId = sessionId
+    this.makeModelYearIsVerified = makeModelYearIsVerified
+    this.vehicle = targetedVehicle
+    this.isAmbiguous = isAmbiguous
+    this.otherModels = otherModels
+  }
 }
 
 /**
@@ -39,22 +50,21 @@ const SERVICES = {
  */
 const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
   async handle (handlerInput) {
-    const { attributesManager } = handlerInput
+    const { attributesManager, requestEnvelope } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
-
+    const sessionId = requestEnvelope.session.sessionId
     const currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
 
     // get vehicle recall conversation started from the comfirmation dialog created in the "comfirmVehicleMakeModelYearHandler"
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     // for stats
-    console.log({ requestId: 1, verifiedMakeModelYear: true, value: vehicleRecallConversation.vehicle })
 
     // look for recalls based on previously collected slot values.
-    const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
+    const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year, sessionId)
 
-    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale)
+    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
 
     // Return findings of search and retrieves the appropriate follow up question
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
@@ -66,6 +76,8 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       .saySearchFinding()
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState })
       .buildSpeech()
+
+    console.log(new IsSuccessLog({ sessionId: sessionId, makeModelYearIsVerified: true, targetedVehicle: vehicleRecallConversation.vehicle, isAmbiguous: VehicleRecallConvo.searchFindings === 4, recalls: VehicleRecallConvo.recalls }))
 
     SendMessageToUser(sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], VehicleRecallConvo.searchFindings, requestAttributes, VehicleRecallConvo)
 
@@ -101,9 +113,11 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
  */
 const DeniedCompletedSearchForVehicleRecallIntentHandler = {
   async handle (handlerInput) {
-    const { attributesManager } = handlerInput
+    const { attributesManager, requestEnvelope } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
+
+    const sessionId = requestEnvelope.session.sessionId
 
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'DeniedCompletedSearchForVehicleRecallIntentHandler'
 
@@ -112,15 +126,17 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
       sessionAttributes: sessionAttributes,
       requestAttributes: requestAttributes })
 
-    const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
-    console.log({ requestId: 1, verifiedMakeModelYear: false, value: vehicleConversation.vehicle })
+    const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
+
+    // for stats
+    console.log(new IsSuccessLog({ sessionId: sessionId, makeModelYearIsVerified: false, targetedVehicle: vehicleRecallConversation.vehicle, isAmbiguous: false, recalls: null }))
 
     // increment attempt
     sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT]++
 
     if (sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] === CONFIG.MAX_SEARCH_ATTEMPS) {
-      vehicleConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
-      sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleConversation
+      vehicleRecallConversation.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WOULD_YOU_LIKE_HELP
+      sessionAttributes[SESSION_KEYS.VehicleConversation] = vehicleRecallConversation
       sessionAttributes[SESSION_KEYS.VEHICLE_MAKE_MODEL_YEAR_COMFIRM_ATTEMPT] = 0 // reset max attempt
       const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH')
 
@@ -143,20 +159,21 @@ const DeniedCompletedSearchForVehicleRecallIntentHandler = {
  */
 const AmbigiousHandler = {
   async handle (handlerInput) {
-    const { attributesManager } = handlerInput
+    const { attributesManager, requestEnvelope } = handlerInput
     const sessionAttributes = attributesManager.getSessionAttributes()
     const requestAttributes = attributesManager.getRequestAttributes()
+    const sessionId = requestEnvelope.session.sessionId
 
     let currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
 
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
-    let recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year)
+    let recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year, sessionId)
     recalls = recalls.filter(x => {
       return x.modelName.toUpperCase() === vehicleRecallConversation.vehicle.model.toUpperCase()
     })
 
-    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale)
+    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
 
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
       vehicle: vehicleRecallConversation.vehicle,
@@ -382,7 +399,6 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
     recallSearchResult === SEARCH_FINDINGS.SingleRecallFound ||
     recallSearchResult === SEARCH_FINDINGS.MultipleRecallsFound ||
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {
-
     const message = GetVehicleRecallSMSMessage({ vehicle: vehicleRecallConversation.vehicle, recalls: vehicleRecallConversation.recalls, requestAttributes: requestAttributes })
 
     // stop the process early if unit testing, unable to mock profile phone number retrieval and  SNS API
@@ -400,17 +416,18 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
   }
 }
 
-async function GetRecallsListWithDetails (recalls, locale) {
+async function GetRecallsListWithDetails (recalls, locale, sessionId) {
   const apiStart = (new Date()).getTime()
 
   let recallsDetails = []
   for (let i = 0; i < recalls.length; i++) {
-    let details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale)
+    let details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale, sessionId)
 
     recallsDetails.push(details)
   }
   const apiEnd = (new Date()).getTime()
-  console.log({ requestId: 1, measuring: 'GetRecallsListWithDetails Total Execution Time', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measures time it takes to retrieve a list of recalls with details info, multiple API calls required.' })
+
+  console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'GetRecallsListWithDetails Total Execution Time', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measures time it takes to retrieve a list of recalls with details info, multiple API calls required.' }))
 
   const relevantRecalls = recallsDetails.filter(x => {
     return (!CONFIG.IGNORE_RECALLS_TYPE.includes(x.notificationTypeEtxt.toUpperCase()))
