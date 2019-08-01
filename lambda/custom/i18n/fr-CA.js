@@ -43,7 +43,7 @@ module.exports = {
     SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour confirmer, est-ce que tu cherches un véhicule ${VEHICLE_SPEECH_VERSION}?`,
 
     // SEARCH RESULT STRINGS
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai pas trouvé de rappels associés avec ton véhicule dans notre système.`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai trouvé aucun rappel associé à ton véhicule dans notre système.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur les rappels par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur les rappels par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Je m'excuse. Je n’ai pas d’information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore un assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle Rappels Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}.`,
