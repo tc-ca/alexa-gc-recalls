@@ -58,7 +58,7 @@ module.exports = {
     AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `aucun de ces modèles`, // I need translation (Lisa: same) 
     OR: "ou",
     // READING RECALLS STRINGS
-    SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `Lorsque je vais lire l’information sur les rappels de véhicules, tu pourras sauter au prochain rappel à n’importe quel moment en disant Alexa, prochain.`,
+    SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `Lorsque je te lis l’information sur les rappels de véhicules, tu peux sauter au rappel suivant à n’importe quel moment en disant Alexa, prochain.`,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE}, il y avait un rappel de sécurité affectant le ${RECALL_COMPONENT}.<break time="500ms"/>${RECALL_DETAILS}.`,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DONE: `C’est tout ce que j’ai comme information sur ton véhicule ${VEHICLE_SPEECH_VERSION}. Veux-tu que je répète l’information sur les rappels de sécurité pour ce véhicule?`,
     SPEECH_TXT_VEHCILE_RECALLS_READING_FOLLOW_UP_QUESTION_WOULD_YOU_LIKE_TO_HEAR_NEXT_RECALL: `Veux-tu entendre le prochain rappel?`,
