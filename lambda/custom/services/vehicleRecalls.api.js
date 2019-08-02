@@ -1,6 +1,6 @@
 'use strict'
 
-const VRDB_API_KEY = process.env.VRDB_API_CANADA_USER_KEY
+const PROD_VRDB_API_KEY = process.env.VRDB_API_CANADA_USER_KEY
 
 const fetch = require('node-fetch')
 
@@ -17,7 +17,7 @@ const MODEL_NAME = '/model-name/'
 const YEAR_RANGE = '/year-range/'
 const RECALL_SUMMARY = '/recall-summary/'
 const RECALL_NUMBER = '/recall-number/'
-
+const apiKey = process.env.UNIT_TEST? 'SOME_DEV_KEY': PROD_VRDB_API_KEY
 // todo clean up api calls
 // todo switch node fetch to axios
 
@@ -31,7 +31,7 @@ async function GetRecalls (make, model, year, sessionId) {
     const functionStart = (new Date()).getTime()
 
     const apiStart = (new Date()).getTime()
-    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
+    let response = await fetch(url, { headers: { 'user-key':apiKey } })
 
     response = await response.json()
     const apiEnd = (new Date()).getTime()
@@ -78,7 +78,7 @@ async function GetRecallDetails (recallNumber, locale, sessionId) {
 
     const apiStart = (new Date()).getTime()
 
-    let response = await fetch(url, { headers: { 'user-key': '2544a05ac53fafde54c828c248d5bf05' } })
+    let response = await fetch(url, { headers: { 'user-key': apiKey } })
     response = await response.json()
 
     const apiEnd = (new Date()).getTime()
