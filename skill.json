@@ -1,39 +1,5 @@
 {
   "manifest": {
-    "publishingInformation": {
-      "locales": {
-        "en-US": {
-          "summary": "Sample Short Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "Alexa tell hello world hello",
-            "Alexa ask hello world say hello"
-          ],
-          "keywords": [],
-          "name": "TC Safety Recalls",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/d9bb/9ed040fa3563411c8a7d1b60d055defb/APP_ICON?versionId=Afr2B32lNMVXJhL4wDsQWzmZgAyXmHdM&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=wjlZekptbP4i5jGtSWtT2S5cmpA%3D",
-          "description": "Sample Full Description",
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/74a8/2079178ab3e14be2a3e1f8e87064a61e/APP_ICON_LARGE?versionId=PVHsUo7gb1VxQKI46OjoczEz9cEMZ8EK&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=sxgEmi1kmf5hNcFNwX4KZyeiIFY%3D"
-        },
-        "en-CA": {
-          "summary": "Sample Short Description",
-          "examplePhrases": [
-            "Alexa open hello world",
-            "Alexa tell hello world hello",
-            "Alexa ask hello world say hello"
-          ],
-          "keywords": [],
-          "name": "TC Safety Recalls",
-          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/4a59/06426fee5d2e4bf8823ffc138cd94564/APP_ICON?versionId=aBWZWu2c7N5EblI.fPapxDR3nK0gPnHl&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=6Lhe4OGZAJIROnHOlQ5khUCZplg%3D",
-          "description": "Sample Full Description",
-          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/6c83/59dc10a47b3449afa8055f9ab3d6f1b5/APP_ICON_LARGE?versionId=_A8drtrDSFwdKgg2iSdGagdhf43gdBZA&AWSAccessKeyId=AKIAJFEYRBGIHK2BBYKA&Expires=1547143019&Signature=mzQoT8m%2FrXgYENRemZDV%2FrKZb3Q%3D"
-        }
-      },
-      "isAvailableWorldwide": true,
-      "testingInstructions": "Sample Testing Instructions.",
-      "category": "EDUCATION_AND_REFERENCE",
-      "distributionCountries": []
-    },
     "apis": {
       "custom": {
         "endpoint": {
@@ -43,12 +9,93 @@
       }
     },
     "manifestVersion": "1.0",
+    "permissions": [
+      {
+        "name": "alexa::profile:mobile_number:read"
+      }
+    ],
     "privacyAndCompliance": {
+      "locales": {
+        "en-US": {
+          "privacyPolicyUrl": "https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/recalls-privacy-notice-statement.html",
+          "termsOfUseUrl": "https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/recalls-developer-terms-use.html"
+        },
+        "en-CA": {
+          "privacyPolicyUrl": "https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/recalls-privacy-notice-statement.html",
+          "termsOfUseUrl": "https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/recalls-developer-terms-use.html"
+        },
+        "fr-CA": {
+          "privacyPolicyUrl": "https://www.tc.gc.ca/fr/services/routier/defauts-rappels-vehicules-pneus-sieges-auto-enfants/rappels-avis-confidentialite.html",
+          "termsOfUseUrl": "https://www.tc.gc.ca/fr/services/routier/defauts-rappels-vehicules-pneus-sieges-auto-enfants/rappels-modalite-developpeur.html"
+        }
+      },
       "allowsPurchases": false,
-      "isExportCompliant": true,
-      "containsAds": false,
+      "usesPersonalInfo": false,
       "isChildDirected": false,
-      "usesPersonalInfo": false
+      "isExportCompliant": true,
+      "containsAds": false
+    },
+    "publishingInformation": {
+      "locales": {
+        "en-US": {
+          "name": "Vehicle Recalls Canada",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/7537/1d50d179f2634a359cfcda97380a6253/APP_ICON?versionId=dZCb64Nh1U3iaz_gZLDrSXq3hftIKVuD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=1b4aaf6484bfddc649aabeee1003a6a6d4b931b333e91d37cb08236012fdaf96",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/529d/9502fa39834e4ef890d5095250931a79/APP_ICON_LARGE?versionId=1mObS3uazyjIrBtw80JALPx_taHYJeRM&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=c88394a47d04e5df7c172e859b1d90820cec3cdd9f97613e2d348f65da1bad05",
+          "summary": "Vehicle Recalls Canada is a quick and easy way to search for vehicle recalls.",
+          "description": "Vehicle Recalls Canada provides a quick and easy way to search for passenger vehicle and light truck recalls. Just provide the make, model, and year of the vehicle and you’ll get information straight from the Transport Canada Motor Vehicle Safety Recalls Database. If you have a phone number associated with your Alexa account, you can receive recall information by text message. \n\nDisclaimer: The content may be changed without notice and is not guaranteed to be complete, correct, timely, current or up-to-date. Always confirm on the Transport Canada Motor Vehicle Safety Recalls Database if you suspect a recall has been issued. If a recall is listed, you can call the manufacturer, a local dealer, or visit the manufacturer’s website to check on the status of the recall. \n\nFeedback: automobile@tc.gc.ca\nVehicle Recalls Canada is an open source project! Check out our work on GitHub: https://github.com/tc-ca/alexa-gc-recalls\nStay informed about recalls of vehicles, tires and child car seats: https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/stay-informed.html",
+          "examplePhrases": [
+            "Alexa, find my recalls",
+            "Alexa, restart",
+            "Alexa, skip"
+          ],
+          "keywords": [
+            "vehicle",
+            "recalls",
+            "Canada",
+            "government"
+          ]
+        },
+        "en-CA": {
+          "name": "Vehicle Recalls Canada",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/7f55/00ccccab9ee34538b0d6a4031dde1598/APP_ICON?versionId=T3FPJY181zozvene4KUFxmm2amwSsFgX&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=bed0e473bd15cac918db15864f018497e1305eafb3d23663a396e150c552d228",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/31a3/c84058366240431d9e876d2ef9e982b9/APP_ICON_LARGE?versionId=WEELEPnqmGLvMDVWyh_q_AZP9UN6oyfy&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=3384c3143e3819aab63cabf96fba0012e09ed589ac8c1aeef1e4879fe1c6d534",
+          "summary": "Vehicle Recalls Canada is a quick and easy way to search for vehicle recalls.",
+          "description": "Vehicle Recalls Canada provides a quick and easy way to search for passenger vehicle and light truck recalls. Just provide the make, model, and year of the vehicle and you’ll get information straight from the Transport Canada Motor Vehicle Safety Recalls Database. If you have a phone number associated with your Alexa account, you can receive recall information by text message. \n\nDisclaimer: The content may be changed without notice and is not guaranteed to be complete, correct, timely, current or up-to-date. Always confirm on the Transport Canada Motor Vehicle Safety Recalls Database if you suspect a recall has been issued. If a recall is listed, you can call the manufacturer, a local dealer, or visit the manufacturer’s website to check on the status of the recall. \n\nFeedback: automobile@tc.gc.ca\nVehicle Recalls Canada is an open source project! Check out our work on GitHub: https://github.com/tc-ca/alexa-gc-recalls\nStay informed about recalls of vehicles, tires and child car seats: https://www.tc.gc.ca/en/services/road/defects-recalls-vehicles-tires-child-car-seats/stay-informed.html",
+          "examplePhrases": [
+            "Alexa, find my recalls",
+            "Alexa, restart",
+            "Alexa, skip"
+          ],
+          "keywords": [
+            "vehicle",
+            "recalls",
+            "Canada",
+            "government"
+          ]
+        },
+        "fr-CA": {
+          "name": "Rappels de véhicules Canada",
+          "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/d8c1/2a9cab708b9a4a468360fe8db120ff99/APP_ICON?versionId=DlHUtIvptKl_nVo4vsD8OSlx3Lc33mH2&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=cc6650f6bc09dace94f0b8c0049b59482bb323edfb86eed34b873111726ce830",
+          "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/a27b/027c06f9438240628ea59844cd52359e/APP_ICON_LARGE?versionId=EGR8nfISVbU.G9IpPw1GGr6K70ChVa6P&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190802T004957Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86399&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190802%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=ad141fd8d513bf3cb7c6d81b239d0fc9a251075269e9cb09994a8c4cfc12ef7a",
+          "summary": "Rappels de véhicules Canada est une façon facile et rapide de rechercher les rappels de véhicules.",
+          "description": "Rappels de véhicules Canada permet de rapidement et facilement trouver les rappels de véhicules qui affectent les voitures particulières et les véhicules utilitaires léger. Vous pouvez simplement fournir la maarque, le modèle et l’année du véhicule et vous recevrez les informations tirées de la Banque de données des rappels de sécurité automobile de Transports Canada. Si vous avez un numéro de téléphone portable associé à votre compte Alexa, vous pouvez recevoir les détails sur les rappels par message texte.\n\nAvertissement : Le contenu est sujet à des changements sans préavis and il n’est aucunement garanti que le contenu soit complet, exact, opportun, courant ou à jour. Confirmez toujours l’information à l’aide de la Banque de données des rappels de sécurité automobile de Transports Canada si vous soupçonnez qu’un rappel a été émis. Si un rappel est affiché, vous pouvez communiquer avec le fabricant, un concessionnaire local, ou consulter le site Web du fabricant pour vérifier le statut du rappel.\n\nRétroaction : automobile@tc.gc.ca\nRappels de véhicules Canada est un projet à code source ouvert! Consultez notre travail sur GitHub: https://github.com/tc-ca/alexa-gc-recalls\nInformez-vous au sujet des rappels de véhicules, pneus et siège d’auto pour enfant : https://www.tc.gc.ca/fr/services/routier/defauts-rappels-vehicules-pneus-sieges-auto-enfants/consulter-rappels.html",
+          "examplePhrases": [
+            "Alexa, trouve mes rappels de sécurité",
+            "Alexa, recommence",
+            "Alexa, prochain"
+          ],
+          "keywords": [
+            "véhicules",
+            "rappels",
+            "Canada",
+            "gouvernement"
+          ]
+        }
+      },
+      "isAvailableWorldwide": true,
+      "testingInstructions": "Users can opt-in to receiving a text message of any recalls they may find. To test this:\n  1. Open the skill and enable mobile number access. \n  2. Run through the skill.\n     2a. When prompted for a make, say \"Honda\".\n     2b. When prompted for a model, say \"Civic\".\n     2c. When prompted for a year, say \"2016\".\n3. When Alexa clarifies what vehicle she found, say \"Yes\".\n4. Check the text message.",
+      "category": "EDUCATION_AND_REFERENCE",
+      "distributionCountries": []
     }
   }
 }
