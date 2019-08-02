@@ -43,7 +43,12 @@ const comfirmVehicleMakeModelYearHandler = {
       .buildSpeech()
 
     const speechText = VehicleRecallConversation.getSpeechText()
-    const cardText = `${sanitizeHtml(speechText, sanitizeHtml(speechText, { allowedTags: [], allowedAttributes: {} }))} ${requestAttributes.t('CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION')}`
+    const cardText = this.requestAttributes.t(`CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
+    .replace('%VehicleRecallYear%', vehicle.year)
+    .replace('%VehicleRecallMake%', vehicle.makeSpeechText)
+    .replace('%VehicleRecallModel%', vehicle.modelSpeechText)
+
+    const cardTitle =  requestAttributes.t('CARD_TXT_VEHCILE_COMFIRM_TITLE')
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
@@ -54,7 +59,7 @@ const comfirmVehicleMakeModelYearHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      .withSimpleCard(cardText) // TODO: should we keep this simple card?
+      .withSimpleCard(cardTitle, cardText) // TODO: should we keep this simple card?
       .withShouldEndSession(false)
       .getResponse()
   }
