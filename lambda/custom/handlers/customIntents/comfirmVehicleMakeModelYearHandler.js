@@ -43,7 +43,7 @@ const comfirmVehicleMakeModelYearHandler = {
       .buildSpeech()
 
     const speechText = VehicleRecallConversation.getSpeechText()
-    const cardText = this.requestAttributes.t(`CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
+    const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
     .replace('%VehicleRecallYear%', vehicle.year)
     .replace('%VehicleRecallMake%', vehicle.makeSpeechText)
     .replace('%VehicleRecallModel%', vehicle.modelSpeechText)
