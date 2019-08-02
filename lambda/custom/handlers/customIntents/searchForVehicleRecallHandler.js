@@ -95,11 +95,13 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
+      
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardText)
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -202,10 +204,12 @@ const AmbigiousHandler = {
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
+      const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE')
+
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
       .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardText)
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(false)
       .getResponse()
   }
@@ -427,7 +431,7 @@ async function GetRecallsListWithDetails (recalls, locale, sessionId) {
   }
   const apiEnd = (new Date()).getTime()
 
-  console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'GetRecallsListWithDetails Total Execution Time', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measures time it takes to retrieve a list of recalls with details info, multiple API calls required.' }))
+  console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'GetRecallsListWithDetails Total Execution Time', executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measures time it takes to retrieve a list of recalls with details info, multiple API calls required.' }))
 
   const relevantRecalls = recallsDetails.filter(x => {
     return (!CONFIG.IGNORE_RECALLS_TYPE.includes(x.notificationTypeEtxt.toUpperCase()))
