@@ -118,7 +118,7 @@
             }
           ],
           "samples": [
-            "véhicule",
+            "recherche",
             "{model} {trimLevel}",
             "{make} {model} {trimLevel}",
             "{make} {model}"
@@ -473,6 +473,7 @@
               "name": {
                 "value": "1 séries",
                 "synonyms": [
+                  "séries 1",
                   "128",
                   "128 i.",
                   "135",
@@ -489,6 +490,7 @@
               "name": {
                 "value": "2 séries",
                 "synonyms": [
+                  "séries 2",
                   "228",
                   "228 i.",
                   "230",
@@ -499,7 +501,6 @@
                   "240 i.",
                   "240",
                   "m. 240 i.",
-                  "m. 2",
                   "m. 2"
                 ]
               }
@@ -509,6 +510,7 @@
               "name": {
                 "value": "3 séries",
                 "synonyms": [
+                  "séries 3",
                   "318 i.",
                   "320 i.",
                   "325 i.",
@@ -520,7 +522,6 @@
                   "328 d.",
                   "330 d.",
                   "335 d.",
-                  "335 d.",
                   "m. 3"
                 ]
               }
@@ -530,6 +531,7 @@
               "name": {
                 "value": "4 séries",
                 "synonyms": [
+                  "séries 4",
                   "420 i.",
                   "428 i.",
                   "435 i.",
@@ -544,6 +546,7 @@
               "name": {
                 "value": "5 séries",
                 "synonyms": [
+                  "séries 5",
                   "525 i.",
                   "528 i.",
                   "530 i .",
@@ -561,6 +564,7 @@
               "name": {
                 "value": "6 séries",
                 "synonyms": [
+                  "séries 6",
                   "630 i.",
                   "640 i.",
                   "640 i. x. drive",
@@ -575,6 +579,7 @@
               "name": {
                 "value": "7 séries",
                 "synonyms": [
+                  "séries 7",
                   "730 i.",
                   "730 l. i.",
                   "735 i.",
@@ -586,7 +591,6 @@
                   "750 l. i.",
                   "m. 760 l. i.",
                   "760 i.",
-                  "760 i.",
                   "alpina b. 7"
                 ]
               }
@@ -596,8 +600,7 @@
               "name": {
                 "value": "i 3",
                 "synonyms": [
-                  "i. 3",
-                  "séries 7"
+                  "i. 3"
                 ]
               }
             },
@@ -879,48 +882,6 @@
               }
             },
             {
-              "id": "BUICK_TERRAZA_ENTERVAN",
-              "name": {
-                "value": "buick terraza entervan"
-              }
-            },
-            {
-              "id": "CHEVROLET_UPLANDER_ENTERVAN",
-              "name": {
-                "value": "chevrolet uplander entervan"
-              }
-            },
-            {
-              "id": "CHRYSLER_TOWN_&_COUNTRY_ENTERVAN",
-              "name": {
-                "value": "chrysler town & country entervan"
-              }
-            },
-            {
-              "id": "DODGE_CARAVAN_ENTERVAN",
-              "name": {
-                "value": "dodge caravan entervan"
-              }
-            },
-            {
-              "id": "DODGE_CARAVAN_VISION_RE",
-              "name": {
-                "value": "dodge caravan vision re"
-              }
-            },
-            {
-              "id": "PONTIAC_MONTANA_ENTERVAN",
-              "name": {
-                "value": "pontiac montana entervan"
-              }
-            },
-            {
-              "id": "TOYOTA_SIENNA_ENTERVAN",
-              "name": {
-                "value": "toyota sienna entervan"
-              }
-            },
-            {
               "id": "GIULIA",
               "name": {
                 "value": "giulia"
@@ -1170,18 +1131,6 @@
               }
             },
             {
-              "id": "4500",
-              "name": {
-                "value": "4500"
-              }
-            },
-            {
-              "id": "5500",
-              "name": {
-                "value": "5500"
-              }
-            },
-            {
               "id": "CARGO_VAN",
               "name": {
                 "value": "cargo van"
@@ -1197,42 +1146,6 @@
               "id": "PROMASTER_CITY",
               "name": {
                 "value": "promaster city"
-              }
-            },
-            {
-              "id": "CLASSIC",
-              "name": {
-                "value": "classic"
-              }
-            },
-            {
-              "id": "FLEETMAX",
-              "name": {
-                "value": "fleetmax"
-              }
-            },
-            {
-              "id": "LEGEND_138",
-              "name": {
-                "value": "legend 138"
-              }
-            },
-            {
-              "id": "LEGEND_158",
-              "name": {
-                "value": "legend 158"
-              }
-            },
-            {
-              "id": "NEW_ERA_XC",
-              "name": {
-                "value": "new era x. c."
-              }
-            },
-            {
-              "id": "AERO_ELITE",
-              "name": {
-                "value": "aero elite"
               }
             },
             {
@@ -1254,15 +1167,9 @@
               }
             },
             {
-              "id": "BULLET",
-              "name": {
-                "value": "bullet"
-              }
-            },
-            {
               "id": "300M",
               "name": {
-                "value": "300 m."
+                "value": "300 M"
               }
             },
             {
@@ -1420,33 +1327,9 @@
               }
             },
             {
-              "id": "AMBULANCE",
-              "name": {
-                "value": "ambulance"
-              }
-            },
-            {
-              "id": "MILLENIUM",
-              "name": {
-                "value": "millenium"
-              }
-            },
-            {
               "id": "AMERIVAN_10",
               "name": {
                 "value": "amerivan 10"
-              }
-            },
-            {
-              "id": "FORD_450_BUS",
-              "name": {
-                "value": "ford 450 bus"
-              }
-            },
-            {
-              "id": "FORD_550_BUS",
-              "name": {
-                "value": "ford 550 bus"
               }
             },
             {
@@ -1780,34 +1663,6 @@
               }
             },
             {
-              "id": "E450",
-              "name": {
-                "value": "e 450",
-                "synonyms": [
-                  "e. 450"
-                ]
-              }
-            },
-            {
-              "id": "E450_CUTAWAY_CHASSIS_CAB",
-              "name": {
-                "value": "e 450 cutaway chassis cab",
-                "synonyms": [
-                  "e. 450 cutaway chassis cab",
-                  "e. 450 châssis-cabine"
-                ]
-              }
-            },
-            {
-              "id": "E550",
-              "name": {
-                "value": "e 550",
-                "synonyms": [
-                  "e. 550"
-                ]
-              }
-            },
-            {
               "id": "ECONOLINE",
               "name": {
                 "value": "econoline"
@@ -1942,100 +1797,9 @@
               }
             },
             {
-              "id": "F450_CHASSIS_CAB",
-              "name": {
-                "value": "f 450 chassis cab",
-                "synonyms": [
-                  "f. 450 chassis cab",
-                  "f. 450 châssis-cabine"
-                ]
-              }
-            },
-            {
-              "id": "F450_SUPER_DUTY",
-              "name": {
-                "value": "f 450 super duty",
-                "synonyms": [
-                  "f. 450 super duty"
-                ]
-              }
-            },
-            {
-              "id": "F450_SUPER_DUTY_CHASSIS_CAB",
-              "name": {
-                "value": "f 450 super duty chassis cab",
-                "synonyms": [
-                  "f. 450 super duty chassis cab",
-                  "f. 450 super duty châssis-cabine"
-                ]
-              }
-            },
-            {
-              "id": "F53_MOTORHOME_CHASSIS",
-              "name": {
-                "value": "f 53 motorhome chassis",
-                "synonyms": [
-                  "f. 53 motorhome chassis",
-                  "f. 53 chassis autocaravane"
-                ]
-              }
-            },
-            {
-              "id": "F550",
-              "name": {
-                "value": "f 550",
-                "synonyms": [
-                  "f. 550"
-                ]
-              }
-            },
-            {
-              "id": "F550_CHASSIS_CAB",
-              "name": {
-                "value": "f 550 chassis cab",
-                "synonyms": [
-                  "f. 550 chassis cab",
-                  "f. 550 châssis-cabine"
-                ]
-              }
-            },
-            {
-              "id": "F550_SUPER_DUTY",
-              "name": {
-                "value": "f 550 super duty",
-                "synonyms": [
-                  "f. 550 super duty"
-                ]
-              }
-            },
-            {
-              "id": "F650",
-              "name": {
-                "value": "f 650",
-                "synonyms": [
-                  "f. 650"
-                ]
-              }
-            },
-            {
-              "id": "F750",
-              "name": {
-                "value": "f 750",
-                "synonyms": [
-                  "f. 750"
-                ]
-              }
-            },
-            {
               "id": "FIESTA",
               "name": {
                 "value": "fiesta"
-              }
-            },
-            {
-              "id": "FIVE_HUNDRED",
-              "name": {
-                "value": "five hundred"
               }
             },
             {
@@ -2290,12 +2054,6 @@
               }
             },
             {
-              "id": "ENG_HT",
-              "name": {
-                "value": "e.n.g h. t."
-              }
-            },
-            {
               "id": "ALLURE",
               "name": {
                 "value": "allure"
@@ -2445,7 +2203,7 @@
             {
               "id": "ELR",
               "name": {
-                "value": "ELR",
+                "value": "E LR",
                 "synonyms": [
                   "e. l. r."
                 ]
@@ -2460,7 +2218,7 @@
             {
               "id": "ESCALADE_ESV",
               "name": {
-                "value": "escalade ESV",
+                "value": "escalade E SV",
                 "synonyms": [
                   "escalade e. s. v."
                 ]
@@ -2469,7 +2227,7 @@
             {
               "id": "ESCALADE_EXT",
               "name": {
-                "value": "escalade EXT",
+                "value": "escalade E XT",
                 "synonyms": [
                   "escalade e. x. t."
                 ]
@@ -2568,7 +2326,7 @@
             {
               "id": "BOLT_EV",
               "name": {
-                "value": "bolt EV",
+                "value": "bolt E V",
                 "synonyms": [
                   "bolt e. v.",
                   "bolt"
@@ -2639,9 +2397,10 @@
             {
               "id": "CORVETTE_Z06",
               "name": {
-                "value": "corvette ZO 6",
+                "value": "corvette Z 0 6",
                 "synonyms": [
-                  "corvette z. 0 6"
+                  "corvette z. 0 6",
+                  "corvette z o 6"
                 ]
               }
             },
@@ -2691,18 +2450,6 @@
                 "synonyms": [
                   "k. séries"
                 ]
-              }
-            },
-            {
-              "id": "KODIAK_4500",
-              "name": {
-                "value": "kodiak 4500"
-              }
-            },
-            {
-              "id": "KODIAK_5500",
-              "name": {
-                "value": "kodiak 5500"
               }
             },
             {
@@ -2813,7 +2560,7 @@
             {
               "id": "SPARK_EV",
               "name": {
-                "value": "spark EV",
+                "value": "spark E V",
                 "synonyms": [
                   "spark e. v."
                 ]
@@ -2832,33 +2579,6 @@
               "id": "SUBURBAN",
               "name": {
                 "value": "suburban"
-              }
-            },
-            {
-              "id": "T60",
-              "name": {
-                "value": "t 60",
-                "synonyms": [
-                  "t. 60"
-                ]
-              }
-            },
-            {
-              "id": "T70",
-              "name": {
-                "value": "t 70",
-                "synonyms": [
-                  "t. 70"
-                ]
-              }
-            },
-            {
-              "id": "T80",
-              "name": {
-                "value": "t 80",
-                "synonyms": [
-                  "t. 80"
-                ]
               }
             },
             {
@@ -2903,7 +2623,7 @@
             {
               "id": "TRAILBLAZER_EXT",
               "name": {
-                "value": "trailblazer EXT",
+                "value": "trailblazer E XT",
                 "synonyms": [
                   "trailblazer e. x. t."
                 ]
@@ -2975,7 +2695,7 @@
             {
               "id": "ENVOY_XUV",
               "name": {
-                "value": "envoy XUV",
+                "value": "envoy X U V",
                 "synonyms": [
                   "envoy x. u. v."
                 ]
@@ -3036,18 +2756,6 @@
               }
             },
             {
-              "id": "TOPKICK_4500",
-              "name": {
-                "value": "topkick 4500"
-              }
-            },
-            {
-              "id": "TOPKICK_5500",
-              "name": {
-                "value": "topkick 5500"
-              }
-            },
-            {
               "id": "YUKON",
               "name": {
                 "value": "yukon"
@@ -3105,33 +2813,6 @@
               "id": "ASCENDER",
               "name": {
                 "value": "ascender"
-              }
-            },
-            {
-              "id": "FSR",
-              "name": {
-                "value": "FSR",
-                "synonyms": [
-                  "f. s. r."
-                ]
-              }
-            },
-            {
-              "id": "FTR",
-              "name": {
-                "value": "FTR",
-                "synonyms": [
-                  "f. t. r."
-                ]
-              }
-            },
-            {
-              "id": "FVR",
-              "name": {
-                "value": "FVR",
-                "synonyms": [
-                  "f. v. r."
-                ]
               }
             },
             {
@@ -3351,7 +3032,7 @@
               }
             },
             {
-              "id": "43168",
+              "id": "9-3",
               "name": {
                 "value": "9-3",
                 "synonyms": [
@@ -3360,7 +3041,7 @@
               }
             },
             {
-              "id": "43229",
+              "id": "9-5",
               "name": {
                 "value": "9-5"
               }
@@ -3462,24 +3143,6 @@
               }
             },
             {
-              "id": "170",
-              "name": {
-                "value": "170"
-              }
-            },
-            {
-              "id": "190",
-              "name": {
-                "value": "190"
-              }
-            },
-            {
-              "id": "210",
-              "name": {
-                "value": "210"
-              }
-            },
-            {
               "id": "CL",
               "name": {
                 "value": "CL",
@@ -3500,7 +3163,7 @@
             {
               "id": "EL",
               "name": {
-                "value": "EL",
+                "value": "E L",
                 "synonyms": [
                   "e. l."
                 ]
@@ -3684,15 +3347,6 @@
               "id": "FIT",
               "name": {
                 "value": "fit"
-              }
-            },
-            {
-              "id": "GL1800",
-              "name": {
-                "value": "GL 1800",
-                "synonyms": [
-                  "g. l. 1800"
-                ]
               }
             },
             {
@@ -3903,18 +3557,6 @@
               }
             },
             {
-              "id": "DOMINATOR",
-              "name": {
-                "value": "dominator"
-              }
-            },
-            {
-              "id": "REACH_VAN",
-              "name": {
-                "value": "reach van"
-              }
-            },
-            {
               "id": "E-PACE",
               "name": {
                 "value": "e pace",
@@ -3962,7 +3604,7 @@
             {
               "id": "XE",
               "name": {
-                "value": "XE",
+                "value": "X E",
                 "synonyms": [
                   "x. e."
                 ]
@@ -4284,6 +3926,12 @@
               }
             },
             {
+              "id": "CLASSIC",
+              "name": {
+                "value": "classic"
+              }
+            },
+            {
               "id": "EVOQUE",
               "name": {
                 "value": "evoque"
@@ -4316,7 +3964,7 @@
             {
               "id": "EVORA_S-IPS",
               "name": {
-                "value": "evora s-IPS",
+                "value": "evora s- I PS",
                 "synonyms": [
                   "evora s-i. p. s."
                 ]
@@ -4645,8 +4293,7 @@
                 "value": "b class",
                 "synonyms": [
                   "b. class",
-                  "b. two hundred",
-                  "b. two hundred turbo"
+                  "B 200"
                 ]
               }
             },
@@ -4656,21 +4303,18 @@
                 "value": "c class",
                 "synonyms": [
                   "c. class",
-                  "c. two hundred",
-                  "c. two twenty",
-                  "c. two thirty",
-                  "c. two fifty",
-                  "c. three hundred",
-                  "c. three fifty",
-                  "c. thirty-two",
-                  "c. thirty-two a.m.g.",
-                  "c. fourty three",
-                  "c. fourty-three a.m.g.",
-                  "c. fifty-five",
-                  "c. fifty-five a.m.g.",
-                  "c. sixty-three",
-                  "c. sixty-three a.m.g.",
-                  "c. four hundred"
+                  "C 200",
+                  "C 220",
+                  "C 230",
+                  "C 250",
+                  "C 300",
+                  "C 320",
+                  "C 350",
+                  "C 400",
+                  "C 32",
+                  "C 43",
+                  "C 55",
+                  "C 63"
                 ]
               }
             },
@@ -4680,12 +4324,11 @@
                 "value": "CL class",
                 "synonyms": [
                   "c. l. class",
-                  "c. l. five hundred",
-                  "CL500 4MATIC",
-                  "CL600",
-                  "CL55 AMG",
-                  "CL63 AMG",
-                  "CL65 AMG"
+                  "c. l.  500",
+                  "c. l. 600",
+                  "c. l. 55",
+                  "c. l. 63",
+                  "c. l. 65"
                 ]
               }
             },
@@ -4695,10 +4338,10 @@
                 "value": "CLA class",
                 "synonyms": [
                   "c. l. a. class",
-                  "CLA250",
-                  "CLA250 4MATIC",
-                  "CLA45",
-                  "CLA45 AMG"
+                  "c. l. a. 250",
+                  "c. l. a. 250",
+                  "c. l. a. 45",
+                  "c. l. a. 45"
                 ]
               }
             },
@@ -4708,14 +4351,12 @@
                 "value": "CLK class",
                 "synonyms": [
                   "c. l. k. class",
-                  "CLK320",
-                  "CLK350",
-                  "CLK430",
-                  "CLK500",
-                  "CLK55",
-                  "CLK55 AMG",
-                  "CLK63",
-                  "CLK63 AMG"
+                  "c. .l. k. 320",
+                  "c. l. k. 350",
+                  "c. l. k. 430",
+                  "c. l. k. 500",
+                  "c. l. k. 55",
+                  "c. l. k. 63"
                 ]
               }
             },
@@ -4725,16 +4366,15 @@
                 "value": "CLS  class",
                 "synonyms": [
                   "c. l. s.  class",
-                  "c. l. s. two eighty",
-                  "CLS300",
-                  "CLS350",
-                  "CLS400",
-                  "CLS450 4MATIC",
-                  "CLS500",
-                  "AMG CLS53 4MATIC",
-                  "CLS55 AMG",
-                  "CLS63 AMG",
-                  "CLS63 AMG S"
+                  "c. l. s. 280",
+                  "c. l. s 300",
+                  "c. l. s. 350",
+                  "c. l. s. 400",
+                  "c. l. s. 450",
+                  "c. l. s. 500",
+                  "c. l. s. 53",
+                  "c. l. s. 55",
+                  "c. l. s. 63"
                 ]
               }
             },
@@ -4744,18 +4384,17 @@
                 "value": "e class",
                 "synonyms": [
                   "e. class",
-                  "e. two hundred",
-                  "E250",
-                  "E300",
-                  "E350 4MATIC",
-                  "E400",
-                  "E400 4MATIC",
-                  "E450",
-                  "E500",
-                  "E500 4MATIC",
-                  "AMG E43",
-                  "AMG E63",
-                  "AMG E63 S"
+                  "e. 200",
+                  "E 250",
+                  "E 300",
+                  "E 350",
+                  "E 400",
+                  "E 320",
+                  "E 450",
+                  "E 500",
+                  "E 43",
+                  "E 63",
+                  "E 63 S"
                 ]
               }
             },
@@ -4765,10 +4404,10 @@
                 "value": "g class",
                 "synonyms": [
                   "g. class",
-                  "g. five hundred",
-                  "G55 AMG",
-                  "G63 AMG",
-                  "G65 AMG"
+                  "g. 500",
+                  "G 55",
+                  "G 63",
+                  "G 65"
                 ]
               }
             },
@@ -4778,10 +4417,10 @@
                 "value": "GL class",
                 "synonyms": [
                   "g. l. class",
-                  "g. l. four hundred",
-                  "GL450",
-                  "GL500",
-                  "GL63 AMG"
+                  "g. l. 400",
+                  "g. l.  450",
+                  "g. l. 500",
+                  "g. l. 63"
                 ]
               }
             },
@@ -4791,11 +4430,10 @@
                 "value": "GLA class",
                 "synonyms": [
                   "g. l. a. class",
-                  "g. l. a. one eighty",
-                  "GLA 200",
-                  "GLA 250",
-                  "GLA 250 4MATIC",
-                  "GLA 45 AMG"
+                  "g. l. a. 180",
+                  "g. l. a. 200",
+                  "g. l. a. 250",
+                  "g. l. a. 45"
                 ]
               }
             },
@@ -4805,14 +4443,11 @@
                 "value": "GLC class",
                 "synonyms": [
                   "g. l. c. class",
-                  "GLC 250 4MATIC",
-                  "GLC300",
-                  "GLC300 4MATIC",
-                  "AMG GLC 63",
-                  "AMG GLC 63 S",
-                  "GLK 280 4MATIC",
-                  "GLK 300 4MATIC",
-                  "GLK 350 4MATIC"
+                  "g. l. c. 250",
+                  "g. l. c. 350",
+                  "g. l. c. 350 E.",
+                  "g. l. c. 63",
+                  "g. l. c. 43"
                 ]
               }
             },
@@ -4822,17 +4457,22 @@
                 "value": "GLE class",
                 "synonyms": [
                   "g. l. e. class",
-                  "GLE63 S"
+                  "g. l. e.  63 S",
+                  "g. l. e. 450",
+                  "g. l. e. 350"
                 ]
               }
             },
             {
               "id": "GLE_COUPE",
               "name": {
-                "value": "GLE coupe",
+                "value": "GLE coupé",
                 "synonyms": [
-                  "g. l. e. coupe",
-                  "GLE63 S"
+                  "g. l. e. coupé",
+                  "g. l. e. 63  coupé",
+                  "g. l. e. 63 coupé",
+                  "g. l. e. 43 coupé",
+                  "g. l. e. 43 coupé"
                 ]
               }
             },
@@ -4842,12 +4482,9 @@
                 "value": "GLK class",
                 "synonyms": [
                   "g. l. k. class",
-                  "GLK280",
-                  "GLK300",
-                  "GLK350",
-                  "GLK280 4MATIC",
-                  "GLK300 4MATIC",
-                  "GLK350 4MATIC"
+                  "g. l. k. 250",
+                  "g. l. k. 300",
+                  "g. l. k. 350"
                 ]
               }
             },
@@ -4857,12 +4494,9 @@
                 "value": "GLS class",
                 "synonyms": [
                   "g. l. s. class",
-                  "GLS 450",
-                  "GLS 450 4MATIC",
-                  "GLS550",
-                  "GLS550 4MATIC",
-                  "GLS 63 AMG",
-                  "AMG CLS63"
+                  "g. l. s. 450",
+                  "g. l. s. 550",
+                  "g. l. s. 63"
                 ]
               }
             },
@@ -4878,12 +4512,13 @@
                 "value": "ML class",
                 "synonyms": [
                   "m. l. class",
-                  "ML320",
-                  "ML350",
-                  "ML 400",
-                  "ML 550",
-                  "ML 55 AMG",
-                  "ML 63 AMG"
+                  "m. l.  320",
+                  "m. l. 350",
+                  "m. l. 400",
+                  "m. l. 550",
+                  "m. l. 55",
+                  "m. l. 63",
+                  "m. l. 500"
                 ]
               }
             },
@@ -4902,16 +4537,14 @@
                 "value": "s class",
                 "synonyms": [
                   "s. class",
-                  "S320",
-                  "S400",
-                  "S65 AMG",
-                  "S450",
-                  "S400 HYBRID",
-                  "S280",
-                  "S300",
-                  "S500",
-                  "S550",
-                  "S600"
+                  "S 400",
+                  "S 65",
+                  "S 450",
+                  "S 63",
+                  "S 560",
+                  "S 500",
+                  "S 550",
+                  "S 600"
                 ]
               }
             },
@@ -4920,7 +4553,7 @@
               "name": {
                 "value": "s class AMG 63",
                 "synonyms": [
-                  "s. class a. m. g. s-sixty three"
+                  "s. class a. m. g. 63"
                 ]
               }
             },
@@ -4939,15 +4572,12 @@
                 "value": "SL class",
                 "synonyms": [
                   "s. l. class",
-                  "SL280",
-                  "SL350",
-                  "SL400",
-                  "SL450",
-                  "SL500",
-                  "SL600",
-                  "SL55 AMG",
-                  "SL63 AMG",
-                  "SL65 AMG"
+                  "s. l. 500",
+                  "s. l. 600",
+                  "s. l. 55",
+                  "s. l.  63",
+                  "s. l. 65",
+                  "s. l. 73"
                 ]
               }
             },
@@ -4957,10 +4587,8 @@
                 "value": "SLC class",
                 "synonyms": [
                   "s. l. c. class",
-                  "SLC 300 ROATSTER",
-                  "AMG SLC 43 ROADSTER",
-                  "SLC 300",
-                  "AMG SLC 43"
+                  "s. l. c. 300",
+                  "s. l . c. 43"
                 ]
               }
             },
@@ -4970,12 +4598,12 @@
                 "value": "SLK class",
                 "synonyms": [
                   "s. l. k. class",
-                  "SLK 200",
-                  "SLK 230",
-                  "SLK 280",
-                  "SKL 300",
-                  "SKL 350",
-                  "SLK 55 AMG"
+                  "s. l. k. 230",
+                  "s. l. k. 280",
+                  "s. l. k. 320",
+                  "s. k. l. 350",
+                  "s. l. k. 55",
+                  "s. l. k. 32"
                 ]
               }
             },
@@ -5121,27 +4749,15 @@
               }
             },
             {
-              "id": "ROUTE_STAR",
-              "name": {
-                "value": "route star"
-              }
-            },
-            {
               "id": "TRANSIT_350",
               "name": {
                 "value": "transit 350"
               }
             },
             {
-              "id": "TRUCK",
-              "name": {
-                "value": "truck"
-              }
-            },
-            {
               "id": "EX35",
               "name": {
-                "value": "EX 35",
+                "value": "E X 35",
                 "synonyms": [
                   "e. x. 35"
                 ]
@@ -5557,7 +5173,7 @@
             {
               "id": "SENTRA_SE-R",
               "name": {
-                "value": "sentra SER",
+                "value": "sentra S E R",
                 "synonyms": [
                   "sentra s. e. r."
                 ]
@@ -5566,7 +5182,7 @@
             {
               "id": "SENTRA_SE-R_SPEC_V",
               "name": {
-                "value": "sentra SER spec v.",
+                "value": "sentra S E R spec v.",
                 "synonyms": [
                   "sentra s. e. r. spec v."
                 ]
@@ -5876,18 +5492,6 @@
               }
             },
             {
-              "id": "AEROMASTER",
-              "name": {
-                "value": "aeromaster"
-              }
-            },
-            {
-              "id": "WALK-IN_VAN",
-              "name": {
-                "value": "walk-in van"
-              }
-            },
-            {
               "id": "DEVILLE_LIMOUSINE",
               "name": {
                 "value": "deville limousine"
@@ -6074,24 +5678,6 @@
               }
             },
             {
-              "id": "NEMA_10-30_ELECTRICAL_ADAPTER",
-              "name": {
-                "value": "nema 10-30 electrical adapter"
-              }
-            },
-            {
-              "id": "NEMA_14-30_ELECTRICAL_ADAPTER",
-              "name": {
-                "value": "nema 14-30 electrical adapter"
-              }
-            },
-            {
-              "id": "NEMA_6-50_ELECTRICAL_ADAPTER",
-              "name": {
-                "value": "nema 6-50 electrical adapter"
-              }
-            },
-            {
               "id": "ROADSTER_2.0",
               "name": {
                 "value": "roadster 2 point 0.",
@@ -6118,7 +5704,7 @@
             {
               "id": "ES_300",
               "name": {
-                "value": "ES 300",
+                "value": "E S 300",
                 "synonyms": [
                   "e. s. 300"
                 ]
@@ -6127,7 +5713,7 @@
             {
               "id": "ES_300H",
               "name": {
-                "value": "ES 300 h.",
+                "value": "E S 300 h.",
                 "synonyms": [
                   "e. s. 300 h."
                 ]
@@ -6136,7 +5722,7 @@
             {
               "id": "ES_330",
               "name": {
-                "value": "ES 330",
+                "value": "E S 330",
                 "synonyms": [
                   "e. s. 330"
                 ]
@@ -6145,7 +5731,7 @@
             {
               "id": "ES_350",
               "name": {
-                "value": "ES 350",
+                "value": "E S 350",
                 "synonyms": [
                   "e. s. 350"
                 ]
@@ -6244,7 +5830,7 @@
             {
               "id": "IS",
               "name": {
-                "value": "IS ",
+                "value": "I S ",
                 "synonyms": [
                   "i. s."
                 ]
@@ -6253,7 +5839,7 @@
             {
               "id": "IS_200",
               "name": {
-                "value": "IS 200",
+                "value": "I S 200",
                 "synonyms": [
                   "i. s. 200"
                 ]
@@ -6262,7 +5848,7 @@
             {
               "id": "IS_250",
               "name": {
-                "value": "IS 250",
+                "value": "I S 250",
                 "synonyms": [
                   "i. s. 250"
                 ]
@@ -6271,7 +5857,7 @@
             {
               "id": "IS_250C",
               "name": {
-                "value": "IS 250 c.",
+                "value": "I S 250 c.",
                 "synonyms": [
                   "i. s. 250 c."
                 ]
@@ -6280,7 +5866,7 @@
             {
               "id": "IS_300",
               "name": {
-                "value": "IS 300",
+                "value": "I S 300",
                 "synonyms": [
                   "i. s. 300"
                 ]
@@ -6289,7 +5875,7 @@
             {
               "id": "IS_350",
               "name": {
-                "value": "IS 350",
+                "value": "I S 350",
                 "synonyms": [
                   "i. s. 350"
                 ]
@@ -6298,7 +5884,7 @@
             {
               "id": "IS_350C",
               "name": {
-                "value": "IS 350 c.",
+                "value": "I S 350 c.",
                 "synonyms": [
                   "i. s. 350 c."
                 ]
@@ -6307,7 +5893,7 @@
             {
               "id": "IS_C",
               "name": {
-                "value": "ISC",
+                "value": "I SC",
                 "synonyms": [
                   "i. s. c."
                 ]
@@ -6316,7 +5902,7 @@
             {
               "id": "IS_F",
               "name": {
-                "value": "ISF",
+                "value": "I SF",
                 "synonyms": [
                   "i. s. f."
                 ]
@@ -6710,6 +6296,12 @@
               }
             },
             {
+              "id": "TRUCK",
+              "name": {
+                "value": "truck"
+              }
+            },
+            {
               "id": "TUNDRA",
               "name": {
                 "value": "tundra"
@@ -6734,78 +6326,6 @@
                 "synonyms": [
                   "yaris h. b."
                 ]
-              }
-            },
-            {
-              "id": "REACH",
-              "name": {
-                "value": "reach"
-              }
-            },
-            {
-              "id": "CHRYSLER_TOWN_&_COUNTRY_CONVERSION_TO_RT_MODEL",
-              "name": {
-                "value": "chrysler town & country conversion to rt model"
-              }
-            },
-            {
-              "id": "CHRYSLER_TOWN_&_COUNTRY_CONVERSION_TO_RTTX_MODEL",
-              "name": {
-                "value": "chrysler town & country conversion to rttx model"
-              }
-            },
-            {
-              "id": "CHRYSLER_TOWN_&_COUNTRY_CONVERSION_TO_TX+_MODEL",
-              "name": {
-                "value": "chrysler town & country conversion to tx+ model"
-              }
-            },
-            {
-              "id": "DODGE_CAVAVAN_CONVERSION_TO_TX+_MODEL",
-              "name": {
-                "value": "dodge cavavan conversion to tx+ model"
-              }
-            },
-            {
-              "id": "DODGE_GRAND_CARAVAN_CONVERSION_TO_RT_MODEL",
-              "name": {
-                "value": "dodge grand caravan conversion to rt model"
-              }
-            },
-            {
-              "id": "DODGE_GRAND_CARAVAN_CONVERSION_TO_RTTX_MODEL",
-              "name": {
-                "value": "dodge grand caravan conversion to rttx model"
-              }
-            },
-            {
-              "id": "CHRYSLER_PACIFICA",
-              "name": {
-                "value": "chrysler pacifica"
-              }
-            },
-            {
-              "id": "CHRYSLER_TOWN_AND_COUNTRY",
-              "name": {
-                "value": "chrysler town and country"
-              }
-            },
-            {
-              "id": "DODGE_GRAND_CARAVAN",
-              "name": {
-                "value": "dodge grand caravan"
-              }
-            },
-            {
-              "id": "FORD_FREESTAR",
-              "name": {
-                "value": "ford freestar"
-              }
-            },
-            {
-              "id": "HONDA_ODYSSEY_CONVERSION_TO_VMI_NORTHSTAR",
-              "name": {
-                "value": "honda odyssey conversion to vmi northstar"
               }
             },
             {
@@ -7350,6 +6870,249 @@
                   "x. c. 90"
                 ]
               }
+            },
+            {
+              "id": "MULSANNE",
+              "name": {
+                "value": "mulsanne"
+              }
+            },
+            {
+              "id": "124_SPIDER",
+              "name": {
+                "value": "124 spider"
+              }
+            },
+            {
+              "id": "488_PISTA",
+              "name": {
+                "value": "488 pista"
+              }
+            },
+            {
+              "id": "488_SPECIALE_A",
+              "name": {
+                "value": "488 speciale A"
+              }
+            },
+            {
+              "id": "488_SPIDER",
+              "name": {
+                "value": "488 spider"
+              }
+            },
+            {
+              "id": "812_SUPERFAST",
+              "name": {
+                "value": "812 superfast"
+              }
+            },
+            {
+              "id": "F12",
+              "name": {
+                "value": "F 12"
+              }
+            },
+            {
+              "id": "F60_AMERICA",
+              "name": {
+                "value": "F 60 america"
+              }
+            },
+            {
+              "id": "GTC4LUSSO",
+              "name": {
+                "value": "GTC 4 lusso",
+                "synonyms": [
+                  "g. t. c. 4 lusso"
+                ]
+              }
+            },
+            {
+              "id": "LAFERRARI_APERTA",
+              "name": {
+                "value": "laferrari aperta"
+              }
+            },
+            {
+              "id": "ECOSPORT",
+              "name": {
+                "value": "ecosport"
+              }
+            },
+            {
+              "id": "NAUTILUS",
+              "name": {
+                "value": "nautilus"
+              }
+            },
+            {
+              "id": "G90",
+              "name": {
+                "value": "G 90"
+              }
+            },
+            {
+              "id": "I-PACE",
+              "name": {
+                "value": "i-pace"
+              }
+            },
+            {
+              "id": "TELLURIDE",
+              "name": {
+                "value": "telluride"
+              }
+            },
+            {
+              "id": "540",
+              "name": {
+                "value": "540"
+              }
+            },
+            {
+              "id": "570",
+              "name": {
+                "value": "570"
+              }
+            },
+            {
+              "id": "650S",
+              "name": {
+                "value": "650 S"
+              }
+            },
+            {
+              "id": "675LT",
+              "name": {
+                "value": "675 LT",
+                "synonyms": [
+                  "675 l. t."
+                ]
+              }
+            },
+            {
+              "id": "MP4-12C",
+              "name": {
+                "value": "MP 4-12 C",
+                "synonyms": [
+                  "m. p. 4-12 C"
+                ]
+              }
+            },
+            {
+              "id": "P1",
+              "name": {
+                "value": "P 1"
+              }
+            },
+            {
+              "id": "A_CLASS",
+              "name": {
+                "value": "a class"
+              }
+            },
+            {
+              "id": "MAYBACH",
+              "name": {
+                "value": "maybach"
+              }
+            },
+            {
+              "id": "SPRINTER_4500",
+              "name": {
+                "value": "sprinter 4500"
+              }
+            },
+            {
+              "id": "QASHQAI",
+              "name": {
+                "value": "qashqai"
+              }
+            },
+            {
+              "id": "718_CAYMAN",
+              "name": {
+                "value": "718 cayman"
+              }
+            },
+            {
+              "id": "CAYENNE_E-HYBRID",
+              "name": {
+                "value": "cayenne e-hybrid"
+              }
+            },
+            {
+              "id": "PANAMERA_4_E-HYBRID",
+              "name": {
+                "value": "panamera 4 e-hybrid"
+              }
+            },
+            {
+              "id": "PANAMERA_E-HYBRID",
+              "name": {
+                "value": "panamera e-hybrid"
+              }
+            },
+            {
+              "id": "CROSSTREK",
+              "name": {
+                "value": "crosstrek"
+              }
+            },
+            {
+              "id": "LS_500",
+              "name": {
+                "value": "LS 500",
+                "synonyms": [
+                  "l. s. 500"
+                ]
+              }
+            },
+            {
+              "id": "LS_500H",
+              "name": {
+                "value": "LS 500 H",
+                "synonyms": [
+                  "l. s. 500 H"
+                ]
+              }
+            },
+            {
+              "id": "UX_250H",
+              "name": {
+                "value": "UX 250 H",
+                "synonyms": [
+                  "u. x. 250 H"
+                ]
+              }
+            },
+            {
+              "id": "A3_E-TRON",
+              "name": {
+                "value": "A 3 e-tron",
+                "synonyms": [
+                  "a. 3 e-tron"
+                ]
+              }
+            },
+            {
+              "id": "E-TRON",
+              "name": {
+                "value": "e-tron",
+                "synonyms": [
+                  "e. tron"
+                ]
+              }
+            },
+            {
+              "id": "Q8",
+              "name": {
+                "value": "Q 8",
+                "synonyms": [
+                  "q. 8"
+                ]
+              }
             }
           ],
           "name": "VehicleModel"
@@ -7425,9 +7188,9 @@
               "name": {
                 "value": "cadilac",
                 "synonyms": [
-                  "caddy",
                   "cadillac",
-                  "cadyak"
+                  "cadyak",
+                  "caddy"
                 ]
               }
             },
@@ -7885,1752 +7648,18 @@
         {
           "values": [
             {
-              "id": "ID",
               "name": {
-                "value": "VALUE",
-                "synonyms": [
-                  "SYNONYM"
-                ]
+                "value": "g. l."
               }
             },
             {
               "name": {
-                "value": "un point six",
-                "synonyms": [
-                  "un point six litres"
-                ]
+                "value": "s. i."
               }
             },
             {
               "name": {
-                "value": "un point sept",
-                "synonyms": [
-                  "un point spet litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "un point huit",
-                "synonyms": [
-                  "un point huit litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "un point huit turbo",
-                "synonyms": [
-                  "un point huit turbo"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux point zero",
-                "synonyms": [
-                  "deux point zero litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux point zero turbo",
-                "synonyms": [
-                  "deux point zero turbo"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux point cinq",
-                "synonyms": [
-                  "deux point cinq litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux point sept",
-                "synonyms": [
-                  "deux point sept litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux point huit",
-                "synonyms": [
-                  "deux point huit litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "trois point zero",
-                "synonyms": [
-                  "trois point zero litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "trois point deux",
-                "synonyms": [
-                  "trois point deux litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "trois quatre-vingts-deux"
-              }
-            },
-            {
-              "name": {
-                "value": "quatre point six",
-                "synonyms": [
-                  "quatre point six litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "quatre point huit",
-                "synonyms": [
-                  "quatre point huit litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "cinq point zero",
-                "synonyms": [
-                  "cinq litres litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "cinq point sept",
-                "synonyms": [
-                  "cinq point sept litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "six point zero",
-                "synonyms": [
-                  "six litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "six point deux",
-                "synonyms": [
-                  "six point deux litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "sept point three",
-                "synonyms": [
-                  "sept point three litres"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "A spec",
-                "synonyms": [
-                  "spec a"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "a. w. d.",
-                "synonyms": [
-                  "traction integrale"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "abarth"
-              }
-            },
-            {
-              "name": {
-                "value": "access cab",
-                "synonyms": [
-                  "cab access"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "all quatre"
-              }
-            },
-            {
-              "name": {
-                "value": "all terrain"
-              }
-            },
-            {
-              "name": {
-                "value": "all wheel drive"
-              }
-            },
-            {
-              "name": {
-                "value": "alltrac"
-              }
-            },
-            {
-              "name": {
-                "value": "AMG",
-                "synonyms": [
-                  "a. m. g."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "AT quatre",
-                "synonyms": [
-                  "a. t. quatre"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "autobiography"
-              }
-            },
-            {
-              "name": {
-                "value": "AWD",
-                "synonyms": [
-                  "a. w. d."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "base"
-              }
-            },
-            {
-              "name": {
-                "value": "big horn"
-              }
-            },
-            {
-              "name": {
-                "value": "black edition",
-                "synonyms": [
-                  "édition noir"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "black series",
-                "synonyms": [
-                  "séries noir"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "blackout"
-              }
-            },
-            {
-              "name": {
-                "value": "boss trois o. deux"
-              }
-            },
-            {
-              "name": {
-                "value": "bullitt"
-              }
-            },
-            {
-              "name": {
-                "value": "cabrio",
-                "synonyms": [
-                  "toit ouvrant"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "cargo van"
-              }
-            },
-            {
-              "name": {
-                "value": "CE",
-                "synonyms": [
-                  "c. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "city"
-              }
-            },
-            {
-              "name": {
-                "value": "club cab"
-              }
-            },
-            {
-              "name": {
-                "value": "club sport"
-              }
-            },
-            {
-              "name": {
-                "value": "cobra"
-              }
-            },
-            {
-              "name": {
-                "value": "comfortline"
-              }
-            },
-            {
-              "name": {
-                "value": "compétition"
-              }
-            },
-            {
-              "name": {
-                "value": "decapotable"
-              }
-            },
-            {
-              "name": {
-                "value": "coupe",
-                "synonyms": [
-                  "coupé"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "crew cab",
-                "synonyms": [
-                  "cabine crew"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "crewmax"
-              }
-            },
-            {
-              "name": {
-                "value": "cross country"
-              }
-            },
-            {
-              "name": {
-                "value": "CS",
-                "synonyms": [
-                  "c. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "cummins"
-              }
-            },
-            {
-              "name": {
-                "value": "custom"
-              }
-            },
-            {
-              "name": {
-                "value": "CVT",
-                "synonyms": [
-                  "c. v. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "d."
-              }
-            },
-            {
-              "name": {
-                "value": "denali"
-              }
-            },
-            {
-              "name": {
-                "value": "diesel"
-              }
-            },
-            {
-              "name": {
-                "value": "double cab"
-              }
-            },
-            {
-              "name": {
-                "value": "dually"
-              }
-            },
-            {
-              "name": {
-                "value": "duramax"
-              }
-            },
-            {
-              "name": {
-                "value": "DX",
-                "synonyms": [
-                  "d. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "e."
-              }
-            },
-            {
-              "name": {
-                "value": "e-tron",
-                "synonyms": [
-                  "e. tron"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ecoboost"
-              }
-            },
-            {
-              "name": {
-                "value": "ecodiesel"
-              }
-            },
-            {
-              "name": {
-                "value": "ecotec"
-              }
-            },
-            {
-              "name": {
-                "value": "eddie bauer"
-              }
-            },
-            {
-              "name": {
-                "value": "édition"
-              }
-            },
-            {
-              "name": {
-                "value": "e hybride"
-              }
-            },
-            {
-              "name": {
-                "value": "electric"
-              }
-            },
-            {
-              "name": {
-                "value": "élévation"
-              }
-            },
-            {
-              "name": {
-                "value": "énergi"
-              }
-            },
-            {
-              "name": {
-                "value": "ES",
-                "synonyms": [
-                  "e. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ESI",
-                "synonyms": [
-                  "e. s. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "EX",
-                "synonyms": [
-                  "e. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "execline"
-              }
-            },
-            {
-              "name": {
-                "value": "EXL",
-                "synonyms": [
-                  "e. x. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "EXR ",
-                "synonyms": [
-                  "e. x. r."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "EXT",
-                "synonyms": [
-                  "e. x. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "extended cab",
-                "synonyms": [
-                  "cabine allongée"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "f."
-              }
-            },
-            {
-              "name": {
-                "value": "f. sport"
-              }
-            },
-            {
-              "name": {
-                "value": "fastback"
-              }
-            },
-            {
-              "name": {
-                "value": "cinq porte"
-              }
-            },
-            {
-              "name": {
-                "value": "cinq litre"
-              }
-            },
-            {
-              "name": {
-                "value": "all four"
-              }
-            },
-            {
-              "name": {
-                "value": "quatre by quatre"
-              }
-            },
-            {
-              "name": {
-                "value": "four matic",
-                "synonyms": [
-                  "quatre matic"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "four motion",
-                "synonyms": [
-                  "quatre motion"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "quatre s.",
-                "synonyms": [
-                  "four s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "FX quatre",
-                "synonyms": [
-                  "f. x. quatre"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GL",
-                "synonyms": [
-                  "g. l"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GLE",
-                "synonyms": [
-                  "g. l. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GLI",
-                "synonyms": [
-                  "g. l. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GLS",
-                "synonyms": [
-                  "g. l. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GLT",
-                "synonyms": [
-                  "g. l. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "gran coupe"
-              }
-            },
-            {
-              "name": {
-                "value": "gran lusso"
-              }
-            },
-            {
-              "name": {
-                "value": "grand touring"
-              }
-            },
-            {
-              "name": {
-                "value": "grand tourismo"
-              }
-            },
-            {
-              "name": {
-                "value": "GS",
-                "synonyms": [
-                  "g. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GSI",
-                "synonyms": [
-                  "g. s. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GSL",
-                "synonyms": [
-                  "g. s. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GSR",
-                "synonyms": [
-                  "g. s. r."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GST",
-                "synonyms": [
-                  "g. s. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GT",
-                "synonyms": [
-                  "g. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GT line",
-                "synonyms": [
-                  "g. t. line"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GT quatre",
-                "synonyms": [
-                  "g. t. quatre"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GTS",
-                "synonyms": [
-                  "g. t. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GTX",
-                "synonyms": [
-                  "g. t. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GX",
-                "synonyms": [
-                  "g. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "GXL",
-                "synonyms": [
-                  "g. x. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "h."
-              }
-            },
-            {
-              "name": {
-                "value": "toit dur"
-              }
-            },
-            {
-              "name": {
-                "value": "harley davidson edition"
-              }
-            },
-            {
-              "name": {
-                "value": "hatch"
-              }
-            },
-            {
-              "name": {
-                "value": "hatchback"
-              }
-            },
-            {
-              "name": {
-                "value": "HD",
-                "synonyms": [
-                  "h. d."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "heavy duty"
-              }
-            },
-            {
-              "name": {
-                "value": "hellcat"
-              }
-            },
-            {
-              "name": {
-                "value": "Hemi"
-              }
-            },
-            {
-              "name": {
-                "value": "heritage"
-              }
-            },
-            {
-              "name": {
-                "value": "heritage édition"
-              }
-            },
-            {
-              "name": {
-                "value": "High Country"
-              }
-            },
-            {
-              "name": {
-                "value": "highline"
-              }
-            },
-            {
-              "name": {
-                "value": "HSE",
-                "synonyms": [
-                  "h. s. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "hybride"
-              }
-            },
-            {
-              "name": {
-                "value": "i."
-              }
-            },
-            {
-              "name": {
-                "value": "IL",
-                "synonyms": [
-                  "i. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "IPS",
-                "synonyms": [
-                  "i. p. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "is",
-                "synonyms": [
-                  "i. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "it",
-                "synonyms": [
-                  "i. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ix",
-                "synonyms": [
-                  "i. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "JK",
-                "synonyms": [
-                  "j. k."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "John cooper works"
-              }
-            },
-            {
-              "name": {
-                "value": "king cab",
-                "synonyms": [
-                  "cabine king"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "king ranch"
-              }
-            },
-            {
-              "name": {
-                "value": "KR",
-                "synonyms": [
-                  "k. r."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "l."
-              }
-            },
-            {
-              "name": {
-                "value": "laramie"
-              }
-            },
-            {
-              "name": {
-                "value": "laramie longhorn"
-              }
-            },
-            {
-              "name": {
-                "value": "lariat"
-              }
-            },
-            {
-              "name": {
-                "value": "LE",
-                "synonyms": [
-                  "l. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "LI",
-                "synonyms": [
-                  "l. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "limited"
-              }
-            },
-            {
-              "name": {
-                "value": "limited édition"
-              }
-            },
-            {
-              "name": {
-                "value": "line"
-              }
-            },
-            {
-              "name": {
-                "value": "liter"
-              }
-            },
-            {
-              "name": {
-                "value": "long box",
-                "synonyms": [
-                  "boite long",
-                  "caisse courte"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "Longhorn"
-              }
-            },
-            {
-              "name": {
-                "value": "lounge"
-              }
-            },
-            {
-              "name": {
-                "value": "LS",
-                "synonyms": [
-                  "l. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "LT",
-                "synonyms": [
-                  "l. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "LTZ",
-                "synonyms": [
-                  "l. t. z."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "lusso"
-              }
-            },
-            {
-              "name": {
-                "value": "luxury"
-              }
-            },
-            {
-              "name": {
-                "value": "lX",
-                "synonyms": [
-                  "l. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "lX speciale",
-                "synonyms": [
-                  "l. x. speciale"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "m"
-              }
-            },
-            {
-              "name": {
-                "value": "m-sport",
-                "synonyms": [
-                  "m. sport"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "m-tech",
-                "synonyms": [
-                  "m. tech"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "manual"
-              }
-            },
-            {
-              "name": {
-                "value": "mazdaspeed"
-              }
-            },
-            {
-              "name": {
-                "value": "midnight edition",
-                "synonyms": [
-                  "édition midnight"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "nismo"
-              }
-            },
-            {
-              "name": {
-                "value": "offroad"
-              }
-            },
-            {
-              "name": {
-                "value": "platinum"
-              }
-            },
-            {
-              "name": {
-                "value": "plug-in hybride",
-                "synonyms": [
-                  "hybride branchable"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "plus"
-              }
-            },
-            {
-              "name": {
-                "value": "polestar"
-              }
-            },
-            {
-              "name": {
-                "value": "power stroke"
-              }
-            },
-            {
-              "name": {
-                "value": "Powerwagon"
-              }
-            },
-            {
-              "name": {
-                "value": "première"
-              }
-            },
-            {
-              "name": {
-                "value": "premium"
-              }
-            },
-            {
-              "name": {
-                "value": "pro"
-              }
-            },
-            {
-              "name": {
-                "value": "pro quatre x"
-              }
-            },
-            {
-              "name": {
-                "value": "quadrifoglio"
-              }
-            },
-            {
-              "name": {
-                "value": "quattro"
-              }
-            },
-            {
-              "name": {
-                "value": "r. dynamic"
-              }
-            },
-            {
-              "name": {
-                "value": "r. line"
-              }
-            },
-            {
-              "name": {
-                "value": "r. spec"
-              }
-            },
-            {
-              "name": {
-                "value": "raptor"
-              }
-            },
-            {
-              "name": {
-                "value": "rebel"
-              }
-            },
-            {
-              "name": {
-                "value": "redline"
-              }
-            },
-            {
-              "name": {
-                "value": "réserve"
-              }
-            },
-            {
-              "name": {
-                "value": "roadster"
-              }
-            },
-            {
-              "name": {
-                "value": "RS",
-                "synonyms": [
-                  "r. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "RST",
-                "synonyms": [
-                  "r. s. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "RT",
-                "synonyms": [
-                  "r. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "RTX",
-                "synonyms": [
-                  "r. t. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "rubicon"
-              }
-            },
-            {
-              "name": {
-                "value": "s. line"
-              }
-            },
-            {
-              "name": {
-                "value": "sahara"
-              }
-            },
-            {
-              "name": {
-                "value": "scat pack"
-              }
-            },
-            {
-              "name": {
-                "value": "SE",
-                "synonyms": [
-                  "s. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "voiture tourisme",
-                "synonyms": [
-                  "sedan"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SEL",
-                "synonyms": [
-                  "s. e. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "shaker"
-              }
-            },
-            {
-              "name": {
-                "value": "shelby"
-              }
-            },
-            {
-              "name": {
-                "value": "shelby gt 350"
-              }
-            },
-            {
-              "name": {
-                "value": "shelby GT 500"
-              }
-            },
-            {
-              "name": {
-                "value": "SHO",
-                "synonyms": [
-                  "s. h. o."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "short box",
-                "synonyms": [
-                  "boite court",
-                  "caisse courte"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SI",
-                "synonyms": [
-                  "s. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "signature"
-              }
-            },
-            {
-              "name": {
-                "value": "sir"
-              }
-            },
-            {
-              "name": {
-                "value": "SL",
-                "synonyms": [
-                  "s. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SLE",
-                "synonyms": [
-                  "s. l. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SLT",
-                "synonyms": [
-                  "s. l. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "spécial"
-              }
-            },
-            {
-              "name": {
-                "value": "special edition",
-                "synonyms": [
-                  "édition spéciale"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "sport"
-              }
-            },
-            {
-              "name": {
-                "value": "sport s."
-              }
-            },
-            {
-              "name": {
-                "value": "sport touring"
-              }
-            },
-            {
-              "name": {
-                "value": "sport turismo"
-              }
-            },
-            {
-              "name": {
-                "value": "sport wagon"
-              }
-            },
-            {
-              "name": {
-                "value": "sportback"
-              }
-            },
-            {
-              "name": {
-                "value": "sportline"
-              }
-            },
-            {
-              "name": {
-                "value": "spyder"
-              }
-            },
-            {
-              "name": {
-                "value": "SR",
-                "synonyms": [
-                  "s. r."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SR cinq",
-                "synonyms": [
-                  "s. r. cinq"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRT",
-                "synonyms": [
-                  "s. r. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRT dix",
-                "synonyms": [
-                  "s. r. t. dix"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRT quatre",
-                "synonyms": [
-                  "s. r. t. quatre"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRT six",
-                "synonyms": [
-                  "s. r. t. six"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRT huit",
-                "synonyms": [
-                  "s. r. t. huit"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SRV",
-                "synonyms": [
-                  "s. r. v."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SS",
-                "synonyms": [
-                  "s. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ST",
-                "synonyms": [
-                  "s. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "STI",
-                "synonyms": [
-                  "s. t. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "summit"
-              }
-            },
-            {
-              "name": {
-                "value": "super snake"
-              }
-            },
-            {
-              "name": {
-                "value": "supercharged",
-                "synonyms": [
-                  "suralimenté"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SUV",
-                "synonyms": [
-                  "s. u. v."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SV",
-                "synonyms": [
-                  "s. v."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SVR",
-                "synonyms": [
-                  "s. v. r."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SVT",
-                "synonyms": [
-                  "s. v. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SX",
-                "synonyms": [
-                  "s. x."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SXL",
-                "synonyms": [
-                  "s. x. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "SXT",
-                "synonyms": [
-                  "s. x. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "t."
-              }
-            },
-            {
-              "name": {
-                "value": "t. a."
-              }
-            },
-            {
-              "name": {
-                "value": "t. cinq"
-              }
-            },
-            {
-              "name": {
-                "value": "t. six"
-              }
-            },
-            {
-              "name": {
-                "value": "t. huit"
-              }
-            },
-            {
-              "name": {
-                "value": "TDI",
-                "synonyms": [
-                  "t. d. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "tech",
-                "synonyms": [
-                  "téchnologie"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "TFSI",
-                "synonyms": [
-                  "t. f. s. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "TI",
-                "synonyms": [
-                  "t. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "titanium"
-              }
-            },
-            {
-              "name": {
-                "value": "touring"
-              }
-            },
-            {
-              "name": {
-                "value": "track"
-              }
-            },
-            {
-              "name": {
-                "value": "track Edition",
-                "synonyms": [
-                  "édition track"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "track pack"
-              }
-            },
-            {
-              "name": {
-                "value": "trackhawk"
-              }
-            },
-            {
-              "name": {
-                "value": "tradesman"
-              }
-            },
-            {
-              "name": {
-                "value": "trail"
-              }
-            },
-            {
-              "name": {
-                "value": "trailboss"
-              }
-            },
-            {
-              "name": {
-                "value": "trailhawk"
-              }
-            },
-            {
-              "name": {
-                "value": "TRD",
-                "synonyms": [
-                  "t. r. d."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "trendline"
-              }
-            },
-            {
-              "name": {
-                "value": "trofeo"
-              }
-            },
-            {
-              "name": {
-                "value": "TSI",
-                "synonyms": [
-                  "t. s. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "turbo"
-              }
-            },
-            {
-              "name": {
-                "value": "turbocharged",
-                "synonyms": [
-                  "turbocompressé"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "twin turbo"
-              }
-            },
-            {
-              "name": {
-                "value": "deux par quatre",
-                "synonyms": [
-                  "quatre roues motrices"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "deux porte"
-              }
-            },
-            {
-              "name": {
-                "value": "type r."
-              }
-            },
-            {
-              "name": {
-                "value": "type r. s."
+                "value": "s. v."
               }
             },
             {
@@ -9640,186 +7669,17 @@
             },
             {
               "name": {
-                "value": "unlimited",
-                "synonyms": [
-                  "illimité"
-                ]
+                "value": "g. t. "
               }
             },
             {
               "name": {
-                "value": "v."
+                "value": "s. t. "
               }
             },
             {
               "name": {
-                "value": "v-spec"
-              }
-            },
-            {
-              "name": {
-                "value": "v. six"
-              }
-            },
-            {
-              "name": {
-                "value": "v. huit"
-              }
-            },
-            {
-              "name": {
-                "value": "v-tech"
-              }
-            },
-            {
-              "name": {
-                "value": "wagon",
-                "synonyms": [
-                  "familiale"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "work truck"
-              }
-            },
-            {
-              "name": {
-                "value": "WT",
-                "synonyms": [
-                  "w. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "x."
-              }
-            },
-            {
-              "name": {
-                "value": "x. drive"
-              }
-            },
-            {
-              "name": {
-                "value": "XD",
-                "synonyms": [
-                  "x. d."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XE",
-                "synonyms": [
-                  "x. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XI",
-                "synonyms": [
-                  "x. i."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XL",
-                "synonyms": [
-                  "x. l."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XLE",
-                "synonyms": [
-                  "x. l. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XLS",
-                "synonyms": [
-                  "x. l. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XLT",
-                "synonyms": [
-                  "x. l. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XRS",
-                "synonyms": [
-                  "x. r. s."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XSE",
-                "synonyms": [
-                  "x. s. e."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "XT",
-                "synonyms": [
-                  "x. t."
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "z. 0. six.",
-                "synonyms": [
-                  "z. o. six"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "z. seventy-one",
-                "synonyms": [
-                  "Z soixante onze"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ZL un",
-                "synonyms": [
-                  "z. l. un"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ZR un",
-                "synonyms": [
-                  "z. r. un"
-                ]
-              }
-            },
-            {
-              "name": {
-                "value": "ZR quatre",
-                "synonyms": [
-                  "z. r. quatre"
-                ]
+                "value": "s."
               }
             }
           ],
@@ -9888,7 +7748,7 @@
         {
           "values": [
             {
-              "id": "HUMMER",
+              "id": "1_SERIES",
               "name": {
                 "value": "1 séries",
                 "synonyms": [
@@ -9905,7 +7765,7 @@
               }
             },
             {
-              "id": "DB11",
+              "id": "2_SERIES",
               "name": {
                 "value": "2 séries",
                 "synonyms": [
@@ -9925,7 +7785,7 @@
               }
             },
             {
-              "id": "DB7_VANTAGE",
+              "id": "3_SERIES",
               "name": {
                 "value": "3 séries",
                 "synonyms": [
@@ -9941,13 +7801,13 @@
                   "328 d.",
                   "330 d.",
                   "335 d.",
-                  "M. 3",
+                  "m. 3",
                   "323"
                 ]
               }
             },
             {
-              "id": "DB7_VANTAGE_COUPE",
+              "id": "4_SERIES",
               "name": {
                 "value": "4 séries",
                 "synonyms": [
@@ -9962,7 +7822,7 @@
               }
             },
             {
-              "id": "DB7_VANTAGE_VOLANTE",
+              "id": "5_SERIES",
               "name": {
                 "value": "5 séries",
                 "synonyms": [
@@ -9980,7 +7840,7 @@
               }
             },
             {
-              "id": "DB9",
+              "id": "6_SERIES",
               "name": {
                 "value": "6 séries",
                 "synonyms": [
@@ -9995,7 +7855,7 @@
               }
             },
             {
-              "id": "DBS",
+              "id": "7_SERIES",
               "name": {
                 "value": "7 séries",
                 "synonyms": [
@@ -10011,12 +7871,12 @@
                   "750 l. i.",
                   "m. 760 l. i.",
                   "760 i.",
-                  "ALPINA B. 7"
+                  "alpina b. 7"
                 ]
               }
             },
             {
-              "id": "DBS_COUPE",
+              "id": "I3",
               "name": {
                 "value": "i 3",
                 "synonyms": [
@@ -10025,7 +7885,7 @@
               }
             },
             {
-              "id": "ONE-77",
+              "id": "I8",
               "name": {
                 "value": "i 8",
                 "synonyms": [
@@ -10034,7 +7894,7 @@
               }
             },
             {
-              "id": "RAPIDE",
+              "id": "X1",
               "name": {
                 "value": "x 1",
                 "synonyms": [
@@ -10043,7 +7903,7 @@
               }
             },
             {
-              "id": "RAPIDE_S",
+              "id": "X2",
               "name": {
                 "value": "x 2",
                 "synonyms": [
@@ -10052,7 +7912,7 @@
               }
             },
             {
-              "id": "V12_VANTAGE",
+              "id": "X3",
               "name": {
                 "value": "x 3",
                 "synonyms": [
@@ -10061,7 +7921,7 @@
               }
             },
             {
-              "id": "V12_VANTAGE_S",
+              "id": "X4",
               "name": {
                 "value": "x 4",
                 "synonyms": [
@@ -10070,7 +7930,7 @@
               }
             },
             {
-              "id": "V8_VANTAGE_S",
+              "id": "X5",
               "name": {
                 "value": "x 5",
                 "synonyms": [
@@ -10079,7 +7939,7 @@
               }
             },
             {
-              "id": "VANQUISH",
+              "id": "X6",
               "name": {
                 "value": "x 6",
                 "synonyms": [
@@ -10088,7 +7948,16 @@
               }
             },
             {
-              "id": "VANQUISH_S",
+              "id": "X7",
+              "name": {
+                "value": "x 7",
+                "synonyms": [
+                  "x. 7"
+                ]
+              }
+            },
+            {
+              "id": "Z4",
               "name": {
                 "value": "z 4",
                 "synonyms": [
@@ -10097,7 +7966,7 @@
               }
             },
             {
-              "id": "VANQUISH_V12",
+              "id": "Z8",
               "name": {
                 "value": "z 8",
                 "synonyms": [
@@ -10124,7 +7993,14 @@
               "confirmationRequired": false,
               "prompts": {
                 "elicitation": "Elicit.Slot.119229159979.19353673195"
-              }
+              },
+              "validations": [
+                {
+                  "type": "isGreaterThanOrEqualTo",
+                  "prompt": "Slot.Validation.752068948902.1106344739030.703088137417",
+                  "value": "1970"
+                }
+              ]
             },
             {
               "name": "make",
@@ -10150,6 +8026,20 @@
             {
               "name": "article",
               "type": "GrammarArticle",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "multipleChoiceNoResponse",
+              "type": "MultipleChoiceNoResponse",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "BMWModel",
+              "type": "BMWModel",
               "elicitationRequired": false,
               "confirmationRequired": false,
               "prompts": {}
@@ -10384,11 +8274,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "super, quel est le modèle de ton {make} ?"
+            "value": "super, quel est le modèle de ton véhicule {make} ?"
           },
           {
             "type": "PlainText",
-            "value": "ok, quel est le modèle de ton {make} ?"
+            "value": "ok, quel est le modèle de ton véhicule {make}  ?"
           },
           {
             "type": "PlainText",
@@ -10435,15 +8325,24 @@
           },
           {
             "type": "PlainText",
-            "value": "ok, quel est le modèle de ton {make} ?"
+            "value": "ok, quel est le modèle de ton véhicule {make} ?"
           },
           {
             "type": "PlainText",
-            "value": "super, quel est le modèle de ton {make} ?"
+            "value": "super, quel est le modèle de ton véhicule {make} ?"
+          }
+        ]
+      },
+      {
+        "id": "Slot.Validation.752068948902.1106344739030.703088137417",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "Je m'excuse, j'avais entendu {year} , mais mes données remontent seulement à mille neuf cent soixante-dix. Quelle est l'année de ton véhicule?"
           }
         ]
       }
     ]
   },
-  "version": "43"
+  "version": "35"
 }
