@@ -11,7 +11,8 @@ install:
   - cd lambda/custom && npm install && cd ../..
 
 env:
-- VRDB_API_CANADA_USER_KEY = ${env:VRDB_API_CANADA_USER_KEY}
+  - VRDB_API_CANADA_USER_KEY = echo $VRDB_API_CANADA_USER_KEY
+# - VRDB_API_CANADA_USER_KEY = ${env:VRDB_API_CANADA_USER_KEY}
 
 
 script:
