@@ -25,7 +25,6 @@ const RECALL_NUMBER = '/recall-number/'
 // each recall has an array of objects with properties of interest
 // 'http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall/make-name/honda/model-name/accord/year-range/2014-2014?format=json
 async function GetRecalls (make, model, year, sessionId) {
-
   const url = HOST + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year
 
   try {
@@ -37,7 +36,7 @@ async function GetRecalls (make, model, year, sessionId) {
     response = await response.json()
     const apiEnd = (new Date()).getTime()
 
-    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Recalls API Query Call', request: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
+    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Recalls API Query Call', requestURI: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
 
     let recalls = []
 
@@ -65,14 +64,13 @@ async function GetRecalls (make, model, year, sessionId) {
     console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'GetRecalls Function Total Execution Time', executionTimeMilliSeconds: functionEnd - functionStart, notes: 'measuring function time' }))
     return recalls.sort(compare)
   } catch (error) {
-    console.error('RECALL API CALL FAILED', { sessionId: sessionId, request: url, error: error })
+    console.error('RECALL API CALL FAILED', { sessionId: sessionId, requestURI: url, error: error })
     throw error
   }
 }
 
 // http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall-summary/recall-number/1977043?format=json
 async function GetRecallDetails (recallNumber, locale, sessionId) {
-
   const url = HOST + RECALL_SUMMARY + RECALL_NUMBER + recallNumber
 
   try {
@@ -84,7 +82,7 @@ async function GetRecallDetails (recallNumber, locale, sessionId) {
     response = await response.json()
 
     const apiEnd = (new Date()).getTime()
-    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Summary Query API Call', request: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
+    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Summary Query API Call', requestURI: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
 
     // TODO: make a class
     // FIXME: remove time from date
@@ -142,11 +140,11 @@ async function GetRecallDetails (recallNumber, locale, sessionId) {
       }
     }
     const functionEnd = (new Date()).getTime()
-    console.log(new ApiPerformanceLog({ sessionId: 1, measuring: 'GetRecallDetails Function Total Execution Time', executionTimeMilliSeconds: functionEnd - functionStart, notes: 'measuring function time' }))
+    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'GetRecallDetails Function Total Execution Time', executionTimeMilliSeconds: functionEnd - functionStart, notes: 'measuring function time' }))
 
     return recallDetails
   } catch (error) {
-    console.error('RECALL API CALL FAILED', { sessionId: sessionId, request: url, error: error })
+    console.error('RECALL API CALL FAILED', { sessionId: sessionId, requestURI: url, error: error })
     throw error
   }
 }

@@ -1,6 +1,6 @@
 
 const PhoneNumber = require('../models/user').PhoneNumber
-const ApiPerformanceLog = require('../models/apiPerformanceLog')
+const ApiPerformanceLog = require('../models/apiPerformanceLog').ApiPerformanceLog
 const API_SEARCH_RESULT = require('../constants').API_SEARCH_RESULT
 // Constants specific to handler.
 const PERMISSIONS = ['alexa::profile:mobile_number:read']
@@ -35,7 +35,7 @@ async function GetMobileNumber (handlerInput) {
     const number = await client.getProfileMobileNumber()
     const apiEnd = (new Date()).getTime()
 
-    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Profile Phone Number Query API Call', request: null, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring api time' }))
+    console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Profile Phone Number Query API Call', executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring api time' }))
 
     if (number == null) {
       phoneNumber.apiRetrievalResult = API_SEARCH_RESULT.NotFound
