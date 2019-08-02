@@ -287,7 +287,7 @@ function BuildSimilarModelsString (recalls, targetedModelName, requestAttributes
 
     if (forSpeech) {
       const multipleChoice = `${uniqueModels.slice(0, -1).join(', <break time="200ms"/> ')}${(uniqueModels.length > 1 ? ` <break time="200ms"/> ${requestAttributes.t(`OR`)} ` : '')}${uniqueModels.slice(-1)[0]}`
-      return `${multipleChoice} ${requestAttributes.t(`OR`)} <break time="100ms"/> ${noToMultipleChoiceString}`
+      return `${multipleChoice} <break time="100ms"/> ${requestAttributes.t(`OR`)} ${noToMultipleChoiceString}`
     } else {
       const multipleChoice = `${uniqueModels.slice(0, -1).join(', ')}${(uniqueModels.length > 1 ? ` ${requestAttributes.t(`OR`)} ` : '')}${uniqueModels.slice(-1)[0]}`
       return `${multipleChoice} ${requestAttributes.t(`OR`)} ${noToMultipleChoiceString}`
