@@ -96,7 +96,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
       
-    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_FOUND_TITLE')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
@@ -204,7 +204,7 @@ const AmbigiousHandler = {
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
-      const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE')
+      const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
