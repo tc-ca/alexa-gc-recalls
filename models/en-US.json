@@ -4442,7 +4442,7 @@
             {
               "id": "METRIS",
               "name": {
-                "value": "metris"
+                "value": "Metris"
               }
             },
             {
@@ -4476,23 +4476,14 @@
                 "value": "S class",
                 "synonyms": [
                   "s. class",
-                  "es four hundred",
-                  "es sixty-five",
-                  "es four fifty",
-                  "es sixty-three",
-                  "es five sixty",
-                  "es five hundred",
-                  "es five fifty",
-                  "es six hundred"
-                ]
-              }
-            },
-            {
-              "id": "S_CLASS_AMG_S63",
-              "name": {
-                "value": "S class AMG s-sixty three",
-                "synonyms": [
-                  "s. class a. m. g. s-sixty three"
+                  "S four hundred",
+                  "S sixty-five",
+                  "S four fifty",
+                  "S sixty-three",
+                  "S five sixty",
+                  "S five hundred",
+                  "S five fifty",
+                  "S six hundred"
                 ]
               }
             },
@@ -8258,5 +8249,5 @@
       }
     ]
   },
-  "version": "13"
+  "version": "14"
 }
