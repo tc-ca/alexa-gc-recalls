@@ -33,7 +33,7 @@ module.exports = {
     ],
 
     CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'Quelle est la marque de ton véhicule?',
-    CARD_TXT_VEHICLE_WELCOME_TITLE: 'I need a title',
+    CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recherche',
 
     // LAUNCH REPROMPT
     SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est la marque de ton véhicule?`,
@@ -44,7 +44,7 @@ module.exports = {
     // COMFIRMATION OF MAKE, MODEL, AND YEAR
     SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour confirmer, est-ce que tu cherches un véhicule ${VEHICLE_SPEECH_VERSION}?`,
     CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Juste pour confirmer, est-ce que tu cherches un véhicule ${VEHICLE_CARD_VERSION}?`,
-    CARD_TXT_VEHCILE_COMFIRM_TITLE: `I need a title`,
+    CARD_TXT_VEHCILE_COMFIRM_TITLE: `Vérification`,
 
     // SEARCH RESULT STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai trouvé aucun rappel associé à ton véhicule dans notre système.`,
@@ -52,7 +52,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur les rappels par texto.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Désolé, je n’ai aucune information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore une assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Humm... J’ai trouvé plusieurs modèles pour ${VEHICLE_SPEECH_VERSION}.`,
-    CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `i need a title`,
+    CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Résultats`,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Veux-tu que je trouve les rappels de sécurité pour un autre véhicule?`,
