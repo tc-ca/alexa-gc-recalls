@@ -1,29 +1,35 @@
 'use strict'
 
-const PROD_VRDB_API_KEY = process.env.VRDB_API_CANADA_USER_KEY
+// TODO: switch node fetch to axios
 
+
+const API_KEY = process.env.VRDB_API_CANADA_USER_KEY
 const fetch = require('node-fetch')
 
 const Recall = require('../models/recall').Recall
 const RecallSummary = require('../models/recall').RecallSummary
 const ApiPerformanceLog = require('../models/apiPerformanceLog').ApiPerformanceLog
 
-// https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall-summary/recall-number/2018001
 const HOST = 'https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/'
-// const PATH = '/v1.3/api/eng/vehicle-recall-database/'
 const RECALL = 'recall'
 const MAKE_NAME = '/make-name/'
 const MODEL_NAME = '/model-name/'
 const YEAR_RANGE = '/year-range/'
 const RECALL_SUMMARY = '/recall-summary/'
 const RECALL_NUMBER = '/recall-number/'
-const apiKey = process.env.UNIT_TEST? 'SOME_DEV_KEY': PROD_VRDB_API_KEY
-// todo clean up api calls
-// todo switch node fetch to axios
 
-// returns an array of recalls
-// each recall has an array of objects with properties of interest
-// 'http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall/make-name/honda/model-name/accord/year-range/2014-2014?format=json
+
+/**
+ * Returns an array of recalls
+ * Each recall has an array of objects with properties of interest
+ * Sample URL:  'https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall/make-name/honda/model-name/accord/year-range/2014-2014?format=json
+ *
+ * @param {*} make
+ * @param {*} model
+ * @param {*} year
+ * @param {*} sessionId
+ * @returns
+ */
 async function GetRecalls (make, model, year, sessionId) {
   const url = HOST + RECALL + MAKE_NAME + make + MODEL_NAME + model + YEAR_RANGE + year + '-' + year
 
@@ -31,7 +37,7 @@ async function GetRecalls (make, model, year, sessionId) {
     const functionStart = (new Date()).getTime()
 
     const apiStart = (new Date()).getTime()
-    let response = await fetch(url, { headers: { 'user-key':apiKey } })
+    let response = await fetch(url, { headers: { 'user-key':API_KEY } })
 
     response = await response.json()
     const apiEnd = (new Date()).getTime()
@@ -69,7 +75,17 @@ async function GetRecalls (make, model, year, sessionId) {
   }
 }
 
-// http://data.tc.gc.ca/v1.3/api/eng/vehicle-recall-database/recall-summary/recall-number/1977043?format=json
+// 
+
+
+/**
+ * Returns detail information on a specific recall
+ * Sample URL: https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall-summary/recall-number/2018001
+ * @param {*} recallNumber
+ * @param {*} locale
+ * @param {*} sessionId 
+ * @returns
+ */
 async function GetRecallDetails (recallNumber, locale, sessionId) {
   const url = HOST + RECALL_SUMMARY + RECALL_NUMBER + recallNumber
 
@@ -78,18 +94,14 @@ async function GetRecallDetails (recallNumber, locale, sessionId) {
 
     const apiStart = (new Date()).getTime()
 
-    let response = await fetch(url, { headers: { 'user-key': apiKey } })
+    let response = await fetch(url, { headers: { 'user-key': API_KEY } })
     response = await response.json()
 
     const apiEnd = (new Date()).getTime()
     console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Summary Query API Call', requestURI: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
 
-    // TODO: make a class
-    // FIXME: remove time from date
     let recallDetails = new RecallSummary()
 
-    // TODO:  add other available properties to object.
-    // TODO: add some default value to switch statement.
     // result set returns model(s) (plural) affected by the targeted recall
     // outer loops through models affected by the targeted recall
     // outer loop only needs to loop once as the recall details does not change on various affected models.
