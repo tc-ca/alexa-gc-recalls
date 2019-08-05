@@ -91,7 +91,22 @@ configuration:
   - sessionAttributes.VehicleConversation.searchFindings: 3
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 0
 
+---
+- test.only: search for vehicle recall (DATE IN GOOD FORMAT)
+- AMAZON.YesIntent: 
+  - request.session.attributes.CurrentIntentLocation: SearchForVehicleRecallIntent
+  - request.session.attributes.VehicleConversation.followUpQuestionCode: 8 
+  - request.session.attributes.VehicleConversation.vehicle.make: FORD
+  - request.session.attributes.VehicleConversation.vehicle.makeSpeechText: ford 
+  - request.session.attributes.VehicleConversation.vehicle.model: EXPLORER
+  - request.session.attributes.VehicleConversation.vehicle.modelSpeechText: explorer
+  - request.session.attributes.VehicleConversation.vehicle.year: 2017
+  - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
 
+  - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
+  - sessionAttributes.VehicleConversation.recallsDetails[0].recallNumber: 2019280 # reference specific recall for test
+  - sessionAttributes.VehicleConversation.recallsDetails[0].recallDate: 11/6/2019 # ensure alexa reads date in the following way day/month/year i.e. June 6, 2019
+ 
 
 # Testing Filtering of Recalls.
 # There are 4 recalls affecting 2009 honda civic, 3 recalls specific to 2009 honda civic and 1 recall specific to honda civic hybrid
@@ -119,7 +134,7 @@ configuration:
   
   # Assert
   - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
-  - response.outputSpeech.ssml:   <speak>Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time="200ms"/> or CIVIC HYBRID or <break time="100ms"/> neither?</speak>
+  - response.outputSpeech.ssml:   <speak>Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time="200ms"/> or CIVIC HYBRID <break time="100ms"/> or neither?</speak>
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
   - sessionAttributes.VehicleConversation.searchFindings: 4
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 7
@@ -150,7 +165,7 @@ configuration:
   
   # Assert
   - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
-  - response.outputSpeech.ssml: <speak>Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time="200ms"/> or CIVIC HYBRID or <break time="100ms"/> neither?</speak>
+  - response.outputSpeech.ssml: <speak>Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC <break time="200ms"/> or CIVIC HYBRID <break time="100ms"/> or neither?</speak>
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
   - sessionAttributes.VehicleConversation.searchFindings: 4
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 7
