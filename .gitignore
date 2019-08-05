@@ -5,3 +5,4 @@ node_modules
 test_output
 bst-debug.log
 .favorites.json
+.env
