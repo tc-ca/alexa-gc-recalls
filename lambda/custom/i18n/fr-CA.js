@@ -48,16 +48,22 @@ module.exports = {
 
     // SEARCH RESULT STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n’ai trouvé aucun rappel associé à ton véhicule dans notre système.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur le rappel par texto.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}. Je t'ai envoyé l’information sur les rappels par texto.`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `J’ai trouvé un rappel qui pourrait affecter ton véhicule ${VEHICLE_SPEECH_VERSION}.`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `J’ai trouvé ${RECALL_COUNT} rappels qui pourraient affecter ton véhicule ${VEHICLE_SPEECH_VERSION}.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Désolé, je n’ai aucune information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore une assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Humm... J’ai trouvé plusieurs modèles pour ${VEHICLE_SPEECH_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Résultats`,
 
+    //SPEECH PHONE NUMBER
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVED:`I've sent you a text message with your vehicle ${PHONEMES.recall} information,`, // i need translation
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `If you'd like to receive a text message with the search results, you'll need to provide permission to access your mobile number through the skill settings. I've sent some information to your Alexa app to help you get started. In the meantime,`, // i need translation
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND:`If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`, // i need translation
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
+
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Veux-tu que je trouve les rappels de sécurité pour un autre véhicule?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `Veux-tu que je te lis le rappel?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `Veux-tu que te je lise les rappels?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `veux-tu que je te lis le rappel?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `veux-tu que te je lise les rappels?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`,
     AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `aucun de ces modèles`,
     AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `aucun de ces modèles`,
