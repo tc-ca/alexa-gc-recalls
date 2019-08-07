@@ -54,18 +54,18 @@ module.exports = {
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... I've found a few different models of ${VEHICLE_SPEECH_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Search Results`,
 
-    //SPEECH PHONE NUMBER
-    SPEECH_TXT_PHONE_NUMBER_RETRIEVED:`I've sent you a text message with your vehicle ${PHONEMES.recall} information,`,
+    // SPEECH PHONE NUMBER
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `I've sent you a text message with your vehicle ${PHONEMES.recall} information,`,
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `If you'd like to receive a text message with the search results, you'll need to provide permission to access your mobile number through the skill settings. I've sent some information to your Alexa app to help you get started. In the meantime,`,
-    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND:`If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`,
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`,
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
 
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Would you like to search for another vehicle ${PHONEMES.recall}?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `would you like me to read it to you?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `would you like me to read it to you?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `would you like me to read them to you?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `would you like me to read them to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Is yours a ${AMBIGIOUS_MODELS}?`,
 
     // Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC or CIVIC HYBRID or neither?

@@ -54,10 +54,10 @@ module.exports = {
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Humm... J’ai trouvé plusieurs modèles pour ${VEHICLE_SPEECH_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Résultats`,
 
-    //SPEECH PHONE NUMBER
-    SPEECH_TXT_PHONE_NUMBER_RETRIEVED:`I've sent you a text message with your vehicle ${PHONEMES.recall} information,`, // i need translation
+    // SPEECH PHONE NUMBER
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `I've sent you a text message with your vehicle recall information,`, // i need translation
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `If you'd like to receive a text message with the search results, you'll need to provide permission to access your mobile number through the skill settings. I've sent some information to your Alexa app to help you get started. In the meantime,`, // i need translation
-    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND:`If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`, // i need translation
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`, // i need translation
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
@@ -91,7 +91,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Désolé, ce n'est pas l'information que je cherchais.`,
 
     // SMS MESSAGE
-    VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 0 rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir cela à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`, 
+    VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 0 rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir cela à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
     VEHICLE_RECALL_TEXT_FOUND_ONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 1 rappel pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} à été trouvé. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
     VEHICLE_RECALL_TEXT_FOUND_MULTIPLE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. ${RECALL_COUNT} rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir plus d'information à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
 
