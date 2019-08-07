@@ -32,8 +32,8 @@ module.exports = {
       `Hi there! I'm your Canadian Safety ${PHONEMES.recalls} Assistant, and I can help you find your vehicle ${PHONEMES.recall} information. Let's start.`
     ],
 
-    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'What is your make?',
-    CARD_TXT_VEHICLE_WELCOME_TITLE: 'I need a title',
+    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'What make is your vehicle?',
+    CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recall Search',
 
     // LAUNCH REPROMPT
     SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `What brand makes your model?`,
@@ -44,20 +44,28 @@ module.exports = {
     // COMFIRMATION OF MAKE, MODEL, AND YEAR
     SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Just to make sure I understood correctly, are you looking for a ${VEHICLE_SPEECH_VERSION}?`,
     CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR: `Just to make sure I understood correctly, are you looking for a ${VEHICLE_CARD_VERSION}?`,
-    CARD_TXT_VEHCILE_COMFIRM_TITLE: `I need a title`,
+    CARD_TXT_VEHCILE_COMFIRM_TITLE: `Confirmation`,
 
     // SEARCH RESULT STRINGS FOR SPEECH
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NONE: `There are no ${PHONEMES.recalls} associated with your vehicle in our system.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `I've found a ${PHONEMES.recall} that may affect your ${VEHICLE_SPEECH_VERSION}. I've sent you a text message with your vehicle ${PHONEMES.recall} information.`,
-    SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `I've found ${RECALL_COUNT} ${PHONEMES.recalls} that may affect your ${VEHICLE_SPEECH_VERSION}. I've sent you a text message with your vehicle ${PHONEMES.recall} information.`,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_ONE: `I've found a ${PHONEMES.recall} that may affect your ${VEHICLE_SPEECH_VERSION}. `,
+    SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `I've found ${RECALL_COUNT} ${PHONEMES.recalls} that may affect your ${VEHICLE_SPEECH_VERSION}.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `I'm sorry. I don't have any information on your ${VEHICLE_SPEECH_VERSION} at the moment. I'm still a voice assistant in training. Please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer suppport at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help.`,
     SPEECH_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... I've found a few different models of ${VEHICLE_SPEECH_VERSION}.`,
-    CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `i need a title`,
+    CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Search Results`,
+
+    //SPEECH PHONE NUMBER
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVED:`I've sent you a text message with your vehicle ${PHONEMES.recall} information,`,
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `If you'd like to receive a text message with the search results, you'll need to provide permission to access your mobile number through the skill settings. I've sent some information to your Alexa app to help you get started. In the meantime,`,
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND:`If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`,
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
+
+
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Would you like to search for another vehicle ${PHONEMES.recall}?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `Would you like me to read it to you?`,
-    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `Would you like me to read it to you?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `would you like me to read it to you?`,
+    SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE: `would you like me to read it to you?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Is yours a ${AMBIGIOUS_MODELS}?`,
 
     // Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC or CIVIC HYBRID or neither?
