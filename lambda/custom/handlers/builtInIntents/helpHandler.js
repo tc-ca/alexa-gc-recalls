@@ -26,6 +26,8 @@ const GetHelpHandler = {
     const sessionAttributes = attributesManager.getSessionAttributes()
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_GET_HELP')
+    const cardText = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE')
 
     HELPER.SetTrace({
       handlerName: 'GetHelpHandler',
@@ -35,7 +37,7 @@ const GetHelpHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
-      // .withSimpleCard('Hello World', speechText)
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(true)
       .getResponse()
   }
