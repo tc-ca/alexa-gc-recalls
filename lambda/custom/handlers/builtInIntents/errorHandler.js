@@ -14,6 +14,8 @@ const GlobalErrorHandler = {
     const sessionId = requestEnvelope.session.sessionId
 
     const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE')
+    const cardText = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE')
 
     console.error('ERROR HANDLED', { sessionId: sessionId, error: error })
 
@@ -25,6 +27,7 @@ const GlobalErrorHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(true)
       .getResponse()
   }
