@@ -64,7 +64,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
     // look for recalls based on previously collected slot values.
     const recalls = await SERVICES.TC_RECALLS_API.GetRecalls(vehicleRecallConversation.vehicle.make, vehicleRecallConversation.vehicle.model, vehicleRecallConversation.vehicle.year, sessionId)
 
-    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
+    const recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
 
     // Return findings of search and retrieves the appropriate follow up question
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
@@ -74,7 +74,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       recalls: recalls,
       recallsDetails: recallsDetails })
       .saySearchFinding()
-      .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState })
+      .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState, userPhoneNumber: sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] })
       .buildSpeech()
 
     console.log(new IsSuccessLog({ sessionId: sessionId, makeModelYearIsVerified: true, targetedVehicle: vehicleRecallConversation.vehicle, isAmbiguous: VehicleRecallConvo.searchFindings === 4, recalls: VehicleRecallConvo.recalls }))
@@ -95,15 +95,43 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
-      
+
     const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
 
-    return handlerInput.responseBuilder
-      .speak(`<speak>${speechText}</speak>`)
-      .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardTitle, cardText)
-      .withShouldEndSession(false)
-      .getResponse()
+    switch (sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER].apiRetrievalResult) {
+      case API_SEARCH_RESULT.Found:
+        return handlerInput.responseBuilder
+          .speak(`<speak>${speechText}</speak>`)
+          .reprompt(`<speak>${speechText}</speak>`)
+          .withSimpleCard(cardTitle, cardText)
+          .withShouldEndSession(false)
+          .getResponse()
+      case API_SEARCH_RESULT.NoPermission:
+
+        return handlerInput.responseBuilder
+          .speak(`<speak>${speechText}</speak>`)
+          .reprompt(`<speak>${speechText}</speak>`)
+        // .withSimpleCard(cardTitle, cardText)
+          .withShouldEndSession(false)
+          .withAskForPermissionsConsentCard(SERVICES.ALEXA_PROFILE_API.PERMISSIONS)
+          .getResponse()
+      case API_SEARCH_RESULT.NotFound:
+        return handlerInput.responseBuilder
+          .speak(`<speak>${speechText}</speak>`)
+          .reprompt(`<speak>${speechText}</speak>`)
+          .withSimpleCard(cardTitle, cardText)
+          .withShouldEndSession(false)
+          .getResponse()
+      case API_SEARCH_RESULT.Error:
+        return handlerInput.responseBuilder
+          .speak(`<speak>${speechText}</speak>`)
+          .reprompt(`<speak>${speechText}</speak>`)
+          .withSimpleCard(cardTitle, cardText)
+          .withShouldEndSession(false)
+          .getResponse()
+      default:
+        break
+    }
   }
 }
 
@@ -166,7 +194,7 @@ const AmbigiousHandler = {
     const requestAttributes = attributesManager.getRequestAttributes()
     const sessionId = requestEnvelope.session.sessionId
 
-    let currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
+    const currentRecallIndex = 0 // set to zero, as the current index in the array of recalls
 
     const vehicleRecallConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
@@ -175,7 +203,7 @@ const AmbigiousHandler = {
       return x.modelName.toUpperCase() === vehicleRecallConversation.vehicle.model.toUpperCase()
     })
 
-    let recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
+    const recallsDetails = await GetRecallsListWithDetails(recalls, handlerInput.requestEnvelope.request.locale, sessionId)
 
     const VehicleRecallConvo = new VehicleConversationContextBuilder({
       vehicle: vehicleRecallConversation.vehicle,
@@ -184,7 +212,7 @@ const AmbigiousHandler = {
       recalls: recalls,
       recallsDetails: recallsDetails })
       .saySearchFinding({ skipAmbigiousCheck: true })
-      .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState, skipAmbigiousCheck: true })
+      .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState, userPhoneNumber: sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], skipAmbigiousCheck: true })
       .buildSpeech()
 
     SendMessageToUser(sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], VehicleRecallConvo.searchFindings, requestAttributes, VehicleRecallConvo)
@@ -204,7 +232,7 @@ const AmbigiousHandler = {
       .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
-      const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
 
     return handlerInput.responseBuilder
       .speak(`<speak>${speechText}</speak>`)
@@ -405,17 +433,15 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
     recallSearchResult === SEARCH_FINDINGS.NoRecallsFound)) {
     const message = GetVehicleRecallSMSMessage({ vehicle: vehicleRecallConversation.vehicle, recalls: vehicleRecallConversation.recalls, requestAttributes: requestAttributes })
 
-    // stop the process early if unit testing, unable to mock profile phone number retrieval and  SNS API
+    // stop the process early if unit testing, unable to mock profile phone number retrieval and SNS API through bespoken test framework
     if (process.env.UNIT_TEST) {
       return
     }
 
     // if phone number found, send text message.
     if (profilePhoneNumber.apiRetrievalResult === API_SEARCH_RESULT.Found) {
-      const sent = SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: profilePhoneNumber.phoneNumber })
-      return { sent: sent, message: message }
-    } else {
-      return false // indicating no attempt made to send message through Alexa API, SMS.
+      // no need to await as will have to wait for response which adds to total execution time
+      SERVICES.AMAZON_SNS_API.SendSMS({ message: message, phoneNumber: profilePhoneNumber.phoneNumber })
     }
   }
 }
@@ -423,9 +449,9 @@ async function SendMessageToUser (profilePhoneNumber, recallSearchResult, reques
 async function GetRecallsListWithDetails (recalls, locale, sessionId) {
   const apiStart = (new Date()).getTime()
 
-  let recallsDetails = []
+  const recallsDetails = []
   for (let i = 0; i < recalls.length; i++) {
-    let details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale, sessionId)
+    const details = await SERVICES.TC_RECALLS_API.GetRecallDetails(recalls[i].recallNumber, locale, sessionId)
 
     recallsDetails.push(details)
   }
