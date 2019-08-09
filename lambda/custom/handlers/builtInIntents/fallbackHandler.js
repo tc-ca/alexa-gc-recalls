@@ -9,10 +9,13 @@ const FallbackHandler = {
     const { attributesManager } = handlerInput
     const requestAttributes = attributesManager.getRequestAttributes()
 
-    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE')
+    const speechText = requestAttributes.t('SPEECH_TXT_VEHICLE_ERROR_FALLBACK_INTENT')
+    const cardText = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE')
 
     return handlerInput.responseBuilder
       .speak(speechText)
+      .withSimpleCard(cardTitle, cardText)
       .withShouldEndSession(true)
       .getResponse()
   }
