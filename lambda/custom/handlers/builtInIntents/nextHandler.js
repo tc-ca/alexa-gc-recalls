@@ -30,10 +30,13 @@ const NextIntentHandler = {
  */
 const NextIntentHandlerOutOfContext = {
   canHandle (handlerInput) {
-    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+    return (handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+        handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' &&
+        handlerInput.requestEnvelope.session.attributes.CurrentIntentLocation === undefined) ||
+        (handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
         handlerInput.requestEnvelope.request.intent.name === 'AMAZON.NextIntent' &&
         handlerInput.requestEnvelope.session.attributes.CurrentIntentLocation &&
-        handlerInput.requestEnvelope.session.attributes.CurrentIntentLocation !== 'ReadVehicleRecallHandler'
+        handlerInput.requestEnvelope.session.attributes.CurrentIntentLocation !== 'ReadVehicleRecallHandler')
   },
   handle (handlerInput) {
     return HANDLERS.ErrorHandler.CommandOutOfContextHandler.handle(handlerInput)
