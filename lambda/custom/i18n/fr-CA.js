@@ -32,6 +32,8 @@ module.exports = {
       `Salut! Je suis ton assistante pour les rappels de sécurité, et je peux t'informer sur les rappels de sécurité des véhicules.`
     ],
 
+    SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'quelle est la marque de ton véhicule?', // only used for the AMAZON.REPEAT_INTENT
+
     CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'Quelle est la marque de ton véhicule?',
     CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recherche',
 
@@ -82,13 +84,14 @@ module.exports = {
     SPEECH_TXT_VEHICLE_HELP: `Bienvenue dans le mode d'Aide. Si tu as besoin de chercher un autre véhicule, dit "recherche"`,
 
     // ERROR STRINGS
-    SPEECH_TXT_VEHICLE_ERROR_MODEL_VALIDATION_FAILED: `Désolé, je n’ai pas d’information sur ton véhicule ${VEHICLE_SPEECH_VERSION} en ce moment. Je suis encore une assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE: `Je ne suis pas certaine. Je m'excuse, je suis encore une assistante vocale en formation. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Humm...Je ne m'attendais pas à cette réponse. Si tu veux faire une autre recherche pour ton véhicle, dit "recherche"`,
     SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `Désolé, je suis encore une assistante vocale en formation et j’ai quelques difficultés de compréhension. Si tu veux de l’aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `Désolé, j'ai de la difficulté à identifier ton véhicule. As-tu besoin de plus d'aide?`,
     SPEECH_TXT_VEHICLE_GET_HELP: `Ok. Pour de l'aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Désolé, ce n'est pas l'information que je cherchais.`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Please contact Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION} for more help.`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Help`,
 
     // SMS MESSAGE
     VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 0 rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir cela à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
