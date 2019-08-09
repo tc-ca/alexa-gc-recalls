@@ -5,6 +5,7 @@ const sanitizeHtml = require('sanitize-html')
 const SEARCH_FINDINGS = require('../constants').VEHICLE_SEARCH_FINDINGS
 const CONVERSATION_CONTEXT = require('../constants').VEHICLE_CONVERSATION_CONTEXT
 const FOLLOW_UP_QUESTIONS = require('../constants').FOLLOW_UP_QUESTIONS
+const PHONE_NUMBER_API_RESULT = require('../constants').API_SEARCH_RESULT
 
 class VehicleRecallConversation {
   constructor (obj = {}) {
@@ -139,6 +140,7 @@ class VehicleRecallConversationContextBuilder {
     }
     return this
   }
+
   sayRecallDescription ({ omitSpeech = false }) {
     if (!omitSpeech) {
       if (this.recalls.length > 0) {
@@ -158,7 +160,8 @@ class VehicleRecallConversationContextBuilder {
 
     return this
   }
-  askFollowUpQuestion ({ convoContext, skipAmbigiousCheck = false }) {
+
+  askFollowUpQuestion ({ convoContext, userPhoneNumber, skipAmbigiousCheck = false }) {
     switch (convoContext) {
       case CONVERSATION_CONTEXT.ComfirmingMakeModelYear:
         this.followUpQuestionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
@@ -188,6 +191,27 @@ class VehicleRecallConversationContextBuilder {
         }
         break
       case CONVERSATION_CONTEXT.GettingSearchResultFindingsState:
+
+        let responseToPhoneNumberRetrievalResultSpeechText = ''
+        switch (userPhoneNumber.apiRetrievalResult) {
+          case PHONE_NUMBER_API_RESULT.Found:
+            responseToPhoneNumberRetrievalResultSpeechText = this.requestAttributes.t('SPEECH_TXT_PHONE_NUMBER_RETRIEVED')
+            break
+          case PHONE_NUMBER_API_RESULT.NoPermission:
+            responseToPhoneNumberRetrievalResultSpeechText = this.requestAttributes.t('SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS')
+
+            break
+          case PHONE_NUMBER_API_RESULT.NotFound:
+            responseToPhoneNumberRetrievalResultSpeechText = this.requestAttributes.t('SPEECH_TXT_PHONE_NUMBER_NOT_FOUND')
+
+            break
+          case PHONE_NUMBER_API_RESULT.Error:
+            responseToPhoneNumberRetrievalResultSpeechText = this.requestAttributes.t('SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR')
+
+            break
+          default:
+            break
+        }
         if (this.vehicle.isValidMakeAndModel) {
           if (this.recalls.length === 0 || foundModelNameAmongRecalls(this.recalls, this.vehicle.model) === false) {
             this.followUpQuestionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE`)
@@ -201,10 +225,10 @@ class VehicleRecallConversationContextBuilder {
               this.followUpQuestionCode = FOLLOW_UP_QUESTIONS.VEHICLE_IsItModelAOrModelB
             } else {
               if (this.recalls.length === 1) {
-                this.followUpQuestionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE`)
+                this.followUpQuestionSpeechText = `${responseToPhoneNumberRetrievalResultSpeechText} ${this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE`)}`
                 this.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToMeReadTheRecall
               } else if (this.recalls.length > 1) {
-                this.followUpQuestionSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE`)
+                this.followUpQuestionSpeechText = `${responseToPhoneNumberRetrievalResultSpeechText} ${this.requestAttributes.t(`SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_MULTIPLE`)}`
                 this.followUpQuestionCode = FOLLOW_UP_QUESTIONS.WouldYouLikeToMeReadTheRecall
               }
             }
@@ -269,7 +293,7 @@ function hasSimilarModelsAffectedByRecall (recalls, targetedModelName) {
 
 function BuildSimilarModelsString (recalls, targetedModelName, requestAttributes, forSpeech = true) {
   if (Array.isArray(recalls)) {
-    let similarModels = []
+    const similarModels = []
     // TODO: remove all unwanted characters.
     const unWantedCharacters = /\\|\//g // removes forward and backward slashes
 
@@ -281,7 +305,7 @@ function BuildSimilarModelsString (recalls, targetedModelName, requestAttributes
       }
     }
 
-    let uniqueModels = [...new Set(similarModels)]
+    const uniqueModels = [...new Set(similarModels)]
 
     const noToMultipleChoiceString = (uniqueModels.length === 2 ? requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER`) : requestAttributes.t(`AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE`))
 
