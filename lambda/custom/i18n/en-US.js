@@ -89,7 +89,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_HELP: `Welcome to the help mode. If you need to search for a new vehicle, say "search"`,
 
     // ERROR STRINGS
-    SPEECH_TXT_VEHICLE_ERROR_UNEXPECTED_UTTERANCE: `I'm not sure. I'm sorry, I'm still a voice assistant in training. Please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
+    SPEECH_TXT_VEHICLE_ERROR_FALLBACK_INTENT: `Sorry, I didn't understand that. You can search for vehicle recalls by saying "search". If you can't find what you're looking for, you can contact my human friends at Transport Canada by calling ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}`,
     SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Hmm... I was not expecting that response, if you want to search for your vehicle again, say "search"`,
     SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?`,
