@@ -1,10 +1,7 @@
 'use strict'
 
-// TODO: Need a 'no' path for when ambigious model are presented to the user.
-
-// TODO: document,
-
 const Alexa = require('ask-sdk-core')
+require('dotenv').config()
 const loglessClient = require('logless-client')
 
 const HANDLERS = {
@@ -54,8 +51,9 @@ exports.handler = skillBuilder
     HANDLERS.Next.handler,
     HANDLERS.Previous.outOfContextHandler,
     HANDLERS.Previous.handler,
-    HANDLERS.repeat.handler,
     HANDLERS.repeat.outOfContextHandler,
+    HANDLERS.repeat.forReadVehicleRecall,
+    HANDLERS.repeat.forLaunchIntent,
     HANDLERS.StartOver,
     HANDLERS.Help.HelpIntentHandler,
     HANDLERS.CancelAndStop,
