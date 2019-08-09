@@ -5,14 +5,14 @@ AWS.config.update({ region: 'us-east-1' })
 
 // Create publish parameters
 
-function SendSMS ({ message, phoneNumber, sessionId }) {
+async function SendSMS ({ message, phoneNumber, sessionId }) {
   const params = {
     Message: message, /* required */
     PhoneNumber: `+1${phoneNumber}`
   }
 
   // Create promise and SNS service object
-  let publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise()
+  const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise()
 
   // Handle promise's fulfilled/rejected states
   publishTextPromise.then(
