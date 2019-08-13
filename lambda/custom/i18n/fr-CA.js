@@ -57,9 +57,9 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE: `Résultats`,
 
     // SPEECH PHONE NUMBER
-    SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `I've sent you a text message with your vehicle recall information,`, // i need translation
-    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `If you'd like to receive a text message with the search results, you'll need to provide permission to access your mobile number through the skill settings. I've sent some information to your Alexa app to help you get started. In the meantime,`, // i need translation
-    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`, // i need translation
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `Je t'ai envoyé un message texte avec les résultats de ta recherche,`,
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois donner ta permission pour que je puisse accéder ton numéro de téléphone via les paramètres du la Skill. Je t'ai envoyé des renseignements sur ton application Alexa pour t'aider. En attendant,`,
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois ajuter un numéro de téléphone à ton compte Alexa. En attendant,`, 
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
@@ -107,7 +107,7 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `Je n'ai trouvé aucun rappel dans le système pour ton véhicule ${VEHICLE_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_ONE: `J'ai trouvé un rappel pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `${RECALL_COUNT} rappels pourraient affecter ton véhicule ${VEHICLE_CARD_VERSION}.`,
-    CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Ton véhicule ${VEHICLE_CARD_VERSION} n'est pas dans notre système. Si tu as besoin d'aide, tu peux contacter le service à la clientèle pour des Rappels de Transport Canada au ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`,
+    CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `Ton véhicule ${VEHICLE_CARD_VERSION} n'est pas dans notre système. Si tu as besoin d'aide, tu peux contacter Transport Canada au ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... J'ai trouvé plusieurs différents modèles de ton véhicule ${VEHICLE_CARD_VERSION}. Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE: `Détails des rappels pour le véhicule ${VEHICLE_CARD_VERSION} qui affectent le ${RECALL_COMPONENT}`,
 
