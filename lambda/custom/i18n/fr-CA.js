@@ -58,7 +58,7 @@ module.exports = {
 
     // SPEECH PHONE NUMBER
     SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `Je t'ai envoyé un message texte avec les résultats de ta recherche,`,
-    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois donner ta permission pour que je puisse accéder ton numéro de téléphone via les paramètres du la Skill. Je t'ai envoyé des renseignements sur ton application Alexa pour t'aider. En attendant,`,
+    SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois donner ta permission pour que je puisse accéder ton numéro de téléphone via les paramètres de la Skill. Je t'ai envoyé des renseignements sur ton application Alexa pour t'aider. En attendant,`,
     SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois ajuter un numéro de téléphone à ton compte Alexa. En attendant,`, 
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
