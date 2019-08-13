@@ -98,7 +98,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at Transport Canada by calling ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
     SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Sorry, that was not the information I was looking for.`,
     CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Please contact Transport Canada at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION} for more help.`,
-    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Help`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Contact us`,
 
     // SMS MESSAGE
     VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `From Transport Canada: Hi! I'm your Vehicle Recall Assistant. 0 recalls may affect your ${VEHICLE_CARD_VERSION}. You can see this at, http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=eng&${QUERY_STRING}&ft=&ls=0&sy=0`,
