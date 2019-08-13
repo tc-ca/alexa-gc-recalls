@@ -93,11 +93,11 @@ module.exports = {
     CARD_TXT_VEHICLE_ERROR_FALLBACK_INTENT: `Sorry, I didn't understand that. You can search for vehicle recalls by saying "search". If you can't find what you're looking for, you can contact my human friends at Transport Canada by calling ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}`,
     CARD_TXT_VEHICLE_ERROR_FALLBACK_INTENT_TITLE: `Help`,
     SPEECH_TXT_VEHICLE_ERROR_COMMAND_OUT_OF_CONTEXT: `Hmm... I was not expecting that response, if you want to search for your vehicle again, say "search"`,
-    SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
+    SPEECH_TXT_VEHICLE_ERROR_GENERIC_MESSAGE: `I'm sorry. I’m still a voice assistant in training and I'm having trouble understanding. Please contact my human friends at Transport Canada by calling ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `I'm sorry. It looks like I'm having trouble identifying the correct vehicle, would you like some additional help?`,
-    SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at ${PHONEMES.transportCanadaRecalls} customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
+    SPEECH_TXT_VEHICLE_GET_HELP: `Okay, please contact my human friends at Transport Canada by calling ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION} for more help. Have a good day.`,
     SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Sorry, that was not the information I was looking for.`,
-    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Please contact Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION} for more help.`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Please contact Transport Canada at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION} for more help.`,
     CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Help`,
 
     // SMS MESSAGE
@@ -112,7 +112,7 @@ module.exports = {
     CARD_TXT_VEHICLE_RECALLS_FOUND_NONE: `0 recalls found in our system ${VEHICLE_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_ONE: `1 recall found that may affect your ${VEHICLE_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE: `${RECALL_COUNT} recalls found that may affect your ${VEHICLE_CARD_VERSION}.`,
-    CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `${VEHICLE_CARD_VERSION} not in system. Need help, contact Transport Canada Recalls customer suppport at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`,
+    CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID: `${VEHICLE_CARD_VERSION} not in system. Need help, contact the Transport Canada Recalls team at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`,
     CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL: `Hmm... I've found a few different models of ${VEHICLE_CARD_VERSION}. Is yours a ${AMBIGIOUS_MODELS}?`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE: `Recall Details for: ${VEHICLE_CARD_VERSION}, affecting the ${RECALL_COMPONENT}`,
 
