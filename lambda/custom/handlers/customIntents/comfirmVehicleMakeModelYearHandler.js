@@ -44,11 +44,11 @@ const comfirmVehicleMakeModelYearHandler = {
 
     const speechText = VehicleRecallConversation.getSpeechText()
     const cardText = requestAttributes.t(`CARD_TXT_VEHCILE_COMFIRM_MAKE_MODEL_YEAR`)
-    .replace('%VehicleRecallYear%', vehicle.year)
-    .replace('%VehicleRecallMake%', vehicle.makeSpeechText)
-    .replace('%VehicleRecallModel%', vehicle.modelSpeechText)
+      .replace('%VehicleRecallYear%', vehicle.year)
+      .replace('%VehicleRecallMake%', vehicle.make)
+      .replace('%VehicleRecallModel%', vehicle.model)
 
-    const cardTitle =  requestAttributes.t('CARD_TXT_VEHCILE_COMFIRM_TITLE')
+    const cardTitle = requestAttributes.t('CARD_TXT_VEHCILE_COMFIRM_TITLE')
 
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
