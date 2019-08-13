@@ -92,8 +92,8 @@ module.exports = {
     SPEECH_TXT_VEHICLE_ERROR_SEARCH_MAX_ATTEMPT_REACH: `Désolé, j'ai de la difficulté à identifier ton véhicule. As-tu besoin de plus d'aide?`,
     SPEECH_TXT_VEHICLE_GET_HELP: `Ok. Pour de l'aide, tu peux contacter mes collègues humains aux services à la clientèle des Rappels de Transports Canada en composant le ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_SPEECH_VERSION}. Passe une bonne journée.`,
     SPEECH_TXT_VEHICLE_ERROR_YEAR_INTENT_TRIGGERED_NO_MODEL_MAKE_PROVIDED: `Désolé, ce n'est pas l'information que je cherchais.`,
-    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Please contact Transport Canada Recalls customer support at ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION} for more help.`,
-    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Help`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP: `Si tu as besoin d'aide, tu peux contacter Transport Canada au ${TC_VEHICLE_RECALL_HELP_LINE_PHONE_NUMBER_CARD_VERSION}.`,
+    CARD_TXT_VEHICLE_ERROR_CONTACT_HELP_TITLE: `Contacte-nous`,
 
     // SMS MESSAGE
     VEHICLE_RECALL_TEXT_FOUND_NONE_MESSAGE: `De Transports Canada: Bonjour! Je suis ton assistante pour les rappels de sécurité de véhicules. 0 rappels pouvant affecter ton véhicule ${VEHICLE_CARD_VERSION} ont été trouvé. Tu peux voir cela à http://wwwapps.tc.gc.ca/Saf-Sec-Sur/7/VRDB-BDRV/search-recherche/results-resultats.aspx?lang=fra&${QUERY_STRING}&ft=&ls=0&sy=0.`,
