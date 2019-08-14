@@ -6,4 +6,4 @@ configuration:
 - test: test fallback intent.
 - AMAZON.FallbackIntent: 
   - response.outputSpeech.ssml: <speak>Sorry, I didn't understand that. You can search for vehicle recalls by saying "search". If you can't find what you're looking for, you can contact my human friends at Transport Canada by calling <say-as interpret-as="telephone">18003330510</say-as></speak>
-  - response.shouldEndSession: true
+  - response.shouldEndSession: false
