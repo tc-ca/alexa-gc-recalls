@@ -5,5 +5,5 @@ configuration:
 --- 
 - test: test fallback intent.
 - AMAZON.FallbackIntent: 
-  - response.outputSpeech.ssml: <speak>I'm not sure. I'm sorry, I'm still a voice assistant in training. Please contact my human friends at Transport Canada <phoneme alphabet='ipa' ph='ri.ka:lz'>Recalls</phoneme> customer support at <say-as interpret-as="telephone">18003330510</say-as> for more help. Have a good day.</speak>
+  - response.outputSpeech.ssml: <speak>Sorry, I didn't understand that. You can search for vehicle recalls by saying "search". If you can't find what you're looking for, you can contact my human friends at Transport Canada by calling <say-as interpret-as="telephone">18003330510</say-as></speak>
   - response.shouldEndSession: true

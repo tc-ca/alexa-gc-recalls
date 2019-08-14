@@ -169,7 +169,7 @@ configuration:
   - request.session.attributes.VehicleConversation.followUpQuestionCode:  9
 
   - sessionAttributes.TRACE.location[0]: GetHelpHandler
-  - response.outputSpeech.ssml: <speak>Okay, please contact my human friends at Transport Canada <phoneme alphabet='ipa' ph='ri.ka:lz'>Recalls</phoneme> customer support at <say-as interpret-as="telephone">18003330510</say-as> for more help. Have a good day.</speak>
+  - response.outputSpeech.ssml: <speak>Okay, please contact my human friends at Transport Canada by calling <say-as interpret-as="telephone">18003330510</say-as> for more help. Have a good day.</speak>
 
 ---
 - test: Yes context test (recall search and details read), "Would you like to search for another recall?"

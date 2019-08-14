@@ -48,7 +48,7 @@ configuration:
   - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
 
   - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
-  - response.outputSpeech.ssml: <speak>I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2018 hyundai elentra. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - response.outputSpeech.ssml: <speak>I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2018 hyundai elentra.  I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information, would you like me to read them to you?</speak>
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
   - sessionAttributes.VehicleConversation.searchFindings: 1
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 5
@@ -67,7 +67,7 @@ configuration:
   - request.session.attributes.VehicleConversation.vehicle.isValidMakeAndModel: true
 
   - sessionAttributes.TRACE.location[0]: ComfirmedCompletedSearchForVehicleRecallIntentHandler
-  - response.outputSpeech.ssml: I've found * <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2011 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - response.outputSpeech.ssml: <speak>I've found * <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2011 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information, would you like me to read them to you?</speak>
   - sessionAttributes.VehicleCurrentRecallIndex: 0 # index is reset to zero
   - sessionAttributes.VehicleConversation.searchFindings: 2
   - sessionAttributes.VehicleConversation.followUpQuestionCode: 5
@@ -141,7 +141,7 @@ configuration:
 
 - GetVehicleModelIntent model="civic hybrid": 
   - sessionAttributes.TRACE.location[0]: AmbigiousHandler
-  - response.outputSpeech.ssml: I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2009 honda civic hybrid. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - response.outputSpeech.ssml: <speak>I've found a <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> that may affect your 2009 honda civic hybrid.  I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information, would you like me to read them to you?</speak>
 
 ---
 - test: search for vehicle recall (AMBIGIOUS MODEL) 2009 HONDA CIVIC, 1 recall found test
@@ -172,6 +172,6 @@ configuration:
 
 - GetVehicleModelIntent model="civic": 
   - sessionAttributes.TRACE.location[0]: AmbigiousHandler
-  - response.outputSpeech.ssml: I've found 3 <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2009 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information. Would you like me to read it to you?
+  - response.outputSpeech.ssml: <speak>I've found 3 <phoneme alphabet='ipa' ph='ri.ka:lz'>recalls</phoneme> that may affect your 2009 honda civic. I've sent you a text message with your vehicle <phoneme alphabet='ipa' ph='ri.ka:l'>recall</phoneme> information, would you like me to read them to you?</speak>
 
 

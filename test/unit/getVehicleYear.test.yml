@@ -2,12 +2,12 @@
 configuration:
   locale: en-CA
 
-# --- 
-# - test: year intent triggered before collection of make and model
-# - GetVehicleYearIntent year=2011: 
-#   - request.request.dialogState: COMPLETED   
-#   - response.outputSpeech.ssml: Sorry. # say sorry and request for make (required slot) 
-#   - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent # chain to this intent to prompt for the required slot.
+--- 
+- test: year intent triggered before collection of make and model
+- GetVehicleYearIntent year=2011: 
+  - request.request.dialogState: COMPLETED   
+  - response.outputSpeech.ssml: Sorry. # say sorry and request for make (required slot) 
+  - response.directives[0].updatedIntent.name: GetVehicleMakeAndModelIntent # chain to this intent to prompt for the required slot.
 
 
 --- 
@@ -24,14 +24,14 @@ configuration:
   - response.outputSpeech.ssml: Just to make sure I understood correctly, are you looking for a 2011 honda civic?
 
 # --- 
-# - test: test when incorrect year is provided.
-# - GetVehicleYearIntent year=1011:
+# - test: test when invalid year is provided.
+# - GetVehicleYearIntent year=10:
 #   - request.session.attributes.VEHICLE_MAKE.slotId: HONDA
 #   - request.session.attributes.VEHICLE_MAKE.slotValue: honda
 #   - request.session.attributes.VEHICLE_MAKE.isValid: true
 #   - request.session.attributes.VEHICLE_MODEL.slotId: CIVIC
 #   - request.session.attributes.VEHICLE_MODEL.slotValue: civic
 #   - request.session.attributes.VEHICLE_MODEL.isValid: true
-#   - request.request.dialogState: COMPLETED   
+#   - request.request.dialogState: NONE   
 #   - response.directives[0].updatedIntent.name: undefined 
 #   - response.outputSpeech.ssml: Just to make sure I understood correctly, are you looking for a 2011 honda civic?
