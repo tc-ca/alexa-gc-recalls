@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/tc-ca/alexa-gc-recalls.svg?branch=master)](https://travis-ci.org/tc-ca/alexa-gc-recalls)
  [![codecov](https://codecov.io/gh/tc-ca/alexa-gc-recalls/branch/master/graph/badge.svg)](https://codecov.io/gh/tc-ca/alexa-gc-recalls/)
 
+
+![What is this](/images/skill-icon-2.png)
+
 Open Source. Open data. Open Government.
 
 **alexa-gc-recalls** is a research project exploring how government services can be provided through voice interface. 
