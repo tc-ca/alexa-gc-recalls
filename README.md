@@ -21,5 +21,7 @@ This project got its start through the Government’s OneGC Program Office which
 
 ## Data Source
 
-This Skill leverages [Open Data API](https://open.canada.ca/data/en/dataset/1ec92326-47ef-4110-b7ca-959fab03f96d) to retrieve vehicle recall information which can be query by users through Alexa. 
+<img align="left" width="15%" height="15%" src="https://api.canada.ca/sites/api-store-drupal-prod.apps.prod.openshift.ised-isde.canada.ca/files/2019-02/api-logo.png">
+
+This Skill leverages [GC API Store](https://api.canada.ca/en/homepage) to retrieve vehicle recall information which can be query by users through Alexa. 
 
