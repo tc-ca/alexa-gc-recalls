@@ -1,7 +1,7 @@
 {
   "name": "vehicle-recalls-canada",
   "version": "1.0.0",
-  "description": "Vehicle Recalls Canada is a quick and easy way to search for vehicle recalls.",
+  "description": "Vehicle Recalls Canada is an Alexa Skill which allows for a quick and easy way to search for vehicle recalls.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "ask-sdk-core": "^2.7.0",
-    "ask-sdk-model": "^1.18.0",
+    "ask-sdk-model": "^1.19.0",
     "dotenv": "^8.0.0",
-    "i18next": "^13.1.5",
+    "i18next": "^17.0.11",
     "i18next-sprintf-postprocessor": "^0.2.2",
-    "logless-client": "0.0.5",
+    "logless-client": "^0.1.0",
     "node-fetch": "^2.6.0",
     "sanitize-html": "^1.20.1"
   },
