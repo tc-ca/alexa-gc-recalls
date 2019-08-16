@@ -34,7 +34,7 @@ module.exports = {
 
     SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'what is the make of your vehicle?', // only used for the AMAZON.REPEAT_INTENT
 
-    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'What make is your vehicle?',
+    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'What is the make of your vehicle?',
     CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recall Search',
 
     // LAUNCH REPROMPT
