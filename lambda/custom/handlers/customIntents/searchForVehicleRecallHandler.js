@@ -77,7 +77,7 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
       .askFollowUpQuestion({ convoContext: CONVERSATION_CONTEXT.GettingSearchResultFindingsState, userPhoneNumber: sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] })
       .buildSpeech()
 
-    console.log(new IsSuccessLog({ sessionId: sessionId, makeModelYearIsVerified: true, targetedVehicle: vehicleRecallConversation.vehicle, isAmbiguous: VehicleRecallConvo.searchFindings === 4, recalls: VehicleRecallConvo.recalls }))
+    console.log(new IsSuccessLog({ sessionId: sessionId, makeModelYearIsVerified: true, targetedVehicle: vehicleRecallConversation.vehicle, isAmbiguous: VehicleRecallConvo.searchFindings === SEARCH_FINDINGS.AmbigiousModelFound, recalls: VehicleRecallConvo.recalls }))
 
     SendMessageToUser(sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER], VehicleRecallConvo.searchFindings, requestAttributes, VehicleRecallConvo)
 
@@ -92,12 +92,26 @@ const ComfirmedCompletedSearchForVehicleRecallIntentHandler = {
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
-      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
-      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.make)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.model)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
     const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
 
+
+    // dont show permission card if the search is not complete.
+    // when result is ambigious, the user must state which model before sms is attempted to be sent, therefore the permission card (if applicable is not required) 
+    if (VehicleRecallConvo.searchFindings === SEARCH_FINDINGS.AmbigiousModelFound)
+    {
+      return handlerInput.responseBuilder
+      .speak(`<speak>${speechText}</speak>`)
+      .reprompt(`<speak>${speechText}</speak>`)
+      .withSimpleCard(cardTitle, cardText)
+      .withShouldEndSession(false)
+      .getResponse()
+    }
+    
+    // displays permission card if applicable.
     switch (sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER].apiRetrievalResult) {
       case API_SEARCH_RESULT.Found:
         return handlerInput.responseBuilder
@@ -228,18 +242,46 @@ const AmbigiousHandler = {
 
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
-      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
-      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.make)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.model)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
 
     const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_SEARCH_RESULT_TITLE')
+   // displays permission card if applicable.
+   switch (sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER].apiRetrievalResult) {
+    case API_SEARCH_RESULT.Found:
+      return handlerInput.responseBuilder
+        .speak(`<speak>${speechText}</speak>`)
+        .reprompt(`<speak>${speechText}</speak>`)
+        .withSimpleCard(cardTitle, cardText)
+        .withShouldEndSession(false)
+        .getResponse()
+    case API_SEARCH_RESULT.NoPermission:
 
-    return handlerInput.responseBuilder
-      .speak(`<speak>${speechText}</speak>`)
-      .reprompt(`<speak>${speechText}</speak>`)
-      .withSimpleCard(cardTitle, cardText)
-      .withShouldEndSession(false)
-      .getResponse()
+      return handlerInput.responseBuilder
+        .speak(`<speak>${speechText}</speak>`)
+        .reprompt(`<speak>${speechText}</speak>`)
+      // .withSimpleCard(cardTitle, cardText)
+        .withShouldEndSession(false)
+        .withAskForPermissionsConsentCard(SERVICES.ALEXA_PROFILE_API.PERMISSIONS)
+        .getResponse()
+    case API_SEARCH_RESULT.NotFound:
+      return handlerInput.responseBuilder
+        .speak(`<speak>${speechText}</speak>`)
+        .reprompt(`<speak>${speechText}</speak>`)
+        .withSimpleCard(cardTitle, cardText)
+        .withShouldEndSession(false)
+        .getResponse()
+    case API_SEARCH_RESULT.Error:
+      return handlerInput.responseBuilder
+        .speak(`<speak>${speechText}</speak>`)
+        .reprompt(`<speak>${speechText}</speak>`)
+        .withSimpleCard(cardTitle, cardText)
+        .withShouldEndSession(false)
+        .getResponse()
+    default:
+      break
+  }
   }
 }
 
@@ -285,8 +327,8 @@ const ReadVehicleRecallDetailsHandler = {
     const speechText = VehicleRecallConvo.getSpeechText()
     const cardText = VehicleRecallConvo.getCardText()
     const cardTitle = requestAttributes.t('CARD_TXT_VEHICLE_RECALLS_QUERY_DETAILS_TITLE')
-      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.makeSpeechText)
-      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.modelSpeechText)
+      .replace('%VehicleRecallMake%', vehicleRecallConversation.vehicle.make)
+      .replace('%VehicleRecallModel%', vehicleRecallConversation.vehicle.model)
       .replace('%VehicleRecallYear%', vehicleRecallConversation.vehicle.year)
       .replace('%VehicleRecallComponent%', vehicleRecallConversation.recallsDetails[currentRecallIndex].componentType)
 
