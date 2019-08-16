@@ -21,7 +21,7 @@ const LocalizationInterceptor = {
 
     localizationClient.localize = function () {
       const args = arguments
-      let values = []
+      const values = []
 
       for (let i = 1; i < args.length; i++) {
         values.push(args[i])
