@@ -1,10 +1,10 @@
 'use strict'
-const sanitizeHtml = require('sanitize-html')
 
 const VehicleConversation = require('../../models/vehicleRecallConversation')
 const Vehicle = require('../../models/vehicle')
 
 const CONVERSATION_CONTEXT = require('../../constants').VEHICLE_CONVERSATION_CONTEXT
+const PHONE_NUMBER_API_RESULT = require('../../constants').API_SEARCH_RESULT
 
 const SESSION_KEYS = require('../../constants').SESSION_KEYS
 const VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION = require('../../constants').VEHICLE_MAZDA_MODEL_SPEECH_CORRECTION
@@ -53,8 +53,10 @@ const comfirmVehicleMakeModelYearHandler = {
     sessionAttributes[SESSION_KEYS.VehicleConversation] = VehicleRecallConversation
     sessionAttributes[SESSION_KEYS.CurrentIntentLocation] = 'SearchForVehicleRecallIntent'
 
-    // TODO: add condition to check if have phone number, instead of always calling the API
-    sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] = new PhoneNumber(await SERVICES.alexaProfileHandler.GetMobileNumber(handlerInput))
+    // condition created to avoid round trip to api if not needed.
+    if (sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] === undefined) {
+      sessionAttributes[SESSION_KEYS.USER_PHONE_NUMBER] = new PhoneNumber(await SERVICES.alexaProfileHandler.GetMobileNumber(handlerInput))
+    }
 
     return handlerInput.responseBuilder
       .speak(speechText)
