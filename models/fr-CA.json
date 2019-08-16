@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "trouve mes rappels de sécurité",
+      "invocationName": "rappels de véhicules",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -119,6 +119,12 @@
           ],
           "samples": [
             "recherche",
+            "trouve {model} {trimLevel}",
+            "trouve {make} {model} {trimLevel}",
+            "trouve {make} {model}",
+            "cherche {model} {trimLevel}",
+            "cherche {make} {model} {trimLevel}",
+            "cherche {make} {model}",
             "{model} {trimLevel}",
             "{make} {model} {trimLevel}",
             "{make} {model}"
@@ -9586,6 +9592,11 @@
           "values": [
             {
               "name": {
+                "value": "aucun de ces modèles"
+              }
+            },
+            {
+              "name": {
                 "value": "aucun de ces véhicules"
               }
             },
@@ -10241,5 +10252,5 @@
       }
     ]
   },
-  "version": "40"
+  "version": "50"
 }

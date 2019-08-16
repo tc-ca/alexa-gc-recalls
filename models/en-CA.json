@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "find my recalls",
+      "invocationName": "vehicle recalls",
       "intents": [
         {
           "name": "AMAZON.CancelIntent",
@@ -4450,7 +4450,7 @@
             {
               "id": "METRIS",
               "name": {
-                "value": "Metris"
+                "value": "metris"
               }
             },
             {
@@ -9750,6 +9750,20 @@
               "elicitationRequired": false,
               "confirmationRequired": false,
               "prompts": {}
+            },
+            {
+              "name": "year",
+              "type": "AMAZON.NUMBER",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
+            },
+            {
+              "name": "BMWModel",
+              "type": "BMWModel",
+              "elicitationRequired": false,
+              "confirmationRequired": false,
+              "prompts": {}
             }
           ]
         },
@@ -10024,11 +10038,11 @@
         "variations": [
           {
             "type": "PlainText",
-            "value": "Sorry I heard {year}, but my records only go back to ninety seventy. What is the year of your vehicle?"
+            "value": "Sorry I heard {year}, but my records only go back to nineteen seventy. What is the year of your vehicle?"
           }
         ]
       }
     ]
   },
-  "version": "24"
+  "version": "45"
 }
