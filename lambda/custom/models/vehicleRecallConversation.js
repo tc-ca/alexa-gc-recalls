@@ -72,8 +72,8 @@ class VehicleRecallConversationContextBuilder {
 
         this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_NONE`)
           .replace('%VehicleRecallYear%', this.vehicle.year)
-          .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
-          .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+          .replace('%VehicleRecallMake%', this.vehicle.make)
+          .replace('%VehicleRecallModel%', this.vehicle.model)
       } else {
         if (hasSimilarModelsAffectedByRecall(this.recalls, this.vehicle.model) && !skipAmbigiousCheck) {
           this.searchFindings = SEARCH_FINDINGS.AmbigiousModelFound
@@ -84,8 +84,8 @@ class VehicleRecallConversationContextBuilder {
 
           this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_AMBIGIOUS_MODEL`)
             .replace('%VehicleRecallYear%', this.vehicle.year)
-            .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
-            .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+            .replace('%VehicleRecallMake%', this.vehicle.make)
+            .replace('%VehicleRecallModel%', this.vehicle.model)
             .replace('%AmbigiousModelsList%', BuildSimilarModelsString(this.recalls, this.vehicle.model, this.requestAttributes, false))
         } else {
           if (this.recalls.length === 1) {
@@ -97,8 +97,8 @@ class VehicleRecallConversationContextBuilder {
 
             this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_ONE`)
               .replace('%VehicleRecallYear%', this.vehicle.year)
-              .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
-              .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+              .replace('%VehicleRecallMake%', this.vehicle.make)
+              .replace('%VehicleRecallModel%', this.vehicle.model)
           } else if (this.recalls.length > 1) {
             this.searchFindings = SEARCH_FINDINGS.MultipleRecallsFound
             this.recallSearchResultSpeechText = this.requestAttributes.t(`SPEECH_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE`)
@@ -110,8 +110,8 @@ class VehicleRecallConversationContextBuilder {
             this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_MULTIPLE`)
               .replace('%RecallCount%', this.recalls.length)
               .replace('%VehicleRecallYear%', this.vehicle.year)
-              .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
-              .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+              .replace('%VehicleRecallMake%', this.vehicle.make)
+              .replace('%VehicleRecallModel%', this.vehicle.model)
           }
         }
       }
@@ -125,8 +125,8 @@ class VehicleRecallConversationContextBuilder {
       this.recallCardText = this.requestAttributes.t(`CARD_TXT_VEHICLE_RECALLS_FOUND_NON_VALID`)
         .replace('%RecallCount%', this.recalls.length)
         .replace('%VehicleRecallYear%', this.vehicle.year)
-        .replace('%VehicleRecallMake%', this.vehicle.makeSpeechText)
-        .replace('%VehicleRecallModel%', this.vehicle.modelSpeechText)
+        .replace('%VehicleRecallMake%', this.vehicle.make)
+        .replace('%VehicleRecallModel%', this.vehicle.model)
     }
 
     this.speechString.push(this.recallSearchResultSpeechText)
