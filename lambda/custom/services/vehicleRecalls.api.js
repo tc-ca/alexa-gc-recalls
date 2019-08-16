@@ -2,7 +2,6 @@
 
 // TODO: switch node fetch to axios
 
-
 const API_KEY = process.env.VRDB_API_CANADA_USER_KEY
 const fetch = require('node-fetch')
 
@@ -17,7 +16,6 @@ const MODEL_NAME = '/model-name/'
 const YEAR_RANGE = '/year-range/'
 const RECALL_SUMMARY = '/recall-summary/'
 const RECALL_NUMBER = '/recall-number/'
-
 
 /**
  * Returns an array of recalls
@@ -37,17 +35,17 @@ async function GetRecalls (make, model, year, sessionId) {
     const functionStart = (new Date()).getTime()
 
     const apiStart = (new Date()).getTime()
-    let response = await fetch(url, { headers: { 'user-key':API_KEY } })
+    let response = await fetch(url, { headers: { 'user-key': API_KEY } })
 
     response = await response.json()
     const apiEnd = (new Date()).getTime()
 
     console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Recalls API Query Call', requestURI: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
 
-    let recalls = []
+    const recalls = []
 
     for (let index = 0; index < response.ResultSet.length; index++) {
-      let recall = new Recall()
+      const recall = new Recall()
 
       for (let recallObj = 0; recallObj < response.ResultSet[index].length; recallObj++) {
         switch (response.ResultSet[index][recallObj]['Name']) {
@@ -75,15 +73,14 @@ async function GetRecalls (make, model, year, sessionId) {
   }
 }
 
-// 
-
+//
 
 /**
  * Returns detail information on a specific recall
  * Sample URL: https://vrdb-tc-apicast-production.api.canada.ca/eng/vehicle-recall-database/v1/recall-summary/recall-number/2018001
  * @param {*} recallNumber
  * @param {*} locale
- * @param {*} sessionId 
+ * @param {*} sessionId
  * @returns
  */
 async function GetRecallDetails (recallNumber, locale, sessionId) {
@@ -100,7 +97,7 @@ async function GetRecallDetails (recallNumber, locale, sessionId) {
     const apiEnd = (new Date()).getTime()
     console.log(new ApiPerformanceLog({ sessionId: sessionId, measuring: 'Get Summary Query API Call', requestURI: url, executionTimeMilliSeconds: apiEnd - apiStart, notes: 'measuring single request' }))
 
-    let recallDetails = new RecallSummary()
+    const recallDetails = new RecallSummary()
 
     // result set returns model(s) (plural) affected by the targeted recall
     // outer loops through models affected by the targeted recall

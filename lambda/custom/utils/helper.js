@@ -16,7 +16,7 @@ function GetSlotValues (filledSlots) {
           filledSlots[item].resolutions.resolutionsPerAuthority[0].status.code) {
         switch (filledSlots[item].resolutions.resolutionsPerAuthority[0].status.code) {
           case 'ER_SUCCESS_MATCH':
-            let valueNames = []
+            const valueNames = []
             for (let index = 0; index < filledSlots[item].resolutions.resolutionsPerAuthority[0].values.length; index++) {
               valueNames.push(filledSlots[item].resolutions.resolutionsPerAuthority[0].values[index].value.name)
             }
