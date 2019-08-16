@@ -2,7 +2,7 @@
  [![codecov](https://codecov.io/gh/tc-ca/alexa-gc-recalls/branch/master/graph/badge.svg)](https://codecov.io/gh/tc-ca/alexa-gc-recalls/)
 
 
-#  Vehicle Recalls Canada skill
+#  Vehicle Recalls Canada Skill
 ![image of skill icon](/images/skill-icon-2.png)
 
 
