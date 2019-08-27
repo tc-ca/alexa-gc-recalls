@@ -3,7 +3,7 @@
 
 
 #  Vehicle Recalls Canada Skill
-![image of skill icon](/images/skill-icon-2.png)
+![image of skill icon](/images/banner-github-01.png)
 
 
 **Vehicle Recalls Canada skill** is a research project exploring how government services can be provided through voice interface. 
