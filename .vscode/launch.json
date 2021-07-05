@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+    
+
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Launch Program",
+        //     "program": "${workspaceFolder}/lambda\\custom\\services\\TCSafetyRecalls.api.js"
+        // },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch BST-Test",
+            "program": "C:\\Users\\bernara\\AppData\\Roaming\\nvm\\v8.10.0\\node_modules\\bespoken-tools\\bin\\bst-test.js",
+            "cwd": "${workspaceRoot}",
+            "args": ["getVehicleYear.test.yml"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch BST-Proxy",
+            "program": "C:\\Users\\bernara\\AppData\\Roaming\\nvm\\v8.10.0\\node_modules\\bespoken-tools\\bin\\bst-proxy.js",
+            "cwd": "${workspaceRoot}",
+            "args": ["lambda","lambda/custom/index.js"]
+        }
+    ]
+}

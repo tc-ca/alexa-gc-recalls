@@ -1,5 +1,37 @@
 'use strict'
 
+// DONE: Need a 'no' path for when ambigious model are presented to the user.
+
+// TODO: add unit test to check date format
+
+// TODO: add unit test to check validation on year is expcted.
+
+// TODO: add unit test check for correct foolow question for ambigious sentence
+
+// TODO: create unit test in French
+
+// DONE: update models
+
+// DONE: ensure cards are only showing where they should be
+
+// DONE: test what happends when you say at the ambigous
+
+// TODO: add test for cards
+
+// DONE: check links in french and english text msg
+
+// DONE: re-generate api key and place on lambda
+
+// TODO: add test to lambda to check api key connects to api
+
+// TODO: connect to bespoken for testing later.
+
+// TODO: when no text msg, need to re-work string
+
+// TODO: null bmw 323 french needs to be fixed.
+
+// TODO: add condition on getting phone number
+
 const Alexa = require('ask-sdk-core')
 require('dotenv').config()
 const loglessClient = require('logless-client')
@@ -41,6 +73,7 @@ exports.handler = skillBuilder
     HANDLERS.getVehicleMakeAndModel.InProgress,
     HANDLERS.getVehicleYear.InProgress,
     HANDLERS.getVehicleYear.CompletedNotCompleted,
+    HANDLERS.getVehicleYear.CompletedNotCompletedMakeMissing,
     HANDLERS.getVehicleYear.Completed,
     HANDLERS.getvehicleModel.ResolveAmbigiousVehicleModel,
     HANDLERS.getvehicleModel.Inprogress,
