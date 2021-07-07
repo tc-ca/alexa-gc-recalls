@@ -2,10 +2,10 @@
   "manifest": {
     "apis": {
       "custom": {
+        "interfaces": [],
         "endpoint": {
-          "sourceDir": "lambda/custom"
-        },
-        "interfaces": []
+          "uri": "arn:aws:lambda:us-east-1:651996798342:function:ask-custom-TC-Safety-Recalls-default"
+        }
       }
     },
     "manifestVersion": "1.0",
