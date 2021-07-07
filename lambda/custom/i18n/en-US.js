@@ -28,14 +28,14 @@ module.exports = {
   translation: {
     // LAUNCH STRING
     SPEECH_TXT_VEHICLE_WELCOME_MSG: [
-      `Hello! I'm your Canadian Safety ${PHONEMES.recalls} Assistant. I can help you find vehicle ${PHONEMES.recall} information. Let's get started.`,
-      `Hi there! I'm your Canadian Safety ${PHONEMES.recalls} Assistant, and I can help you find your vehicle ${PHONEMES.recall} information. Let's start.`
+      `Hello! I'm your Canadian Safety ${PHONEMES.recalls} Assistant. I can help you find vehicle ${PHONEMES.recall} information. Would you like to search now?`,
+      `Hi there! I'm your Canadian Safety ${PHONEMES.recalls} Assistant, and I can help you find your vehicle ${PHONEMES.recall} information. Are you ready to start?`,
     ],
 
-    SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'what is the make of your vehicle?', // only used for the AMAZON.REPEAT_INTENT
+    SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION:
+      "what is the make of your vehicle?", // only used for the AMAZON.REPEAT_INTENT
 
-    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'What is the make of your vehicle?',
-    CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recall Search',
+    CARD_TXT_VEHICLE_WELCOME_TITLE: "Recall Search",
 
     // LAUNCH REPROMPT
     SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `What brand makes your model?`,
@@ -62,8 +62,6 @@ module.exports = {
     SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `If you'd like to receive a text message with your search results, you'll need to add a phone number to your Alexa account. In the meantime`,
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
-
-
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_NONE: `Would you like to search for another vehicle ${PHONEMES.recall}?`,
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_ONE: `would you like me to read them to you?`,
@@ -74,7 +72,7 @@ module.exports = {
     AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `neither`,
     // Hmm... I've found a few different models of 2009 honda civic. Is yours a CIVIC or CIVIC HYBRID, CIVIC SI or none of these?
     AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `none of these`,
-    OR: 'or',
+    OR: "or",
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `While I'm reading you the ${PHONEMES.recall} information, at any point you can skip to the next ${PHONEMES.recall} by saying "Alexa skip". `,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `On ${RECALL_DATE} there was a ${PHONEMES.recall} affecting the ${RECALL_COMPONENT}.<break time="500ms"/> ${RECALL_DETAILS}`,
@@ -122,6 +120,6 @@ module.exports = {
     CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED: `utterance resolved to: "${MODEL}"`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_MODEL_TITLE: `Search Query: Make and Model given`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MODEL_TITLE: `Search Query: Model given`,
-    CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_TITLE: `Search Query: Make given`
-  }
-}
+    CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_TITLE: `Search Query: Make given`,
+  },
+};
