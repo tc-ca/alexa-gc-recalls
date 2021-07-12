@@ -14,8 +14,6 @@
           id: ask
           with:
             command: 'ask --version'
-          env: # Or as an environment variable
-            SKILL_ID: ${{ secrets.SKILL_ID }}
         # Use the output from the `hello` step
         - name: Get the output
           run: echo "The result was ${{ steps.ask.outputs.result }}"
