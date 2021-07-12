@@ -13,7 +13,7 @@
           uses: xavidop/alexa-ask-aws-cli-docker@v1.0.6
           id: ask
           with:
-            command: 'ask --version'
+            command: 'ask deploy --target skill-infrastructure force --ignore-hash'
         # Use the output from the `hello` step
         - name: Get the output
           run: echo "The result was ${{ steps.ask.outputs.result }}"
