@@ -1,20 +1,30 @@
-  on: [push]
+# This is a basic workflow to help you get started with Actions
 
-  jobs:
-    test-action:
-      runs-on: ubuntu-latest
-      name: Test Action
-      steps:
-        # To use this repository's private action,
-        # you must check out the repository
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Test action step
-          uses: xavidop/alexa-ask-aws-cli-docker@v1.0.6
-          id: ask
-          with:
-            command: 'ask deploy --target skill-infrastructure force --ignore-hash'
-        # Use the output from the `hello` step
-        - name: Get the output
-          run: echo "The result was ${{ steps.ask.outputs.result }}"
+name: deploy to lambda
 
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+
+  deploy_source:
+    name: deploy lambda from source
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v1
+      - name: default deploy
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: ask-custom-TC-Safety-Recalls-default
+          source: lambda/custom
