@@ -25,6 +25,6 @@ deploy:
     function_name: "ask-custom-TC-Safety-Recalls-default"
     region: "us-east-1"
     role: "arn:aws:iam::651996798342:role/ask-lambda-tc-safety-recalls"
-    runtime: "nodejs8.10"
+    runtime: "nodejs10.x"
     handler_name: "handler"
     local_dir: "lambda"
