@@ -1,0 +1,22 @@
+  on: [push]
+
+  jobs:
+    test-action:
+      runs-on: ubuntu-latest
+      name: Test Action
+      steps:
+        # To use this repository's private action,
+        # you must check out the repository
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Test action step
+          uses: xavidop/alexa-ask-aws-cli-docker@v1.0.6
+          id: ask
+          with:
+            command: 'ask --version'
+          env: # Or as an environment variable
+            SKILL_ID: ${{ secrets.SKILL_ID }}
+        # Use the output from the `hello` step
+        - name: Get the output
+          run: echo "The result was ${{ steps.ask.outputs.result }}"
+
