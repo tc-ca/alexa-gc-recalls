@@ -4,7 +4,7 @@ const VehicleRecallConversation = require('../../models/vehicleRecallConversatio
 
 const HANDLERS = {
   VehicleRecallHandler: require('../customIntents/searchForVehicleRecallHandler'),
-  RestartSearchForRecallHandler: require('./startOverHandler'),
+  StartNewSearchForRecallHandler: require('./startOverHandler'),
   ErrorHandler: require('../builtInIntents/errorHandler'),
   HelpHandler: require('../builtInIntents/helpHandler')
 
@@ -33,6 +33,11 @@ const YesIntentHandler = {
     const vehicleConversation = new VehicleRecallConversation(sessionAttributes[SESSION_KEYS.VehicleConversation])
 
     switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
+      case 'LaunchRequest':
+      return HANDLERS.StartNewSearchForRecallHandler.handle(
+        handlerInput
+      );
+        break
       case 'SearchForVehicleRecallIntent':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.ARE_YOU_LOOKING_FOR_VEHICLE_X:
@@ -42,7 +47,7 @@ const YesIntentHandler = {
             return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput)
 
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.StartNewSearchForRecallHandler.handle(handlerInput)
 
           default:
             break
@@ -60,7 +65,7 @@ const YesIntentHandler = {
             return HANDLERS.VehicleRecallHandler.ReadVehicleRecallDetails.handle(handlerInput, USER_ACTION.RespondedYesToRepeatRecallInfo)
 
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.StartNewSearchForRecallHandler.handle(handlerInput)
 
           default:
             break
@@ -69,7 +74,7 @@ const YesIntentHandler = {
       case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.StartNewSearchForRecallHandler.handle(handlerInput)
           case FOLLOW_UP_QUESTION.WOULD_YOU_LIKE_HELP:
             return HANDLERS.HelpHandler.GetHelpHandler.handle(handlerInput)
         }
@@ -77,13 +82,13 @@ const YesIntentHandler = {
       case 'SearchForAnotherRecallHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.StartNewSearchForRecallHandler.handle(handlerInput)
         }
         break
       case 'SearchAgainRecallHandler':
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToTryAndSearchAgain:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.StartNewSearchForRecallHandler.handle(handlerInput)
         }
         break
       default:

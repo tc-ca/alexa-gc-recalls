@@ -28,14 +28,14 @@ module.exports = {
   translation: {
     // LAUNCH STRING
     SPEECH_TXT_VEHICLE_WELCOME_MSG: [
-      `Bonjour! Je suis ton assistante pour les rappels de sécurité. Je peux t'informer sur les rappels de sécurité des véhicules au Canada.`,
-      `Salut! Je suis ton assistante pour les rappels de sécurité, et je peux t'informer sur les rappels de sécurité des véhicules.`
+      `Bonjour! Je suis ton assistante pour les rappels de sécurité. Je peux t'informer sur les rappels de sécurité des véhicules au Canada. Veux-tu commencer ?`,
+      `Salut! Je suis ton assistante pour les rappels de sécurité, et je peux t'informer sur les rappels de sécurité des véhicules. Veux-tu commencer ?`,
     ],
 
-    SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'quelle est la marque de ton véhicule?', // only used for the AMAZON.REPEAT_INTENT
+    SPEECH_VEHICLE_WELCOME_FOLLOW_UP_QUESTION:
+      "quelle est la marque de ton véhicule?", // only used for the AMAZON.REPEAT_INTENT
 
-    CARD_TXT_VEHICLE_WELCOME_FOLLOW_UP_QUESTION: 'Quelle est la marque de ton véhicule?',
-    CARD_TXT_VEHICLE_WELCOME_TITLE: 'Recherche',
+    CARD_TXT_VEHICLE_WELCOME_TITLE: "Recherche",
 
     // LAUNCH REPROMPT
     SPEECH_TXT_VEHICLE_MAKE_REPROMPT: `Quelle est la marque de ton véhicule?`,
@@ -59,7 +59,7 @@ module.exports = {
     // SPEECH PHONE NUMBER
     SPEECH_TXT_PHONE_NUMBER_RETRIEVED: `Je t'ai envoyé un message texte avec les résultats de ta recherche,`,
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_NO_ACCESS: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois donner ta permission pour que je puisse accéder ton numéro de téléphone via les paramètres de la Skill. Je t'ai envoyé des renseignements sur ton application Alexa pour t'aider. En attendant,`,
-    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois ajuter un numéro de téléphone à ton compte Alexa. En attendant,`, 
+    SPEECH_TXT_PHONE_NUMBER_NOT_FOUND: `Si tu veux que je t'envoie un message texte avec les résultats de ta recherche, tu dois ajuter un numéro de téléphone à ton compte Alexa. En attendant,`,
     SPEECH_TXT_PHONE_NUMBER_RETRIEVAL_ERROR: ``,
 
     // SEARCH RESULT FOLLOW UP QUESTION STRINGS
@@ -69,7 +69,7 @@ module.exports = {
     SPEECH_TXT_VEHICLE_SEARCH_RESULT_FOLLOW_UP_QUESTION_FOUND_AMBIGIOUS_MODEL: `Est-ce que le tien est un ${AMBIGIOUS_MODELS}?`,
     AMBIGIOUS_MODEL_COMMAND_OPTION_NEITHER: `aucun de ces modèles`,
     AMBIGIOUS_MODEL_COMMAND_OPTION_NONE_OF_THESE: `aucun de ces modèles`,
-    OR: 'ou',
+    OR: "ou",
     // READING RECALLS STRINGS
     SPEECH_TXT_VEHICLE_RECALLS_READING_INTRO: `Lorsque je te lis l’information sur les rappels de véhicules, tu peux sauter au rappel suivant à n’importe quel moment en disant Alexa, prochain.`,
     SPEECH_TXT_VEHICLE_RECALLS_READING_DETAILS: `Le ${RECALL_DATE}, un rappel de sécurité affectant le système d' ${RECALL_COMPONENT} a été émit.<break time="500ms"/>${RECALL_DETAILS}.`,
@@ -117,7 +117,6 @@ module.exports = {
     CARD_TXT_VEHCILE_SHOW_MODEL_PROVIDED: `utterance resolved to: "${MODEL}"`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_MODEL_TITLE: `Search Query: Make and Model given`,
     CARD_TXT_VEHICLE_RECALLS_QUERY_MODEL_TITLE: `Search Query: Model given`,
-    CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_TITLE: `Search Query: Make given`
-
-  }
-}
+    CARD_TXT_VEHICLE_RECALLS_QUERY_MAKE_TITLE: `Search Query: Make given`,
+  },
+};

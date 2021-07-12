@@ -23,60 +23,73 @@ const NoIntentHandler = {
     const vehicleConversation = sessionAttributes[SESSION_KEYS.VehicleConversation]
 
     switch (sessionAttributes[SESSION_KEYS.CurrentIntentLocation]) {
-      case 'SearchForVehicleRecallIntent':
-
+      case "LaunchRequest":
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput);
+      case "SearchForVehicleRecallIntent":
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.ARE_YOU_LOOKING_FOR_VEHICLE_X:
-            return HANDLERS.VehicleRecallHandler.DeniedCompleted.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.DeniedCompleted.handle(
+              handlerInput
+            );
 
           case FOLLOW_UP_QUESTION.WouldYouLikeToMeReadTheRecall:
-            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(
+              handlerInput
+            );
 
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput);
 
           default:
-            break
+            break;
         }
-        break
-      case 'ReadVehicleRecallHandler':
+        break;
+      case "ReadVehicleRecallHandler":
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToHearTheNextRecall:
-            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(
+              handlerInput
+            );
 
           case FOLLOW_UP_QUESTION.WouldYouLikeTheRecallInformationRepeated:
-            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(
+              handlerInput
+            );
 
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput)
+            return HANDLERS.RestartSearchForRecallHandler.handle(handlerInput);
 
           default:
-            break
+            break;
         }
-        break
-      case 'DeniedCompletedSearchForVehicleRecallIntentHandler':
+        break;
+      case "DeniedCompletedSearchForVehicleRecallIntentHandler":
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput);
 
           case FOLLOW_UP_QUESTION.WOULD_YOU_LIKE_HELP:
-            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(handlerInput)
+            return HANDLERS.VehicleRecallHandler.SearchForAnotherRecallHandler.handle(
+              handlerInput
+            );
         }
-        break
-      case 'SearchForAnotherRecallHandler':
+        break;
+      case "SearchForAnotherRecallHandler":
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToSearchForAnotherRecall:
-            return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput);
         }
-        break
-      case 'SearchAgainRecallHandler':
+        break;
+      case "SearchAgainRecallHandler":
         switch (vehicleConversation.followUpQuestionCode) {
           case FOLLOW_UP_QUESTION.WouldYouLikeToTryAndSearchAgain:
-            return HANDLERS.CancelAndStopHandler.handle(handlerInput)
+            return HANDLERS.CancelAndStopHandler.handle(handlerInput);
         }
-        break
+        break;
       default:
-        return HANDLERS.ErrorHandler.CommandOutOfContextHandler.handle(handlerInput)
+        return HANDLERS.ErrorHandler.CommandOutOfContextHandler.handle(
+          handlerInput
+        );
     }
   }
 }
