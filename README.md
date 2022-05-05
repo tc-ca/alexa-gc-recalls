@@ -21,14 +21,16 @@ This project got its start through the Government’s OneGC Program Office which
 
 ## Data Source
 
-<img align="left" width="15%" height="15%" src="https://api.canada.ca/sites/api-store-drupal-prod.apps.prod.openshift.ised-isde.canada.ca/files/2019-02/api-logo.png">
 
-This Skill leverages [GC API Store](https://api.canada.ca/en/homepage) to retrieve vehicle recall information which can be query by users through Alexa. 
+This Skill leverages GC API Store [GC API Store](https://api.canada.ca/en/homepage) to retrieve vehicle recall information which can be query by users through Alexa. 
 
 ## Developer Setup
 * Account creation for
   * Alexa Skill Developer Console (frontend) https://developer.amazon.com/
   * AWS (backend) http://console.aws.amazon.com/
 
-## Deployment:
-Set Lambda timeout to 7 seconds. 
+## Deployment Configuration:
+Set Lambda timeout to 7 seconds the maximum allowed for an Alexa skill.
+
+## Alexa Documentation
+https://developer.amazon.com/en-US/docs/alexa/ask-overviews/what-is-the-alexa-skills-kit.html
