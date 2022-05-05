@@ -25,6 +25,10 @@ This project got its start through the Government’s OneGC Program Office which
 
 This Skill leverages [GC API Store](https://api.canada.ca/en/homepage) to retrieve vehicle recall information which can be query by users through Alexa. 
 
+## Developer Setup
+* Account creation for
+  * Alexa Skill Developer Console (frontend) https://developer.amazon.com/
+  * AWS (backend) http://console.aws.amazon.com/
 
 ## Deployment:
 Set Lambda timeout to 7 seconds. 
