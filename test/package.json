@@ -21,7 +21,7 @@
     "codecov": "^3.5.0"
   },
   "dependencies": {
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "nyc": "^14.1.1",
     "virtual-alexa": "^0.7.2"
   }
